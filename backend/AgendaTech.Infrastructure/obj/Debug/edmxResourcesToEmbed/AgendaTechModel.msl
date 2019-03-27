@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AgendaTechModelStoreContainer" CdmEntityContainer="AgendaTechEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="AgendaTechModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuthenticationAudits">
+      <EntityTypeMapping TypeName="AgendaTechModel.AuthenticationAudits">
+        <MappingFragment StoreEntitySet="AuthenticationAudits">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="Detail" ColumnName="Detail" />
+          <ScalarProperty Name="ClientIP" ColumnName="ClientIP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LinkedAccountClaims">
+      <EntityTypeMapping TypeName="AgendaTechModel.LinkedAccountClaims">
+        <MappingFragment StoreEntitySet="LinkedAccountClaims">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="ProviderAccountID" ColumnName="ProviderAccountID" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LinkedAccounts">
+      <EntityTypeMapping TypeName="AgendaTechModel.LinkedAccounts">
+        <MappingFragment StoreEntitySet="LinkedAccounts">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+          <ScalarProperty Name="ProviderAccountID" ColumnName="ProviderAccountID" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PasswordHistories">
+      <EntityTypeMapping TypeName="AgendaTechModel.PasswordHistories">
+        <MappingFragment StoreEntitySet="PasswordHistories">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="DateChanged" ColumnName="DateChanged" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PasswordResetSecrets">
+      <EntityTypeMapping TypeName="AgendaTechModel.PasswordResetSecrets">
+        <MappingFragment StoreEntitySet="PasswordResetSecrets">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="PasswordResetSecretID" ColumnName="PasswordResetSecretID" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+          <ScalarProperty Name="Answer" ColumnName="Answer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TCGClientes">
+      <EntityTypeMapping TypeName="AgendaTechModel.TCGClientes">
+        <MappingFragment StoreEntitySet="TCGClientes">
+          <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+          <ScalarProperty Name="RazaoSocial" ColumnName="RazaoSocial" />
+          <ScalarProperty Name="CNPJ_CPF" ColumnName="CNPJ_CPF" />
+          <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+          <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+          <ScalarProperty Name="DataContratacao" ColumnName="DataContratacao" />
+          <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+          <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TwoFactorAuthTokens">
+      <EntityTypeMapping TypeName="AgendaTechModel.TwoFactorAuthTokens">
+        <MappingFragment StoreEntitySet="TwoFactorAuthTokens">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="Issued" ColumnName="Issued" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAccounts">
+      <EntityTypeMapping TypeName="AgendaTechModel.UserAccounts">
+        <MappingFragment StoreEntitySet="UserAccounts">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Inscription" ColumnName="Inscription" />
+          <ScalarProperty Name="StartingPass" ColumnName="StartingPass" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Tenant" ColumnName="Tenant" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+          <ScalarProperty Name="IsAccountClosed" ColumnName="IsAccountClosed" />
+          <ScalarProperty Name="AccountClosed" ColumnName="AccountClosed" />
+          <ScalarProperty Name="IsLoginAllowed" ColumnName="IsLoginAllowed" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="LastFailedLogin" ColumnName="LastFailedLogin" />
+          <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+          <ScalarProperty Name="PasswordChanged" ColumnName="PasswordChanged" />
+          <ScalarProperty Name="RequiresPasswordReset" ColumnName="RequiresPasswordReset" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="IsAccountVerified" ColumnName="IsAccountVerified" />
+          <ScalarProperty Name="LastFailedPasswordReset" ColumnName="LastFailedPasswordReset" />
+          <ScalarProperty Name="FailedPasswordResetCount" ColumnName="FailedPasswordResetCount" />
+          <ScalarProperty Name="MobileCode" ColumnName="MobileCode" />
+          <ScalarProperty Name="MobileCodeSent" ColumnName="MobileCodeSent" />
+          <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
+          <ScalarProperty Name="MobilePhoneNumberChanged" ColumnName="MobilePhoneNumberChanged" />
+          <ScalarProperty Name="AccountTwoFactorAuthMode" ColumnName="AccountTwoFactorAuthMode" />
+          <ScalarProperty Name="CurrentTwoFactorAuthStatus" ColumnName="CurrentTwoFactorAuthStatus" />
+          <ScalarProperty Name="VerificationKey" ColumnName="VerificationKey" />
+          <ScalarProperty Name="VerificationPurpose" ColumnName="VerificationPurpose" />
+          <ScalarProperty Name="VerificationKeySent" ColumnName="VerificationKeySent" />
+          <ScalarProperty Name="VerificationStorage" ColumnName="VerificationStorage" />
+          <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserCertificates">
+      <EntityTypeMapping TypeName="AgendaTechModel.UserCertificates">
+        <MappingFragment StoreEntitySet="UserCertificates">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="Thumbprint" ColumnName="Thumbprint" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserClaims">
+      <EntityTypeMapping TypeName="AgendaTechModel.UserClaims">
+        <MappingFragment StoreEntitySet="UserClaims">
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

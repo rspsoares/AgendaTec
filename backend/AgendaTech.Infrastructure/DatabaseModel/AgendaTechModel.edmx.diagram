@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="19aff33891824dc396c023a3371682b6" Name="Diagram1">
+        <EntityTypeShape EntityType="AgendaTechModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.AuthenticationAudits" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.LinkedAccountClaims" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.LinkedAccounts" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.PasswordHistories" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.PasswordResetSecrets" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.TwoFactorAuthTokens" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.UserAccounts" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.UserCertificates" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgendaTechModel.UserClaims" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="AgendaTechModel.TCGCustomers" Width="1.5" PointX="8.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
