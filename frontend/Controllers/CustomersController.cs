@@ -15,7 +15,7 @@ namespace AgendaTech.View.Controllers
         public CustomersController(ICustomerFacade customerFacade)
         {
             _customerFacade = customerFacade;
-            usuarioLogado = claimHelper.ObterUsuarioLogado(false);
+            usuarioLogado = claimHelper.ObterUsuarioLogado();
         }
         
         [AuthorizeUser(AccessLevel = "/Administracao")]
@@ -31,20 +31,31 @@ namespace AgendaTech.View.Controllers
             var customers = _customerFacade.GetGrid(customerName, out string errorMessage);
             
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Sucess = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { Sucess = true, Data = customers, Total = customers.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Data = customers, Total = customers.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetSocialNameCombo()
+        {
+            var customers = _customerFacade.GetSocialNameCombo(out string errorMessage);
+                
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = customers, Total = customers.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetCustomer(string idCustomer)
         {
-            var customers = _customerFacade.GetCustomerById(int.Parse(idCustomer), out string errorMessage);
+            var customer = _customerFacade.GetCustomerById(int.Parse(idCustomer), out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Sucess = false, Data = "", errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o cliente." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { Sucess = true, Data = customers, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Data = customer, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -58,9 +69,9 @@ namespace AgendaTech.View.Controllers
                 _customerFacade.Update(customer, out errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Sucess = false, errorMessage = "Houve um erro ao salvar o cliente." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o cliente." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { Sucess = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
     }
 }

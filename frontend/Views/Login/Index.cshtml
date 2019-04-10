@@ -54,13 +54,9 @@
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Password)
                                 @Html.PasswordFor(c => c.Password, new { @style = "width: 100%;", @class = "k-textbox" })
-                            </div>
+                            </div>                            
                             <div class="form-group">
-                                    @Html.CheckBoxFor(c => c.RememberMe)
-                                    @Html.DisplayNameFor(c => c.RememberMe)
-                                </div>
-                            <div class="form-group">
-                                <button id="btnLogin" type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
+                                <button id="btnLogin" type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
                                 <button type="button" id="btnRestorePass" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-refresh"></span> Esqueci minha senha</button>
                             </div>
                         }

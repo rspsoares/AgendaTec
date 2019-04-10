@@ -12,7 +12,7 @@ namespace AgendaTech.View.Controllers
 
         public SemAutorizacaoController()
         {
-            usuarioLogado = claimHelper.ObterUsuarioLogado(false);
+            usuarioLogado = claimHelper.ObterUsuarioLogado();
         }
 
         //

@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using AgendaTech.Infrastructure.DatabaseModel;
+using System.Data.SqlClient;
 
 namespace AgendaTech.Infrastructure.Repositories
 {
@@ -59,6 +60,18 @@ namespace AgendaTech.Infrastructure.Repositories
             using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
             {
                 result = _table.Where(predicate).ToList();
+                scope.Complete();
+            }
+
+            return result;
+        }
+
+        public List<T> SqlQuery(string sqlQuery, object[] parameters)
+        {            
+            var result = new List<T>();
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
+            {
+                result = _context.Database.SqlQuery<T>(sqlQuery, parameters).ToList();
                 scope.Complete();
             }
 

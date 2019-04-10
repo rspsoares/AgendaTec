@@ -15,8 +15,11 @@ C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\AgendaTech.Infrastructure.pdb
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\EntityFramework.dll
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\Newtonsoft.Json.dll
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\EntityFramework.xml
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\Newtonsoft.Json.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\bin\Debug\Newtonsoft.Json.xml
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\obj\Debug\AgendaTech.Infrastructure.csprojAssemblyReference.cache
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\obj\Debug\AgendaTech.Infrastructure.csproj.CoreCompileInputs.cache
 C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Infrastructure\obj\Debug\AgendaTech.Infrastructure.csproj.CopyComplete

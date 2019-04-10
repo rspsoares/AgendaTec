@@ -22,26 +22,6 @@ namespace AgendaTech.View.Controllers
         {
             ViewBag.NomeUsuario = usuarioLogado.Nome;
             return View();
-        }
-
-        [AuthorizeUser(AccessLevel = "/Home")]
-        public ActionResult Dashboard()
-        {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
-            return View();
-        }
-        
-        public string PesquisarInscricoes()
-        {
-          //  CadastrosFacade _cadastro = new CadastrosFacade();
-            string msg = string.Empty;
-
-            //List<InscricoesCompletaDto> lstInscricoes = _cadastro.RetornarInscricoesCompletas(0, out msg);
-
-         //   if (msg != string.Empty)
-                return JsonConvert.SerializeObject("MSG: Ocorreu um erro ao obter as Inscrições.");
-        //    else
-        //        return JsonConvert.SerializeObject(lstInscricoes);
-        }    
+        }        
     }
 }

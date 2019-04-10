@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AgendaTech.Business.Entities;
+using System;
 
 namespace AgendaTech.View.Models
 {
@@ -9,17 +9,7 @@ namespace AgendaTech.View.Models
         public string Login { get; set; }
         public string Nome { get; set; }
         public Guid uqUsuario { get; set; }
-        public string Email { get; set; }
-        public TipoUsuario Origem { get; set; }
-        public int Inscricao { get; set; }
-        public List<string> lstCNPJPermitidos { get; set; }
-        public List<string> lstCNPJPermitidosCombo { get; set; }
-    }
-
-    public enum TipoUsuario
-    {
-        Administrador = 1,
-        Suporte = 2,
-        Usuario = 3
-    }
+        public string Email { get; set; }       
+        public EnUserType Inscricao { get; set; }        
+    }   
 }

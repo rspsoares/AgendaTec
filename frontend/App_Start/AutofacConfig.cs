@@ -34,63 +34,11 @@ namespace AgendaTech.View
                 .InstancePerLifetimeScope();
             builder.RegisterType<GroupService>().AsSelf().InstancePerLifetimeScope();
             #endregion
-
-            #region Registers
-
-            builder.RegisterType<CustomerFacade>().As<ICustomerFacade>().InstancePerLifetimeScope();
             
-            #endregion
-
-
-            //builder.RegisterType<ParametrizacaoFacade>().As<IParametrizacaoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<UsuarioUIDevolucaoFacade>().As<IUsuarioUIDevolucaoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<GruposUIFacade>().As<IGruposUIFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<EmpresaFacade>().As<IEmpresaFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<LogManualEntriesFacade>().As<ILogManualEntriesFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<ResultadosValidacoesFacade>().As<IResultadosValidacoesFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<ControleValidacoes>().As<IControleValidacoes>().InstancePerLifetimeScope();
-            //builder.RegisterType<DocumentosFiscaisFacade>().As<IDocumentosFiscaisFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<DadosAuxiliares>().As<IDadosAuxiliares>().InstancePerLifetimeScope();
-            //builder.RegisterType<ImportacaoFacade>().As<IImportacaoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<ConversoresFacade>().As<IConversoresFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<RelatorioSaldosFacade>().As<IRelatorioSaldosFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<SaldoFacade>().As<ISaldoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<ConciliacaoContabilFacade>().As<IConciliacaoContabilFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<HistoricoFacade>().As<IDashBoardFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<SaldosIniciaisFacade>().As<ISaldosIniciaisFacade>().InstancePerLifetimeScope();
-
-            //#region Apurações
-            //builder.RegisterType<FechamentoFacade>().As<IFechamentoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<FechamentoLogFacade>().As<IFechamentoLogFacade>().InstancePerLifetimeScope();
-            //#endregion Apurações
-
-            //#region Permissoes
-            //builder.RegisterType<GruposFacade>().As<IGruposFacade>().InstancePerRequest();
-            //builder.RegisterType<PermissoesFacade>().As<IPermissoesFacade>().InstancePerRequest();
-            //builder.RegisterType<PerfilFacade>().As<IPerfilFacade>().InstancePerRequest();
-            //builder.RegisterType<LogFacade>().As<ILogFacade>().InstancePerLifetimeScope();
-            //#endregion
-
-            //#region Relatórios & Regras
-            //builder.RegisterType<RegrasFacade>().As<IRegrasFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<RelatorioAnaliticoFacade>().As<IRelatorioAnaliticoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<EntradaManualFacade>().As<IEntradaManualFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<RelatorioGerencialFacade>().As<IRelatorioGerencialFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<ExportadorRelatorioFacade>().As<IExportadorRelatorioFacade>().InstancePerLifetimeScope();
-            //#endregion
-
-            //#region Cruzamento
-            //builder.RegisterType<TCDControleFacade>().As<ITCDControleFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<TCDControleLogFacade>().As<ITCDControleLogFacade>().InstancePerLifetimeScope();
-
-            //builder.RegisterType<TAuRegraCruzamentoConfigColunasFacade>().As<ITAuRegraCruzamentoConfigColunasFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<TAuRegraCruzamentoFacade>().As<ITAuRegraCruzamentoFacade>().InstancePerLifetimeScope();
-            //builder.RegisterType<TAuRegraCruzamentoResultadoFacade>().As<ITAuRegraCruzamentoResultadoFacade>().InstancePerLifetimeScope();
-            //#endregion
-
-            //#region COMMON
-            //builder.RegisterType<JobFacade>().As<IJobFacade>().InstancePerLifetimeScope();
-            //#endregion COMMON
+            builder.RegisterType<CustomerFacade>().As<ICustomerFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<ServiceFacade>().As<IServiceFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<ProfessionalFacade>().As<IProfessionalFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<UserFacade>().As<IUserFacade>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

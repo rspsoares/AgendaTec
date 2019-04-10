@@ -1,54 +1,41 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using AgendaTech.View.Authorization;
 using System.Text;
 using AgendaTech.View.Models;
+using AgendaTech.Business.Entities;
 
 namespace AgendaTech.View.Controllers
 {
     [Authorize]
     public class RolesController : Controller
-    {
-        //IPermissoesFacade _permFacade;
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+    {        
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
 
-        public RolesController()//IPermissoesFacade permFacade)
-        {
-         //   _permFacade = permFacade;
-            usuarioLogado = claimHelper.ObterUsuarioLogado(false);
+        public RolesController()
+        {         
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();
         }
 
         [AuthorizeUser(AccessLevel = "/Roles")]
         public ActionResult Index()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 
         public string MenuLateral()
         {
-            string uqUsuario = string.Empty;
-            System.Security.Claims.ClaimsPrincipal principal =  System.Web.HttpContext.Current.User as System.Security.Claims.ClaimsPrincipal;
-            if (null != principal)
-            {
-                System.Security.Claims.Claim usuario = (from c in principal.Claims where c.Type.Equals(@"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier") select c).SingleOrDefault<System.Security.Claims.Claim>();
-                uqUsuario = usuario.Value;
-            }
+            var cacheResult = HttpContext.Cache.Get(_usuarioLogado.uqUsuario.ToString());
+            
+            if (cacheResult == null)            
+                HttpContext.Cache.Add(_usuarioLogado.uqUsuario.ToString(), null, null, DateTime.Now.AddMinutes(30), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
 
-            var cacheResult = HttpContext.Cache.Get(uqUsuario);
-            if (cacheResult == null)
-            {
-                var resultados ="/Home,/Administracao";
-                HttpContext.Cache.Add(uqUsuario, resultados, null, DateTime.Now.AddMinutes(30), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
-                return MontarMenu(resultados);
-            }
-            else
-                return MontarMenu(cacheResult.ToString());
+            return MontarMenu();
         }
 
-        private string MontarMenu(string permissoes)
+        private string MontarMenu()
         {
             var menu = new StringBuilder();
 
@@ -64,7 +51,7 @@ namespace AgendaTech.View.Controllers
             menu.AppendLine("<span class='nav-title-item'>Cadastros</span>");
             menu.AppendLine("<ul>");
             
-            if (permissoes.Contains("/Administracao"))
+            if (_usuarioLogado.Inscricao.Equals(EnUserType.Administrator))
             {
                 menu.AppendLine("<li>");
                 menu.AppendLine("<a href='/Customers' title='Clientes'>");
@@ -74,17 +61,26 @@ namespace AgendaTech.View.Controllers
             }
 
             menu.AppendLine("<li>");
-            menu.AppendLine("<a href='/Servicos' title='Serviços'>");
+            menu.AppendLine("<a href='/Services' title='Serviços'>");
             menu.AppendLine("<span class='item'>Serviços</span>");
             menu.AppendLine("</a>");
             menu.AppendLine("</li>");
 
             menu.AppendLine("<li>");
-            menu.AppendLine("<a href='/Usuários' title='Usuarios'>");
-            menu.AppendLine("<span class='item'>Usuarios</span>");
+            menu.AppendLine("<a href='/Professionals' title='Profissionais'>");
+            menu.AppendLine("<span class='item'>Profissionais</span>");
             menu.AppendLine("</a>");
             menu.AppendLine("</li>");
-            menu.AppendLine("</li>");            
+
+            if (_usuarioLogado.Inscricao.Equals(EnUserType.Administrator) || _usuarioLogado.Inscricao.Equals(EnUserType.Customer))
+            {
+                menu.AppendLine("<li>");
+                menu.AppendLine("<a href='/Users' title='Usuários'>");
+                menu.AppendLine("<span class='item'>Usuários</span>");
+                menu.AppendLine("</a>");
+                menu.AppendLine("</li>");
+                menu.AppendLine("</li>");
+            }
 
             menu.AppendLine("</ul>");
 
@@ -94,13 +90,13 @@ namespace AgendaTech.View.Controllers
             menu.AppendLine("<ul>");
             {
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/Agenda' title='Agenda'>");
+             //   menu.AppendLine("<a href='/Agenda' title='Agenda'>");
                 menu.AppendLine("<span class='item'>Agenda</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
 
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/MalaDireta' title='Mala Direta'>");
+               // menu.AppendLine("<a href='/MalaDireta' title='Mala Direta'>");
                 menu.AppendLine("<span class='item'>Mala Direta</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
@@ -115,7 +111,7 @@ namespace AgendaTech.View.Controllers
             menu.AppendLine("<ul>");
             {
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/Agendamentos' title='Agendamentos'>");
+                //menu.AppendLine("<a href='/Agendamentos' title='Agendamentos'>");
                 menu.AppendLine("<span class='item'>Agendamentos</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");

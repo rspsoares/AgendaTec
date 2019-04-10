@@ -70,7 +70,7 @@ namespace AgendaTech.View
             /* -- CSS -- */
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/kendo-ui/styles/web/kendo.common.min.css",
-                "~/Content/kendo-ui/styles/web/kendo.metro.min.css",
+                "~/Content/kendo-ui/styles/web/kendo.blueopal.min.css",
                 "~/Content/kendo-ui/styles/web/kendo.mobile.all.css",
                 "~/Content/bootstrap/css/bootstrap.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",

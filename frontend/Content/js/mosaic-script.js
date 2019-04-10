@@ -192,7 +192,7 @@ function BuscarDadosGrid(grid, msgNenhumRegistro) {
 
     if(grid.dataSource.total() == 0)
     {
-        ShowModalAlerta(msgNenhumRegistro);
+        ShowModalAlert(msgNenhumRegistro);
     }
 }
 
@@ -289,34 +289,33 @@ function LoadDsMatrizes() {
     });
 
     if (dsMatriz == undefined) {
-        ShowModalAlerta("Não foi possível obter as Matrizes.");
+        ShowModalAlert("Não foi possível obter as Matrizes.");
         return;
     }
 
     return dsMatriz;
 }
 
-/* -- Formatação de Moeda -- */
-Number.prototype.FormatarMoeda = function (places, symbol, thousand, decimal, negativoParenteses) {
-    var valorFormatado;
+Number.prototype.FormatMoney = function (places, symbol, thousand, decimal, negativoParenteses) {
+    var value;
     places = !isNaN(places = Math.abs(places)) ? places : 2;
     symbol = symbol !== undefined ? symbol : "";
     thousand = thousand || ".";
     decimal = decimal || ",";
     var number = this,
-	    negative = number < 0 ? "-" : "",
-	    i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
-	    j = (j = i.length) > 3 ? j % 3 : 0;
+        negative = number < 0 ? "-" : "",
+        i = parseInt(number = Math.abs(+number || 0).toFixed(places), 10) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
     
-    if (negative == "-" && negativoParenteses == true)   
-        valorFormatado = symbol + '(' + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "") + ')';    
+    if (negative === "-" && negativoParenteses === true)   
+        value = symbol + '(' + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "") + ')';    
     else    
-        valorFormatado = symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+        value = symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
     
-    return valorFormatado; // symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
+    return value;
 };
 
-Number.prototype.FormatarMilhar = function () {
+Number.prototype.FormatThousand = function () {
     var parts = (this + "").split(","),
         main = parts[0],
         len = main.length,
@@ -338,12 +337,9 @@ Number.prototype.FormatarMilhar = function () {
     output = output.replace("..", ".");
 
     return output;
-}
-
-Number.prototype.formatMoney = function (c, d, t) {
-    var n = this, c = isNaN(c = Math.abs(c)) ? 2 : c, d = d == undefined ? "," : d, t = t == undefined ? "." : t, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 };
+
+
 
 /* -- Gerais -- */
 function OrdenarListBox(listbox) {
@@ -409,7 +405,7 @@ function GerarPDF(e, orientacaoPaisagem) {
                 window.open(result.Link, '_blank');                            
             }
             else {
-                ShowModalAlerta(result.Msg);
+                ShowModalAlert(result.Msg);
             }  
         }        
     });      
@@ -438,7 +434,7 @@ function GerarXLS(e, tipoRelatorio, orientacaoPaisagem) {
                 window.open(result.Link, '_blank');
             }
             else {
-                ShowModalAlerta(result.Msg);
+                ShowModalAlert(result.Msg);
             }
         }
     });
@@ -452,7 +448,7 @@ function ShowModalResumo(title, dataHtml) {
     $('#modalResumo .modal-dialog .modal-body').html(dataHtml);
 }
 
-function ShowModalAlerta(dataHtml) {
+function ShowModalAlert(dataHtml) {
     $('#modalAlert').modal({ backdrop: 'static', keyboard: false });
     $('#modalAlert .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalAlert .modal-dialog .modal-header center .modal-title strong').html("Atenção");
@@ -460,7 +456,7 @@ function ShowModalAlerta(dataHtml) {
     $('#modalAlert .modal-dialog .modal-body .alert').html(dataHtml);
 }
 
-function ShowModalSucesso(dataHtml) {
+function ShowModalSucess(dataHtml) {
     $('#modalSuccess').modal({ backdrop: 'static', keyboard: false });
     $('#modalSuccess .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalSuccess .modal-dialog .modal-header center .modal-title strong').html("Sucesso");
@@ -494,219 +490,39 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function GetCurrentCustomer() {
+    var currentCustomer;
 
-function RemoveTagsTotalizacao(original) {
-    var valor = original
-        .replace("<div>", "")
-        .replace("<div style='float: right'>", "")
-        .replace("<span style='float:right;'>", "")
-        .replace("</span>", "")
-        .replace("</div>", "");
-
-    return valor;
-}
-
-/* Vigência das regras de apuração */
-function CriarNovaVigencia() {
-    var msgErro = '';    
-    var idRegra = $('#txtIdRegraVigencia').val();
-    var retroativo = $('#selectRetroativo').bootstrapSwitch('state');    
-    var dtFinal = $("#tbVigenciaFinalRegra").data("kendoDatePicker").value();
-    var justificativa = $('#tbJustificativaVigencia').val();
-    var tipoRegra = $('#txtTipoRegra').val();
-
-    var split = $("#tbVigenciaInicial").val().split("/");
-    var dtInicial = new Date(split[2], split[1] - 1, split[0]);
-
-    msgErro = ValidarCamposVigencia(retroativo, justificativa, dtInicial, dtFinal);
-    
-    if (msgErro == '') {
-        if (dtFinal == undefined)
-            dtFinal = new Date();
-
-        $.ajax({
-            url: "/Apuracao/CriarVigenciaRegra",
-            type: "POST",
-            async: false,
-            data: JSON.stringify({ idRegra: idRegra, retroativo: retroativo, justificativa: justificativa, dtInicialAtual: dtInicial, dtFinalAtual: dtFinal }),
-            contentType: 'application/json; charset=utf-8',
-            success: function (result) {
-                msgErro = result.Msg;
-            }
-        });
-    }
-
-    return msgErro;
-}
-
-function ValidarCamposVigencia(retroativo, justificativa, inicioFigencia, finalVigencia) {
-    var msgErro = '';
-
-    if (finalVigencia == undefined)
-        msgErro = 'Favor informar a Data de Término da Vigência atual.';
-
-    if (inicioFigencia > finalVigencia )
-        msgErro += 'A data do final da vigência não pode ser anterior ao seu início.';
-
-    if (retroativo) {
-        if (justificativa == '')
-            msgErro += '<br/> Favor informar a justificativa.';
-    }
-
-    return msgErro;
-}
-
-function CarregarGridVigenciaLog() {
-    var dsVigencias = [];
-    var idRegra = $('#txtIdRegra').val();
-
-    $("#gridVigencia").html("");
-    $("#gridVigencia").kendoGrid({
-        dataSource: {
-            transport: {
-                read: {
-                    url: "/Apuracao/ObterVigenciaLog",
-                    dataType: "json",
-                    type: "GET",
-                    async: false,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idRegra: idRegra
-                        }
-                    }
-                }
-            },
-            pageSize: 3,
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                },
-                total: function (result) {
-                    return result.Total;
-                }
-            }
-        },
-        dataBound: function () {
-            var grid = $("#gridVigencia").data("kendoGrid");
-            grid.select($("tr:first", grid.tbody));
-        },
-        change: SelecionarVigencia,
-        scrollable: true,
-        selectable: true,
-        sortable: false,
-        groupable: false,
-        resizable: true,
+    $.ajax({
+        url: "/Users/GetCurrentCustomer",
+        type: "GET",
+        async: false,
+        dataType: "json",
         cache: false,
-        pageable: {
-            refresh: true,
-            pageSizes: true,
-            buttonCount: 10
-        },
-        columns: [
-            { field: "Id", hidden: true },
-            { title: "Início", field: "InicioVigencia", width: "10%", template: "#= kendo.toString(kendo.parseDate(InicioVigencia, 'yyyy-MM-dd'), 'dd/MM/yyyy') #" },
-            { title: "Término", field: "TerminoVigencia", width: "10%", template: "#:FormatarTermino(TerminoVigencia)#" },
-            { title: "Justificativa", field: "Justificativa", width: "60%" },
-            { title: "Usuário", field: "NomeUsuario", width: "15%" },
-            { title: "Data Criação", field: "DataCriacao", width: "15%", template: "#= kendo.toString(kendo.parseDate(DataCriacao, 'yyyy-MM-dd HH:mm:ss'), 'dd/MM/yyyy HH:mm:ss') #" }
-        ]
-    });
-}
-
-function FormatarTermino(dataTermino) {
-    if (dataTermino)
-        return kendo.toString(kendo.parseDate(dataTermino, 'yyyy-MM-dd'), 'dd/MM/yyyy')
-    else
-        return '';
-}
-
-function SelecionarVigencia() {
-    var gridVigencia = $("#gridVigencia").data("kendoGrid");
-    var linhaGrid = gridVigencia.dataItem(gridVigencia.select());
-
-    $("#gridCondicoes").html("");
-    $("#gridCondicoes").kendoGrid({
-        toolbar: ["excel"],
-        excel: {
-            fileName: 'CondicoesVigencia_' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + '.xlsx',
-            allPages: true
-        },
-        excelExport: function (e) {
-            var sheet = e.workbook.sheets[0];
-            for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
-                if (rowIndex % 2 == 0) {
-                    var row = sheet.rows[rowIndex];
-                    for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
-                        row.cells[cellIndex].background = "#aabbcc";
-                    }
-                }
-            }
-        },
-        dataSource: {
-            transport: {
-                read: {
-                    url: "/Apuracao/ObterCondicoesVigenciaLog",
-                    dataType: "json",
-                    type: "GET",
-                    async: false,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idVigencia: linhaGrid.Id
-                        }
-                    }
-                }
-            },
-            pageSize: 10,
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                },
-                total: function (result) {
-                    return result.Total;
-                }
-            }
-        },
-        scrollable: true,
-        sortable: true,
-        resizable: true,
-        dataBound: gridDataBound,
-        pageable: {
-            refresh: true,
-            pageSizes: true,
-            buttonCount: 10
-        },
-        columns: [
-            { title: "CFOP", field: "CFOP", width: "55px" },
-            { title: "Descrição", field: "Descricao", width: "200px" },
-            { title: "Dígito", field: "Digito", width: "50px" },
-            { title: "CFOP Referência", field: "CFOPRef", width: "110px" },
-            { title: "Categoria Nota", field: "CategoriaNota", width: "100px" },
-            { title: "CST", field: "CST", width: "50px" },
-            { title: "Grupo Material", field: "GrupoMaterial", width: "250px" },
-            { title: "Material", field: "Material" }
-        ]
-    });
-}
-
-function FormatarValorGrafico(valor, valoresZerados, tipoGrafico) {
-    var ret = 0;
-
-    if (valoresZerados == false) {
-        if (valor != 0) {
-            if (tipoGrafico == "manual" || tipoGrafico == 'comparativo') 
-                ret = valor;            
-            else 
-                ret = valor / 1000;                        
+        success: function (result) {
+            currentCustomer = result.Data;
         }
+    });
 
-        return ret.FormatarMilhar();
-    }
-    else 
-        return '';
+    return currentCustomer;
+}
+
+function CNPJCheck(c) {
+    var b = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    if ((c = c.replace(/[^\d]/g, "")).length != 14)
+        return false;
+
+    if (/0{14}/.test(c))
+        return false;
+
+    for (var i = 0, n = 0; i < 12; n += c[i] * b[++i]);
+    if (c[12] != (((n %= 11) < 2) ? 0 : 11 - n))
+        return false;
+
+    for (var i = 0, n = 0; i <= 12; n += c[i] * b[i++]);
+    if (c[13] != (((n %= 11) < 2) ? 0 : 11 - n))
+        return false;
+
+    return true;
 }

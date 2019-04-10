@@ -28,14 +28,49 @@ namespace AgendaTech.Business.Bindings
                 if (string.IsNullOrEmpty(customerName))
                     customers = _commonRepository.GetAll();
                 else
-                    customers = _commonRepository.Filter(x => x.RazaoSocial.Contains(customerName));
+                    customers = _commonRepository.Filter(x => x.SocialName.Contains(customerName));
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;               
             }
 
-            return customers.OrderBy(x => x.RazaoSocial).ToList();
+            return customers
+                .Select(x => new TCGCustomers()
+                {
+                    IDCustomer = x.IDCustomer,
+                    SocialName = x.SocialName,
+                    HireDate = x.HireDate,
+                    Active = x.Active
+                })
+                .OrderBy(x => x.SocialName)
+                .ToList();
+        }
+
+        public List<TCGCustomers> GetSocialNameCombo(out string errorMessage)
+        {
+            var customers = new List<TCGCustomers>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                customers = _commonRepository
+                    .GetAll()
+                    .Select(x => new TCGCustomers()
+                    {
+                        IDCustomer = x.IDCustomer,
+                        SocialName = x.SocialName
+                    })
+                    .OrderBy(x => x.SocialName)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+            }
+
+            return customers;
         }
 
         public TCGCustomers GetCustomerById(int idCustomer, out string errorMessage)
@@ -46,7 +81,19 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                customer = _commonRepository.GetById(idCustomer);                
+                var result = _commonRepository.GetById(idCustomer);
+
+                customer = new TCGCustomers()
+                {                    
+                    IDCustomer = result.IDCustomer,
+                    SocialName = result.SocialName,
+                    CNPJ = result.CNPJ,
+                    Address = result.Address,
+                    Phone = result.Phone,
+                    HireDate = result.HireDate,
+                    Active = result.Active,
+                    Note = result.Note                    
+                };
             }
             catch (Exception ex)
             {

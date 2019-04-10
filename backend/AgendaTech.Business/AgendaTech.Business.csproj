@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,10 +43,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bindings\CustomerFacade.cs" />
+    <Compile Include="Bindings\ProfessionalFacade.cs" />
+    <Compile Include="Bindings\ServiceFacade.cs" />
+    <Compile Include="Bindings\UserFacade.cs" />
     <Compile Include="Contracts\ICustomerFacade.cs" />
+    <Compile Include="Contracts\IProfessionalFacade.cs" />
+    <Compile Include="Contracts\IServiceFacade.cs" />
+    <Compile Include="Contracts\IUserFacade.cs" />
+    <Compile Include="Entities\EnUserType.cs" />
+    <Compile Include="Entities\UserAccountDTO.cs" />
+    <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ThirdParty\BrockAllen.MembershipReboot.Ef\BrockAllen.MembershipReboot.Ef.csproj">
+      <Project>{453C8A9D-72AA-4F8D-9354-8B0F57F2B58A}</Project>
+      <Name>BrockAllen.MembershipReboot.Ef</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AgendaTech.Infrastructure\AgendaTech.Infrastructure.csproj">
       <Project>{70425DFA-3C43-4928-909B-B055E90C2FF9}</Project>
       <Name>AgendaTech.Infrastructure</Name>

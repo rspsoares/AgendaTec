@@ -13,6 +13,7 @@
 
 @section scripts {
     <script src="@Url.Content("/Content/js/app/registers/customers/customers.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/mosaic-script.js")" type="text/javascript"></script>
     <script type="text/javascript">
         /* -- Setar Class em expand menu -- */
         window.onload = setActiveMenu;
@@ -44,8 +45,8 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label><strong>Nome</strong></label>
-                                        <input type="text" id="txtName" name="txtName" data-field="Nome" data-operator="contains" placeholder="Nome" class="k-textbox filter" style="width: 100%;" />
+                                        <label><strong>Razão Social</strong></label>
+                                        <input type="text" id="txtSocialNameFilter" name="txtSocialNameFilter" data-field="Nome" data-operator="contains" placeholder="Razão Social" class="k-textbox filter" style="width: 100%;" />
                                     </div>
                                 </div>                                
                             </div>
@@ -53,11 +54,11 @@
 
                         <div class="col-sm-12">
                             <div class="form-group" style="text-align:right">
-                                <button type="button" id="btnSearch" class="btn btn-success btn-xs">
-                                    <span class="glyphicon glyphicon-search"></span> Pesquisar
-                                </button>
                                 <button type="button" id="btnClear" class="btn btn-danger btn-xs">
                                     <span class="glyphicon glyphicon-remove"></span> Limpar
+                                </button> 
+                                <button type="button" id="btnSearch" class="btn btn-primary btn-xs">
+                                    <span class="glyphicon glyphicon-search"></span> Pesquisar
                                 </button>
                             </div>
                         </div>
@@ -69,7 +70,7 @@
 </div>
 
 <div>
-    <button id="btnAddCustomer" type="button" class="btn btn-success btn-xs" style="float: right;"><span class="glyphicon glyphicon-plus-sign"></span> Incluir</button>
+    <button id="btnAddCustomer" type="button" class="btn btn-primary btn-xs" style="float: right;"><span class="glyphicon glyphicon-plus-sign"></span> Incluir</button>
     <br /><br />
 </div>
 
@@ -93,47 +94,47 @@
                         <div class="col-xs-12">                          
                             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtRazaoSocial">Razão Social</label> <br />
-                                    <input type="text" class="k-textbox" id="txtRazaoSocial" name="txtRazaoSocial" placeholder="Razão Social" style="width: 100%" minlength="2" required>
+                                    <label for="txtSocialName" style="font-weight:bold">Razão Social</label> <br />
+                                    <input type="text" class="k-textbox" id="txtSocialName" name="txtSocialName" placeholder="Razão Social" style="width: 100%" minlength="2" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtCPFCNPJ">CPF / CNPJ</label> <br />
-                                    <input type="text" class="k-textbox" id="txtCPFCNPJ" name="txtCPFCNPJ" placeholder="CPF / CNPJ" style="width: 100%" minlength="2" required>
+                                    <label for="txtCNPJ" style="font-weight:bold">CNPJ</label> <br />
+                                    <input type="text" class="k-textbox" id="txtCNPJ" name="txtCNPJ" placeholder="CNPJ" style="width: 100%" required>
                                 </div>
                             </div>
                           
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtEndereco">Endereço</label> <br />
-                                    <input type="text" class="k-textbox" id="txtEndereco" name="txtEndereco" placeholder="Endereço" style="width: 100%" required>
+                                    <label for="txtAddress" style="font-weight:bold">Endereço</label> <br />
+                                    <input type="text" class="k-textbox" id="txtAddress" name="txtAddress" placeholder="Endereço" style="width: 100%" required>
                                 </div>
                             </div>
                           
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtTelefone">Telefone</label> <br />
-                                    <input type="text" class="k-textbox" id="txtTelefone" name="txtTelefone" placeholder="Telefone" style="width: 100%">
+                                    <label for="txtPhone" style="font-weight:bold">Telefone</label> <br />
+                                    <input type="text" class="k-textbox" id="txtPhone" name="txtPhone" placeholder="Telefone" style="width: 100%">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="dtDataContratacao">Data de Contratação</label> <br />
-                                    <input id="dtDataContratacao" name="dtDataContratacao" style="width: 100%">
+                                    <label for="dtHireDate" style="font-weight:bold">Data de Contratação</label> <br />
+                                    <input id="dtHireDate" name="dtHireDate" style="width: 100%">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="chkAtivo">Status</label> <br />
-                                    <input id="chkAtivo" type="checkbox" data-field="chkAtivo" checked data-on-text="ATIVO" data-off-text="INATIVO" data-size="small" style="width: 100%;">
+                                    <label for="chkActive" style="font-weight:bold">Status</label> <br />
+                                    <input id="chkActive" type="checkbox" data-field="chkActive" checked data-on-text="ATIVO" data-off-text="INATIVO" data-size="small" style="width: 100%;">
                                 </div>
                             </div>
                         
                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                <div class="form-group">
-                                   <label for="txtObservacao">Observação</label> <br />
-                                   <textarea id="txtObservacao" maxlength="500" rows="4" class="k-textbox" name="txtObservacao" placeholder="Observação" style="width: 100%"></textarea>
+                                   <label for="txtNote">Observação</label> <br />
+                                   <textarea id="txtNote" maxlength="500" rows="4" class="k-textbox" name="txtNote" placeholder="Observação" style="width: 100%"></textarea>
                                </div>
                             </div>
                         </div>
@@ -144,7 +145,7 @@
                 <button type="button" id="btnCancelar" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
                     <span class="glyphicon glyphicon-remove"></span> Cancelar
                 </button>
-                <button type="button" id="btnSalvar" class="btn btn-success btn-xs" onclick="javascript: { SaveCustomer(); }">
+                <button type="button" id="btnSalvar" class="btn btn-primary btn-xs" onclick="javascript: { SaveCustomer(); }">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
                 </button>
             </div>

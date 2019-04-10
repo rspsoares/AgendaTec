@@ -112,7 +112,7 @@ namespace AgendaTech.View.Controllers
             return View();
         }
 
-        public ActionResult Sucess()
+        public ActionResult Success()
         {
             ViewBag.NomeUsuario = usuarioLogado.Nome;
             return View();
@@ -200,7 +200,7 @@ namespace AgendaTech.View.Controllers
                         }
 
 
-                        return RedirectToAction("Sucess");
+                        return RedirectToAction("Success");
                     }
                     else
                     {

@@ -5,6 +5,7 @@ using System.Web;
 //using AgendaTech.Permissoes.Application.Bindings;
 using AgendaTech.View.Models;
 using System.Security.Claims;
+using AgendaTech.Business.Entities;
 
 namespace AgendaTech.View.Authorization
 {
@@ -51,11 +52,11 @@ namespace AgendaTech.View.Authorization
 
                     Claim grupoPrimario = (from c in principal.Claims where c.Type.Equals(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/primarygroupsid") select c).SingleOrDefault<System.Security.Claims.Claim>();
                     if(grupoPrimario != null)
-                        usuario.Origem = (TipoUsuario)System.Enum.Parse(typeof(TipoUsuario), grupoPrimario.Value);
+                        usuario.Inscricao = (EnUserType)Enum.Parse(typeof(EnUserType), grupoPrimario.Value);
 
-                    Claim grupoSecundario = (from c in principal.Claims where c.Type.Equals(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/groupsid") select c).SingleOrDefault<System.Security.Claims.Claim>();
-                    if(grupoSecundario != null)
-                        usuario.Inscricao = int.Parse(grupoSecundario.Value);
+                    //Claim grupoSecundario = (from c in principal.Claims where c.Type.Equals(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/groupsid") select c).SingleOrDefault<System.Security.Claims.Claim>();
+                    //if(grupoSecundario != null)
+                    //    usuario.Inscricao = int.Parse(grupoSecundario.Value);
                 }
             }
             catch (Exception)

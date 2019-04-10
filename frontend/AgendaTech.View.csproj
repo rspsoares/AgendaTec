@@ -206,10 +206,12 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProfessionalsController.cs" />
     <Compile Include="Controllers\RegistrarController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SemAutorizacaoController.cs" />
-    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Controllers\ServicesController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,9 +219,7 @@
     <Compile Include="Models\ChangePasswordFromResetKeyInputModel.cs" />
     <Compile Include="Models\ContaUsuario.cs" />
     <Compile Include="Models\EntradaModel.cs" />
-    <Compile Include="Models\FiltroMultiplasEdicoes.cs" />
     <Compile Include="Models\ModificarSenha.cs" />
-    <Compile Include="Models\PerfilPermissao.cs" />
     <Compile Include="Models\Registro.cs" />
     <Compile Include="Models\RestauraEmail.cs" />
     <Compile Include="Models\UsuarioLogado.cs" />
@@ -279,56 +279,22 @@
     <Content Include="Content\jquery\jquery.maskedinput.min.js" />
     <Content Include="Content\jquery\jquery.PrintArea.js" />
     <Content Include="Content\jquery\jquery.PrintArea.min.js" />
-    <Content Include="Content\js\app\apuracao\apuracaoCFOPRef.js" />
-    <Content Include="Content\js\app\apuracao\create-condicao-credito.js" />
-    <Content Include="Content\js\app\apuracao\create-condicao-receita.js" />
-    <Content Include="Content\js\app\apuracao\edit-regra-receita.js" />
-    <Content Include="Content\js\app\apuracao\edit-regra-credito.js" />
-    <Content Include="Content\js\app\apuracao\saldosIniciais.js" />
-    <Content Include="Content\js\app\apuracao\receita.js" />
-    <Content Include="Content\js\app\apuracao\credito.js" />
     <Content Include="Content\js\app\registers\empresas\empresas.js" />
     <Content Include="Content\js\app\registers\grupos\grupos.js" />
     <Content Include="Content\js\app\registers\customers\customers.js" />
     <Content Include="Content\js\app\registers\perfil\perfis.js" />
+    <Content Include="Content\js\app\registers\professionals\professional.js" />
     <Content Include="Content\js\app\registers\roles.js" />
+    <Content Include="Content\js\app\registers\services\service.js" />
+    <Content Include="Content\js\app\registers\users\users.js" />
     <Content Include="Content\js\app\registers\usuarios\edit.js" />
     <Content Include="Content\js\app\registers\usuarios\create.js" />
     <Content Include="Content\js\app\registers\usuarios\usuarios.js" />
-    <Content Include="Content\js\app\configuracoes.js" />
-    <Content Include="Content\js\app\cruzamento\carga\carga.js" />
-    <Content Include="Content\js\app\cruzamento\carga\carga_old.js" />
-    <Content Include="Content\js\app\cruzamento\detalhe\detalhe.js" />
-    <Content Include="Content\js\app\cruzamento\logs\logs.js" />
-    <Content Include="Content\js\app\cruzamento\resumo\resumo.js" />
-    <Content Include="Content\js\app\cruzamento\tarefas\tarefas.js" />
-    <Content Include="Content\js\app\devolucaonotas.js" />
-    <Content Include="Content\js\app\devolucaoprodutos.js" />
-    <Content Include="Content\js\app\documentosfiscais\documentosfiscais.js" />
-    <Content Include="Content\js\app\edicaomultipla\filters.js" />
-    <Content Include="Content\js\app\Fechamento\Fechamento.js" />
-    <Content Include="Content\js\app\graficos\grafico.js" />
-    <Content Include="Content\js\app\historico.js" />
     <Content Include="Content\js\app\home.js" />
     <Content Include="Content\js\app\home\dashboard.js" />
     <Content Include="Content\js\app\login\select-cnpj.js" />
-    <Content Include="Content\js\app\logs\logs.js" />
     <Content Include="Content\js\app\menu-lateral.js" />
-    <Content Include="Content\js\app\relatorios\analitico.js" />
-    <Content Include="Content\js\app\relatorios\anual.js" />
-    <Content Include="Content\js\app\relatorios\logo-mosaic.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\js\app\relatorios\rateio.js" />
-    <Content Include="Content\js\app\relatorios\relatorios.js" />
-    <Content Include="Content\js\app\utilidades\jobs.js" />
-    <Content Include="Content\js\app\validacoes\validacoes.js" />
-    <Content Include="Content\js\app\validacoes\validacoes_detalhes.js" />
-    <Content Include="Content\js\app\validacoes\validacoes_documentos.js" />
-    <Content Include="Content\js\app\validacoes\validacoes_summary.js" />
-    <Content Include="Content\js\app\valoresmanuais\valoresmanuais.js" />
     <Content Include="Content\js\mosaic-script.js" />
-    <Content Include="Content\js\mosaic-script.min.js" />
     <Content Include="Content\kendo-ui\js\angular.min.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af-ZA.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af.js" />
@@ -1831,6 +1797,7 @@
     <Content Include="Content\kendo-ui\styles\web\images\kendoui.woff" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\AgendaTechProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1861,8 +1828,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
-    <Content Include="Views\Relatorios\Anual.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Professionals\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2035,12 +2004,6 @@
     <Content Include="Views\Login\RestorePass.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Usuarios\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Mensagens\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\backend\AgendaTech.Business\AgendaTech.Business.csproj">
       <Project>{80F1716B-68B6-46FC-8ECF-2875E181C4E7}</Project>
       <Name>AgendaTech.Business</Name>
@@ -2061,12 +2024,6 @@
       <Project>{a33fe01f-ae9b-4bde-b521-ab13916b1cfa}</Project>
       <Name>BrockAllen.MembershipReboot</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Usuarios\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Usuarios\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Login\SelectCNPJ.cshtml" />
@@ -2124,13 +2081,7 @@
     <Content Include="Content\plugins\jquery-ui\ui\.jshintrc" />
     <Content Include="Content\plugins\jquery-ui\sizzle\dist\sizzle.min.map" />
     <None Include="Properties\PublishProfiles\Otto.pubxml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Empresa\Index.cshtml" />
-    <Content Include="Views\Relatorios\Mensal.cshtml" />
-    <Content Include="Views\Relatorios\Analitico.cshtml" />
-    <Content Include="Views\Relatorios\Notas.cshtml" />
     <Content Include="Views\Shared\_FilterReports.cshtml" />
-    <Content Include="Views\DocumentosFiscais\Index.cshtml" />
     <Content Include="Views\Shared\_FilterDocs.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_FilterSaldos.cshtml" />

@@ -66,6 +66,8 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual ICollection<LinkedAccounts> LinkedAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PasswordResetSecrets> PasswordResetSecrets { get; set; }
+        public virtual TCGCustomers TCGCustomers { get; set; }
+        public virtual TCGUserGroup TCGUserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TwoFactorAuthTokens> TwoFactorAuthTokens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

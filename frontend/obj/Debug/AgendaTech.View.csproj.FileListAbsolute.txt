@@ -251,6 +251,8 @@ C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Content\plugins\jszip.js
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.View.dll.config
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.View.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.View.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Antlr3.Runtime.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.Integration.Mvc.dll
@@ -294,11 +296,15 @@ C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\System.Web.WebPages.Razor.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\System.Xml.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\WebActivatorEx.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\WebGrease.dll
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Business.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.dll.config
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\BrockAllen.MembershipReboot.Ef.pdb
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\BrockAllen.MembershipReboot.Ef.dll.config
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\BrockAllen.MembershipReboot.WebHost.pdb
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\BrockAllen.MembershipReboot.pdb
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\BrockAllen.MembershipReboot.dll.config
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.pdb
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.xml
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.Integration.Mvc.xml
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\EntityFramework.xml
@@ -328,10 +334,3 @@ C:\_Rodrigo\Repositorios\AgendaTech\frontend\obj\Debug\AgendaTech.View.csproj.Co
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\obj\Debug\AgendaTech.View.csproj.CopyComplete
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\obj\Debug\AgendaTech.View.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\obj\Debug\AgendaTech.View.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Autofac.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\Content\js\app\relatorios\logo-mosaic.png
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Business.dll
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.dll
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Business.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\frontend\bin\AgendaTech.Infrastructure.dll.config
