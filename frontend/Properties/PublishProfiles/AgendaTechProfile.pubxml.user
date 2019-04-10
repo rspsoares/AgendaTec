@@ -10,13 +10,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>04/05/2019 11:16:02</publishTime>
+      <publishTime>04/09/2019 10:12:26</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
       <publishTime>04/05/2019 11:18:22</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>04/04/2019 15:11:41</publishTime>
+      <publishTime>04/09/2019 10:12:22</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2019 11:06:24</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.dll">
-      <publishTime>04/05/2019 11:27:59</publishTime>
+      <publishTime>04/10/2019 15:04:58</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.pdb">
       <publishTime>04/05/2019 11:18:29</publishTime>
@@ -43,13 +43,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.dll">
-      <publishTime>04/05/2019 11:06:22</publishTime>
+      <publishTime>04/09/2019 10:12:22</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.dll.config">
       <publishTime>03/25/2019 17:01:20</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.Ef.dll">
-      <publishTime>04/05/2019 11:16:01</publishTime>
+      <publishTime>04/09/2019 10:12:25</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.Ef.dll.config">
       <publishTime>03/25/2019 17:01:15</publishTime>
@@ -61,7 +61,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2019 11:06:22</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.WebHost.dll">
-      <publishTime>04/05/2019 11:16:01</publishTime>
+      <publishTime>04/09/2019 10:12:25</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.WebHost.pdb">
       <publishTime>04/05/2019 11:16:01</publishTime>
@@ -73,7 +73,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="bin/Content/mosaic-default.css">
-      <publishTime>04/02/2019 12:10:11</publishTime>
+      <publishTime>04/10/2019 14:00:20</publishTime>
     </File>
     <File Include="bin/Content/plugins/flot/curvedLines.js">
       <publishTime>06/23/2017 11:02:56</publishTime>
@@ -112,7 +112,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:56</publishTime>
     </File>
     <File Include="bin/de/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/05/2019 11:06:22</publishTime>
+      <publishTime>04/09/2019 10:12:23</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -133,10 +133,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2018 17:59:08</publishTime>
     </File>
     <File Include="bin/nl-nl/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/05/2019 11:06:23</publishTime>
+      <publishTime>04/09/2019 10:12:23</publishTime>
     </File>
     <File Include="bin/ru-ru/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/05/2019 11:06:24</publishTime>
+      <publishTime>04/09/2019 10:12:24</publishTime>
     </File>
     <File Include="bin/System.ComponentModel.DataAnnotations.dll">
       <publishTime>03/26/2018 16:24:54</publishTime>
@@ -361,10 +361,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="Content/images/layout/bg-menu-big.jpg">
-      <publishTime>06/23/2017 11:02:54</publishTime>
+      <publishTime>04/10/2019 12:16:15</publishTime>
     </File>
     <File Include="Content/images/layout/bg-menu-mini.jpg">
-      <publishTime>06/23/2017 11:02:54</publishTime>
+      <publishTime>04/10/2019 12:17:00</publishTime>
     </File>
     <File Include="Content/images/layout/bg-menu-treeview-xy.gif">
       <publishTime>06/23/2017 11:02:54</publishTime>
@@ -508,7 +508,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>04/02/2019 16:04:51</publishTime>
+      <publishTime>04/09/2019 11:15:08</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
       <publishTime>04/01/2019 16:34:11</publishTime>
@@ -520,7 +520,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="Content/js/app/registers/professionals/professional.js">
-      <publishTime>04/05/2019 09:36:56</publishTime>
+      <publishTime>04/09/2019 10:27:18</publishTime>
     </File>
     <File Include="Content/js/app/registers/roles.js">
       <publishTime>06/23/2017 11:02:54</publishTime>
@@ -574,7 +574,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/01/2019 16:34:12</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.js">
-      <publishTime>04/05/2019 08:37:07</publishTime>
+      <publishTime>04/09/2019 10:42:43</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.min.js">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -4225,7 +4225,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:56</publishTime>
     </File>
     <File Include="Content/mosaic-default.css">
-      <publishTime>04/02/2019 12:10:11</publishTime>
+      <publishTime>04/10/2019 14:00:20</publishTime>
     </File>
     <File Include="Content/plugins/d3/lib.js">
       <publishTime>06/23/2017 11:02:56</publishTime>
@@ -5467,7 +5467,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:56</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>04/03/2019 08:10:56</publishTime>
+      <publishTime>04/10/2019 14:51:37</publishTime>
     </File>
     <File Include="Views/DocumentosFiscais/Index.cshtml">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -5482,43 +5482,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/27/2019 09:27:49</publishTime>
     </File>
     <File Include="Views/Login/Confirm.cshtml">
-      <publishTime>03/25/2019 11:06:48</publishTime>
+      <publishTime>04/10/2019 14:52:09</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>04/02/2019 13:45:48</publishTime>
+      <publishTime>04/10/2019 14:52:09</publishTime>
     </File>
     <File Include="Views/Login/RestorePass.cshtml">
-      <publishTime>03/25/2019 11:06:48</publishTime>
+      <publishTime>04/10/2019 14:52:09</publishTime>
     </File>
     <File Include="Views/Login/RestorePassSucess.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Login/SelectCNPJ.cshtml">
-      <publishTime>06/23/2017 11:02:57</publishTime>
+      <publishTime>04/10/2019 14:52:09</publishTime>
     </File>
     <File Include="Views/Login/Sucess.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Login/UpdatePass.cshtml">
-      <publishTime>03/25/2019 11:06:48</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Mensagens/Index.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Professionals/Index.cshtml">
-      <publishTime>04/03/2019 08:10:06</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Registrar/Cancel.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Registrar/Confirm.cshtml">
-      <publishTime>03/25/2019 11:06:48</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Registrar/ConfirmSucess.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Registrar/Index.cshtml">
-      <publishTime>03/25/2019 11:06:48</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Registrar/Success.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
@@ -5545,25 +5545,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Services/Index.cshtml">
-      <publishTime>04/05/2019 08:20:20</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Shared/Popup.cshtml">
       <publishTime>04/02/2019 11:43:05</publishTime>
     </File>
     <File Include="Views/Shared/_FilterDocs.cshtml">
-      <publishTime>06/23/2017 11:02:57</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Shared/_FilterReports.cshtml">
-      <publishTime>06/23/2017 11:02:57</publishTime>
+      <publishTime>04/10/2019 14:53:26</publishTime>
     </File>
     <File Include="Views/Shared/_FilterSaldos.cshtml">
-      <publishTime>06/23/2017 11:02:57</publishTime>
+      <publishTime>04/10/2019 14:54:24</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
       <publishTime>04/02/2019 12:11:44</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>04/05/2019 09:43:28</publishTime>
+      <publishTime>04/10/2019 14:54:24</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>

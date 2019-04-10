@@ -29,11 +29,12 @@
     var dtBirthday = $("#dtBirthday");
 
     dtBirthday.kendoMaskedTextBox({
-        mask: "00/00/0000"
+        mask: "00/00/0000"       
     });
 
     dtBirthday.kendoDatePicker({
-        format: "dd/MM/yyyy"
+        format: "dd/MM/yyyy",
+        max: new Date()
     });
 
     dtBirthday.closest(".k-datepicker")
@@ -243,6 +244,7 @@ function SaveProfessional() {
 
 function ValidateRequiredFields() {
     var errorMessage = '';
+    var emailPattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if ($("#txtName").val() === '')
         errorMessage += 'Favor informar o Nome' + '<br/>';
@@ -252,6 +254,13 @@ function ValidateRequiredFields() {
 
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Telefone' + '<br/>';
+
+    if ($("#txtEmail").val() === '')
+        errorMessage += 'Favor informar o E-mail' + '<br/>';
+    else {
+        if (!emailPattern.test($.trim($("#txtEmail").val())))
+            errorMessage += 'E-mail inválido' + '<br/>';
+    }
 
     return errorMessage;
 }

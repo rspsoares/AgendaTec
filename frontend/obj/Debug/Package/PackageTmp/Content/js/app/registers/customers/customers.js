@@ -20,7 +20,7 @@
         }
     });    
 
-    $('#txtCNPJ').kendoMaskedTextBox({ mask: "00,000,000/0000-00" });
+    $("#txtCNPJ").mask("99.999.999/9999-99");
 
     var dtHireDate = $("#dtHireDate");
 
@@ -138,13 +138,14 @@ function CustomerEdit(e) {
         success: function (result) {
             if (result.Success) {
                 $("#hiddenIDCustomer").val(result.Data.IDCustomer);
-                $("#txtSocialName").val(result.Data.SocialName);                
-                $("#txtCNPJ").data("kendoMaskedTextBox").value(result.Data.CNPJ);
+                $("#txtSocialName").val(result.Data.SocialName);
+                $("#txtCNPJ").val(result.Data.CNPJ).trigger('input');
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
                 $("#dtHireDate").val(kendo.toString(kendo.parseDate(result.Data.HireDate, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);                
                 $("#txtNote").val(result.Data.Note);
+             
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -173,7 +174,7 @@ function SaveCustomer() {
     customer = {
         IDCustomer: parseInt($("#hiddenIDCustomer").val()),
         SocialName: $("#txtSocialName").val(),
-        CNPJ: $("#txtCNPJ").data("kendoMaskedTextBox").raw(),        
+        CNPJ: $("#txtCNPJ").val().replace(/[^\d]/g, ""),
         Address: $("#txtAddress").val(),
         Phone: $("#txtPhone").val(),
         HireDate: kendo.parseDate($("#dtHireDate").val(), "dd/MM/yyyy"),
@@ -210,6 +211,10 @@ function ValidateRequiredFields() {
 
     if ($("#txtCNPJ").val() === '')
         errorMessage += 'Favor informar o CNPJ' + '<br/>';
+    else {
+        if (!CNPJCheck($("#txtCNPJ").val())) 
+            errorMessage += 'CNPJ inválido' + '<br/>';
+    }
 
     if ($("#txtAddress").val() === '')
         errorMessage += 'Favor informar o Endereço' + '<br/>';

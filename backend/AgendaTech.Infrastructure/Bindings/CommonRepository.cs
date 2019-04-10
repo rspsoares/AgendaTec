@@ -6,7 +6,6 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using AgendaTech.Infrastructure.DatabaseModel;
-using System.Data.SqlClient;
 
 namespace AgendaTech.Infrastructure.Repositories
 {
