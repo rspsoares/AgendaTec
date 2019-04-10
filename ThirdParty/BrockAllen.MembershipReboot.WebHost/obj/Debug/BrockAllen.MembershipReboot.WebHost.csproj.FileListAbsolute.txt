@@ -1,7 +1,0 @@
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\build\BrockAllen.MembershipReboot.WebHost.dll
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\build\BrockAllen.MembershipReboot.WebHost.pdb
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Debug\BrockAllen.MembershipReboot.WebHost.csprojAssemblyReference.cache
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Debug\BrockAllen.MembershipReboot.WebHost.csproj.CoreCompileInputs.cache
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Debug\BrockAllen.MembershipReboot.WebHost.csproj.CopyComplete
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Debug\BrockAllen.MembershipReboot.WebHost.dll
-C:\_Rodrigo\Repositorios\ApuradorPISCOFINS\Keeptrue.Conciliador\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Debug\BrockAllen.MembershipReboot.WebHost.pdb
