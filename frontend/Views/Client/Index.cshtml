@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="no-js" lang="pt-br" id="htmlpage" ng-app>
+<head>
+    <!-- META TAGS -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    
+    @Styles.Render("~/Content/css")
+
+    <style type="text/css">
+        html {
+            background: none;
+        }
+
+        #DivLeft {
+            position: relative;
+            border-width: 2px;
+            width: 30%;
+            height: 250px;            
+            float: left;
+            margin-left: 10px
+        }
+
+        #DivRight {
+            position: relative;
+            border-width: 2px;
+            width: 30%;
+            height: 250px;            
+            float: right;
+            margin-left: 5px
+        }
+
+        #DivCenter {
+            position: relative;
+            border-width: 2px;
+            width: 38%;           
+            height: 250px;            
+            margin-left: 10px;
+            float: left;
+        }
+        
+        #content {
+            position: relative;
+            min-height: 150px;
+        }
+
+        #content-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .group:before,
+        .group:after {
+            content: "";
+            display: table;
+        }
+
+        .group:after {
+            clear: both;
+        }
+
+        .group {
+            zoom: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="Container" class="wrap">
+        <div id="ContentContainer">
+            <div class="modal-footer">
+                <label><strong>Login: </strong></label>
+                <input type="text" id="txtLogin" name="txtLogin" data-field="Nome" class="k-textbox" style="width: 10%;" />
+                <label><strong>Senha: </strong></label>
+                <input type="text" id="txtPassword" name="txtPassword" class="k-textbox" style="width: 10%;" />
+                <button id="btnLogin" type="submit" class="btn btn-primary btn-xs">
+                    <span class="glyphicon glyphicon-lock"></span> Entrar
+                </button>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <form>
+                        <div class="group">
+                            <div id="DivLeft">
+                                <div style="height: 35%">
+                                    <label><strong>Profissional</strong></label><br />
+                                    <input id="ddlProfessional" name="ddlProfessional" style="width: 100%;" />
+                                </div>
+                                <div>
+                                    <label><strong>Serviço</strong></label><br />
+                                    <input id="ddlService" name="ddlService" class="filter" style="width: 100%;" />
+                                </div>                                
+                            </div>
+                            <div id="DivCenter">
+                                <div id="calendar" style="width: 100%; height:100%"></div>
+                            </div>
+                            <div id="DivRight">
+                                <div style="height: 87%">
+                                    <label><strong>Horário</strong></label><br />
+                                    <input id="ddlHour" name="ddlHour" class="filter" style="width: 90%;" />
+                                </div>
+                                <div style="text-align:right; width: 90%">
+                                    <button type="button" id="btnProcess" class="btn btn-primary btn-xs">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span> Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlService').kendoDropDownList({
+                optionLabel: "Selecione..."
+            });
+
+            $('#ddlProfessional').kendoDropDownList({
+                optionLabel: "Selecione..."
+            });
+
+            $("#calendar").kendoCalendar(); 
+
+            $('#ddlHour').kendoDropDownList({
+                optionLabel: "Selecione..."
+            });
+        });
+    </script>
+</body>
+</html>
