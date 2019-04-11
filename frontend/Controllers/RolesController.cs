@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AgendaTech.View.Authorization;
 using System.Text;
 using AgendaTech.View.Models;
@@ -26,16 +25,6 @@ namespace AgendaTech.View.Controllers
         }
 
         public string MenuLateral()
-        {
-            var cacheResult = HttpContext.Cache.Get(_usuarioLogado.uqUsuario.ToString());
-            
-            if (cacheResult == null)            
-                HttpContext.Cache.Add(_usuarioLogado.uqUsuario.ToString(), null, null, DateTime.Now.AddMinutes(30), System.Web.Caching.Cache.NoSlidingExpiration, System.Web.Caching.CacheItemPriority.Default, null);
-
-            return MontarMenu();
-        }
-
-        private string MontarMenu()
         {
             var menu = new StringBuilder();
 

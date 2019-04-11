@@ -14,8 +14,8 @@ namespace AgendaTech.View.Controllers
         // GET: /Login/        
         private readonly AuthenticationService<CustomUserAccount> _authSvc;
         private readonly UserAccountService<CustomUserAccount> _userSvc;
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
 
         public LoginController(AuthenticationService<CustomUserAccount> authSvc, UserAccountService<CustomUserAccount> userSvc)
         {
@@ -68,8 +68,8 @@ namespace AgendaTech.View.Controllers
         [Authorize]
         public ActionResult UpdatePass()
         {
-            usuarioLogado = claimHelper.ObterUsuarioLogado();
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View(new ModificarSenha());
         }
 
@@ -96,25 +96,25 @@ namespace AgendaTech.View.Controllers
 
         public ActionResult RestorePass()
         {            
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 
         public ActionResult SelectCNPJ()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 
         public ActionResult RestorePassSucess()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 
         public ActionResult Success()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 

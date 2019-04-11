@@ -9,18 +9,18 @@ namespace AgendaTech.View.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
      
         public HomeController()
         {            
-            usuarioLogado = claimHelper.ObterUsuarioLogado();            
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();            
         }
 
         [AuthorizeUser(AccessLevel = "/Home")]
         public ActionResult Index()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }        
     }

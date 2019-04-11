@@ -9,19 +9,19 @@ namespace AgendaTech.View.Controllers
     public class CustomersController : Controller
     {      
         private readonly ICustomerFacade _customerFacade;
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();       
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();       
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
 
         public CustomersController(ICustomerFacade customerFacade)
         {
             _customerFacade = customerFacade;
-            usuarioLogado = claimHelper.ObterUsuarioLogado();
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();
         }
         
         [AuthorizeUser(AccessLevel = "/Administracao")]
         public ActionResult Index()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 

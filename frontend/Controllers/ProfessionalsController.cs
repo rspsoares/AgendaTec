@@ -9,18 +9,18 @@ namespace AgendaTech.View.Controllers
     public class ProfessionalsController : Controller
     {
         private readonly IProfessionalFacade _professionalFacade;
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
 
         public ProfessionalsController(IProfessionalFacade professionalFacade)
         {
             _professionalFacade = professionalFacade;
-            usuarioLogado = claimHelper.ObterUsuarioLogado();
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();
         }      
        
         public ActionResult Index()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 

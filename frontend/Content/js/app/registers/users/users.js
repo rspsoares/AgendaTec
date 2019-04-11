@@ -177,6 +177,8 @@ function UserEdit(e) {
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
                 $("#ddlUserGroup").data('kendoDropDownList').value(result.Data.IDUserGroup);
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);
+
+                LockFields(CheckUserIsConsumer(result.Data.IDUserGroup));
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -257,4 +259,30 @@ function ValidateRequiredFields() {
         errorMessage += 'Favor informar o Grupo do Usuário';    
 
     return errorMessage;
+}
+
+function CheckUserIsConsumer(idUserGroup) {
+    var isConsumer = false;
+
+    $.ajax({
+        url: "/Users/CheckUserIsConsumer",
+        data: { "idUserGroup": idUserGroup },
+        type: "GET",
+        async: false,
+        dataType: "json",
+        cache: false,
+        success: function (result) {
+            isConsumer = result.Data;
+        }
+    });
+
+    return isConsumer;
+}
+
+function LockFields(lock) {
+    $("#txtName").prop('disabled', lock);
+    $("#txtLogin").prop('disabled', lock);
+    $("#txtEmail").prop('disabled', lock);
+    $("#ddlCustomer").data("kendoDropDownList").enable(!lock);
+    $("#ddlUserGroup").data("kendoDropDownList").enable(!lock);    
 }

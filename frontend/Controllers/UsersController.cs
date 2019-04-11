@@ -93,5 +93,12 @@ namespace AgendaTech.View.Controllers
 
             return Json(new { Data = currentCustomer }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult CheckUserIsConsumer(string idUserGroup)
+        {
+            var consumer = int.Parse(idUserGroup).Equals((int)EnUserType.Consumer);                
+            return Json(new { Data = consumer }, JsonRequestBehavior.AllowGet);
+        }
     }    
 }

@@ -15,23 +15,14 @@ namespace AgendaTech.View.Controllers
     public class RegistrarController : Controller
     {
         private readonly AuthenticationService<CustomUserAccount> _authSvc;
-        private readonly UserAccountService<CustomUserAccount> _userSvc;
-      //  private IUsuarioUIDevolucaoFacade _usrDevolucao;
+        private readonly UserAccountService<CustomUserAccount> _userSvc;      
 
-        public RegistrarController(
-            AuthenticationService<CustomUserAccount> authSvc,
-            UserAccountService<CustomUserAccount> userSvc//,
-       //     IUsuarioUIDevolucaoFacade usrDevolucao
-            )
+        public RegistrarController(AuthenticationService<CustomUserAccount> authSvc, UserAccountService<CustomUserAccount> userSvc)
         {
             _authSvc = authSvc;
-            _userSvc = userSvc;
-       //     _usrDevolucao = usrDevolucao;
+            _userSvc = userSvc;       
         }
-
-        //
-        // GET: /Registrar/
-
+        
         public ActionResult Index()
         {
             Registro model = new Registro();
@@ -42,6 +33,7 @@ namespace AgendaTech.View.Controllers
                               Text = GetDescription(tpPerfil),
                               Value = ((int)tpPerfil).ToString()
                           };
+
             return View(model);
         }
 
@@ -63,18 +55,16 @@ namespace AgendaTech.View.Controllers
             {
                 try
                 {
-                    var account = this._userSvc.CreateAccount(modelo.Username, modelo.Password, modelo.Email);
+                    var account = _userSvc.CreateAccount(modelo.Username, modelo.Password, modelo.Email);
 
-                    // add our custom stuff
                     account.FirstName = modelo.FirstName;
                     account.LastName = modelo.LastName;
                     account.Source = modelo.Role;                    
-                    //account.MobilePhoneNumber = modelo.MobilePhoneNumber;
 
                     _userSvc.AddClaims(account.ID, BuildClaims(modelo.Role));
-                    this._userSvc.Update(account);
+                    _userSvc.Update(account);
 
-                    ViewData["RequireAccountVerification"] = this._userSvc.Configuration.RequireAccountVerification;
+                    ViewData["RequireAccountVerification"] = _userSvc.Configuration.RequireAccountVerification;
                     return View("Success", modelo);
                 }
                 catch (ValidationException ex)
@@ -91,8 +81,6 @@ namespace AgendaTech.View.Controllers
 
             if (Between(papel, 1, 2))
             {
-                //ClaimTypes.GroupSid
-
                 uc.Add(ClaimTypes.Role, "Administrador");
                 if (papel == 1)
                     uc.Add(ClaimTypes.Role, "Administrador");
@@ -118,11 +106,13 @@ namespace AgendaTech.View.Controllers
         [AllowAnonymous]
         public ActionResult Confirm(string id)
         {
-            var account = this._userSvc.GetByVerificationKey(id);
+            var account = _userSvc.GetByVerificationKey(id);
             if (account.HasPassword())
             {
-                var vm = new ChangeEmailFromKeyInputModel();
-                vm.Key = id;
+                var vm = new ChangeEmailFromKeyInputModel
+                {
+                    Key = id
+                };
                 return View("Confirm", vm);
             }
             else
@@ -130,9 +120,7 @@ namespace AgendaTech.View.Controllers
                 try
                 {
                     _userSvc.VerifyEmailFromKey(id, out account);
-                 //   _usrDevolucao.UpdateUserStats(true, null, null, account.ID);
-                    // since we've changed the email, we need to re-issue the cookie that
-                    // contains the claims.
+                 
                     _authSvc.SignIn(account);
                     return RedirectToAction("ConfirmSucess");
                 }
@@ -152,12 +140,9 @@ namespace AgendaTech.View.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
-                    CustomUserAccount account;
-                    this._userSvc.VerifyEmailFromKey(model.Key, model.Password, out account);
-               //     _usrDevolucao.UpdateUserStats(true, null, null, account.ID);
-                    // since we've changed the email, we need to re-issue the cookie that
-                    // contains the claims.
+                {    
+                    _userSvc.VerifyEmailFromKey(model.Key, model.Password, out CustomUserAccount account);
+               
                     _authSvc.SignIn(account);
                     return RedirectToAction("ConfirmSucess");
                 }

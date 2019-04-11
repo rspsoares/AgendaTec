@@ -26,35 +26,18 @@ namespace AgendaTech.Business.Bindings
         public List<TCGServices> GetGrid(int idCustomer, string serviceName, out string errorMessage)
         {
             var services = new List<TCGServices>();
-            var sbSqlQuery = new StringBuilder();
-            var parameters = new List<SqlParameter>();
             
             errorMessage = string.Empty;
 
             try
             {
-                sbSqlQuery.Append("SELECT * FROM TCGServices (NOLOCK) WHERE ");
+                services = _commonRepository.GetAll();
 
-                if(idCustomer > 0 || !string.IsNullOrEmpty(serviceName))
-                {
-                    if(idCustomer > 0)
-                    {
-                        sbSqlQuery.Append("IDCustomer = @idCustomer AND ");
-                        parameters.Add(new SqlParameter() { ParameterName = "IDCustomer", Value = idCustomer });
-                    }
+                if (idCustomer > 0)
+                    services = services.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
 
-                    if(!string.IsNullOrEmpty(serviceName))
-                    {
-                        sbSqlQuery.Append("Description LIKE '%' + @Description + '%'");
-                        parameters.Add(new SqlParameter() { ParameterName = "Description", Value = serviceName });
-                    }                    
-                }
-
-                var sqlQuery = sbSqlQuery.ToString().Trim();
-                sqlQuery = CommonHelper.RemoveLastOccurrence(sqlQuery, "WHERE");
-                sqlQuery = CommonHelper.RemoveLastOccurrence(sqlQuery, "AND");
-                
-                services = _commonRepository.SqlQuery(sqlQuery, parameters.ToArray());
+                if (!string.IsNullOrEmpty(serviceName))
+                    services = services.Where(x => x.Description.Contains(serviceName)).ToList();
             }
             catch (Exception ex)
             {

@@ -26,35 +26,18 @@ namespace AgendaTech.Business.Bindings
         public List<TCGProfessionals> GetGrid(int idCustomer, string professionalName, out string errorMessage)
         {
             var professionals = new List<TCGProfessionals>();
-            var sbSqlQuery = new StringBuilder();
-            var parameters = new List<SqlParameter>();
-
+            
             errorMessage = string.Empty;
 
             try
             {
-                sbSqlQuery.Append("SELECT * FROM TCGProfessionals (NOLOCK) WHERE ");
+                professionals = _commonRepository.GetAll();
 
-                if (idCustomer > 0 || !string.IsNullOrEmpty(professionalName))
-                {
-                    if (idCustomer > 0)
-                    {
-                        sbSqlQuery.Append("IDCustomer = @idCustomer AND ");
-                        parameters.Add(new SqlParameter() { ParameterName = "IDCustomer", Value = idCustomer });
-                    }
+                if (idCustomer > 0)
+                    professionals = professionals.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
 
-                    if (!string.IsNullOrEmpty(professionalName))
-                    {
-                        sbSqlQuery.Append("Name LIKE '%' + @Name + '%'");
-                        parameters.Add(new SqlParameter() { ParameterName = "Name", Value = professionalName });
-                    }
-                }
-
-                var sqlQuery = sbSqlQuery.ToString().Trim();
-                sqlQuery = CommonHelper.RemoveLastOccurrence(sqlQuery, "WHERE");
-                sqlQuery = CommonHelper.RemoveLastOccurrence(sqlQuery, "AND");
-
-                professionals = _commonRepository.SqlQuery(sqlQuery, parameters.ToArray());
+                if (!string.IsNullOrEmpty(professionalName))
+                    professionals = professionals.Where(x => x.Name.Contains(professionalName)).ToList();
             }
             catch (Exception ex)
             {

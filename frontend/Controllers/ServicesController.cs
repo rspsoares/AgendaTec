@@ -9,18 +9,18 @@ namespace AgendaTech.View.Controllers
     public class ServicesController : Controller
     {
         private readonly IServiceFacade _serviceFacade;
-        private AuthorizationHelper claimHelper = new AuthorizationHelper();
-        private UsuarioLogado usuarioLogado = new UsuarioLogado();
+        private AuthorizationHelper _claimHelper = new AuthorizationHelper();
+        private UsuarioLogado _usuarioLogado = new UsuarioLogado();
 
         public ServicesController(IServiceFacade serviceFacade)
         {
             _serviceFacade = serviceFacade;
-            usuarioLogado = claimHelper.ObterUsuarioLogado();
+            _usuarioLogado = _claimHelper.ObterUsuarioLogado();
         }
         
         public ActionResult Index()
         {
-            ViewBag.NomeUsuario = usuarioLogado.Nome;
+            ViewBag.NomeUsuario = _usuarioLogado.Nome;
             return View();
         }
 

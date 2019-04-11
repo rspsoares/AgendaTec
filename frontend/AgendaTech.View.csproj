@@ -207,7 +207,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Authorization\AuthorizationHelper.cs" />
-    <Compile Include="Authorization\AuthorizationRepository.cs" />
     <Compile Include="Authorization\AuthorizeUserAttribute.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

@@ -64,19 +64,7 @@ namespace AgendaTech.Infrastructure.Repositories
 
             return result;
         }
-
-        public List<T> SqlQuery(string sqlQuery, object[] parameters)
-        {            
-            var result = new List<T>();
-            using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
-            {
-                result = _context.Database.SqlQuery<T>(sqlQuery, parameters).ToList();
-                scope.Complete();
-            }
-
-            return result;
-        }
-
+        
         public T Insert(T e)
         {   
             using (var scope = new TransactionScope(TransactionScopeOption.Required))
