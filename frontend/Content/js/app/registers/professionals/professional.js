@@ -41,7 +41,7 @@
         .add(dtBirthday)
         .removeClass("k-textbox");   
 
-    LoadSocialNameCombo();
+    LoadCompanyNameCombo();
 
     var currentCustomer = GetCurrentCustomer();
     if (currentCustomer !== '') {
@@ -53,40 +53,6 @@
     }
 
     LoadProfessionals();
-}
-
-function LoadSocialNameCombo() {
-    var dsData = undefined;
-
-    $.ajax({
-        url: "/Customers/GetSocialNameCombo",
-        type: "GET",
-        async: false,
-        dataType: "json",
-        cache: false,
-        success: function (result) {
-            if (result.Success)
-                dsData = result.Data;
-            else {
-                ShowModalAlert("Erro ao recuperar clientes.");
-                return;
-            }
-        }
-    });
-
-    $('#ddlCustomerFilter').kendoDropDownList({
-        dataTextField: "SocialName",
-        dataValueField: "IDCustomer",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
-    });
-
-    $('#ddlCustomer').kendoDropDownList({
-        dataTextField: "SocialName",
-        dataValueField: "IDCustomer",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
-    });
 }
 
 function LoadProfessionals() {

@@ -3,10 +3,12 @@ using AgendaTech.Business.Helpers;
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace AgendaTech.Business.Bindings
@@ -14,6 +16,7 @@ namespace AgendaTech.Business.Bindings
     public class ServiceFacade : IServiceFacade
     {
         private readonly ICommonRepository<TCGServices> _commonRepository;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ServiceFacade()
         {
@@ -56,6 +59,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return services
@@ -94,6 +98,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return service;
@@ -110,6 +115,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return e;
@@ -126,6 +132,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
         }
     }

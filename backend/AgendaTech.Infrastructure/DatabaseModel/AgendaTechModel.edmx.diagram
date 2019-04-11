@@ -16,19 +16,19 @@
         <EntityTypeShape EntityType="AgendaTechModel.UserClaims" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
         <EntityTypeShape EntityType="AgendaTechModel.TCGServices" Width="1.5" PointX="10.625" PointY="1.25" />
         <EntityTypeShape EntityType="AgendaTechModel.TCGProfessionals" Width="1.5" PointX="10.625" PointY="4.25" />
-        <EntityTypeShape EntityType="AgendaTechModel.TCGCustomers" Width="1.5" PointX="8.375" PointY="2.5" />
-        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" />
-        <AssociationConnector Association="AgendaTechModel.FK_TCGServices_TCGCustomers" />
         <EntityTypeShape EntityType="AgendaTechModel.TCGUserGroup" Width="1.5" PointX="0.75" PointY="2.375" />
         <EntityTypeShape EntityType="AgendaTechModel.UserAccounts" Width="1.5" PointX="13.625" PointY="0.75" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" />
-        <AssociationConnector Association="AgendaTechModel.FK_UserAccounts_TCGCustomers" />
         <AssociationConnector Association="AgendaTechModel.FK_UserAccounts_TCGUserGroup" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" />
+        <EntityTypeShape EntityType="AgendaTechModel.TCGCustomers" Width="1.5" PointX="8.375" PointY="3.75" />
+        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" />
+        <AssociationConnector Association="AgendaTechModel.FK_TCGServices_TCGCustomers" />
+        <AssociationConnector Association="AgendaTechModel.FK_UserAccounts_TCGCustomers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

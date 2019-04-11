@@ -2,15 +2,18 @@
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace AgendaTech.Business.Bindings
 {
     public class CustomerFacade : ICustomerFacade
     {
         private readonly ICommonRepository<TCGCustomers> _commonRepository;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public CustomerFacade()
         {
@@ -28,26 +31,31 @@ namespace AgendaTech.Business.Bindings
                 if (string.IsNullOrEmpty(customerName))
                     customers = _commonRepository.GetAll();
                 else
-                    customers = _commonRepository.Filter(x => x.SocialName.Contains(customerName));
+                    customers = _commonRepository.Filter(x => x.CompanyName.Contains(customerName));
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;               
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return customers
                 .Select(x => new TCGCustomers()
                 {
                     IDCustomer = x.IDCustomer,
-                    SocialName = x.SocialName,
+                    CompanyName = x.CompanyName,
+                    CNPJ = x.CNPJ,
+                    Address = x.Address,
+                    Phone = x.Phone,
                     HireDate = x.HireDate,
-                    Active = x.Active
+                    Active = x.Active,
+                    Note = x.Note
                 })
-                .OrderBy(x => x.SocialName)
+                .OrderBy(x => x.CompanyName)
                 .ToList();
         }
 
-        public List<TCGCustomers> GetSocialNameCombo(out string errorMessage)
+        public List<TCGCustomers> GetCompanyNameCombo(out string errorMessage)
         {
             var customers = new List<TCGCustomers>();
 
@@ -60,14 +68,15 @@ namespace AgendaTech.Business.Bindings
                     .Select(x => new TCGCustomers()
                     {
                         IDCustomer = x.IDCustomer,
-                        SocialName = x.SocialName
+                        CompanyName = x.CompanyName
                     })
-                    .OrderBy(x => x.SocialName)
+                    .OrderBy(x => x.CompanyName)
                     .ToList();
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return customers;
@@ -86,7 +95,7 @@ namespace AgendaTech.Business.Bindings
                 customer = new TCGCustomers()
                 {                    
                     IDCustomer = result.IDCustomer,
-                    SocialName = result.SocialName,
+                    CompanyName = result.CompanyName,
                     CNPJ = result.CNPJ,
                     Address = result.Address,
                     Phone = result.Phone,
@@ -98,6 +107,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return customer;
@@ -113,7 +123,8 @@ namespace AgendaTech.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;                
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return e;
@@ -130,6 +141,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
         }
     }

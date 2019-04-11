@@ -8,11 +8,11 @@
     });
 
     $('#btnClear').click(function () {
-        document.getElementById("txtSocialNameFilter").value = "";        
+        document.getElementById("txtCompanyNameFilter").value = "";        
         LoadCustomers();
     });
 
-    $('#txtSocialName').keydown(function (e) {
+    $('#txtCompanyName').keydown(function (e) {
         var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
         if (key === 13) {
             e.preventDefault();
@@ -57,7 +57,7 @@ function LoadCustomers() {
                 parameterMap: function (data, type) {
                     if (type === "read") {
                         return {
-                            customerName: $('#txtSocialNameFilter').val()                            
+                            customerName: $('#txtCompanyNameFilter').val()                            
                         };
                     }
                 }
@@ -80,7 +80,7 @@ function LoadCustomers() {
         },
         columns: [
             { field: "IDCustomer", hidden: true },
-            { field: "SocialName", title: "Razao Social", width: "60%" },
+            { field: "CompanyName", title: "Razao Social", width: "60%" },
             { field: "HireDate", title: "Data Contratação", template: "#= kendo.toString(kendo.parseDate(HireDate, 'yyyy-MM-dd'), 'dd/MM/yyyy') #", width: "15%" },
             { field: "Active", title: "Ativo", width: "15%", template: "#:StatusDescription(Active)#"},            
             {
@@ -112,7 +112,7 @@ function AddCustomer() {
 
 function CleanFields() {
     $("#hiddenIDCustomer").val(0);
-    $("#txtSocialName").val("");
+    $("#txtCompanyName").val("");
     $("#txtCNPJ").val("");
     $("#txtAddress").val("");
     $("#txtPhone").val("");
@@ -138,7 +138,7 @@ function CustomerEdit(e) {
         success: function (result) {
             if (result.Success) {
                 $("#hiddenIDCustomer").val(result.Data.IDCustomer);
-                $("#txtSocialName").val(result.Data.SocialName);
+                $("#txtCompanyName").val(result.Data.CompanyName);
                 $("#txtCNPJ").val(result.Data.CNPJ).trigger('input');
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
@@ -173,7 +173,7 @@ function SaveCustomer() {
 
     customer = {
         IDCustomer: parseInt($("#hiddenIDCustomer").val()),
-        SocialName: $("#txtSocialName").val(),
+        CompanyName: $("#txtCompanyName").val(),
         CNPJ: $("#txtCNPJ").val().replace(/[^\d]/g, ""),
         Address: $("#txtAddress").val(),
         Phone: $("#txtPhone").val(),
@@ -206,7 +206,7 @@ function SaveCustomer() {
 function ValidateRequiredFields() {
     var errorMessage = '';
 
-    if ($("#txtSocialName").val() === '')
+    if ($("#txtCompanyName").val() === '')
         errorMessage += 'Favor informar a Razão Social' + '<br/>';
 
     if ($("#txtCNPJ").val() === '')

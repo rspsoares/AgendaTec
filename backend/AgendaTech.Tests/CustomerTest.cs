@@ -1,9 +1,11 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AgendaTech.Business.Bindings;
 using AgendaTech.Business.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
+using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Bogus.Extensions.Brazil;
+using System.Text.RegularExpressions;
 
 namespace AgendaTech.Tests
 {
@@ -20,18 +22,16 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Customer_Insert()
         {
-            var cliente = new TCGCustomers()
-            {
-                SocialName = "Razao",
-                CNPJ = "55555555555",
-                Address = "Rua Blas",
-                Phone = "Telefone",
-                HireDate= DateTime.Now,
-                Active = true,
-                Note = "Observacao"
-            };
+            var fakeService = new Faker<TCGCustomers>()
+                .RuleFor(t => t.CompanyName, f => f.Company.CompanyName())
+                .RuleFor(t => t.CNPJ, f => Regex.Replace(f.Company.Cnpj(), @"[^\d]", ""))
+                .RuleFor(t => t.Address, f => f.Address.StreetAddress())
+                .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber())
+                .RuleFor(t => t.HireDate, f => f.Date.Recent())
+                .RuleFor(t => t.Active, f => f.Random.Bool())
+                .RuleFor(t => t.Note, f => f.Lorem.Sentence(5));
 
-            var idCustomer = _customerRepository.Insert(cliente, out string errorMessage).IDCustomer;
+            var idCustomer = _customerRepository.Insert(fakeService, out string errorMessage).IDCustomer;
 
             Assert.IsTrue(idCustomer > 0);
         }
@@ -41,16 +41,6 @@ namespace AgendaTech.Tests
         {
             var customers = _customerRepository.GetGrid(string.Empty, out string errorMessage);
             Assert.IsTrue(customers.Any());
-        }
-
-        [TestMethod]
-        public void Customer_Update()
-        {
-            var customer = _customerRepository.GetGrid(string.Empty, out string errorMessage).First();
-            customer.SocialName = "Updated";
-            _customerRepository.Update(customer, out errorMessage);
-
-            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
-        }
+        }     
     }
 }

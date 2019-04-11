@@ -3,9 +3,11 @@ using AgendaTech.Business.Entities;
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace AgendaTech.Business.Bindings
 {
@@ -13,6 +15,7 @@ namespace AgendaTech.Business.Bindings
     {
         private readonly ICommonRepository<UserAccounts> _commonRepository;
         private ICommonRepository<TCGUserGroup> _userGroupRepository;
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public UserFacade()
         {
@@ -45,6 +48,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return users
@@ -59,7 +63,7 @@ namespace AgendaTech.Business.Bindings
                     IDUserGroup = x.TCGUserGroup.IDUserGroup,
                     GroupDescription = x.TCGUserGroup.Descripton,
                     IDCustomer = x.TCGCustomers?.IDCustomer ?? 0,
-                    CustomerName = x.TCGCustomers?.SocialName ?? string.Empty,
+                    CustomerName = x.TCGCustomers?.CompanyName ?? string.Empty,
                     Active = x.IsLoginAllowed                    
                 })
                 .OrderBy(x => x.UserName)
@@ -87,13 +91,14 @@ namespace AgendaTech.Business.Bindings
                     IDUserGroup = result.Inscription,
                     GroupDescription = result.TCGUserGroup.Descripton,
                     IDCustomer = result.TCGCustomers?.IDCustomer ?? 0,
-                    CustomerName = result.TCGCustomers?.SocialName ?? string.Empty,
+                    CustomerName = result.TCGCustomers?.CompanyName ?? string.Empty,
                     Active = result.IsLoginAllowed
                 };
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return user;
@@ -114,6 +119,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return new UserAccountDTO()
@@ -127,7 +133,7 @@ namespace AgendaTech.Business.Bindings
                 IDUserGroup = user.Inscription,
                 GroupDescription = user.TCGUserGroup.Descripton,
                 IDCustomer = user.TCGCustomers?.IDCustomer ?? 0,
-                CustomerName = user.TCGCustomers?.SocialName ?? string.Empty,
+                CustomerName = user.TCGCustomers?.CompanyName ?? string.Empty,
                 Active = user.IsLoginAllowed
             };
         }
@@ -148,6 +154,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
             return userGroups
@@ -182,6 +189,7 @@ namespace AgendaTech.Business.Bindings
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
         }
     }

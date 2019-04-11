@@ -2,6 +2,7 @@
 using AgendaTech.Business.Bindings;
 using AgendaTech.Business.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
+using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AgendaTech.Tests
@@ -19,15 +20,13 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Service_Insert()
         {
-            var service = new TCGServices()
-            {
-                IDCustomer = 1,
-                Description = "Descrição",
-                Value = decimal.Parse("123,34"),
-                Time = 30
-            };
+            var fakeService = new Faker<TCGServices>()
+                .RuleFor(t => t.IDCustomer, f => 1)
+                .RuleFor(t => t.Description, f => f.Commerce.ProductName().ToString())
+                .RuleFor(t => t.Value, f => f.Random.Decimal(0, 1000))
+                .RuleFor(t => t.Time, f => f.Random.Int(0, 60));          
 
-            var idService = _serviceRepository.Insert(service, out string errorMessage).IDService;
+            var idService = _serviceRepository.Insert(fakeService, out string errorMessage).IDService;
 
             Assert.IsTrue(idService > 0);
         }
@@ -43,7 +42,7 @@ namespace AgendaTech.Tests
         public void Service_Update()
         {
             var customer = _serviceRepository.GetGrid(0, string.Empty, out string errorMessage).First();
-            customer.Description = "Updated";
+            customer.Description = new Bogus.DataSets.Commerce().ProductName();
             _serviceRepository.Update(customer, out errorMessage);
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));

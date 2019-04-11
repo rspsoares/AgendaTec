@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using AgendaTech.Business.Bindings;
 using AgendaTech.Business.Contracts;
-using AgendaTech.Business.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AgendaTech.Tests
@@ -19,16 +18,18 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void User_GetAll()
         {
-            var users = _userRepository.GetGrid("1", "drig", 1, 1, out string errorMessage);
+            var users = _userRepository.GetGrid(string.Empty, string.Empty, 0, 0, out string errorMessage);
             Assert.IsTrue(users.Any());
         }
 
         [TestMethod]
         public void User_Update()
         {
+            var fakeName = new Bogus.DataSets.Name();
+            
             var user = _userRepository.GetUserById(4, out string errorMessage);
-            user.FirstName = "First";
-            user.LastName = "Last";
+            user.FirstName = fakeName.FirstName(null).ToString();
+            user.LastName = fakeName.LastName(null).ToString();
             _userRepository.Update(user, out errorMessage);
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));

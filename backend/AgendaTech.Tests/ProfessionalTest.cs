@@ -1,8 +1,8 @@
 ﻿using AgendaTech.Business.Bindings;
 using AgendaTech.Business.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
+using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Linq;
 
 namespace AgendaTech.Tests
@@ -20,16 +20,14 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Professional_Insert()
         {
-            var professional = new TCGProfessionals()
-            {
-                IDCustomer = 1,
-                Name = "Name",
-                Birthday = DateTime.Now,
-                Phone = "1111",
-                Email = "mmmmm"
-            };
-
-            var idProfessional = _professionalRepository.Insert(professional, out string errorMessage).IDProfessional;
+            var fakeProfessional = new Faker<TCGProfessionals>()
+                .RuleFor(t => t.IDCustomer, f => 1)
+                .RuleFor(t => t.Name, f => f.Name.FullName())
+                .RuleFor(t => t.Birthday, f => f.Date.Past(20))
+                .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber())
+                .RuleFor(t => t.Email, f => f.Internet.ExampleEmail());
+                
+            var idProfessional = _professionalRepository.Insert(fakeProfessional, out string errorMessage).IDProfessional;
 
             Assert.IsTrue(idProfessional > 0);
         }
@@ -45,11 +43,10 @@ namespace AgendaTech.Tests
         public void Professional_Update()
         {
             var professional = _professionalRepository.GetGrid(0, string.Empty, out string errorMessage).First();
-            professional.Name = "Updated";
+            professional.Name = new Bogus.DataSets.Name().FullName();
             _professionalRepository.Update(professional, out errorMessage);
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }
-
     }
 }

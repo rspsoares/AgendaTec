@@ -526,3 +526,37 @@ function CNPJCheck(c) {
 
     return true;
 }
+
+function LoadCompanyNameCombo() {
+    var dsData = undefined;
+
+    $.ajax({
+        url: "/Customers/GetCompanyNameCombo",
+        type: "GET",
+        async: false,
+        dataType: "json",
+        cache: false,
+        success: function (result) {
+            if (result.Success)
+                dsData = result.Data;
+            else {
+                ShowModalAlert("Erro ao recuperar clientes.");
+                return;
+            }
+        }
+    });
+
+    $('#ddlCustomerFilter').kendoDropDownList({
+        dataTextField: "CompanyName",
+        dataValueField: "IDCustomer",
+        dataSource: dsData,
+        optionLabel: "Selecione..."
+    });
+
+    $('#ddlCustomer').kendoDropDownList({
+        dataTextField: "CompanyName",
+        dataValueField: "IDCustomer",
+        dataSource: dsData,
+        optionLabel: "Selecione..."
+    });
+}

@@ -37,9 +37,9 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetSocialNameCombo()
+        public JsonResult GetCompanyNameCombo()
         {
-            var customers = _customerFacade.GetSocialNameCombo(out string errorMessage);
+            var customers = _customerFacade.GetCompanyNameCombo(out string errorMessage);
                 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
