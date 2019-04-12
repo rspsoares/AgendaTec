@@ -1,15 +1,12 @@
 ﻿using AgendaTech.Business.Contracts;
-using AgendaTech.Business.Helpers;
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace AgendaTech.Business.Bindings
 {

@@ -60,6 +60,37 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
+        public List<TCGProfessionals> GetProfessionalNameCombo(int idCustomer, out string errorMessage)
+        {
+            var professionals = new List<TCGProfessionals>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                if (idCustomer > 0)
+                    professionals = _commonRepository.GetAll().Where(x => x.IDCustomer.Equals(idCustomer)).ToList();                
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return professionals
+                .Select(x => new TCGProfessionals()
+                {
+                    IDProfessional = x.IDProfessional,
+                    IDCustomer = x.IDCustomer,
+                    Name = x.Name,
+                    Birthday = x.Birthday,
+                    Phone = x.Phone,
+                    Email = x.Email
+                })
+                .OrderBy(x => x.Name)                
+                .ToList();
+        }
+
         public TCGProfessionals GetProfessionalById(int idProfessional, out string errorMessage)
         {
             var professional = new TCGProfessionals();

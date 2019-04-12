@@ -39,6 +39,7 @@ namespace AgendaTech.View
             builder.RegisterType<ServiceFacade>().As<IServiceFacade>().InstancePerLifetimeScope();
             builder.RegisterType<ProfessionalFacade>().As<IProfessionalFacade>().InstancePerLifetimeScope();
             builder.RegisterType<UserFacade>().As<IUserFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<ScheduleFacade>().As<IScheduleFacade>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

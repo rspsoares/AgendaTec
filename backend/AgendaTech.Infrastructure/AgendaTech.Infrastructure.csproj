@@ -101,6 +101,9 @@
     <Compile Include="DatabaseModel\TCGUserGroup.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\TSchedules.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\TwoFactorAuthTokens.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>

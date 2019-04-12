@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
 {
+    [Authorize]
     public class ProfessionalsController : Controller
     {
         private readonly IProfessionalFacade _professionalFacade;
@@ -62,6 +63,18 @@ namespace AgendaTech.View.Controllers
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o profissional." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetProfessionalNameCombo(string idCustomer)
+        {
+            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var professionals = _professionalFacade.GetProfessionalNameCombo(customer, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os profissionais." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = professionals, Total = professionals.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
     }
 }

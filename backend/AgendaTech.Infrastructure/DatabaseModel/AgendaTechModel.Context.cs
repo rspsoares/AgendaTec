@@ -39,5 +39,6 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual DbSet<TCGUserGroup> TCGUserGroup { get; set; }
         public virtual DbSet<UserAccounts> UserAccounts { get; set; }
         public virtual DbSet<TCGCustomers> TCGCustomers { get; set; }
+        public virtual DbSet<TSchedules> TSchedules { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AgendaTech.Business.Contracts;
+using AgendaTech.Business.Entities;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.View.Authorization;
 using AgendaTech.View.Models;
@@ -6,6 +7,7 @@ using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {      
         private readonly ICustomerFacade _customerFacade;
@@ -39,7 +41,8 @@ namespace AgendaTech.View.Controllers
         [HttpGet]
         public JsonResult GetCompanyNameCombo()
         {
-            var customers = _customerFacade.GetCompanyNameCombo(out string errorMessage);
+            var idCustomer = _usuarioLogado.Inscricao.Equals(EnUserType.Administrator) ? 0 : _usuarioLogado.IDCustomer;
+            var customers = _customerFacade.GetCompanyNameCombo(idCustomer, out string errorMessage);
                 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);

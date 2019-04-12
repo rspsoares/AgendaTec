@@ -20,6 +20,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
             this.TCGProfessionals = new HashSet<TCGProfessionals>();
             this.TCGServices = new HashSet<TCGServices>();
             this.UserAccounts = new HashSet<UserAccounts>();
+            this.TSchedules = new HashSet<TSchedules>();
         }
     
         public int IDCustomer { get; set; }
@@ -37,5 +38,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual ICollection<TCGServices> TCGServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserAccounts> UserAccounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSchedules> TSchedules { get; set; }
     }
 }

@@ -11,29 +11,14 @@
         document.getElementById("txtNameFilter").value = "";
         document.getElementById("txtLoginFilter").value = "";
 
-        if (!$('#ddlCustomerFilter').prop('disabled')) {
-            var ddlCustomerFilter = $("#ddlCustomerFilter").data("kendoDropDownList");
-            ddlCustomerFilter.select(0);
-        }
-
-        var ddlUserGroup = $("#ddlUserGroup").data("kendoDropDownList");
-        ddlUserGroup.select(0);
+        $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
+        $("#ddlUserGroup").data("kendoDropDownList").select(0);      
 
         LoadUsers();
     });
 
     LoadCompanyNameCombo();
     LoadUserGroupCombo();    
-
-    var currentCustomer = GetCurrentCustomer();
-    if (currentCustomer !== '') {
-        $("#ddlCustomerFilter").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomerFilter").data("kendoDropDownList").enable(false);
-
-        $("#ddlCustomer").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomer").data("kendoDropDownList").enable(false);
-    }
-
     LoadUsers();
 }
 
@@ -114,7 +99,7 @@ function LoadUsers() {
         columns: [
             { field: "IDUser", hidden: true },
             { field: "FullName", title: "Nome", width: "50%" },
-            { field: "CustomerName", title: "Cliente", width: "20%" },
+            { field: "CustomerName", title: "Razão Social", width: "20%" },
             { field: "GroupDescription", title: "Grupo", width: "20%" },
             {
                 title: " ",

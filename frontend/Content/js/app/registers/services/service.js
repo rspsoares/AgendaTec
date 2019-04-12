@@ -41,17 +41,7 @@
 
     $('#txtTime').kendoMaskedTextBox({ mask: "000" });
 
-    LoadCompanyNameCombo();
-   
-    var currentCustomer = GetCurrentCustomer();
-    if (currentCustomer !== '') {
-        $("#ddlCustomerFilter").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomerFilter").data("kendoDropDownList").enable(false);
-
-        $("#ddlCustomer").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomer").data("kendoDropDownList").enable(false);
-    }
-
+    LoadCompanyNameCombo();   
     LoadServices();
 }
 

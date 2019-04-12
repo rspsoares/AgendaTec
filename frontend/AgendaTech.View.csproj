@@ -215,6 +215,7 @@
     <Compile Include="Controllers\ProfessionalsController.cs" />
     <Compile Include="Controllers\RegistrarController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\SemAutorizacaoController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -261,6 +262,7 @@
     <Content Include="Content\images\icones\ico-collapse.png" />
     <Content Include="Content\images\icones\ico-expand.png" />
     <Content Include="Content\images\icones\ico-list-menu.png" />
+    <Content Include="Content\images\layout\background.png" />
     <Content Include="Content\images\layout\bg-icon-mosaic.jpg" />
     <Content Include="Content\images\layout\bg01.jpg" />
     <Content Include="Content\images\layout\loading-page.gif" />
@@ -287,6 +289,7 @@
     <Content Include="Content\jquery\jquery.maskedinput.min.js" />
     <Content Include="Content\jquery\jquery.PrintArea.js" />
     <Content Include="Content\jquery\jquery.PrintArea.min.js" />
+    <Content Include="Content\js\app\control\schedule.js" />
     <Content Include="Content\js\app\registers\empresas\empresas.js" />
     <Content Include="Content\js\app\registers\grupos\grupos.js" />
     <Content Include="Content\js\app\registers\customers\customers.js" />
@@ -1875,6 +1878,7 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Schedules\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

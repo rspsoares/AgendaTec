@@ -14,6 +14,12 @@ namespace AgendaTech.Infrastructure.DatabaseModel
     
     public partial class TCGServices
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TCGServices()
+        {
+            this.TSchedules = new HashSet<TSchedules>();
+        }
+    
         public int IDService { get; set; }
         public int IDCustomer { get; set; }
         public string Description { get; set; }
@@ -21,5 +27,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public int Time { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSchedules> TSchedules { get; set; }
     }
 }

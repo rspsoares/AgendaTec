@@ -8,11 +8,7 @@
     });
 
     $('#btnClear').click(function () {
-        if (!$('#ddlCustomerFilter').prop('disabled')) {
-            var dropdownlist = $("#ddlCustomerFilter").data("kendoDropDownList");
-            dropdownlist.select(0);
-        }
-
+        $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
         document.getElementById("txtNameFilter").value = "";
 
         LoadProfessionals();
@@ -42,16 +38,6 @@
         .removeClass("k-textbox");   
 
     LoadCompanyNameCombo();
-
-    var currentCustomer = GetCurrentCustomer();
-    if (currentCustomer !== '') {
-        $("#ddlCustomerFilter").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomerFilter").data("kendoDropDownList").enable(false);
-
-        $("#ddlCustomer").data('kendoDropDownList').text(currentCustomer);
-        $("#ddlCustomer").data("kendoDropDownList").enable(false);
-    }
-
     LoadProfessionals();
 }
 

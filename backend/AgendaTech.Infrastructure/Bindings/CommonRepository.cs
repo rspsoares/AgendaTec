@@ -81,7 +81,7 @@ namespace AgendaTech.Infrastructure.Repositories
         public void Update(T e)
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required))
-            {
+            {                
                 _table.Attach(e);
                 _context.Entry(e).State = EntityState.Modified;
                 _context.SaveChanges();

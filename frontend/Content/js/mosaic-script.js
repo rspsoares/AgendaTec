@@ -339,8 +339,6 @@ Number.prototype.FormatThousand = function () {
     return output;
 };
 
-
-
 /* -- Gerais -- */
 function OrdenarListBox(listbox) {
     var $r = $(listbox + " option");
@@ -490,23 +488,6 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function GetCurrentCustomer() {
-    var currentCustomer;
-
-    $.ajax({
-        url: "/Users/GetCurrentCustomer",
-        type: "GET",
-        async: false,
-        dataType: "json",
-        cache: false,
-        success: function (result) {
-            currentCustomer = result.Data;
-        }
-    });
-
-    return currentCustomer;
-}
-
 function CNPJCheck(c) {
     var b = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
@@ -549,14 +530,14 @@ function LoadCompanyNameCombo() {
     $('#ddlCustomerFilter').kendoDropDownList({
         dataTextField: "CompanyName",
         dataValueField: "IDCustomer",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
+        dataSource: dsData        
     });
+    $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
 
     $('#ddlCustomer').kendoDropDownList({
         dataTextField: "CompanyName",
         dataValueField: "IDCustomer",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
+        dataSource: dsData
     });
+    $("#ddlCustomer").data("kendoDropDownList").select(0);
 }

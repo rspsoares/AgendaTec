@@ -52,13 +52,16 @@
   <ItemGroup>
     <Compile Include="Bindings\CustomerFacade.cs" />
     <Compile Include="Bindings\ProfessionalFacade.cs" />
+    <Compile Include="Bindings\ScheduleFacade.cs" />
     <Compile Include="Bindings\ServiceFacade.cs" />
     <Compile Include="Bindings\UserFacade.cs" />
     <Compile Include="Contracts\ICustomerFacade.cs" />
     <Compile Include="Contracts\IProfessionalFacade.cs" />
+    <Compile Include="Contracts\IScheduleFacade.cs" />
     <Compile Include="Contracts\IServiceFacade.cs" />
     <Compile Include="Contracts\IUserFacade.cs" />
     <Compile Include="Entities\EnUserType.cs" />
+    <Compile Include="Entities\ScheduleDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

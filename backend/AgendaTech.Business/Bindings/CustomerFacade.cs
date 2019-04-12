@@ -55,7 +55,7 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
-        public List<TCGCustomers> GetCompanyNameCombo(out string errorMessage)
+        public List<TCGCustomers> GetCompanyNameCombo(int idCustomer, out string errorMessage)
         {
             var customers = new List<TCGCustomers>();
 
@@ -63,15 +63,10 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                customers = _commonRepository
-                    .GetAll()
-                    .Select(x => new TCGCustomers()
-                    {
-                        IDCustomer = x.IDCustomer,
-                        CompanyName = x.CompanyName
-                    })
-                    .OrderBy(x => x.CompanyName)
-                    .ToList();
+                customers = _commonRepository.GetAll();
+
+                if (idCustomer > 0)
+                    customers = customers.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();                   
             }
             catch (Exception ex)
             {
@@ -79,7 +74,14 @@ namespace AgendaTech.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return customers;
+            return customers
+                .Select(x => new TCGCustomers()
+                {
+                    IDCustomer = x.IDCustomer,
+                    CompanyName = x.CompanyName
+                })
+                .OrderBy(x => x.CompanyName)
+                .ToList();
         }
 
         public TCGCustomers GetCustomerById(int idCustomer, out string errorMessage)

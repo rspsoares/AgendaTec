@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly IUserFacade _userFacade;
@@ -80,19 +81,7 @@ namespace AgendaTech.View.Controllers
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult GetCurrentCustomer()
-        {
-            var currentCustomer = string.Empty;
-
-            currentCustomer = _usuarioLogado.Inscricao.Equals(EnUserType.Administrator)
-                ? string.Empty
-                : _userFacade.GetUserByUq(_usuarioLogado.uqUsuario, out string errorMessage)?.CustomerName ?? string.Empty;
-
-            return Json(new { Data = currentCustomer }, JsonRequestBehavior.AllowGet);
-        }
+        }        
 
         [HttpGet]
         public JsonResult CheckUserIsConsumer(string idUserGroup)

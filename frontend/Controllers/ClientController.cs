@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
 {
+    [AllowAnonymous]
     public class ClientController : Controller
     {
         // GET: Client

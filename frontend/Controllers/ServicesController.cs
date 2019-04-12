@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
 {
+    [Authorize]
     public class ServicesController : Controller
     {
         private readonly IServiceFacade _serviceFacade;
@@ -28,7 +29,6 @@ namespace AgendaTech.View.Controllers
         public JsonResult GetGrid(string idCustomer, string serviceName)
         {
             int customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
-
             var services = _serviceFacade.GetGrid(customer, serviceName, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

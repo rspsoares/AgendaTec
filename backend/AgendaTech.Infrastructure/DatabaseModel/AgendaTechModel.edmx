@@ -106,6 +106,20 @@
           <Property Name="IDUserGroup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Descripton" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="TSchedules">
+          <Key>
+            <PropertyRef Name="IDSchedule" />
+          </Key>
+          <Property Name="IDSchedule" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCustomer" Type="int" Nullable="false" />
+          <Property Name="IDProfessional" Type="int" Nullable="false" />
+          <Property Name="IDService" Type="int" Nullable="false" />
+          <Property Name="IDConsumer" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="15" Scale="2" Nullable="false" />
+          <Property Name="Time" Type="int" Nullable="false" />
+          <Property Name="Bonus" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="TwoFactorAuthTokens">
           <Key>
             <PropertyRef Name="Key" />
@@ -280,6 +294,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TSchedule_TCGCustomers">
+          <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
+          <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_TCGProfessionals">
+          <End Role="TCGProfessionals" Type="Self.TCGProfessionals" Multiplicity="1" />
+          <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGProfessionals">
+              <PropertyRef Name="IDProfessional" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_TCGServices">
+          <End Role="TCGServices" Type="Self.TCGServices" Multiplicity="1" />
+          <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGServices">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_UserAccounts">
+          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1" />
+          <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDConsumer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserAccounts_TCGCustomers">
           <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
           <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="*" />
@@ -315,6 +377,7 @@
           <EntitySet Name="TCGProfessionals" EntityType="Self.TCGProfessionals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGServices" EntityType="Self.TCGServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGUserGroup" EntityType="Self.TCGUserGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TSchedules" EntityType="Self.TSchedules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TwoFactorAuthTokens" EntityType="Self.TwoFactorAuthTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCertificates" EntityType="Self.UserCertificates" Schema="dbo" store:Type="Tables" />
@@ -350,6 +413,22 @@
           <AssociationSet Name="FK_TCGServices_TCGCustomers" Association="Self.FK_TCGServices_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGServices" EntitySet="TCGServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="Self.FK_TSchedule_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_TCGProfessionals" Association="Self.FK_TSchedules_TCGProfessionals">
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_TCGServices" Association="Self.FK_TSchedules_TCGServices">
+            <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_UserAccounts" Association="Self.FK_TSchedules_UserAccounts">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAccounts_TCGCustomers" Association="Self.FK_UserAccounts_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
@@ -512,6 +591,23 @@
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="UserAccounts" EntitySet="UserAccounts" />
           </AssociationSet>
+          <EntitySet Name="TSchedules" EntityType="AgendaTechModel.TSchedules" />
+          <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="AgendaTechModel.FK_TSchedule_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_TCGProfessionals" Association="AgendaTechModel.FK_TSchedules_TCGProfessionals">
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_TCGServices" Association="AgendaTechModel.FK_TSchedules_TCGServices">
+            <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedules_UserAccounts" Association="AgendaTechModel.FK_TSchedules_UserAccounts">
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="TCGServices">
           <Key>
@@ -523,6 +619,7 @@
           <Property Name="Value" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
           <Property Name="Time" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_TCGServices" FromRole="TCGServices" ToRole="TSchedules" />
         </EntityType>
         <EntityType Name="TCGProfessionals">
           <Key>
@@ -535,6 +632,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TSchedules" />
         </EntityType>
         <EntityType Name="TCGUserGroup">
           <Key>
@@ -590,6 +688,7 @@
           <NavigationProperty Name="UserCertificates" Relationship="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="UserCertificates" />
           <NavigationProperty Name="UserClaims" Relationship="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="UserClaims" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="UserAccounts" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_UserAccounts" FromRole="UserAccounts" ToRole="TSchedules" />
         </EntityType>
         <Association Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey">
           <End Type="AgendaTechModel.UserAccounts" Role="UserAccounts" Multiplicity="1">
@@ -702,6 +801,7 @@
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
           <NavigationProperty Name="TCGServices" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="TCGCustomers" ToRole="UserAccounts" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
         </EntityType>
         <Association Name="FK_TCGProfessionals_TCGCustomers">
           <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
@@ -736,6 +836,72 @@
             </Principal>
             <Dependent Role="UserAccounts">
               <PropertyRef Name="Source" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TSchedules">
+          <Key>
+            <PropertyRef Name="IDSchedule" />
+          </Key>
+          <Property Name="IDSchedule" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCustomer" Type="Int32" Nullable="false" />
+          <Property Name="IDProfessional" Type="Int32" Nullable="false" />
+          <Property Name="IDService" Type="Int32" Nullable="false" />
+          <Property Name="IDConsumer" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Value" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <Property Name="Time" Type="Int32" Nullable="false" />
+          <Property Name="Bonus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TSchedules" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTechModel.FK_TSchedules_TCGProfessionals" FromRole="TSchedules" ToRole="TCGProfessionals" />
+          <NavigationProperty Name="TCGServices" Relationship="AgendaTechModel.FK_TSchedules_TCGServices" FromRole="TSchedules" ToRole="TCGServices" />
+          <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_TSchedules_UserAccounts" FromRole="TSchedules" ToRole="UserAccounts" />
+        </EntityType>
+        <Association Name="FK_TSchedule_TCGCustomers">
+          <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_TCGProfessionals">
+          <End Type="AgendaTechModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGProfessionals">
+              <PropertyRef Name="IDProfessional" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_TCGServices">
+          <End Type="AgendaTechModel.TCGServices" Role="TCGServices" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGServices">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedules_UserAccounts">
+          <End Type="AgendaTechModel.UserAccounts" Role="UserAccounts" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDConsumer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -922,6 +1088,21 @@
                 <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
                 <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TSchedules">
+            <EntityTypeMapping TypeName="AgendaTechModel.TSchedules">
+              <MappingFragment StoreEntitySet="TSchedules">
+                <ScalarProperty Name="Bonus" ColumnName="Bonus" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IDConsumer" ColumnName="IDConsumer" />
+                <ScalarProperty Name="IDService" ColumnName="IDService" />
+                <ScalarProperty Name="IDProfessional" ColumnName="IDProfessional" />
+                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+                <ScalarProperty Name="IDSchedule" ColumnName="IDSchedule" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

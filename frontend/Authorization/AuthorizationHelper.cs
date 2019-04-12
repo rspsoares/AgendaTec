@@ -28,6 +28,10 @@ namespace AgendaTech.View.Authorization
                 if (grupoPrimario != null)
                     usuarioLogado.Inscricao = (EnUserType)Enum.Parse(typeof(EnUserType), grupoPrimario.Value);
 
+                Claim idCustomer = (from c in principal.Claims where c.Type.Equals(@"http://schemas.microsoft.com/ws/2008/06/identity/claims/primarygroupsid") select c).SingleOrDefault();
+                if (idCustomer != null)
+                    usuarioLogado.IDCustomer = int.Parse(idCustomer.Value);
+                
                 Claim usuarioNome = (from c in principal.Claims where c.Type.Equals(@"http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname") select c).SingleOrDefault();
                 usuarioLogado.Nome = usuarioNome.Value;
 

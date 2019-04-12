@@ -79,7 +79,7 @@ namespace AgendaTech.View.Controllers
             menu.AppendLine("<ul>");
             {
                 menu.AppendLine("<li>");
-             //   menu.AppendLine("<a href='/Agenda' title='Agenda'>");
+                menu.AppendLine("<a href='/Schedules' title='Agenda'>");
                 menu.AppendLine("<span class='item'>Agenda</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");

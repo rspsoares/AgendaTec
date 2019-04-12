@@ -10,6 +10,7 @@ namespace AgendaTech.View.Models
         public string Nome { get; set; }
         public Guid uqUsuario { get; set; }
         public string Email { get; set; }       
-        public EnUserType Inscricao { get; set; }        
+        public EnUserType Inscricao { get; set; }
+        public int IDCustomer { get; set; }
     }   
 }

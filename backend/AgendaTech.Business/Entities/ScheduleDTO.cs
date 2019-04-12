@@ -1,0 +1,16 @@
+﻿using System;
+
+namespace AgendaTech.Business.Entities
+{
+    public class ScheduleDTO
+    {
+        public int IDSchedule { get; set; }        
+        public string ProfessionalName { get; set; }
+        public string ServiceName { get; set; }
+        public string ConsumerName { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Value { get; set; }
+        public int Time { get; set; }
+        public bool Bonus { get; set; }
+    }
+}
