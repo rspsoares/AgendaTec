@@ -1,8 +1,11 @@
-﻿namespace AgendaTech.Business.Entities
+﻿using System;
+
+namespace AgendaTech.Business.Entities
 {
     public class UserAccountDTO
     {
         public int IDUser { get; set; }
+        public Guid UkUser { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

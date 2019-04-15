@@ -3,6 +3,7 @@ using AgendaTech.Business.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace AgendaTech.Tests
@@ -24,7 +25,7 @@ namespace AgendaTech.Tests
                .RuleFor(t => t.IDCustomer, f => 1)
                .RuleFor(t => t.IDProfessional, f => 1)
                .RuleFor(t => t.IDService, f => 1)
-               .RuleFor(t => t.IDConsumer, f => 1)
+               .RuleFor(t => t.IDConsumer, f => Guid.Parse("AF3165EC-BF80-4C29-B3CB-60443BA047A4"))
                .RuleFor(t => t.Date, f => f.Date.Soon())
                .RuleFor(t => t.Value, f => f.Random.Decimal(0, 1000))
                .RuleFor(t => t.Time, f => f.Random.Int(0, 60))

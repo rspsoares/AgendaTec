@@ -21,14 +21,16 @@ namespace AgendaTech.Business.Bindings
             _commonRepository = new CommonRepository<TSchedules>();
         }
 
-        public List<ScheduleDTO> GetGrid(int idCustomer, int idProfessional, int idService, int idConsumer, DateTime? dateFrom, DateTime? dateTo, bool? bonus, out string errorMessage)
+        public List<ScheduleDTO> GetGrid(int idCustomer, int idProfessional, int idService, Guid idConsumer, DateTime? dateFrom, DateTime? dateTo, bool? bonus, out string errorMessage)
         {
             var schedules = new List<TSchedules>();
+            IUserFacade userRepository = new UserFacade();
+            var userAccountDTO = new UserAccountDTO();
 
             errorMessage = string.Empty;
 
             try
-            {
+            {                
                 schedules = _commonRepository.GetAll();
                                
                 schedules = schedules.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
@@ -39,8 +41,11 @@ namespace AgendaTech.Business.Bindings
                 if (idService > 0)
                     schedules = schedules.Where(x => x.IDService.Equals(idService)).ToList();
 
-                if (idConsumer > 0)
+                if (!idConsumer.Equals(Guid.Empty))
+                {
                     schedules = schedules.Where(x => x.IDConsumer.Equals(idConsumer)).ToList();
+                    userAccountDTO = userRepository.GetUserByUq(idConsumer, out errorMessage);
+                }
 
                 if(dateFrom.HasValue)
                     schedules = schedules.Where(x => x.Date >= dateFrom.Value).ToList();
@@ -63,7 +68,7 @@ namespace AgendaTech.Business.Bindings
                     IDSchedule = x.IDSchedule,
                     ProfessionalName = x.TCGProfessionals.Name,
                     ServiceName = x.TCGServices.Description,
-                    ConsumerName = $"{x.UserAccounts.FirstName} {x.UserAccounts.LastName}",
+                    ConsumerName = $"{userAccountDTO.FirstName} {userAccountDTO.LastName}",
                     Date = x.Date,
                     Value = x.Value,
                     Time = x.Time,

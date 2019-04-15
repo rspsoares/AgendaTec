@@ -22,6 +22,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
     
         public int IDProfessional { get; set; }
         public int IDCustomer { get; set; }
+        public System.Guid IDUser { get; set; }
         public string Name { get; set; }
         public System.DateTime Birthday { get; set; }
         public string Phone { get; set; }

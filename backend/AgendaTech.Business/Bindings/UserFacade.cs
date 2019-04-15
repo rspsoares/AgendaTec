@@ -138,7 +138,7 @@ namespace AgendaTech.Business.Bindings
             };
         }
 
-        public List<UserAccountDTO> GetUserGroups(EnUserType userGroup, out string errorMessage)
+        public List<UserAccountDTO> GetUserGroupsCombo(EnUserType userGroup, out string errorMessage)
         {
             var userGroups = new List<TCGUserGroup>();
          
@@ -166,7 +166,69 @@ namespace AgendaTech.Business.Bindings
                  .OrderBy(x => x.GroupDescription)
                  .ToList();
         }
-        
+
+        public List<UserAccountDTO> GetUserNamesCombo(int idCustomer, out string errorMessage)
+        {
+            var users = new List<UserAccounts>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                users = _commonRepository.GetAll();
+
+                if (idCustomer > 0)
+                    users = users.Where(x => x.Source.Equals(idCustomer)).ToList();             
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return users
+                 .Select(x => new UserAccountDTO()
+                 {
+                     UkUser = x.ID,
+                     UserName = x.Username,
+                 })
+                 .OrderBy(x => x.GroupDescription)
+                 .ToList();
+        }
+
+        public List<UserAccountDTO> GetConsumerNamesCombo(int idCustomer, out string errorMessage)
+        {
+            var users = new List<UserAccounts>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                users = _commonRepository
+                    .GetAll()
+                    .Where(x => x.Inscription.Equals((int)EnUserType.Consumer))
+                    .ToList();
+
+                if (idCustomer > 0)
+                    users = users.Where(x => x.Source.Equals(idCustomer)).ToList();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return users
+                 .Select(x => new UserAccountDTO()
+                 {
+                     UkUser = x.ID,
+                     FullName = $"{x.FirstName} {x.LastName}"                     
+                 })
+                 .OrderBy(x => x.GroupDescription)
+                 .ToList();
+
+        }
+
         public void Update(UserAccountDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;

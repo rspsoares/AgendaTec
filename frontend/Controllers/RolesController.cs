@@ -55,12 +55,6 @@ namespace AgendaTech.View.Controllers
             menu.AppendLine("</a>");
             menu.AppendLine("</li>");
 
-            menu.AppendLine("<li>");
-            menu.AppendLine("<a href='/Professionals' title='Profissionais'>");
-            menu.AppendLine("<span class='item'>Profissionais</span>");
-            menu.AppendLine("</a>");
-            menu.AppendLine("</li>");
-
             if (_usuarioLogado.Inscricao.Equals(EnUserType.Administrator) || _usuarioLogado.Inscricao.Equals(EnUserType.Customer))
             {
                 menu.AppendLine("<li>");
@@ -70,6 +64,12 @@ namespace AgendaTech.View.Controllers
                 menu.AppendLine("</li>");
                 menu.AppendLine("</li>");
             }
+
+            menu.AppendLine("<li>");
+            menu.AppendLine("<a href='/Professionals' title='Profissionais'>");
+            menu.AppendLine("<span class='item'>Profissionais</span>");
+            menu.AppendLine("</a>");
+            menu.AppendLine("</li>");          
 
             menu.AppendLine("</ul>");
 

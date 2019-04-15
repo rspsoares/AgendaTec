@@ -1,7 +1,9 @@
 ﻿using AgendaTech.Business.Contracts;
+using AgendaTech.Business.Entities;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.View.Authorization;
 using AgendaTech.View.Models;
+using System;
 using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
@@ -69,7 +71,9 @@ namespace AgendaTech.View.Controllers
         public JsonResult GetProfessionalNameCombo(string idCustomer)
         {
             var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
-            var professionals = _professionalFacade.GetProfessionalNameCombo(customer, out string errorMessage);
+            var professional = _usuarioLogado.Inscricao.Equals(EnUserType.Professional) ? _usuarioLogado.uqUsuario : Guid.Empty;
+
+            var professionals = _professionalFacade.GetProfessionalNameCombo(customer, professional, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os profissionais." }, JsonRequestBehavior.AllowGet);

@@ -4,11 +4,16 @@
     });
 
     $('#btnSearch').click(function () {
-    //    LoadSchedules();
+        LoadSchedules();
     });
 
     $('#btnClear').click(function () {
-      //  LoadSchedules();
+        $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
+        ddlCustomerFilterChange();
+        $("#dtDateFromFilter").val("");
+        $("#dtDateToFilter").val("");
+        $('#chkBonusFilter').bootstrapSwitch('state', true);
+        LoadSchedules();
     });
 
     var dtDateFromFilter = $("#dtDateFromFilter");
@@ -33,34 +38,38 @@
         .add(dtDateToFilter)
         .removeClass("k-textbox");
 
+    var d = new Date();
+    $("#dtDateTime").kendoDateTimePicker({
+        value: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0),
+        min: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0)        
+    });
+
+    $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
     LoadCompanyNameCombo();
     
     $("#ddlCustomerFilter")
         .data("kendoDropDownList")
-        .bind("select", ddlCustomerFilterChange);
+        .bind("change", ddlCustomerFilterChange);
 
-    //$("#ddlCustomer")
-    //    .data("kendoDropDownList")
-    //    .bind("select", ddlCustomerChange);
+    $("#ddlCustomer")
+        .data("kendoDropDownList")
+        .bind("change", ddlCustomerChange);
     
     LoadProfessionalsFilterCombo();
     LoadProfessionalsCombo();
-
     LoadServiceFilterCombo();
     LoadServiceCombo();
-
     LoadConsumerFilterCombo();
     LoadConsumerCombo();
-
-   // LoadSchedules();
+    LoadSchedules();
 }
 
 function ddlCustomerFilterChange(e) {
     $('#ddlProfessionalFilter').data('kendoDropDownList').dataSource.read();
-   // $('#ddlServiceFilter').data('kendoDropDownList').dataSource.read();
-    //$('#ddlConsumerFilter').data('kendoDropDownList').dataSource.read();
+    $('#ddlServiceFilter').data('kendoDropDownList').dataSource.read();
+    $('#ddlConsumerFilter').data('kendoDropDownList').dataSource.read();
 }
 
 function ddlCustomerChange(e) {
@@ -91,7 +100,7 @@ function LoadProfessionalsFilterCombo() {
                 parameterMap: function (data, type) {
                     if (type === "read") {
                         return {
-                            idCustomer: $("#ddlCustomerFilter").val()
+                            idCustomer: $("#ddlCustomerFilter").val()                            
                         };
                     }
                 }
@@ -113,7 +122,7 @@ function LoadProfessionalsCombo() {
             },
             transport: {
                 read: {
-                    url: "/Professional/GetProfessionalNameCombo",
+                    url: "/Professionals/GetProfessionalNameCombo",
                     dataType: "json",
                     type: "GET",
                     async: true,
@@ -132,86 +141,202 @@ function LoadProfessionalsCombo() {
 }
 
 function LoadServiceFilterCombo() {
-
-
+    $('#ddlServiceFilter').kendoDropDownList({
+        placeholder: "Selecione...",
+        dataTextField: 'Description',
+        dataValueField: 'IDService',
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Services/GetServiceNameCombo",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomerFilter").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
 function LoadServiceCombo() {
-
-
+    $('#ddlService').kendoDropDownList({
+        placeholder: "Selecione...",
+        dataTextField: 'Description',
+        dataValueField: 'IDService',
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Services/GetServiceNameCombo",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomer").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
 function LoadConsumerFilterCombo() {
-
-
+    $('#ddlConsumerFilter').kendoDropDownList({
+        placeholder: "Selecione...",
+        dataTextField: 'FullName',
+        dataValueField: 'UkUser',
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Users/GetConsumerNamesCombo",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomerFilter").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
 function LoadConsumerCombo() {
-
-
+    $('#ddlConsumer').kendoDropDownList({
+        placeholder: "Selecione...",
+        dataTextField: 'FullName',
+        dataValueField: 'UkUser',
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Users/GetConsumerNamesCombo",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomer").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
+function LoadSchedules() {
+    $("#grid").html("");
+    $("#grid").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "/Schedules/GetGrid",
+                    dataType: "json",
+                    type: "GET",
+                    async: false,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomerFilter").val(),
+                            idProfessional: $("#ddlProfessionalFilter").val(),
+                            idService: $("#ddlServiceFilter").val(),
+                            idConsumer: $("#ddlConsumerFilter").val(),
+                            dateFrom: kendo.parseDate($("#dtDateFromFilter").val(), "dd/MM/yyyy"),
+                            dateTo: kendo.parseDate($("#dtDateToFilter").val(), "dd/MM/yyyy"),
+                            bonus: $('#chkBonusFilter').bootstrapSwitch('state')
+                        };
+                    }
+                }
+            },
+            serverPaging: true,
+            serverSorting: true,            
+            serverGrouping: false,
+            pageSize: 10,
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                },
+                total: function (result) {
+                    return result.Total;
+                }
+            }
+        },
+        scrollable: true,
+        resizable: true,
+        sortable: true,
+        groupable: true,
+        reorderable: true,
+        pageable: {
+            pageSizes: [10, 25, 50]
+        },
+        columns: [
+            { field: "IDSchedule", hidden: true },
+            { field: "ProfessionalName", title: "Profissional", width: "60%" },
+            { field: "ServiceName", title: "Serviço", width: "60%" },
+            { field: "ConsumerName", title: "Cliente", width: "60%" },
+            { field: "Date", title: "Data", template: "#= kendo.toString(kendo.parseDate(Date, 'yyyy-MM-dd'), 'dd/MM/yyyy') #", width: "15%" },
+            { field: "Time", title: "Hora", width: "15%" },
+            { field: "Bonus", title: "Bônus", width: "15%", template: "#:BonusDescription(Bonus)#" },
+            //{
+            //    title: " ",
+            //    template: "<a onclick='javascript:{CustomerEdit(this);}' class='k-button'>"
+            //        + "<span class='glyphicon glyphicon glyphicon-pencil'></span></a>",
+            //    width: "10%",
+            //    attributes: { style: "text-align:center;" },
+            //    filterable: false
+            //}
+        ]
+    });
+}
 
-//function LoadSchedules() {
-//    $("#grid").html("");
-//    $("#grid").kendoGrid({
-//        dataSource: {
-//            transport: {
-//                read: {
-//                    url: "/Customers/GetGrid",
-//                    dataType: "json",
-//                    type: "GET",
-//                    async: false,
-//                    cache: false
-
-//                },
-//                parameterMap: function (data, type) {
-//                    if (type === "read") {
-//                        return {
-//                            customerName: $('#txtCompanyNameFilter').val()
-//                        };
-//                    }
-//                }
-//            },
-//            pageSize: 10,
-//            schema: {
-//                data: function (result) {
-//                    return result.Data;
-//                },
-//                total: function (result) {
-//                    return result.Total;
-//                }
-//            }
-//        },
-//        scrollable: true,
-//        resizable: true,
-//        sortable: true,
-//        pageable: {
-//            pageSizes: [10, 25, 50]
-//        },
-//        columns: [
-//            { field: "IDCustomer", hidden: true },
-//            { field: "CompanyName", title: "Razao Social", width: "60%" },
-//            { field: "HireDate", title: "Data Contratação", template: "#= kendo.toString(kendo.parseDate(HireDate, 'yyyy-MM-dd'), 'dd/MM/yyyy') #", width: "15%" },
-//            { field: "Active", title: "Ativo", width: "15%", template: "#:StatusDescription(Active)#" },
-//            {
-//                title: " ",
-//                template: "<a onclick='javascript:{CustomerEdit(this);}' class='k-button'>"
-//                    + "<span class='glyphicon glyphicon glyphicon-pencil'></span></a>",
-//                width: "10%",
-//                attributes: { style: "text-align:center;" },
-//                filterable: false
-//            }
-//        ]
-//    });
-//}
-
-//function StatusDescription(varStatus) {
-//    if (varStatus === true)
-//        return "Ativo";
-//    else
-//        return "Inativo";
-//}
+function BonusDescription(bonus) {
+    if (bonus === true)
+        return "Ativo";
+    else
+        return "Inativo";
+}
 
 function AddAppointment() {
     CleanFields();
@@ -222,14 +347,11 @@ function AddAppointment() {
 }
 
 function CleanFields() {
-    //$("#hiddenIDCustomer").val(0);
-    //$("#txtCompanyName").val("");
-    //$("#txtCNPJ").val("");
-    //$("#txtAddress").val("");
-    //$("#txtPhone").val("");
-    //$("#dtHireDate").val("");
-    //$('#chkActive').bootstrapSwitch('state', true);
-    //$("#txtNote").val("");
+    $("#IDSchedule").val(0);   
+    $("#ddlCustomer").data("kendoDropDownList").select(0);
+    ddlCustomerChange();   
+    $("#dtDateTime").val("");
+    $('#chkBonus').bootstrapSwitch('state', true);
 }
 
 //function CustomerEdit(e) {
@@ -272,69 +394,64 @@ function CleanFields() {
 //    $("#loading-page").hide();
 //}
 
-//function SaveCustomer() {
-//    var customer = [];
+function SaveAppointment() {
+    var schedule = [];
 
-//    var errorMessages = ValidateRequiredFields();
+    var errorMessages = ValidateRequiredFields();
 
-//    if (errorMessages !== '') {
-//        ShowModalAlert(errorMessages);
-//        return;
-//    }
+    if (errorMessages !== '') {
+        ShowModalAlert(errorMessages);
+        return;
+    }
+    
+    schedule = {
+        IDSchedule: parseInt($("#IDSchedule").val()),
+        IDCustomer: $("#ddlCustomer").val(),
+        IDProfessional: $("#ddlProfessional").val(),
+        IDService: $("#ddlService").val(),
+        IDConsumer: $("#ddlConsumer").val(),
+        Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
+        Bonus: $('#chkBonus').bootstrapSwitch('state')        
+    };
 
-//    customer = {
-//        IDCustomer: parseInt($("#hiddenIDCustomer").val()),
-//        CompanyName: $("#txtCompanyName").val(),
-//        CNPJ: $("#txtCNPJ").val().replace(/[^\d]/g, ""),
-//        Address: $("#txtAddress").val(),
-//        Phone: $("#txtPhone").val(),
-//        HireDate: kendo.parseDate($("#dtHireDate").val(), "dd/MM/yyyy"),
-//        Active: $('#chkActive').bootstrapSwitch('state'),
-//        Note: $("#txtNote").val()
-//    };
+    $("#loading-page").show();
 
-//    $("#loading-page").show();
+    $.ajax({
+        url: '/Schedules/SaveAppointment',
+        data: JSON.stringify({ schedule: schedule }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            $("#loading-page").hide();
+            if (result.Success) {
+                ShowModalSucess("Gravação concluída com sucesso.");
+                $('#modalScheduleEdit').modal("hide");
+                LoadSchedules();
+            }
+            else
+                ShowModalAlert("Erro ao gravar alterações.");
+        }
+    });
+}
 
-//    $.ajax({
-//        url: '/Customers/SaveCustomer',
-//        data: JSON.stringify({ customer: customer }),
-//        type: 'POST',
-//        async: false,
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (result) {
-//            $("#loading-page").hide();
-//            if (result.Success) {
-//                ShowModalSucess("Gravação concluída com sucesso.");
-//                $('#modalCustomerEdit').modal("hide");
-//                LoadCustomers();
-//            }
-//            else
-//                ShowModalAlert("Erro ao gravar alterações.");
-//        }
-//    });
-//}
+function ValidateRequiredFields() {
+    var errorMessage = '';
 
-//function ValidateRequiredFields() {
-//    var errorMessage = '';
+    if ($("#ddlCustomer").val() === '')
+        errorMessage += 'Favor informar a Razão Social' + '<br/>';
 
-//    if ($("#txtCompanyName").val() === '')
-//        errorMessage += 'Favor informar a Razão Social' + '<br/>';
+    if ($("#ddlProfessional").val() === '')
+        errorMessage += 'Favor informar o Profissional' + '<br/>';
 
-//    if ($("#txtCNPJ").val() === '')
-//        errorMessage += 'Favor informar o CNPJ' + '<br/>';
-//    else {
-//        if (!CNPJCheck($("#txtCNPJ").val()))
-//            errorMessage += 'CNPJ inválido' + '<br/>';
-//    }
+    if ($("#ddlService").val() === '')
+        errorMessage += 'Favor informar o Serviço' + '<br/>';
 
-//    if ($("#txtAddress").val() === '')
-//        errorMessage += 'Favor informar o Endereço' + '<br/>';
+    if ($("#ddlConsumer").val() === '')
+        errorMessage += 'Favor informar o Cliente' + '<br/>';
 
-//    if ($("#txtPhone").val() === '')
-//        errorMessage += 'Favor informar o Telefone' + '<br/>';
-
-//    if ($("#dtHireDate").val() === '')
-//        errorMessage += 'Favor informar a Data de Contratação' + '<br/>';
-
-//    return errorMessage;
-//}
+    if ($("#dtDateTime").val() === '')
+        errorMessage += 'Favor informar a Data / Hora' + '<br/>';
+    
+    return errorMessage;
+}

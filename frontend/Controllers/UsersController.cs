@@ -33,7 +33,7 @@ namespace AgendaTech.View.Controllers
         [HttpGet]
         public JsonResult GetUserGroupCombo()
         {
-            var userGroups = _userFacade.GetUserGroups(_usuarioLogado.Inscricao, out string errorMessage);
+            var userGroups = _userFacade.GetUserGroupsCombo(_usuarioLogado.Inscricao, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
@@ -67,16 +67,16 @@ namespace AgendaTech.View.Controllers
         public JsonResult SaveUser(UserAccountDTO userDTO)
         {
             string errorMessage = string.Empty;
-
+            
             var fullNameSplit = userDTO.FullName.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
             userDTO.FirstName = fullNameSplit.FirstOrDefault();
             userDTO.LastName = string.Join(" ", fullNameSplit.Skip(1));
 
-                if (userDTO.IDUser.Equals(0))                
-                    userDTO.IDUser = _userSvc.CreateAccount(userDTO.UserName, "AgendaTech123", userDTO.Email).Key;                   
-           
-            _userFacade.Update(userDTO, out errorMessage);
+            if (userDTO.IDUser.Equals(0))
+                userDTO.IDUser = _userSvc.CreateAccount(userDTO.UserName, "AgendaTech123", userDTO.Email).Key;
 
+            _userFacade.Update(userDTO, out errorMessage);
+            
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
             else
@@ -88,6 +88,30 @@ namespace AgendaTech.View.Controllers
         {
             var consumer = int.Parse(idUserGroup).Equals((int)EnUserType.Consumer);                
             return Json(new { Data = consumer }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserNameCombo(string idCustomer)
+        {
+            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var userGroups = _userFacade.GetUserNamesCombo(customer, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = userGroups, Total = userGroups.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetConsumerNamesCombo(string idCustomer)
+        {
+            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var userGroups = _userFacade.GetConsumerNamesCombo(customer, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = userGroups, Total = userGroups.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
     }    
 }

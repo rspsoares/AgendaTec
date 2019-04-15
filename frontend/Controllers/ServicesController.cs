@@ -63,5 +63,17 @@ namespace AgendaTech.View.Controllers
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetServiceNameCombo(string idCustomer)
+        {
+            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);           
+            var services = _serviceFacade.GetServiceNameCombo(customer, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os serviços." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = services, Total = services.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
     }
 } 

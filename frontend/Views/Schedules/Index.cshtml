@@ -66,7 +66,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label><strong>Razão Social</strong></label>
+                                        <label><strong>Cliente</strong></label>
                                         <input id="ddlConsumerFilter" name="ddlConsumerFilter" class="filter" style="width: 100%;" data-required="true" />
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label><strong>Bônus</strong></label><br />
-                                        <input id="chkBonus" type="checkbox" data-field="chkBonus" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
+                                        <input id="chkBonusFilter" type="checkbox" data-field="chkBonus" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
                                     </div>
                                 </div>
                             </div>
@@ -129,33 +129,49 @@
                 <div class="row">
                     <input type="hidden" id="hiddenIDSchedule" />
                     <form id="serviceForm">
-                        <div class="col-xs-12">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="ddlCustomer" style="font-weight:bold">Razão Social</label> <br />
-                                    <input id="ddlCustomer" data-field="ddlCustomer" style="width: 100%;" required />
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlCustomer" style="font-weight:bold">Razão Social</label> <br />
+                                        <input id="ddlCustomer" data-field="ddlCustomer" style="width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="ddlProfessional" style="font-weight:bold">Profissional</label> <br />
+                                        <input id="ddlProfessional" data-field="ddlProfessional" style="width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Serviço</strong></label>
+                                        <input id="ddlService" name="ddlService" style="width: 100%;"  />
+                                    </div>
                                 </div>
                             </div>
-
-                            @*<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="txtDescription" style="font-weight:bold">Descrição</label> <br />
-                                    <input id="txtDescription" name="txtDescription" type="text" class="k-textbox" placeholder="Descrição" style="width: 100%">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Cliente</strong></label>
+                                        <input id="ddlConsumer" name="ddlConsumerFilter" style="width: 100%;" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label><strong>Data / Hora</strong></label>
+                                        <input id="dtDateTime" name="dtDateTime" style="width: 100%">
+                                    </div>
+                                </div>                                
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label><strong>Bônus</strong></label><br />
+                                        <input id="chkBonus" type="checkbox" data-field="chkBonus" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
+                                    </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="txtValue" style="font-weight:bold">Valor (R$)</label> <br />
-                                    <input id="txtValue" name="txtValue" type="text" class="k-textbox" placeholder="Valor (R$)" style="width: 100%">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="txtTime" style="font-weight:bold">Tempo de execução (minutos)</label> <br />
-                                    <input id="txtTime" name="txtTime" type="text" class="k-textbox" placeholder="Tempo (minutos)" style="width: 100%">
-                                </div>
-                            </div>*@
                         </div>
                     </form>
                 </div>
@@ -164,7 +180,7 @@
                 <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
                     <span class="glyphicon glyphicon-remove"></span> Cancelar
                 </button>
-                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveService(); }">
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveAppointment(); }">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
                 </button>
             </div>

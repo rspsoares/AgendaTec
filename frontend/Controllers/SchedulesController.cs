@@ -32,10 +32,10 @@ namespace AgendaTech.View.Controllers
         {
             var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
-            var consumer = string.IsNullOrEmpty(idConsumer) ? 0 : int.Parse(idConsumer);
+            var consumer = string.IsNullOrEmpty(idConsumer) ? Guid.Empty : Guid.Parse(idConsumer);
             var dateInitial = string.IsNullOrEmpty(dateFrom) ? (DateTime?)null : DateTime.Parse(dateFrom);
             var dateFinal = string.IsNullOrEmpty(dateTo) ? (DateTime?)null : DateTime.Parse(dateTo);
-            var bonusCheck = string.IsNullOrEmpty(bonus) ? (bool?)null : bonus.Equals("1") ? true : false;
+            var bonusCheck = string.IsNullOrEmpty(bonus) ? (bool?)null : bonus.Equals("true") ? true : false;
 
             var schedules = _scheduleFacade.GetGrid(int.Parse(idCustomer), professional, service, consumer, dateInitial, dateFinal, bonusCheck, out string errorMessage);
 
@@ -61,7 +61,7 @@ namespace AgendaTech.View.Controllers
         {
             string errorMessage = string.Empty;
 
-            if (schedule.IDCustomer.Equals(0))
+            if (schedule.IDSchedule.Equals(0))
                 _scheduleFacade.Insert(schedule, out errorMessage);
             else
                 _scheduleFacade.Update(schedule, out errorMessage);

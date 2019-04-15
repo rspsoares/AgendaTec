@@ -37,8 +37,49 @@
         .add(dtBirthday)
         .removeClass("k-textbox");   
 
-    LoadCompanyNameCombo();
-    LoadProfessionals();
+    LoadUserNamesCombo();    
+
+    LoadCompanyNameCombo(); 
+    $("#ddlCustomer")
+        .data("kendoDropDownList")
+        .bind("change", ddlCustomerChange);
+
+    LoadProfessionals();  
+}
+
+function ddlCustomerChange(e) {
+    $('#ddlUserName').data('kendoDropDownList').dataSource.read();       
+}
+
+function LoadUserNamesCombo() {    
+    $('#ddlUserName').kendoDropDownList({
+        placeholder: "Selecione...",
+        dataTextField: 'UserName',
+        dataValueField: 'UkUser',
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Users/GetUserNameCombo",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomer").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
 function LoadProfessionals() {
@@ -98,6 +139,8 @@ function LoadProfessionals() {
 function AddProfessional() {
     CleanFields();
 
+    $('#ddlUserName').data('kendoDropDownList').dataSource.read();
+
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Profissional");
     $('#modalProfessionalEdit').modal({ backdrop: 'static', keyboard: false });
@@ -135,6 +178,8 @@ function ProfessionalEdit(e) {
             if (result.Success) {
                 $("#hiddenIDProfessional").val(result.Data.IDProfessional);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                $('#ddlUserName').data('kendoDropDownList').dataSource.read();
+                $("#ddlUserName").data('kendoDropDownList').value(result.Data.IDUser);
                 $("#txtName").val(result.Data.Name);
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $("#txtPhone").val(result.Data.Phone);
@@ -167,6 +212,7 @@ function SaveProfessional() {
     professional = {
         IDProfessional: parseInt($("#hiddenIDProfessional").val()),
         IDCustomer: $("#ddlCustomer").val(),
+        IDUser: $("#ddlUserName").val(),
         Name: $("#txtName").val(),
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
         Phone: $("#txtPhone").val(),
@@ -200,7 +246,10 @@ function ValidateRequiredFields() {
 
     if ($("#txtName").val() === '')
         errorMessage += 'Favor informar o Nome' + '<br/>';
-    
+
+    if ($("#ddlUserName").val() === '')
+        errorMessage += 'Favor informar o Usuário' + '<br/>';
+
     if ($("#dtBirthday").val() === '')
         errorMessage += 'Favor informar a Data de Nascimento' + '<br/>';
 

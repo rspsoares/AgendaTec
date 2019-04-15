@@ -60,7 +60,7 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
-        public List<TCGProfessionals> GetProfessionalNameCombo(int idCustomer, out string errorMessage)
+        public List<TCGProfessionals> GetProfessionalNameCombo(int idCustomer, Guid idUser, out string errorMessage)
         {
             var professionals = new List<TCGProfessionals>();
 
@@ -68,8 +68,13 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
+                professionals = _commonRepository.GetAll();
+
                 if (idCustomer > 0)
-                    professionals = _commonRepository.GetAll().Where(x => x.IDCustomer.Equals(idCustomer)).ToList();                
+                    professionals = professionals.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();                
+
+                if(!idUser.Equals(Guid.Empty))
+                    professionals = professionals.Where(x => x.IDUser.Equals(idUser)).ToList();
             }
             catch (Exception ex)
             {
@@ -105,6 +110,7 @@ namespace AgendaTech.Business.Bindings
                 {
                     IDProfessional = result.IDProfessional,
                     IDCustomer = result.IDCustomer,
+                    IDUser = result.IDUser,
                     Name = result.Name,
                     Birthday = result.Birthday,
                     Phone = result.Phone,

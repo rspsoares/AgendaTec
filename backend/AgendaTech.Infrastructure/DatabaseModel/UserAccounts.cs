@@ -23,7 +23,6 @@ namespace AgendaTech.Infrastructure.DatabaseModel
             this.TwoFactorAuthTokens = new HashSet<TwoFactorAuthTokens>();
             this.UserCertificates = new HashSet<UserCertificates>();
             this.UserClaims = new HashSet<UserClaims>();
-            this.TSchedules = new HashSet<TSchedules>();
         }
     
         public int Key { get; set; }
@@ -67,6 +66,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual ICollection<LinkedAccounts> LinkedAccounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PasswordResetSecrets> PasswordResetSecrets { get; set; }
+        public virtual TCGCustomers TCGCustomers { get; set; }
         public virtual TCGUserGroup TCGUserGroup { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TwoFactorAuthTokens> TwoFactorAuthTokens { get; set; }
@@ -74,8 +74,5 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual ICollection<UserCertificates> UserCertificates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserClaims> UserClaims { get; set; }
-        public virtual TCGCustomers TCGCustomers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TSchedules> TSchedules { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public int IDCustomer { get; set; }
         public int IDProfessional { get; set; }
         public int IDService { get; set; }
-        public int IDConsumer { get; set; }
+        public System.Guid IDConsumer { get; set; }
         public System.DateTime Date { get; set; }
         public decimal Value { get; set; }
         public int Time { get; set; }
@@ -27,6 +27,5 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual TCGCustomers TCGCustomers { get; set; }
         public virtual TCGProfessionals TCGProfessionals { get; set; }
         public virtual TCGServices TCGServices { get; set; }
-        public virtual UserAccounts UserAccounts { get; set; }
     }
 }
