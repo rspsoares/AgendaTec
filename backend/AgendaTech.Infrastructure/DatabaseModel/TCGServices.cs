@@ -23,7 +23,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public int IDService { get; set; }
         public int IDCustomer { get; set; }
         public string Description { get; set; }
-        public decimal Value { get; set; }
+        public decimal Price { get; set; }
         public int Time { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }

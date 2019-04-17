@@ -39,7 +39,7 @@ namespace AgendaTech.Infrastructure.Repositories
             return result;
         }
 
-        public T GetById(object id)
+        public T GetById(int id)
         {
             var result = default(T);
             result = Activator.CreateInstance<T>();
@@ -71,26 +71,25 @@ namespace AgendaTech.Infrastructure.Repositories
             {
                 _table.Add(e);
                 _context.SaveChanges();
-
                 scope.Complete();
             }
 
             return e;
         }
 
-        public void Update(T e)
+        public void Update(int id, T e)
         {
-            using (var scope = new TransactionScope(TransactionScopeOption.Required))
-            {                
-                _table.Attach(e);
-                _context.Entry(e).State = EntityState.Modified;
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
+            {
+                var entity = GetById(id);
+                _context.Entry(entity).CurrentValues.SetValues(e);
                 _context.SaveChanges();
 
                 scope.Complete();
             }
         }
 
-        public void Delete(object id)
+        public void Delete(int id)
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
             {

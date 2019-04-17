@@ -93,7 +93,6 @@ function LoadProfessionals() {
                     type: "GET",
                     async: false,
                     cache: false
-
                 },
                 parameterMap: function (data, type) {
                     if (type === "read") {
@@ -155,7 +154,7 @@ function CleanFields() {
     }
 
     $("#txtName").val("");
-    $("#dtHireDate").val("");
+    $("#dtBirthday").val("");
     $("#txtPhone").val("");
     $("#txtEmail").val("");   
 }
@@ -235,7 +234,7 @@ function SaveProfessional() {
                 LoadProfessionals();
             }
             else
-                ShowModalAlert("Erro ao gravar alterações.");
+                ShowModalAlert(result.errorMessage);
         }
     });
 }

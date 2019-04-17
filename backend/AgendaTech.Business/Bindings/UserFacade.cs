@@ -246,7 +246,7 @@ namespace AgendaTech.Business.Bindings
                 user.Email = e.Email;
                 user.IsLoginAllowed = userType.Equals(EnUserType.Consumer) ? false : e.Active;
                 
-                _commonRepository.Update(user);
+                _commonRepository.Update(e.IDUser, user);
             }
             catch (Exception ex)
             {

@@ -23,7 +23,7 @@ namespace AgendaTech.Tests
             var fakeService = new Faker<TCGServices>()
                 .RuleFor(t => t.IDCustomer, f => 1)
                 .RuleFor(t => t.Description, f => f.Commerce.ProductName().ToString())
-                .RuleFor(t => t.Value, f => f.Random.Decimal(0, 1000))
+                .RuleFor(t => t.Price, f => f.Random.Decimal(0, 1000))
                 .RuleFor(t => t.Time, f => f.Random.Int(0, 60));          
 
             var idService = _serviceRepository.Insert(fakeService, out string errorMessage).IDService;

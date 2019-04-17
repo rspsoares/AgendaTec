@@ -61,6 +61,9 @@ namespace AgendaTech.View.Controllers
         {
             string errorMessage = string.Empty;
 
+            //Não permitir agendar pro mesmo profissional no mesmo dia/hora
+
+
             if (schedule.IDSchedule.Equals(0))
                 _scheduleFacade.Insert(schedule, out errorMessage);
             else

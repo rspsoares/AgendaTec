@@ -8,8 +8,9 @@ namespace AgendaTech.Business.Entities
         public string ProfessionalName { get; set; }
         public string ServiceName { get; set; }
         public string ConsumerName { get; set; }
-        public DateTime Date { get; set; }
-        public decimal Value { get; set; }
+        public string Date { get; set; }
+        public string Hour { get; set; }
+        public decimal Price { get; set; }
         public int Time { get; set; }
         public bool Bonus { get; set; }
     }

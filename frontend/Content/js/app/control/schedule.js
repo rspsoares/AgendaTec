@@ -1,4 +1,6 @@
-﻿function PageSetup() {
+﻿var selectedRows;
+
+function PageSetup() {
     $('#btnAddAppointment').click(function () {
         AddAppointment();
     });
@@ -44,6 +46,24 @@
         min: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0)        
     });
 
+    $('#txtPrice').on('keypress', function (e) {
+        if (e.which !== 8 && e.which !== 0 && e.which !== 44 && e.which !== 45 && (e.which < 48 || e.which > 57))
+            return false;
+    });
+
+    $('#txtPrice').on('blur', function () {
+        var price = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
+        if (price)
+            $(this).val(price.FormatMoney(2, '', '.', ','));
+        else
+            $(this).val("0,00");
+    });
+
+    $('#txtTime').on('keypress', function (e) {
+        if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57))
+            return false;
+    });
+
     $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
@@ -56,11 +76,17 @@
     $("#ddlCustomer")
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
-    
+
     LoadProfessionalsFilterCombo();
     LoadProfessionalsCombo();
     LoadServiceFilterCombo();
     LoadServiceCombo();
+
+    $("#ddlService")
+        .data("kendoDropDownList")
+        .bind("change", ddlServiceChange);
+
+
     LoadConsumerFilterCombo();
     LoadConsumerCombo();
     LoadSchedules();
@@ -77,6 +103,29 @@ function ddlCustomerChange(e) {
     $('#ddlService').data('kendoDropDownList').dataSource.read();
     $('#ddlConsumer').data('kendoDropDownList').dataSource.read();
 }
+
+function ddlServiceChange(e) {
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        url: "/Services/GetService",
+        data: { "idService": $("#ddlService").val() },
+        cache: false,
+        async: false,
+        success: function (result) {
+            if (result.Success) {               
+                $("#txtPrice").val(result.Data.Price);
+                $("#txtTime").val(result.Data.Time);                
+            }
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
+}
+
 
 function LoadProfessionalsFilterCombo() {
     $('#ddlProfessionalFilter').kendoDropDownList({
@@ -125,7 +174,7 @@ function LoadProfessionalsCombo() {
                     url: "/Professionals/GetProfessionalNameCombo",
                     dataType: "json",
                     type: "GET",
-                    async: true,
+                    async: false,
                     cache: false
                 },
                 parameterMap: function (data, type) {
@@ -187,7 +236,7 @@ function LoadServiceCombo() {
                     url: "/Services/GetServiceNameCombo",
                     dataType: "json",
                     type: "GET",
-                    async: true,
+                    async: false,
                     cache: false
                 },
                 parameterMap: function (data, type) {
@@ -249,7 +298,7 @@ function LoadConsumerCombo() {
                     url: "/Users/GetConsumerNamesCombo",
                     dataType: "json",
                     type: "GET",
-                    async: true,
+                    async: false,
                     cache: false
                 },
                 parameterMap: function (data, type) {
@@ -267,13 +316,50 @@ function LoadConsumerCombo() {
 function LoadSchedules() {
     $("#grid").html("");
     $("#grid").kendoGrid({
+        toolbar: [
+            { name: 'excel', text: 'Exportar Excel' },
+            { template: kendo.template($("#rescheduleTemplate").html()) },
+            { template: kendo.template($("#deleteTemplate").html()) }  
+        ],
+        excel: {
+            fileName: 'Agenda_' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + '.xlsx',
+            allPages: true
+        },
+        excelExport: function (e) {
+            var sheet = e.workbook.sheets[0];
+            for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
+                if (rowIndex % 2 == 0) {
+                    var row = sheet.rows[rowIndex];
+                    for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
+                        row.cells[cellIndex].background = "#aabbcc";
+                    }
+                }
+            }
+
+            var columns = e.workbook.sheets[0].columns;
+            columns.forEach(function (column) {
+                delete column.width;
+                column.autoWidth = true;
+            });
+        },
         dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                },
+                total: function (result) {
+                    return result.Total;
+                },
+                model: {
+                    id: "IDSchedule"
+                }
+            },
             transport: {
                 read: {
                     url: "/Schedules/GetGrid",
                     dataType: "json",
                     type: "GET",
-                    async: false,
+                    async: true,
                     cache: false
                 },
                 parameterMap: function (data, type) {
@@ -290,45 +376,60 @@ function LoadSchedules() {
                     }
                 }
             },
-            serverPaging: true,
-            serverSorting: true,            
-            serverGrouping: false,
-            pageSize: 10,
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                },
-                total: function (result) {
-                    return result.Total;
-                }
-            }
+            pageSize: 10
         },
-        scrollable: true,
-        resizable: true,
-        sortable: true,
+        height: 450,
         groupable: true,
+        sortable: true,
         reorderable: true,
+        resizable: true,        
+        selectable: "multiple",
+        change: onChange,
         pageable: {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDSchedule", hidden: true },
-            { field: "ProfessionalName", title: "Profissional", width: "60%" },
-            { field: "ServiceName", title: "Serviço", width: "60%" },
-            { field: "ConsumerName", title: "Cliente", width: "60%" },
-            { field: "Date", title: "Data", template: "#= kendo.toString(kendo.parseDate(Date, 'yyyy-MM-dd'), 'dd/MM/yyyy') #", width: "15%" },
-            { field: "Time", title: "Hora", width: "15%" },
-            { field: "Bonus", title: "Bônus", width: "15%", template: "#:BonusDescription(Bonus)#" },
-            //{
-            //    title: " ",
-            //    template: "<a onclick='javascript:{CustomerEdit(this);}' class='k-button'>"
-            //        + "<span class='glyphicon glyphicon glyphicon-pencil'></span></a>",
-            //    width: "10%",
-            //    attributes: { style: "text-align:center;" },
-            //    filterable: false
-            //}
+            { field: "IDSchedule", hidden: true },            
+            { field: "ProfessionalName", title: "Profissional", width: "20%" },
+            { field: "ServiceName", title: "Serviço", width: "15%" },
+            { field: "ConsumerName", title: "Cliente", width: "20%" },
+            { field: "Date", title: "Data", width: "15%" },
+            { field: "Hour", title: "Hora", width: "15%" },
+            { field: "Bonus", title: "Bônus", width: "10%", template: "#:BonusDescription(Bonus)#" },
+            {
+                title: " ",
+                template: "<a onclick='javascript:{AppointmentEdit(this);}' class='k-button'>"
+                    + "<span class='glyphicon glyphicon glyphicon-pencil'></span></a>",
+                width: "5%",
+                attributes: { style: "text-align:center;" },
+                filterable: false
+            }
         ]
+    });    
+}
+
+function reschedule_click() {
+    alert("Reschedule");
+    return false;
+}
+
+function delete_click() {
+    alert("Delete");
+    return false;
+}
+
+function onChange(e) {
+    selectedRows = e.sender.select();   
+}
+
+function LoopIntoSelectedRows() {
+    selectedRows.each(function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        var dataItem = grid.dataItem(this);
+
+        console.log(dataItem);
     });
+
 }
 
 function BonusDescription(bonus) {
@@ -351,48 +452,51 @@ function CleanFields() {
     $("#ddlCustomer").data("kendoDropDownList").select(0);
     ddlCustomerChange();   
     $("#dtDateTime").val("");
+    $("#txtPrice").val("");
+    $("#txtTime").val("");
     $('#chkBonus').bootstrapSwitch('state', true);
 }
 
-//function CustomerEdit(e) {
-//    var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
-//    $("#loading-page").show();
+function AppointmentEdit(e) {
+    var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
+    $("#loading-page").show();
 
-//    CleanFields();
+    CleanFields();
 
-//    $.ajax({
-//        type: "GET",
-//        contentType: 'application/json; charset=utf-8',
-//        dataType: "json",
-//        url: "/Customers/GetCustomer",
-//        data: { "idCustomer": dataItem.IDCustomer },
-//        cache: false,
-//        async: false,
-//        success: function (result) {
-//            if (result.Success) {
-//                $("#hiddenIDCustomer").val(result.Data.IDCustomer);
-//                $("#txtCompanyName").val(result.Data.CompanyName);
-//                $("#txtCNPJ").val(result.Data.CNPJ).trigger('input');
-//                $("#txtAddress").val(result.Data.Address);
-//                $("#txtPhone").val(result.Data.Phone);
-//                $("#dtHireDate").val(kendo.toString(kendo.parseDate(result.Data.HireDate, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
-//                $('#chkActive').bootstrapSwitch('state', result.Data.Active);
-//                $("#txtNote").val(result.Data.Note);
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        url: "/Schedules/GetAppointment",
+        data: { "idSchedule": dataItem.IDSchedule },
+        cache: false,
+        async: false,
+        success: function (result) {
+            if (result.Success) {
+                $("#hiddenIDSchedule").val(result.Data.IDSchedule);
+                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                ddlCustomerChange();
+                $("#ddlProfessional").data('kendoDropDownList').value(result.Data.IDProfessional);
+                $("#ddlService").data('kendoDropDownList').value(result.Data.IDService);
+                $("#ddlConsumer").data('kendoDropDownList').value(result.Data.IDConsumer);
+                $("#dtDateTime").val(kendo.toString(kendo.parseDate(result.Data.Date, 'yyyy-MM-dd HH:mm'), 'dd/MM/yyyy HH:mm'));
+                $("#txtPrice").val(result.Data.Price);
+                $("#txtTime").val(result.Data.Time);
+                $('#chkBonus').bootstrapSwitch('state', result.Data.Bonus);                
+            }
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
 
-//            }
-//            else {
-//                ShowModalAlert(result.errorMessage);
-//                return;
-//            }
-//        }
-//    });
+    $('#modalScheduleEdit .modal-dialog .modal-header center .modal-title strong').html("");
+    $('#modalScheduleEdit .modal-dialog .modal-header center .modal-title strong').html("Controle de Agendamento");
+    $('#modalScheduleEdit').modal({ backdrop: 'static', keyboard: false });
 
-//    $('#modalCustomerEdit .modal-dialog .modal-header center .modal-title strong').html("");
-//    $('#modalCustomerEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Cliente");
-//    $('#modalCustomerEdit').modal({ backdrop: 'static', keyboard: false });
-
-//    $("#loading-page").hide();
-//}
+    $("#loading-page").hide();
+}
 
 function SaveAppointment() {
     var schedule = [];
@@ -405,12 +509,14 @@ function SaveAppointment() {
     }
     
     schedule = {
-        IDSchedule: parseInt($("#IDSchedule").val()),
+        IDSchedule: parseInt($("#hiddenIDSchedule").val()),
         IDCustomer: $("#ddlCustomer").val(),
         IDProfessional: $("#ddlProfessional").val(),
         IDService: $("#ddlService").val(),
         IDConsumer: $("#ddlConsumer").val(),
         Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
+        Price: $("#txtPrice").val(),
+        Time: $("#txtTime").val(),
         Bonus: $('#chkBonus').bootstrapSwitch('state')        
     };
 
@@ -452,6 +558,15 @@ function ValidateRequiredFields() {
 
     if ($("#dtDateTime").val() === '')
         errorMessage += 'Favor informar a Data / Hora' + '<br/>';
+
+    if ($("#dtDateTime").val() === '')
+        errorMessage += 'Favor informar a Data / Hora' + '<br/>';
+
+    if ($("#txtPrice").val() === '' || $("#txtPrice").val() === '0,00')
+        errorMessage += 'Favor informar o Valor do Serviço' + '<br/>';
+
+    if ($("#txtTime").val() === '')
+        errorMessage += 'Favor informar o Tempo de execução';
     
     return errorMessage;
 }

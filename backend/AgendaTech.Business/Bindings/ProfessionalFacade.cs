@@ -1,15 +1,12 @@
 ﻿using AgendaTech.Business.Contracts;
-using AgendaTech.Business.Helpers;
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace AgendaTech.Business.Bindings
 {
@@ -149,13 +146,35 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                _commonRepository.Update(e);
+                _commonRepository.Update(e.IDProfessional, e);
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
+        }
+
+        public bool CheckUserInUse(int idProfessional, Guid idUser, out string errorMessage)
+        {
+            bool userInUse = true;
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                userInUse = _commonRepository
+                    .GetAll()
+                    .Where(x => !x.IDProfessional.Equals(idProfessional) && x.IDUser.Equals(idUser))
+                    .Any();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return userInUse;
         }
     }
 }

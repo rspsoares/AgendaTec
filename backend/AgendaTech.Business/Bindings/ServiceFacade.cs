@@ -48,7 +48,7 @@ namespace AgendaTech.Business.Bindings
                    IDService = x.IDService,
                    IDCustomer = x.IDCustomer,
                    Description = x.Description,
-                   Value = x.Value,
+                   Price = x.Price,
                    Time = x.Time
                 })         
                 .OrderBy(x => x.IDCustomer)
@@ -101,7 +101,7 @@ namespace AgendaTech.Business.Bindings
                     IDService = result.IDService,
                     IDCustomer = result.IDCustomer,
                     Description = result.Description,
-                    Value = result.Value,
+                    Price = result.Price,
                     Time = result.Time
                 };
             }
@@ -137,7 +137,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                _commonRepository.Update(e);
+                _commonRepository.Update(e.IDService, e);
             }
             catch (Exception ex)
             {

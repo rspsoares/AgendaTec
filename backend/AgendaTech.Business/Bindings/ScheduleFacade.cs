@@ -69,8 +69,9 @@ namespace AgendaTech.Business.Bindings
                     ProfessionalName = x.TCGProfessionals.Name,
                     ServiceName = x.TCGServices.Description,
                     ConsumerName = $"{userAccountDTO.FirstName} {userAccountDTO.LastName}",
-                    Date = x.Date,
-                    Value = x.Value,
+                    Date = x.Date.ToString("dd/MM/yyyy"),
+                    Hour = x.Date.ToString("HH:mm"),
+                    Price = x.Price,
                     Time = x.Time,
                     Bonus = x.Bonus
                 })
@@ -97,7 +98,7 @@ namespace AgendaTech.Business.Bindings
                     IDService = result.IDService,
                     IDConsumer = result.IDConsumer,
                     Date = result.Date,
-                    Value = result.Value,
+                    Price = result.Price,
                     Time = result.Time,
                     Bonus = result.Bonus
                 };
@@ -134,7 +135,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                _commonRepository.Update(e);
+                _commonRepository.Update(e.IDSchedule, e);
             }
             catch (Exception ex)
             {

@@ -26,20 +26,23 @@
         }
     });
 
-    $('#txtValue').on('keypress', function (e) {
+    $('#txtPrice').on('keypress', function (e) {
         if (e.which !== 8 && e.which !== 0 && e.which !== 44 && e.which !== 45 && (e.which < 48 || e.which > 57))
             return false;
     });
 
-    $('#txtValue').on('blur', function () {
-        var valor = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
-        if (valor)
-            $(this).val(valor.FormatMoney(2, '', '.', ','));
+    $('#txtPrice').on('blur', function () {
+        var price = parseFloat($(this).val().replace(/\./g, '').replace(',', '.'));
+        if (price)
+            $(this).val(price.FormatMoney(2, '', '.', ','));
         else
             $(this).val("0,00");
     });   
 
-    $('#txtTime').kendoMaskedTextBox({ mask: "000" });
+    $('#txtTime').on('keypress', function (e) {
+        if (e.which !== 8 && e.which !== 0 && (e.which < 48 || e.which > 57))
+            return false;
+    });
 
     LoadCompanyNameCombo();   
     LoadServices();
@@ -86,7 +89,7 @@ function LoadServices() {
         columns: [
             { field: "IDService", hidden: true },            
             { field: "Description", title: "Descrição",  width: "50%" },
-            { field: "Value", title: "Valor", template: '#=Value.FormatMoney(2, "", ".", ",") #', attributes: { style: "text-align:right;" } , width: "15%" },
+            { field: "Price", title: "Valor", template: '#=Price.FormatMoney(2, "", ".", ",") #', attributes: { style: "text-align:right;" } , width: "15%" },
             { field: "Time", title: "Tempo (minutos)", attributes: { style: "text-align:right;" }, width: "15%" },
             {
                 title: " ",
@@ -117,7 +120,7 @@ function CleanFields() {
     }
 
     $("#txtDescription").val("");
-    $("#txtValue").val("0,00");
+    $("#txtPrice").val("0,00");
     $("#txtTime").val("");    
 }
 
@@ -140,7 +143,7 @@ function ServiceEdit(e) {
                 $("#hiddenIDService").val(result.Data.IDService);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);                
                 $("#txtDescription").val(result.Data.Description);
-                $("#txtValue").val(result.Data.Value.FormatMoney(2, '', '.', ','));
+                $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);                
             }
             else {
@@ -171,7 +174,7 @@ function SaveService() {
         IDService: parseInt($("#hiddenIDService").val()),
         IDCustomer: $("#ddlCustomer").val(),
         Description: $("#txtDescription").val(),
-        Value: Math.abs(parseFloat($("#txtValue").val().replace(/\./g, '').replace(",", "."))),
+        Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: parseInt($("#txtTime").val())
     };
 
@@ -205,7 +208,7 @@ function ValidateRequiredFields() {
     if ($("#txtDescription").val() === '')
         errorMessage += 'Favor informar a Descrição' + '<br/>';
 
-    if ($("#txtValue").val() === '' || $("#txtValue").val() === '0,00')
+    if ($("#txtPrice").val() === '' || $("#txtPrice").val() === '0,00')
         errorMessage += 'Favor informar o Valor do Serviço' + '<br/>';
 
     if ($("#txtTime").val() === '')

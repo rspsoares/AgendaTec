@@ -138,7 +138,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                _commonRepository.Update(e);
+                _commonRepository.Update(e.IDCustomer, e);
             }
             catch (Exception ex)
             {

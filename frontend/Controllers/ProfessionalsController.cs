@@ -56,6 +56,13 @@ namespace AgendaTech.View.Controllers
         {
             string errorMessage = string.Empty;
 
+            var userInUse = _professionalFacade.CheckUserInUse(professional.IDProfessional, professional.IDUser, out errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro na verificação do profissional." }, JsonRequestBehavior.AllowGet);
+
+            if (userInUse)
+                return Json(new { Success = false, errorMessage = "Este usuário já está sendo utilizado em outro funcionário." }, JsonRequestBehavior.AllowGet);
+
             if (professional.IDProfessional.Equals(0))
                 _professionalFacade.Insert(professional, out errorMessage);
             else

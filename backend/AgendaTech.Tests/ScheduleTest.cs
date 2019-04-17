@@ -27,7 +27,7 @@ namespace AgendaTech.Tests
                .RuleFor(t => t.IDService, f => 1)
                .RuleFor(t => t.IDConsumer, f => Guid.Parse("AF3165EC-BF80-4C29-B3CB-60443BA047A4"))
                .RuleFor(t => t.Date, f => f.Date.Soon())
-               .RuleFor(t => t.Value, f => f.Random.Decimal(0, 1000))
+               .RuleFor(t => t.Price, f => f.Random.Decimal(0, 1000))
                .RuleFor(t => t.Time, f => f.Random.Int(0, 60))
                .RuleFor(t => t.Bonus, f => f.Random.Bool());
 
@@ -39,7 +39,7 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Schedule_GetAll()
         {
-            var schedules = _scheduleRepository.GetGrid(1, 0, 0, 0, null, null, false, out string errorMessage);
+            var schedules = _scheduleRepository.GetGrid(1, 0, 0, Guid.Empty, null, null, false, out string errorMessage);
             Assert.IsTrue(schedules.Any());
         }
 

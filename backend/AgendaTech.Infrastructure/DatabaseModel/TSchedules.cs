@@ -20,12 +20,12 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public int IDService { get; set; }
         public System.Guid IDConsumer { get; set; }
         public System.DateTime Date { get; set; }
-        public decimal Value { get; set; }
+        public decimal Price { get; set; }
         public int Time { get; set; }
         public bool Bonus { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }
-        public virtual TCGProfessionals TCGProfessionals { get; set; }
         public virtual TCGServices TCGServices { get; set; }
+        public virtual TCGProfessionals TCGProfessionals { get; set; }
     }
 }
