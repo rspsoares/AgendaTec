@@ -10,13 +10,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>04/11/2019 10:26:02</publishTime>
+      <publishTime>04/18/2019 11:16:34</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
       <publishTime>04/05/2019 11:18:22</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>04/11/2019 10:24:09</publishTime>
+      <publishTime>04/17/2019 14:45:25</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2019 11:06:24</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.dll">
-      <publishTime>04/11/2019 10:56:31</publishTime>
+      <publishTime>04/18/2019 11:16:41</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.pdb">
       <publishTime>04/05/2019 11:18:29</publishTime>
@@ -43,13 +43,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.dll">
-      <publishTime>04/10/2019 16:04:45</publishTime>
+      <publishTime>04/17/2019 14:45:26</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.dll.config">
       <publishTime>03/25/2019 17:01:20</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.Ef.dll">
-      <publishTime>04/10/2019 16:04:49</publishTime>
+      <publishTime>04/17/2019 14:45:30</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.Ef.dll.config">
       <publishTime>03/25/2019 17:01:15</publishTime>
@@ -61,7 +61,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2019 11:06:22</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.WebHost.dll">
-      <publishTime>04/10/2019 16:04:49</publishTime>
+      <publishTime>04/17/2019 14:45:30</publishTime>
     </File>
     <File Include="bin/BrockAllen.MembershipReboot.WebHost.pdb">
       <publishTime>04/05/2019 11:16:01</publishTime>
@@ -112,7 +112,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:56</publishTime>
     </File>
     <File Include="bin/de/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/10/2019 16:04:46</publishTime>
+      <publishTime>04/17/2019 14:45:26</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
@@ -133,7 +133,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2018 17:59:08</publishTime>
     </File>
     <File Include="bin/nl-nl/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/10/2019 16:04:47</publishTime>
+      <publishTime>04/17/2019 14:45:27</publishTime>
     </File>
     <File Include="bin/NLog.config">
       <publishTime>04/10/2019 16:09:21</publishTime>
@@ -142,7 +142,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/02/2019 22:28:48</publishTime>
     </File>
     <File Include="bin/ru-ru/BrockAllen.MembershipReboot.resources.dll">
-      <publishTime>04/10/2019 16:04:47</publishTime>
+      <publishTime>04/17/2019 14:45:28</publishTime>
     </File>
     <File Include="bin/System.ComponentModel.DataAnnotations.dll">
       <publishTime>03/26/2018 16:24:54</publishTime>
@@ -384,6 +384,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/images/icones/ico-list-menu.png">
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
+    <File Include="Content/images/layout/background.png">
+      <publishTime>04/12/2019 08:42:38</publishTime>
+    </File>
     <File Include="Content/images/layout/bg-icon-mosaic.jpg">
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
@@ -483,6 +486,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/js/app/configuracoes.js">
       <publishTime>04/01/2019 16:34:10</publishTime>
     </File>
+    <File Include="Content/js/app/control/schedule.js">
+      <publishTime>04/18/2019 12:29:38</publishTime>
+    </File>
     <File Include="Content/js/app/cruzamento/carga/carga.js">
       <publishTime>04/01/2019 16:34:10</publishTime>
     </File>
@@ -550,16 +556,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="Content/js/app/registers/professionals/professional.js">
-      <publishTime>04/11/2019 07:36:35</publishTime>
+      <publishTime>04/17/2019 14:51:45</publishTime>
     </File>
     <File Include="Content/js/app/registers/roles.js">
       <publishTime>06/23/2017 11:02:54</publishTime>
     </File>
     <File Include="Content/js/app/registers/services/service.js">
-      <publishTime>04/11/2019 07:36:35</publishTime>
+      <publishTime>04/17/2019 08:53:03</publishTime>
     </File>
     <File Include="Content/js/app/registers/users/users.js">
-      <publishTime>04/11/2019 11:13:08</publishTime>
+      <publishTime>04/17/2019 11:02:52</publishTime>
     </File>
     <File Include="Content/js/app/registers/usuarios/create.js">
       <publishTime>04/01/2019 16:34:11</publishTime>
@@ -604,7 +610,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/01/2019 16:34:12</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.js">
-      <publishTime>04/11/2019 11:16:14</publishTime>
+      <publishTime>04/18/2019 08:27:14</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.min.js">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -1336,7 +1342,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:55</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/cultures/kendo.culture.pt-BR.js">
-      <publishTime>06/23/2017 11:02:55</publishTime>
+      <publishTime>04/12/2019 07:35:16</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/cultures/kendo.culture.pt-BR.min.js">
       <publishTime>06/23/2017 11:02:55</publishTime>
@@ -5598,8 +5604,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/umd/popper.min.js.map">
       <publishTime>04/10/2019 16:11:57</publishTime>
     </File>
+    <File Include="Views/Client/Index.cshtml">
+      <publishTime>04/12/2019 08:48:47</publishTime>
+    </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>04/11/2019 09:56:37</publishTime>
+      <publishTime>04/17/2019 10:32:54</publishTime>
     </File>
     <File Include="Views/DocumentosFiscais/Index.cshtml">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -5638,7 +5647,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Professionals/Index.cshtml">
-      <publishTime>04/11/2019 09:56:24</publishTime>
+      <publishTime>04/15/2019 12:51:29</publishTime>
     </File>
     <File Include="Views/Registrar/Cancel.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
@@ -5670,6 +5679,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Roles/Index.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
+    <File Include="Views/Schedules/Index.cshtml">
+      <publishTime>04/18/2019 12:23:54</publishTime>
+    </File>
     <File Include="Views/SemAutorizacao/Index.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
@@ -5677,10 +5689,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Views/Services/Index.cshtml">
-      <publishTime>04/11/2019 09:56:14</publishTime>
+      <publishTime>04/17/2019 08:26:54</publishTime>
     </File>
     <File Include="Views/Shared/Popup.cshtml">
-      <publishTime>04/02/2019 11:43:05</publishTime>
+      <publishTime>04/18/2019 08:26:57</publishTime>
     </File>
     <File Include="Views/Shared/_FilterDocs.cshtml">
       <publishTime>04/10/2019 14:53:26</publishTime>
@@ -5695,7 +5707,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/02/2019 12:11:44</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>04/11/2019 09:56:05</publishTime>
+      <publishTime>04/17/2019 11:01:16</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
@@ -5716,7 +5728,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/11/2019 11:17:23</publishTime>
+      <publishTime>04/18/2019 11:22:26</publishTime>
     </File>
   </ItemGroup>
 </Project>

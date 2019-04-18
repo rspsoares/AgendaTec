@@ -129,7 +129,7 @@ function ddlServiceChange(e) {
         async: false,
         success: function (result) {
             if (result.Success) {               
-                $("#txtPrice").val(result.Data.Price);
+                $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);                
             }
             else {
@@ -391,8 +391,7 @@ function LoadSchedules() {
                 }
             },
             pageSize: 10
-        },
-        height: 450,
+        },       
         groupable: true,
         sortable: true,
         reorderable: true,
@@ -403,7 +402,7 @@ function LoadSchedules() {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDSchedule", hidden: true },            
+            { field: "IDSchedule", hidden: true },
             { field: "ProfessionalName", title: "Profissional", width: "20%" },
             { field: "ServiceName", title: "Serviço", width: "15%" },
             { field: "ConsumerName", title: "Cliente", width: "20%" },
@@ -421,7 +420,6 @@ function LoadSchedules() {
         ]
     });    
 }
-
 
 function Reschedule_click() {    
     var checkDifferentDates = true;
@@ -610,7 +608,7 @@ function AppointmentEdit(e) {
                 $("#ddlService").data('kendoDropDownList').value(result.Data.IDService);
                 $("#ddlConsumer").data('kendoDropDownList').value(result.Data.IDConsumer);
                 $("#dtDateTime").val(kendo.toString(kendo.parseDate(result.Data.Date, 'yyyy-MM-dd HH:mm'), 'dd/MM/yyyy HH:mm'));
-                $("#txtPrice").val(result.Data.Price);
+                $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);
                 $('#chkBonus').bootstrapSwitch('state', result.Data.Bonus);                
             }
