@@ -3,6 +3,7 @@ using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.View.Authorization;
 using AgendaTech.View.Models;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace AgendaTech.View.Controllers
@@ -76,10 +77,32 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteAppointment(string idSchedule)
+        public JsonResult DeleteAppointments(List<TSchedules> schedules)
         {
-            _scheduleFacade.Delete(int.Parse(idSchedule), out string errorMessage);
-            
+            _scheduleFacade.Delete(schedules, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao excluir o agendamento." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult CheckAvailability(List<TSchedules> schedules, string newDate)
+        {
+            var availability = _scheduleFacade.CheckAvailability(schedules, newDate, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao verificar a disponibilidade." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = availability, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult RescheduleAppointment(List<TSchedules> schedules, string newDate)
+        {         
+            _scheduleFacade.Reschedule(schedules, newDate, out string errorMessage);
+
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao excluir o agendamento." }, JsonRequestBehavior.AllowGet);
             else

@@ -11,6 +11,8 @@ namespace AgendaTech.Business.Contracts
         TSchedules GetScheduleById(int idSchedule, out string errorMessage);
         TSchedules Insert(TSchedules e, out string errorMessage);
         void Update(TSchedules e, out string errorMessage);
-        void Delete(int idSchedule, out string errorMessage);
+        void Delete(List<TSchedules> schedules, out string errorMessage);
+        bool CheckAvailability(List<TSchedules> schedules, string newDate, out string errorMessage);
+        void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage);
     }
 }

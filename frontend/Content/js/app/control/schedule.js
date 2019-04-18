@@ -40,7 +40,21 @@ function PageSetup() {
         .add(dtDateToFilter)
         .removeClass("k-textbox");
 
+
     var d = new Date();
+
+    var dtNewDate = $("#dtNewDate");
+    dtNewDate.kendoMaskedTextBox({
+        mask: "00/00/0000"
+    });
+    dtNewDate.kendoDatePicker({
+        format: "dd/MM/yyyy",
+        min: new Date()
+    });
+    dtNewDate.closest(".k-datepicker")
+        .add(dtNewDate)
+        .removeClass("k-textbox");
+
     $("#dtDateTime").kendoDateTimePicker({
         value: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0),
         min: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0)        
@@ -328,7 +342,7 @@ function LoadSchedules() {
         excelExport: function (e) {
             var sheet = e.workbook.sheets[0];
             for (var rowIndex = 1; rowIndex < sheet.rows.length; rowIndex++) {
-                if (rowIndex % 2 == 0) {
+                if (rowIndex % 2 === 0) {
                     var row = sheet.rows[rowIndex];
                     for (var cellIndex = 0; cellIndex < row.cells.length; cellIndex++) {
                         row.cells[cellIndex].background = "#aabbcc";
@@ -408,28 +422,144 @@ function LoadSchedules() {
     });    
 }
 
-function reschedule_click() {
-    alert("Reschedule");
-    return false;
+
+function Reschedule_click() {    
+    var checkDifferentDates = true;
+
+    if (!CheckAnyRowSelected()) {
+        ShowModalAlert("Favor selecionar algum compromisso para ser reagendado.");
+        return;
+    }
+
+    var appointments = GetSelectedAppointments();
+    var referenceDate = appointments[0].Date;
+
+    jQuery.each(appointments, function (i, item) {
+        if (item.Date !== referenceDate) {
+            ShowModalAlert("Somente compromissos do mesmo dia podem ser reagendados em lote.");
+            checkDifferentDates = false;
+        }
+    });
+
+    if (!checkDifferentDates)
+        return;
+
+    ShowModalReschedule();
+
+    return true;
 }
 
-function delete_click() {
-    alert("Delete");
-    return false;
+function CheckAvailability() {
+    var hasAvailability = false;
+    var appointments = GetSelectedAppointments();
+    
+    $.ajax({
+        url: '/Schedules/CheckAvailability',
+        data: JSON.stringify({ schedules: appointments, newDate: kendo.parseDate($("#dtNewDate").val(), "dd/MM/yyyy") }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {            
+            if (result.Success) {
+                $('#modalReschedule').modal("hide");
+                hasAvailability = result.Data;
+            }
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
+
+    if (!hasAvailability)
+        ShowAvailabilityPopup();
+    else
+        RescheduleAppointments();
+}
+
+function ShowAvailabilityPopup() {
+    $('#modalAvailability .modal-dialog .modal-header center .modal-title strong').html("");
+    $('#modalAvailability .modal-dialog .modal-header center .modal-title strong').html("Sobreposição de compromisso");    
+    $('#modalAvailability').modal({ backdrop: 'static', keyboard: false });
+}
+
+function RescheduleAppointments() {    
+    var appointments = GetSelectedAppointments();
+
+    $.ajax({
+        url: '/Schedules/RescheduleAppointment',
+        data: JSON.stringify({ schedules: appointments, newDate: kendo.parseDate($("#dtNewDate").val(), "dd/MM/yyyy") }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {           
+            if (result.Success) {
+                ShowModalSucess("Reagendamento concluído com sucesso.");
+                $('#modalAvailability').modal("hide");
+                LoadSchedules();
+            }
+            else
+                ShowModalAlert("Erro ao reagendar os compromissos.");
+        }
+    });
+}
+
+function ShowModalReschedule() {
+    $('#modalReschedule .modal-dialog .modal-header center .modal-title strong').html("");
+    $('#modalReschedule .modal-dialog .modal-header center .modal-title strong').html("Reagendamento");
+    $('#modalReschedule').modal({ backdrop: 'static', keyboard: false });
+}
+
+function Delete_click() {
+    if (!CheckAnyRowSelected()) {
+        ShowModalAlert("Favor selecionar algum compromisso para ser excluído.");
+        return;
+    }
+
+    var appointments = GetSelectedAppointments();
+
+    $.ajax({
+        url: '/Schedules/DeleteAppointments',
+        data: JSON.stringify({ schedules: appointments }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            if (result.Success) {
+                ShowModalSucess("Compromissos excluídos com sucesso.");                
+                LoadSchedules();
+            }
+            else
+                ShowModalAlert("Erro ao excluir compromissos.");
+        }
+    });
+
+    return true;
+}
+
+function CheckAnyRowSelected() {
+    return selectedRows !== undefined && selectedRows.length > 0;
+}
+
+function GetSelectedAppointments() {
+    var appointments = [];
+    selectedRows.each(function (e) {
+        var appointment = {};
+        var row = $("#grid").data("kendoGrid").dataItem(this);
+
+        appointment = {
+            IDSchedule: row.IDSchedule,         
+            Date: row.Date
+        };
+
+        appointments.push(appointment);        
+    });    
+
+    return appointments;
 }
 
 function onChange(e) {
     selectedRows = e.sender.select();   
-}
-
-function LoopIntoSelectedRows() {
-    selectedRows.each(function (e) {
-        var grid = $("#grid").data("kendoGrid");
-        var dataItem = grid.dataItem(this);
-
-        console.log(dataItem);
-    });
-
 }
 
 function BonusDescription(bonus) {

@@ -4,6 +4,7 @@ using AgendaTech.Infrastructure.DatabaseModel;
 using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AgendaTech.Tests
@@ -46,7 +47,15 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Schedule_Delete()
         {
-            _scheduleRepository.Delete(1, out string errorMessage);
+            var schedules = new List<TSchedules>()
+            {
+                new TSchedules()
+                {
+                    IDSchedule = 1
+                }
+            };
+
+            _scheduleRepository.Delete(schedules, out string errorMessage);
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }
     }

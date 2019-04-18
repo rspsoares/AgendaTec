@@ -144,13 +144,66 @@ namespace AgendaTech.Business.Bindings
             }
         }
 
-        public void Delete(int idSchedule, out string errorMessage)
+        public void Delete(List<TSchedules> schedules, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                _commonRepository.Delete(idSchedule);
+                schedules.ForEach(schedule => { _commonRepository.Delete(schedule.IDSchedule); });
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+        }
+
+        public bool CheckAvailability(List<TSchedules> schedules, string newDate, out string errorMessage)
+        {
+            bool availability = true;
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                foreach (var schedule in schedules)
+                {
+                    var appointment = _commonRepository.GetById(schedule.IDSchedule);
+                    var dateProposal = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {appointment.Date.ToString("HH:mm")}");
+
+                    availability = !_commonRepository
+                        .GetAll()
+                        .Where(x => x.IDProfessional.Equals(appointment.IDProfessional) && x.Date.Equals(dateProposal))
+                        .Any();
+
+                    if (!availability)
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return availability;
+        }
+
+        public void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                schedules.ForEach(schedule => 
+                {
+                    var appointment = _commonRepository.GetById(schedule.IDSchedule);
+                    var dateProposal = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {appointment.Date.ToString("HH:mm")}");
+
+                    appointment.Date = dateProposal;
+                    _commonRepository.Update(appointment.IDSchedule, appointment);
+                });
             }
             catch (Exception ex)
             {
