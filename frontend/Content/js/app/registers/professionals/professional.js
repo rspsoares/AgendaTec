@@ -37,9 +37,9 @@
         .add(dtBirthday)
         .removeClass("k-textbox");   
 
-    LoadUserNamesCombo();    
+    LoadCombo("/Users/GetUserNameCombo", ['#ddlUserName'], "UkUser", "UserName", false);
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
 
-    LoadCompanyNameCombo(); 
     $("#ddlCustomer")
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
@@ -49,37 +49,6 @@
 
 function ddlCustomerChange(e) {
     $('#ddlUserName').data('kendoDropDownList').dataSource.read();       
-}
-
-function LoadUserNamesCombo() {    
-    $('#ddlUserName').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'UserName',
-        dataValueField: 'UkUser',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Users/GetUserNameCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: true,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomer").val()
-                        };
-                    }
-                }
-            }
-        }
-    });
 }
 
 function LoadProfessionals() {

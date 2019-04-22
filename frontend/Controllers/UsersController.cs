@@ -103,9 +103,9 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetConsumerNamesCombo(string idCustomer)
+        public JsonResult GetConsumerNamesCombo(string filter)
         {
-            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);
             var userGroups = _userFacade.GetConsumerNamesCombo(customer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

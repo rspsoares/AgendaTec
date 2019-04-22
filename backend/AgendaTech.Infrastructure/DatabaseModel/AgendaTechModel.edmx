@@ -71,7 +71,7 @@
           </Key>
           <Property Name="IDCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="80" Nullable="false" />
-          <Property Name="CNPJ" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="CNPJ" Type="varchar" MaxLength="14" />
           <Property Name="Address" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="HireDate" Type="date" Nullable="false" />
@@ -441,7 +441,6 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <EntitySet Name="LinkedAccounts" EntityType="AgendaTechModel.LinkedAccounts" />
           <EntitySet Name="PasswordHistories" EntityType="AgendaTechModel.PasswordHistories" />
           <EntitySet Name="PasswordResetSecrets" EntityType="AgendaTechModel.PasswordResetSecrets" />
-          <EntitySet Name="TCGCustomers" EntityType="AgendaTechModel.TCGCustomers" />
           <EntitySet Name="TCGUserGroup" EntityType="AgendaTechModel.TCGUserGroup" />
           <EntitySet Name="TwoFactorAuthTokens" EntityType="AgendaTechModel.TwoFactorAuthTokens" />
           <EntitySet Name="UserAccounts" EntityType="AgendaTechModel.UserAccounts" />
@@ -458,10 +457,6 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <AssociationSet Name="FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" Association="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey">
             <End Role="UserAccounts" EntitySet="UserAccounts" />
             <End Role="PasswordResetSecrets" EntitySet="PasswordResetSecrets" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserAccounts_TCGCustomers" Association="AgendaTechModel.FK_UserAccounts_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAccounts_TCGUserGroup" Association="AgendaTechModel.FK_UserAccounts_TCGUserGroup">
             <End Role="TCGUserGroup" EntitySet="TCGUserGroup" />
@@ -481,6 +476,20 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           </AssociationSet>
           <EntitySet Name="TCGServices" EntityType="AgendaTechModel.TCGServices" />
           <EntitySet Name="TSchedules" EntityType="AgendaTechModel.TSchedules" />
+          <AssociationSet Name="FK_TSchedules_TCGServices" Association="AgendaTechModel.FK_TSchedules_TCGServices">
+            <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <EntitySet Name="TCGProfessionals" EntityType="AgendaTechModel.TCGProfessionals" />
+          <AssociationSet Name="FK_TSchedules_TCGProfessionals" Association="AgendaTechModel.FK_TSchedules_TCGProfessionals">
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <EntitySet Name="TCGCustomers" EntityType="AgendaTechModel.TCGCustomers" />
+          <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+          </AssociationSet>
           <AssociationSet Name="FK_TCGServices_TCGCustomers" Association="AgendaTechModel.FK_TCGServices_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGServices" EntitySet="TCGServices" />
@@ -489,18 +498,9 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_TSchedules_TCGServices" Association="AgendaTechModel.FK_TSchedules_TCGServices">
-            <End Role="TCGServices" EntitySet="TCGServices" />
-            <End Role="TSchedules" EntitySet="TSchedules" />
-          </AssociationSet>
-          <EntitySet Name="TCGProfessionals" EntityType="AgendaTechModel.TCGProfessionals" />
-          <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers">
+          <AssociationSet Name="FK_UserAccounts_TCGCustomers" Association="AgendaTechModel.FK_UserAccounts_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TSchedules_TCGProfessionals" Association="AgendaTechModel.FK_TSchedules_TCGProfessionals">
-            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
-            <End Role="TSchedules" EntitySet="TSchedules" />
+            <End Role="UserAccounts" EntitySet="UserAccounts" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -566,23 +566,6 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Answer" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" FromRole="PasswordResetSecrets" ToRole="UserAccounts" />
         </EntityType>
-        <EntityType Name="TCGCustomers">
-          <Key>
-            <PropertyRef Name="IDCustomer" />
-          </Key>
-          <Property Name="IDCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="CNPJ" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="TCGCustomers" ToRole="UserAccounts" />
-          <NavigationProperty Name="TCGServices" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
-          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
-          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
-        </EntityType>
         <EntityType Name="TCGUserGroup">
           <Key>
             <PropertyRef Name="IDUserGroup" />
@@ -642,11 +625,11 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <NavigationProperty Name="LinkedAccountClaims" Relationship="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="LinkedAccountClaims" />
           <NavigationProperty Name="LinkedAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="LinkedAccounts" />
           <NavigationProperty Name="PasswordResetSecrets" Relationship="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="PasswordResetSecrets" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="UserAccounts" ToRole="TCGCustomers" />
           <NavigationProperty Name="TCGUserGroup" Relationship="AgendaTechModel.FK_UserAccounts_TCGUserGroup" FromRole="UserAccounts" ToRole="TCGUserGroup" />
           <NavigationProperty Name="TwoFactorAuthTokens" Relationship="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="TwoFactorAuthTokens" />
           <NavigationProperty Name="UserCertificates" Relationship="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="UserCertificates" />
           <NavigationProperty Name="UserClaims" Relationship="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" FromRole="UserAccounts" ToRole="UserClaims" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="UserAccounts" ToRole="TCGCustomers" />
         </EntityType>
         <EntityType Name="UserCertificates">
           <Key>
@@ -707,18 +690,6 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
             </Principal>
             <Dependent Role="PasswordResetSecrets">
               <PropertyRef Name="ParentKey" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserAccounts_TCGCustomers">
-          <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTechModel.UserAccounts" Role="UserAccounts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="UserAccounts">
-              <PropertyRef Name="Source" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -785,8 +756,8 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
           <Property Name="Time" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_TCGServices" FromRole="TCGServices" ToRole="TSchedules" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
         </EntityType>
         <EntityType Name="TSchedules">
           <Key>
@@ -801,10 +772,77 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
           <Property Name="Time" Type="Int32" Nullable="false" />
           <Property Name="Bonus" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TSchedules" ToRole="TCGCustomers" />
           <NavigationProperty Name="TCGServices" Relationship="AgendaTechModel.FK_TSchedules_TCGServices" FromRole="TSchedules" ToRole="TCGServices" />
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTechModel.FK_TSchedules_TCGProfessionals" FromRole="TSchedules" ToRole="TCGProfessionals" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TSchedules" ToRole="TCGCustomers" />
         </EntityType>
+        <Association Name="FK_TSchedules_TCGServices">
+          <End Type="AgendaTechModel.TCGServices" Role="TCGServices" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGServices">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCGProfessionals">
+          <Key>
+            <PropertyRef Name="IDProfessional" />
+          </Key>
+          <Property Name="IDProfessional" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCustomer" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TSchedules" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
+        </EntityType>
+        <Association Name="FK_TSchedules_TCGProfessionals">
+          <End Type="AgendaTechModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="1" />
+          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGProfessionals">
+              <PropertyRef Name="IDProfessional" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCGCustomers">
+          <Key>
+            <PropertyRef Name="IDCustomer" />
+          </Key>
+          <Property Name="IDCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
+          <NavigationProperty Name="TCGServices" Relationship="AgendaTechModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
+          <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_UserAccounts_TCGCustomers" FromRole="TCGCustomers" ToRole="UserAccounts" />
+        </EntityType>
+        <Association Name="FK_TCGProfessionals_TCGCustomers">
+          <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTechModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TCGProfessionals">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TCGServices_TCGCustomers">
           <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
           <End Type="AgendaTechModel.TCGServices" Role="TCGServices" Multiplicity="*" />
@@ -829,53 +867,15 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TSchedules_TCGServices">
-          <End Type="AgendaTechModel.TCGServices" Role="TCGServices" Multiplicity="1" />
-          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGServices">
-              <PropertyRef Name="IDService" />
-            </Principal>
-            <Dependent Role="TSchedules">
-              <PropertyRef Name="IDService" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="TCGProfessionals">
-          <Key>
-            <PropertyRef Name="IDProfessional" />
-          </Key>
-          <Property Name="IDProfessional" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDCustomer" Type="Int32" Nullable="false" />
-          <Property Name="IDUser" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
-          <NavigationProperty Name="TSchedules" Relationship="AgendaTechModel.FK_TSchedules_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TSchedules" />
-        </EntityType>
-        <Association Name="FK_TCGProfessionals_TCGCustomers">
+        <Association Name="FK_UserAccounts_TCGCustomers">
           <End Type="AgendaTechModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTechModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
+          <End Type="AgendaTechModel.UserAccounts" Role="UserAccounts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TCGCustomers">
               <PropertyRef Name="IDCustomer" />
             </Principal>
-            <Dependent Role="TCGProfessionals">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TSchedules_TCGProfessionals">
-          <End Type="AgendaTechModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="1" />
-          <End Type="AgendaTechModel.TSchedules" Role="TSchedules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGProfessionals">
-              <PropertyRef Name="IDProfessional" />
-            </Principal>
-            <Dependent Role="TSchedules">
-              <PropertyRef Name="IDProfessional" />
+            <Dependent Role="UserAccounts">
+              <PropertyRef Name="Source" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -947,20 +947,6 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
                 <ScalarProperty Name="PasswordResetSecretID" ColumnName="PasswordResetSecretID" />
                 <ScalarProperty Name="ParentKey" ColumnName="ParentKey" />
                 <ScalarProperty Name="Key" ColumnName="Key" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TCGCustomers">
-            <EntityTypeMapping TypeName="AgendaTechModel.TCGCustomers">
-              <MappingFragment StoreEntitySet="TCGCustomers">
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1078,6 +1064,20 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
                 <ScalarProperty Name="IDUser" ColumnName="IDUser" />
                 <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
                 <ScalarProperty Name="IDProfessional" ColumnName="IDProfessional" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCGCustomers">
+            <EntityTypeMapping TypeName="AgendaTechModel.TCGCustomers">
+              <MappingFragment StoreEntitySet="TCGCustomers">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

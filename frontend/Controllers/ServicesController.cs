@@ -65,9 +65,9 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetServiceNameCombo(string idCustomer)
+        public JsonResult GetServiceNameCombo(string filter)
         {
-            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);           
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);           
             var services = _serviceFacade.GetServiceNameCombo(customer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

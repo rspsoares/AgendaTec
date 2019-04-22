@@ -17,43 +17,10 @@
         LoadUsers();
     });
 
-    LoadCompanyNameCombo();
-    LoadUserGroupCombo();    
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
+    LoadCombo("/Users/GetUserGroupCombo", ['#ddlUserGroupFilter', '#ddlUserGroup'], "IDUserGroup", "GroupDescription", false);
+
     LoadUsers();
-}
-
-function LoadUserGroupCombo() {
-    var dsData = undefined;
-
-    $.ajax({
-        url: "/Users/GetUserGroupCombo",
-        type: "GET",
-        async: false,
-        dataType: "json",
-        cache: false,
-        success: function (result) {
-            if (result.Success)
-                dsData = result.Data;
-            else {
-                ShowModalAlert("Erro ao recuperar grupos de usuários.");
-                return;
-            }
-        }
-    });
-
-    $('#ddlUserGroupFilter').kendoDropDownList({
-        dataTextField: "GroupDescription",
-        dataValueField: "IDUserGroup",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
-    });
-
-    $('#ddlUserGroup').kendoDropDownList({
-        dataTextField: "GroupDescription",
-        dataValueField: "IDUserGroup",
-        dataSource: dsData,
-        optionLabel: "Selecione..."
-    });
 }
 
 function LoadUsers() {

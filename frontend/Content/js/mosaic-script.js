@@ -1,8 +1,4 @@
-﻿var curInterval;
-var Keeptrue = {};
-var teste = 1;
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     kendo.culture("pt-BR");    
     var dsMenuLateral = null;
 
@@ -21,18 +17,18 @@ $(document).ready(function () {
     });
 
     $('.minimize-menu').click(function () {
-        //localStorage.clear();
-        if ($(this).attr('class') == 'minimize-menu disable') {
-            minimizeMenuLateral();
+        localStorage.clear();        
+        if ($(this).attr('class') === 'minimize-menu disable') {
+            minimizeMenuLateral();        
         }
         else {
-            maximizeMenuLateral();
+            maximizeMenuLateral();        
         }
 
         /* -- MENU - MINI -- */
         $('.mini-nav ul.nav-list li').click(function () {
             //alert($(this).children('ul').html());
-            if ($(this).children('ul').attr('style') == 'display: block;') {
+            if ($(this).children('ul').attr('style') === 'display: block;') {
                 $(this).children('ul').hide();
                 $(this).removeAttr('style');
             }
@@ -82,7 +78,7 @@ function menuLateral() {
                 //Efeito Drop no menu lista
                 $('.nav-list-mobile > li > a').on('click', this, function () {
                     var active = $(this).attr('class');
-                    if (active == 'active-item') {
+                    if (active === 'active-item') {
                         $(this).next('.submenu-menu-lista').slideToggle();
                     }
                     else {
@@ -508,11 +504,11 @@ function CNPJCheck(c) {
     return true;
 }
 
-function LoadCompanyNameCombo() {
+function LoadCombo(url, comboNames, idField, textField, selectFirstItem) {
     var dsData = undefined;
 
     $.ajax({
-        url: "/Customers/GetCompanyNameCombo",
+        url: url,
         type: "GET",
         async: false,
         dataType: "json",
@@ -521,23 +517,53 @@ function LoadCompanyNameCombo() {
             if (result.Success)
                 dsData = result.Data;
             else {
-                ShowModalAlert("Erro ao recuperar clientes.");
+                ShowModalAlert(result.errorMessage);
                 return;
             }
         }
     });
 
-    $('#ddlCustomerFilter').kendoDropDownList({
-        dataTextField: "CompanyName",
-        dataValueField: "IDCustomer",
-        dataSource: dsData        
-    });
-    $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
+    jQuery.each(comboNames, function (i, comboName) {
+        $(comboName).kendoDropDownList({
+            dataTextField: textField,
+            dataValueField: idField,
+            dataSource: dsData
+        });
 
-    $('#ddlCustomer').kendoDropDownList({
-        dataTextField: "CompanyName",
-        dataValueField: "IDCustomer",
-        dataSource: dsData
+        if (selectFirstItem)
+            $(comboName).data("kendoDropDownList").select(0);
     });
-    $("#ddlCustomer").data("kendoDropDownList").select(0);
+}
+
+function LoadComboFiltered(url, comboName, idField, textField, valueFilter, selectFirstItem) {
+    $(comboName).kendoDropDownList({        
+        dataTextField: textField,
+        dataValueField: idField,
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: url,
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            filter: valueFilter
+                        };
+                    }
+                }
+            }
+        }
+    });
+
+    if (selectFirstItem)
+        $(comboName).data("kendoDropDownList").select(0);
 }

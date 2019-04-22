@@ -31,7 +31,6 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual DbSet<LinkedAccounts> LinkedAccounts { get; set; }
         public virtual DbSet<PasswordHistories> PasswordHistories { get; set; }
         public virtual DbSet<PasswordResetSecrets> PasswordResetSecrets { get; set; }
-        public virtual DbSet<TCGCustomers> TCGCustomers { get; set; }
         public virtual DbSet<TCGUserGroup> TCGUserGroup { get; set; }
         public virtual DbSet<TwoFactorAuthTokens> TwoFactorAuthTokens { get; set; }
         public virtual DbSet<UserAccounts> UserAccounts { get; set; }
@@ -40,5 +39,6 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual DbSet<TCGServices> TCGServices { get; set; }
         public virtual DbSet<TSchedules> TSchedules { get; set; }
         public virtual DbSet<TCGProfessionals> TCGProfessionals { get; set; }
+        public virtual DbSet<TCGCustomers> TCGCustomers { get; set; }
     }
 }

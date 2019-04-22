@@ -17,10 +17,10 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TCGCustomers()
         {
-            this.UserAccounts = new HashSet<UserAccounts>();
+            this.TCGProfessionals = new HashSet<TCGProfessionals>();
             this.TCGServices = new HashSet<TCGServices>();
             this.TSchedules = new HashSet<TSchedules>();
-            this.TCGProfessionals = new HashSet<TCGProfessionals>();
+            this.UserAccounts = new HashSet<UserAccounts>();
         }
     
         public int IDCustomer { get; set; }
@@ -33,12 +33,12 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserAccounts> UserAccounts { get; set; }
+        public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TCGServices> TCGServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSchedules> TSchedules { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
+        public virtual ICollection<UserAccounts> UserAccounts { get; set; }
     }
 }

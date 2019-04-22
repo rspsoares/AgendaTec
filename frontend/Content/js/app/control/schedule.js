@@ -40,9 +40,7 @@ function PageSetup() {
         .add(dtDateToFilter)
         .removeClass("k-textbox");
 
-
     var d = new Date();
-
     var dtNewDate = $("#dtNewDate");
     dtNewDate.kendoMaskedTextBox({
         mask: "00/00/0000"
@@ -81,7 +79,7 @@ function PageSetup() {
     $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
-    LoadCompanyNameCombo();
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
     
     $("#ddlCustomerFilter")
         .data("kendoDropDownList")
@@ -91,31 +89,32 @@ function PageSetup() {
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
 
-    LoadProfessionalsFilterCombo();
-    LoadProfessionalsCombo();
-    LoadServiceFilterCombo();
-    LoadServiceCombo();
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'IDProfessional', 'Name', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'IDProfessional', 'Name', $("#ddlCustomer").val(), false);
+
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'IDService', 'Description', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'IDService', 'Description', $("#ddlCustomer").val(), false);
 
     $("#ddlService")
         .data("kendoDropDownList")
         .bind("change", ddlServiceChange);
 
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'UkUser', 'FullName', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'UkUser', 'FullName', $("#ddlCustomer").val(), false);
 
-    LoadConsumerFilterCombo();
-    LoadConsumerCombo();
     LoadSchedules();
 }
 
 function ddlCustomerFilterChange(e) {
-    $('#ddlProfessionalFilter').data('kendoDropDownList').dataSource.read();
-    $('#ddlServiceFilter').data('kendoDropDownList').dataSource.read();
-    $('#ddlConsumerFilter').data('kendoDropDownList').dataSource.read();
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'IDProfessional', 'Name', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'IDService', 'Description', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'UkUser', 'FullName', $("#ddlCustomerFilter").val(), false);
 }
 
 function ddlCustomerChange(e) {
-    $('#ddlProfessional').data('kendoDropDownList').dataSource.read();
-    $('#ddlService').data('kendoDropDownList').dataSource.read();
-    $('#ddlConsumer').data('kendoDropDownList').dataSource.read();
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'IDProfessional', 'Name', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'IDService', 'Description', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'UkUser', 'FullName', $("#ddlCustomer").val(), false);
 }
 
 function ddlServiceChange(e) {
@@ -135,193 +134,6 @@ function ddlServiceChange(e) {
             else {
                 ShowModalAlert(result.errorMessage);
                 return;
-            }
-        }
-    });
-}
-
-
-function LoadProfessionalsFilterCombo() {
-    $('#ddlProfessionalFilter').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'Name',
-        dataValueField: 'IDProfessional',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Professionals/GetProfessionalNameCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: true,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomerFilter").val()                            
-                        };
-                    }
-                }
-            }
-        }
-    });
-}
-
-function LoadProfessionalsCombo() {
-    $('#ddlProfessional').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'Name',
-        dataValueField: 'IDProfessional',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Professionals/GetProfessionalNameCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: false,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomer").val()
-                        };
-                    }
-                }
-            }
-        }
-    });
-}
-
-function LoadServiceFilterCombo() {
-    $('#ddlServiceFilter').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'Description',
-        dataValueField: 'IDService',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Services/GetServiceNameCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: true,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomerFilter").val()
-                        };
-                    }
-                }
-            }
-        }
-    });
-}
-
-function LoadServiceCombo() {
-    $('#ddlService').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'Description',
-        dataValueField: 'IDService',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Services/GetServiceNameCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: false,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomer").val()
-                        };
-                    }
-                }
-            }
-        }
-    });
-}
-
-function LoadConsumerFilterCombo() {
-    $('#ddlConsumerFilter').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'FullName',
-        dataValueField: 'UkUser',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Users/GetConsumerNamesCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: true,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomerFilter").val()
-                        };
-                    }
-                }
-            }
-        }
-    });
-}
-
-function LoadConsumerCombo() {
-    $('#ddlConsumer').kendoDropDownList({
-        placeholder: "Selecione...",
-        dataTextField: 'FullName',
-        dataValueField: 'UkUser',
-        dataSource: {
-            schema: {
-                data: function (result) {
-                    return result.Data;
-                }
-            },
-            transport: {
-                read: {
-                    url: "/Users/GetConsumerNamesCombo",
-                    dataType: "json",
-                    type: "GET",
-                    async: false,
-                    cache: false
-                },
-                parameterMap: function (data, type) {
-                    if (type === "read") {
-                        return {
-                            idCustomer: $("#ddlCustomer").val()
-                        };
-                    }
-                }
             }
         }
     });

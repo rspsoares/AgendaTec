@@ -44,7 +44,7 @@
             return false;
     });
 
-    LoadCompanyNameCombo();   
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true); 
     LoadServices();
 }
 

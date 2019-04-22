@@ -75,9 +75,9 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetProfessionalNameCombo(string idCustomer)
+        public JsonResult GetProfessionalNameCombo(string filter)
         {
-            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);
             var professional = _usuarioLogado.Inscricao.Equals(EnUserType.Professional) ? _usuarioLogado.uqUsuario : Guid.Empty;
 
             var professionals = _professionalFacade.GetProfessionalNameCombo(customer, professional, out string errorMessage);
