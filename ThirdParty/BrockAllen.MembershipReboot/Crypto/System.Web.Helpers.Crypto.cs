@@ -12,11 +12,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-//using System.Web.Helpers.Resources;
 
 namespace BrockAllen.MembershipReboot.Helpers
 {
-    internal static class Crypto
+    public static class Crypto
     {
         private const int PBKDF2IterCount = 1000; // default for Rfc2898DeriveBytes
         private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits

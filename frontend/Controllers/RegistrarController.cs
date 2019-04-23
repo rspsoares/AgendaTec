@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Linq;
 using AgendaTech.View.Models;
 using BrockAllen.MembershipReboot;
+using BrockAllen.MembershipReboot.Entities;
 
 namespace AgendaTech.View.Controllers
 {

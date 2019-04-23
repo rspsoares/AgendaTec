@@ -39,6 +39,12 @@ namespace AgendaTech.WebAPI.Controllers
 
             return products;
         }
+
+        public string Test(string parm)
+        {
+            
+            return parm;
+        }
     }
 }
 

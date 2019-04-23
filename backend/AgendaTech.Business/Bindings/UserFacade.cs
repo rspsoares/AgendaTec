@@ -3,9 +3,12 @@ using AgendaTech.Business.Entities;
 using AgendaTech.Infrastructure.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using AgendaTech.Infrastructure.Repositories;
+using BrockAllen.MembershipReboot;
+using BrockAllen.MembershipReboot.Helpers;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -138,6 +141,31 @@ namespace AgendaTech.Business.Bindings
             };
         }
 
+        public string GetLoggedUserByEmail(string email, out string errorMessage)
+        {
+            string loggedUser = string.Empty;
+            errorMessage = string.Empty;
+
+            try
+            {
+                var user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
+                if (user == null)
+                {
+                    errorMessage = "E-mail não encontrado";
+                    return null;
+                }
+
+                loggedUser = $"{user.FirstName} {user.LastName}".Trim();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return loggedUser;
+        }
+
         public List<UserAccountDTO> GetUserGroupsCombo(EnUserType userGroup, out string errorMessage)
         {
             var userGroups = new List<TCGUserGroup>();
@@ -253,6 +281,102 @@ namespace AgendaTech.Business.Bindings
                 errorMessage = ex.Message;
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
+        }
+
+        public int CreateConsumer(UserAccountDTO userAccount, out string errorMessage)
+        {
+            int Key = 0;
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                var account = new UserAccounts()
+                {
+                    ID = Guid.NewGuid(),
+                    Source = userAccount.IDCustomer,
+                    Inscription = (int)EnUserType.Consumer,
+                    Tenant = "tenant",
+                    Username = userAccount.Email,
+                    FirstName = userAccount.FirstName,
+                    LastName = userAccount.LastName,
+                    Email = userAccount.Email,
+                    Created = DateTime.Now,
+                    LastUpdated = DateTime.Now,
+                    HashedPassword = new DefaultCrypto().HashPassword(userAccount.InitialPassword, 0),
+                    PasswordChanged = DateTime.Now,
+                    IsAccountVerified = true,
+                    AccountTwoFactorAuthMode = 0,
+                    CurrentTwoFactorAuthStatus = 0,
+                    IsLoginAllowed = false
+                };
+
+                Key = _commonRepository.Insert(account).Key;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return Key;
+        }
+
+        public void ChangePassword(UserAccountDTO userAccount, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                var user = _commonRepository.Filter(x => x.Email.Equals(userAccount.Email)).FirstOrDefault();
+                user.HashedPassword = new DefaultCrypto().HashPassword(userAccount.NewPassword, 0);
+                _commonRepository.Update(user.Key, user);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+        }
+
+        public bool VerifyPassword(string email, string password, out UserAccountDTO userAccount)
+        {
+            userAccount = new UserAccountDTO();
+
+            try
+            {
+                var user = _commonRepository.Filter(x => x.Email.Equals(email)).SingleOrDefault();
+                if (user.Key.Equals(0))
+                    return false;
+
+                var hashedPassword = user.HashedPassword;
+
+                var parts = hashedPassword.Split('.');
+                if (parts.Length != 2)
+                    return false;
+
+                int count = DecodeIterations(parts[0]);
+                if (count <= 0)
+                    return false;
+
+                hashedPassword = parts[1];
+
+                return Crypto.VerifyHashedPassword(hashedPassword, password, count);                
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                return false;
+            }           
+        }
+
+        private int DecodeIterations(string prefix)
+        {            
+            if (int.TryParse(prefix, NumberStyles.HexNumber, null, out int val))            
+                return val;
+            
+            return -1;
         }
     }
 }

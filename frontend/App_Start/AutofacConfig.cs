@@ -5,9 +5,9 @@ using Autofac.Integration.Mvc;
 using BrockAllen.MembershipReboot;
 using BrockAllen.MembershipReboot.Ef;
 using BrockAllen.MembershipReboot.WebHost;
-using AgendaTech.View.Models;
 using AgendaTech.Business.Contracts;
 using AgendaTech.Business.Bindings;
+using BrockAllen.MembershipReboot.Entities;
 
 namespace AgendaTech.View
 {

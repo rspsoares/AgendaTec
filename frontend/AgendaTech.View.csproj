@@ -224,7 +224,6 @@
     </Compile>
     <Compile Include="Models\ChangeMail.cs" />
     <Compile Include="Models\ChangePasswordFromResetKeyInputModel.cs" />
-    <Compile Include="Models\ContaUsuario.cs" />
     <Compile Include="Models\EntradaModel.cs" />
     <Compile Include="Models\ModificarSenha.cs" />
     <Compile Include="Models\Registro.cs" />
@@ -2062,6 +2061,10 @@
     <ProjectReference Include="..\ThirdParty\BrockAllen.MembershipReboot.Ef\BrockAllen.MembershipReboot.Ef.csproj">
       <Project>{453c8a9d-72aa-4f8d-9354-8b0f57f2b58a}</Project>
       <Name>BrockAllen.MembershipReboot.Ef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\BrockAllen.MembershipReboot.Entities\BrockAllen.MembershipReboot.Entities.csproj">
+      <Project>{42936762-F822-4AEC-AF6B-432FC211C494}</Project>
+      <Name>BrockAllen.MembershipReboot.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\ThirdParty\BrockAllen.MembershipReboot.WebHost\BrockAllen.MembershipReboot.WebHost.csproj">
       <Project>{754ae1b9-11d0-4270-98c7-8da69b150860}</Project>

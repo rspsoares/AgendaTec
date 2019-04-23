@@ -3,6 +3,7 @@ using AgendaTech.Business.Entities;
 using AgendaTech.View.Authorization;
 using AgendaTech.View.Models;
 using BrockAllen.MembershipReboot;
+using BrockAllen.MembershipReboot.Entities;
 using System;
 using System.Linq;
 using System.Web.Mvc;

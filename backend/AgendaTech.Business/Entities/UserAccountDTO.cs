@@ -15,6 +15,8 @@ namespace AgendaTech.Business.Entities
         public int IDUserGroup { get; set; }       
         public string GroupDescription { get; set; }
         public int IDCustomer { get; set; }
-        public string CustomerName { get; set; }        
+        public string CustomerName { get; set; }
+        public string InitialPassword { get; set; }
+        public string NewPassword { get; set; }
     }
 }

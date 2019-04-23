@@ -4,6 +4,7 @@ using BrockAllen.MembershipReboot;
 using AgendaTech.View.Models;
 using AgendaTech.View.Authorization;
 using System.ComponentModel.DataAnnotations;
+using BrockAllen.MembershipReboot.Entities;
 
 namespace AgendaTech.View.Controllers
 {

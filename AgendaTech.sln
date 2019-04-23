@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaTech.Tests", "backend
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaTech.WebAPI", "WebAPI\AgendaTech.WebAPI\AgendaTech.WebAPI.csproj", "{211F2A17-62F4-420D-A4AC-1DCAD322827A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrockAllen.MembershipReboot.Entities", "ThirdParty\BrockAllen.MembershipReboot.Entities\BrockAllen.MembershipReboot.Entities.csproj", "{42936762-F822-4AEC-AF6B-432FC211C494}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{211F2A17-62F4-420D-A4AC-1DCAD322827A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{211F2A17-62F4-420D-A4AC-1DCAD322827A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{211F2A17-62F4-420D-A4AC-1DCAD322827A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42936762-F822-4AEC-AF6B-432FC211C494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42936762-F822-4AEC-AF6B-432FC211C494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42936762-F822-4AEC-AF6B-432FC211C494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42936762-F822-4AEC-AF6B-432FC211C494}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{80F1716B-68B6-46FC-8ECF-2875E181C4E7} = {AD7C5224-C8A8-4B5E-B3FA-613EE7686B0A}
 		{56025AFC-639C-4192-83ED-F72050D6C127} = {CE24A212-89B4-4D1C-84B5-C13721B97899}
 		{211F2A17-62F4-420D-A4AC-1DCAD322827A} = {5C9C5AC6-5FCA-4CB6-A6D7-7624826440C8}
+		{42936762-F822-4AEC-AF6B-432FC211C494} = {4FD9672C-5018-46D4-8D0D-B172AE788D70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07980CC7-14F6-4E93-8BA0-1B64551CF529}

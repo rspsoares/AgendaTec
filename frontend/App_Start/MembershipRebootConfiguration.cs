@@ -1,6 +1,6 @@
 ﻿using BrockAllen.MembershipReboot;
 using BrockAllen.MembershipReboot.WebHost;
-using AgendaTech.View.Models;
+using BrockAllen.MembershipReboot.Entities;
 
 namespace AgendaTech.View.App_Start
 {    
@@ -19,7 +19,7 @@ namespace AgendaTech.View.App_Start
 
             config.AddCommandHandler(new CustomClaimsMapper());
 
-            var appinfo = new AspNetApplicationInformation("Portal de Apuração de Tributos", "Mosaic",
+            var appinfo = new AspNetApplicationInformation("AgendaTech", "AgendaTech",
                 "/Login",
                 "/Registrar/Confirm/",
                 "/Login/Cancel/",
