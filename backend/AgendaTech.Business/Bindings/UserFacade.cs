@@ -141,21 +141,20 @@ namespace AgendaTech.Business.Bindings
             };
         }
 
-        public string GetLoggedUserByEmail(string email, out string errorMessage)
+        public UserAccountDTO GetLoggedUserByEmail(string email, out string errorMessage)
         {
-            string loggedUser = string.Empty;
+            var user = new UserAccounts();
+
             errorMessage = string.Empty;
 
             try
             {
-                var user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
+                user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
                 if (user == null)
                 {
                     errorMessage = "E-mail não encontrado";
                     return null;
-                }
-
-                loggedUser = $"{user.FirstName} {user.LastName}".Trim();
+                }           
             }
             catch (Exception ex)
             {
@@ -163,7 +162,12 @@ namespace AgendaTech.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return loggedUser;
+            return new UserAccountDTO()
+            {              
+                UkUser = user.ID,
+                IDCustomer = user.Source,
+                FullName = $"{user.FirstName} {user.LastName}"
+            };
         }
 
         public List<UserAccountDTO> GetUserGroupsCombo(EnUserType userGroup, out string errorMessage)
@@ -296,7 +300,7 @@ namespace AgendaTech.Business.Bindings
                     ID = Guid.NewGuid(),
                     Source = userAccount.IDCustomer,
                     Inscription = (int)EnUserType.Consumer,
-                    Tenant = "tenant",
+                    Tenant = "default",
                     Username = userAccount.Email,
                     FirstName = userAccount.FirstName,
                     LastName = userAccount.LastName,
@@ -320,6 +324,30 @@ namespace AgendaTech.Business.Bindings
             }
 
             return Key;
+        }
+
+        public string CheckDuplicatedUser(UserAccountDTO userAccount, out string errorMessage)
+        {
+            var users = new List<UserAccounts>();
+            var checkResult = string.Empty;
+            errorMessage = string.Empty;
+
+            try
+            {
+                if(userAccount.IDUser.Equals(0))                
+                    users = _commonRepository.Filter(x => x.Email.Equals(userAccount.Email));
+                else                
+                    users = _commonRepository.Filter(x => !x.Key.Equals(userAccount.IDUser) && x.Email.Equals(userAccount.Email));
+                   
+                checkResult = users.Any() ? "Esse e-mail já está em uso." : string.Empty;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return checkResult;
         }
 
         public void ChangePassword(UserAccountDTO userAccount, out string errorMessage)

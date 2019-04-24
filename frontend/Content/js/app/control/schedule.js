@@ -374,9 +374,9 @@ function onChange(e) {
 
 function BonusDescription(bonus) {
     if (bonus === true)
-        return "Ativo";
+        return "Sim";
     else
-        return "Inativo";
+        return "Não";
 }
 
 function AddAppointment() {

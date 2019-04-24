@@ -81,6 +81,7 @@ function LoadUsers() {
 
 function AddUser() {
     CleanFields();
+    LockFields(false);
 
     $('#modalUserEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalUserEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Usuário");
@@ -181,7 +182,7 @@ function SaveUser() {
                 LoadUsers();
             }
             else
-                ShowModalAlert("Erro ao gravar alterações.");
+                ShowModalAlert(result.errorMessage);
         }
     });
 }

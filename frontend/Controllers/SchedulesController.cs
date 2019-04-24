@@ -90,12 +90,18 @@ namespace AgendaTech.View.Controllers
         [HttpPost]
         public JsonResult CheckAvailability(List<TSchedules> schedules, string newDate)
         {
-            var availability = _scheduleFacade.CheckAvailability(schedules, newDate, out string errorMessage);
+            //var availability = _scheduleFacade.CheckAvailabilityToReschedule(schedules, newDate, out string errorMessage);
 
-            if (!string.IsNullOrEmpty(errorMessage))
+            //if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao verificar a disponibilidade." }, JsonRequestBehavior.AllowGet);
-            else
-                return Json(new { Success = true, Data = availability, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+            //else
+            //{
+              //  if(availability)
+                //    return Json(new { Success = true, Data = availability, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                //else
+                  //  return Json(new { Success = true, Data = availability, errorMessage = "Existem um ou mais horários conflitantes. Favor verificar a agenda novamente." }, JsonRequestBehavior.AllowGet);
+            //}
+                
         }
 
         [HttpPost]

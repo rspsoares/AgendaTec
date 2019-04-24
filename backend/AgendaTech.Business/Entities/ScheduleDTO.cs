@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AgendaTech.Business.Entities
+﻿namespace AgendaTech.Business.Entities
 {
     public class ScheduleDTO
     {

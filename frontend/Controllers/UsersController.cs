@@ -66,19 +66,24 @@ namespace AgendaTech.View.Controllers
 
         [HttpPost]
         public JsonResult SaveUser(UserAccountDTO userDTO)
-        {
-            string errorMessage = string.Empty;
-            
+        {   
             var fullNameSplit = userDTO.FullName.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
             userDTO.FirstName = fullNameSplit.FirstOrDefault();
             userDTO.LastName = string.Join(" ", fullNameSplit.Skip(1));
 
+            var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string error);
+            if (!string.IsNullOrEmpty(error))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
+
+            if (!string.IsNullOrEmpty(checkResult))
+                return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);
+
             if (userDTO.IDUser.Equals(0))
                 userDTO.IDUser = _userSvc.CreateAccount(userDTO.UserName, "AgendaTech123", userDTO.Email).Key;
 
-            _userFacade.Update(userDTO, out errorMessage);
+            _userFacade.Update(userDTO, out error);
             
-            if (!string.IsNullOrEmpty(errorMessage))
+            if (!string.IsNullOrEmpty(error))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);

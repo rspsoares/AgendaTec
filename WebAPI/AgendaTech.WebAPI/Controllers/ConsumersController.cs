@@ -4,27 +4,32 @@ using AgendaTech.Business.Entities;
 using System;
 using System.Net;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace AgendaTech.WebAPI.Controllers
 {
     [Authorize]    
-    public class ConsumerController : ApiController
+    public class ConsumersController : ApiController
     {
         private readonly IUserFacade _userFacade;        
 
-        public ConsumerController()
+        public ConsumersController()
         {
             _userFacade = new UserFacade();            
         }        
 
-        [HttpPost]
-        [ResponseType(typeof(void))]
-        public IHttpActionResult CreateConsumer(UserAccountDTO userDTO)
+        [HttpPost]        
+        public IHttpActionResult Create(UserAccountDTO userDTO)
         {
             try
             {
-                _userFacade.CreateConsumer(userDTO, out string errorMessage);
+                var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return StatusCode(HttpStatusCode.InternalServerError);
+
+                if (!string.IsNullOrEmpty(checkResult))
+                    return Ok(checkResult);
+
+                _userFacade.CreateConsumer(userDTO, out errorMessage);
 
                 if (!string.IsNullOrEmpty(errorMessage))
                     return StatusCode(HttpStatusCode.InternalServerError);
@@ -38,8 +43,7 @@ namespace AgendaTech.WebAPI.Controllers
         }
 
         [HttpGet]        
-        [ResponseType(typeof(string))]
-        public IHttpActionResult GetLoggedConsumer(string email)
+        public IHttpActionResult GetLogged(string email)
         {   
             try
             {
@@ -60,8 +64,7 @@ namespace AgendaTech.WebAPI.Controllers
             }            
         }
 
-        [HttpPut]
-        [ResponseType(typeof(string))]
+        [HttpPut]        
         public IHttpActionResult ChangePassword(UserAccountDTO userDTO)
         {
             try

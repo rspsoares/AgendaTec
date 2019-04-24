@@ -187,13 +187,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\ConsumerController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\ConsumersController.cs" />
+    <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +251,7 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -294,6 +293,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Consumer\" />
+    <Folder Include="Views\Schedule\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -304,6 +304,10 @@
     <ProjectReference Include="..\..\backend\AgendaTech.Business\AgendaTech.Business.csproj">
       <Project>{80F1716B-68B6-46FC-8ECF-2875E181C4E7}</Project>
       <Name>AgendaTech.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\backend\AgendaTech.Infrastructure\AgendaTech.Infrastructure.csproj">
+      <Project>{70425DFA-3C43-4928-909B-B055E90C2FF9}</Project>
+      <Name>AgendaTech.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

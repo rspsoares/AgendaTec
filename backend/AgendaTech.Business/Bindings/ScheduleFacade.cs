@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace AgendaTech.Business.Bindings
 {
@@ -159,36 +160,72 @@ namespace AgendaTech.Business.Bindings
             }
         }
 
-        public bool CheckAvailability(List<TSchedules> schedules, string newDate, out string errorMessage)
+        public void Delete(int idSchedule, out string errorMessage)
         {
-            bool availability = true;
-
             errorMessage = string.Empty;
 
             try
             {
-                foreach (var schedule in schedules)
-                {
-                    var appointment = _commonRepository.GetById(schedule.IDSchedule);
-                    var dateProposal = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {appointment.Date.ToString("HH:mm")}");
-
-                    availability = !_commonRepository
-                        .GetAll()
-                        .Where(x => x.IDProfessional.Equals(appointment.IDProfessional) && x.Date.Equals(dateProposal))
-                        .Any();
-
-                    if (!availability)
-                        break;
-                }
+                _commonRepository.Delete(idSchedule); 
             }
             catch (Exception ex)
             {
                 errorMessage = ex.Message;
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
-
-            return availability;
         }
+
+        public string CheckAvailability(List<TSchedules> schedules, out string errorMessage)
+        {
+            var availabilityCheck = new StringBuilder();
+            bool exists = true;
+
+            errorMessage = string.Empty;
+
+            schedules.ForEach(schedule =>
+            {
+                if (schedule.IDSchedule.Equals(0))                
+                    exists = _commonRepository.Filter(x => x.IDProfessional.Equals(schedule.IDProfessional) && x.Date.Equals(schedule.Date)).Any();                
+                else                
+                    exists = _commonRepository.Filter(x => !x.IDSchedule.Equals(schedule.IDSchedule) && x.IDProfessional.Equals(schedule.IDProfessional) && x.Date.Equals(schedule.Date)).Any();
+
+                if (exists)
+                    availabilityCheck.AppendLine($"Já existe um horário marcado para o Funcionário {schedule.IDProfessional} no dia {schedule.Date.ToString("dd/MM/yyyy")} às {schedule.Date.ToString("HH:mm")}");
+            });
+
+            return availabilityCheck.ToString();
+        }
+        
+        //public bool CheckAvailabilityToReschedule(List<TSchedules> schedules, string newDate, out string errorMessage)
+        //{
+        //    bool availability = true;
+
+        //    errorMessage = string.Empty;
+
+        //    try
+        //    {
+        //        foreach (var schedule in schedules)
+        //        {
+        //            var appointment = _commonRepository.GetById(schedule.IDSchedule);
+        //            var dateProposal = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {appointment.Date.ToString("HH:mm")}");
+
+        //            availability = !_commonRepository
+        //                .GetAll()
+        //                .Where(x => x.IDProfessional.Equals(appointment.IDProfessional) && x.Date.Equals(dateProposal))
+        //                .Any();
+
+        //            if (!availability)
+        //                break;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errorMessage = ex.Message;
+        //        _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+        //    }
+
+        //    return availability;
+        //}
 
         public void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage)
         {
