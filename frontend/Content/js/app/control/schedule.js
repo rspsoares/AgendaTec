@@ -54,8 +54,8 @@ function PageSetup() {
         .removeClass("k-textbox");
 
     $("#dtDateTime").kendoDateTimePicker({
-        value: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0),
-        min: new Date(d.getFullYear(), d.getMonth() + 1, d.getDate(), 9, 0, 0)        
+        value: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9, 0, 0),
+        min: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9, 0, 0)        
     });
 
     $('#txtPrice').on('keypress', function (e) {
@@ -117,7 +117,7 @@ function ddlCustomerChange(e) {
     LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'UkUser', 'FullName', $("#ddlCustomer").val(), false);
 }
 
-function ddlServiceChange(e) {
+function ddlServiceChange(e) {  
     $.ajax({
         type: "GET",
         contentType: 'application/json; charset=utf-8',
@@ -215,6 +215,8 @@ function LoadSchedules() {
         },
         columns: [
             { field: "IDSchedule", hidden: true },
+            { field: "IDProfessional", hidden: true },
+            { field: "Time", hidden: true },
             { field: "ProfessionalName", title: "Profissional", width: "20%" },
             { field: "ServiceName", title: "Serviço", width: "15%" },
             { field: "ConsumerName", title: "Cliente", width: "20%" },
@@ -296,6 +298,8 @@ function ShowAvailabilityPopup() {
 function RescheduleAppointments() {    
     var appointments = GetSelectedAppointments();
 
+    $('#modalReschedule').modal("hide");
+
     $.ajax({
         url: '/Schedules/RescheduleAppointment',
         data: JSON.stringify({ schedules: appointments, newDate: kendo.parseDate($("#dtNewDate").val(), "dd/MM/yyyy") }),
@@ -304,17 +308,18 @@ function RescheduleAppointments() {
         contentType: 'application/json; charset=utf-8',
         success: function (result) {           
             if (result.Success) {
-                ShowModalSucess("Reagendamento concluído com sucesso.");
-                $('#modalAvailability').modal("hide");
+                ShowModalSucess("Reagendamento concluído com sucesso.");                
                 LoadSchedules();
             }
             else
-                ShowModalAlert("Erro ao reagendar os compromissos.");
+                ShowModalAlert(result.errorMessage);
         }
     });
 }
 
 function ShowModalReschedule() {
+    $("#dtNewDate").val("");
+
     $('#modalReschedule .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalReschedule .modal-dialog .modal-header center .modal-title strong').html("Reagendamento");
     $('#modalReschedule').modal({ backdrop: 'static', keyboard: false });
@@ -325,7 +330,11 @@ function Delete_click() {
         ShowModalAlert("Favor selecionar algum compromisso para ser excluído.");
         return;
     }
+        
+    $('#modalDeleteConfirmation').modal({ backdrop: 'static', keyboard: false });
+}
 
+function DeleteAppointments() {
     var appointments = GetSelectedAppointments();
 
     $.ajax({
@@ -344,6 +353,8 @@ function Delete_click() {
         }
     });
 
+    $('#modalDeleteConfirmation').modal("hide");
+
     return true;
 }
 
@@ -358,8 +369,10 @@ function GetSelectedAppointments() {
         var row = $("#grid").data("kendoGrid").dataItem(this);
 
         appointment = {
-            IDSchedule: row.IDSchedule,         
-            Date: row.Date
+            IDSchedule: row.IDSchedule,     
+            IDProfessional: row.IDProfessional,
+            Date: row.Date + ' ' + row.Hour,         
+            Time: row.Time
         };
 
         appointments.push(appointment);        
@@ -476,7 +489,7 @@ function SaveAppointment() {
                 LoadSchedules();
             }
             else
-                ShowModalAlert("Erro ao gravar alterações.");
+                ShowModalAlert(result.errorMessage);
         }
     });
 }

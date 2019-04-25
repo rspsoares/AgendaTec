@@ -59,11 +59,18 @@ namespace AgendaTech.View.Controllers
 
         [HttpPost]
         public JsonResult SaveAppointment(TSchedules schedule)
-        {
-            string errorMessage = string.Empty;
+        {            
+            var schedules = new List<TSchedules>
+            {
+                schedule
+            };
 
-            //Não permitir agendar pro mesmo profissional no mesmo dia/hora
+            var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out string errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao verificar a disponibilidade da agenda." }, JsonRequestBehavior.AllowGet);
 
+            if (!string.IsNullOrEmpty(availabilityCheck))
+                return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
 
             if (schedule.IDSchedule.Equals(0))
                 _scheduleFacade.Insert(schedule, out errorMessage);
@@ -88,26 +95,16 @@ namespace AgendaTech.View.Controllers
         }
 
         [HttpPost]
-        public JsonResult CheckAvailability(List<TSchedules> schedules, string newDate)
-        {
-            //var availability = _scheduleFacade.CheckAvailabilityToReschedule(schedules, newDate, out string errorMessage);
-
-            //if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao verificar a disponibilidade." }, JsonRequestBehavior.AllowGet);
-            //else
-            //{
-              //  if(availability)
-                //    return Json(new { Success = true, Data = availability, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
-                //else
-                  //  return Json(new { Success = true, Data = availability, errorMessage = "Existem um ou mais horários conflitantes. Favor verificar a agenda novamente." }, JsonRequestBehavior.AllowGet);
-            //}
-                
-        }
-
-        [HttpPost]
         public JsonResult RescheduleAppointment(List<TSchedules> schedules, string newDate)
-        {         
-            _scheduleFacade.Reschedule(schedules, newDate, out string errorMessage);
+        {
+            var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out string errorMessage, newDate);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao verificar a disponibilidade da agenda." }, JsonRequestBehavior.AllowGet);
+
+            if (!string.IsNullOrEmpty(availabilityCheck))
+                return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
+
+            _scheduleFacade.Reschedule(schedules, newDate, out errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao excluir o agendamento." }, JsonRequestBehavior.AllowGet);

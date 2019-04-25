@@ -12,11 +12,11 @@ namespace AgendaTech.Tests
     [TestClass]
     public class ScheduleTest
     {
-        private readonly IScheduleFacade _scheduleRepository;
+        private readonly IScheduleFacade _scheduleFacade;
 
         public ScheduleTest()
         {
-            _scheduleRepository = new ScheduleFacade();
+            _scheduleFacade = new ScheduleFacade();
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace AgendaTech.Tests
                .RuleFor(t => t.Time, f => f.Random.Int(0, 60))
                .RuleFor(t => t.Bonus, f => f.Random.Bool());
 
-            var idSchedule = _scheduleRepository.Insert(fakeService, out string errorMessage).IDSchedule;
+            var idSchedule = _scheduleFacade.Insert(fakeService, out string errorMessage).IDSchedule;
 
             Assert.IsTrue(idSchedule > 0);
         }
@@ -40,7 +40,7 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void Schedule_GetAll()
         {
-            var schedules = _scheduleRepository.GetGrid(1, 0, 0, Guid.Empty, null, null, false, out string errorMessage);
+            var schedules = _scheduleFacade.GetGrid(1, 0, 0, Guid.Empty, null, null, false, out string errorMessage);
             Assert.IsTrue(schedules.Any());
         }
 
@@ -55,8 +55,23 @@ namespace AgendaTech.Tests
                 }
             };
 
-            _scheduleRepository.Delete(schedules, out string errorMessage);
+            _scheduleFacade.Delete(schedules, out string errorMessage);
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void Schedule_CheckAvailability()
+        {
+            var schedule = _scheduleFacade.GetScheduleById(14, out string errorMessage);
+            schedule.Date = DateTime.Parse($"{DateTime.Parse("2019-05-18").ToString("yyyy-MM-dd")} {schedule.Date.ToString("HH:mm")}");
+            var schedules = new List<TSchedules>
+            {
+                schedule
+            };
+
+            var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out errorMessage);
+            
+            Assert.IsTrue(!string.IsNullOrEmpty(availabilityCheck));
         }
     }
 }

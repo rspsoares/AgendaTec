@@ -234,7 +234,7 @@
                 <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
                     <span class="glyphicon glyphicon-remove"></span> Cancelar
                 </button>
-                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { CheckAvailability(); }">
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { RescheduleAppointments(); }">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
                 </button>
             </div>
@@ -242,12 +242,12 @@
     </div>
 </div>
 
-<div id="modalAvailability" class="modal fade">
+<div id="modalDeleteConfirmation" class="modal fade">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
-                <center><h4 class="modal-title"><strong></strong></h4></center>
+                <center><h4 class="modal-title"><strong>Confirmação de exclusão</strong></h4></center>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -255,7 +255,7 @@
                         <div class="col-sm-12">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label>Já existem comprimissos agendados para essa Data / Hora. Deseja continuar?</label>
+                                    <label><strong>Confirma exclusão dos agedamentos selecionados?</strong></label>
                                 </div>
                             </div>
                         </div>
@@ -266,11 +266,10 @@
                 <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
                     <span class="glyphicon glyphicon-remove"></span> Não
                 </button>
-                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { RescheduleAppointments(); }">
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { DeleteAppointments(); }">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Sim
                 </button>
             </div>
         </div>
     </div>
 </div>
-

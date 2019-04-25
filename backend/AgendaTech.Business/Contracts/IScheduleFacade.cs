@@ -13,7 +13,7 @@ namespace AgendaTech.Business.Contracts
         void Update(TSchedules e, out string errorMessage);
         void Delete(int idSchedule, out string errorMessage);
         void Delete(List<TSchedules> schedules, out string errorMessage);
-        string CheckAvailability(List<TSchedules> schedules, out string errorMessage);
+        string CheckAvailability(List<TSchedules> schedules, out string errorMessage, string newDate = null);
         void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage);
     }
 }

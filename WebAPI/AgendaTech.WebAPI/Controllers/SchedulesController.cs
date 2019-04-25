@@ -26,6 +26,9 @@ namespace AgendaTech.WebAPI.Controllers
             try
             {
                 var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out string errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return StatusCode(HttpStatusCode.InternalServerError);
+
                 if (!string.IsNullOrEmpty(availabilityCheck))                
                     return Ok(availabilityCheck);                
 

@@ -52,8 +52,8 @@ C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\roslyn\vbc.rsp
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\roslyn\VBCSCompiler.exe
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\roslyn\VBCSCompiler.exe.config
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\Antlr3.Runtime.dll
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\EntityFramework.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\EntityFramework.SqlServer.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
@@ -79,10 +79,11 @@ C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebP
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebPages.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebPages.Razor.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\WebGrease.dll
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.dll
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\Itenso.TimePeriod.dll
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Business.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.dll.config
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.dll.config
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\EntityFramework.xml
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\EntityFramework.SqlServer.xml
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
@@ -104,8 +105,8 @@ C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebP
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebPages.Deployment.xml
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.WebPages.Razor.xml
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\System.Web.Optimization.xml
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\AgendaTech.Infrastructure.dll.config
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\BrockAllen.MembershipReboot.dll.config
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\de\BrockAllen.MembershipReboot.resources.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\nl-nl\BrockAllen.MembershipReboot.resources.dll
 C:\_Rodrigo\Repositorios\AgendaTech\WebAPI\AgendaTech.WebAPI\bin\ru-ru\BrockAllen.MembershipReboot.resources.dll

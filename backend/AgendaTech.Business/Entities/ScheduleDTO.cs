@@ -2,7 +2,8 @@
 {
     public class ScheduleDTO
     {
-        public int IDSchedule { get; set; }        
+        public int IDSchedule { get; set; }
+        public int IDProfessional { get; set; }
         public string ProfessionalName { get; set; }
         public string ServiceName { get; set; }
         public string ConsumerName { get; set; }
