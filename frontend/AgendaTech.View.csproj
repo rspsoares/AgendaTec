@@ -304,7 +304,7 @@
     <Content Include="Content\js\app\home\dashboard.js" />
     <Content Include="Content\js\app\login\select-cnpj.js" />
     <Content Include="Content\js\app\menu-lateral.js" />
-    <Content Include="Content\js\mosaic-script.js" />
+    <Content Include="Content\js\agendatec-script.js" />
     <Content Include="Content\kendo-ui\js\angular.min.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af-ZA.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af.js" />
