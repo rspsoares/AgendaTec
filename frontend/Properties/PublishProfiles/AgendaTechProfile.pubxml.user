@@ -10,13 +10,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>04/25/2019 14:37:16</publishTime>
+      <publishTime>04/26/2019 08:55:05</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
       <publishTime>04/05/2019 11:18:22</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>04/25/2019 14:37:10</publishTime>
+      <publishTime>04/26/2019 08:55:04</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
@@ -25,7 +25,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/05/2019 11:06:24</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.dll">
-      <publishTime>04/25/2019 14:37:26</publishTime>
+      <publishTime>04/26/2019 10:59:38</publishTime>
     </File>
     <File Include="bin/AgendaTech.View.pdb">
       <publishTime>04/05/2019 11:18:29</publishTime>
@@ -136,7 +136,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:59</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>11/27/2018 18:07:34</publishTime>
+      <publishTime>04/22/2019 01:06:16</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.pdb">
       <publishTime>11/27/2018 17:59:08</publishTime>
@@ -496,7 +496,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/01/2019 16:34:10</publishTime>
     </File>
     <File Include="Content/js/app/control/schedule.js">
-      <publishTime>04/25/2019 10:01:59</publishTime>
+      <publishTime>04/26/2019 10:48:34</publishTime>
     </File>
     <File Include="Content/js/app/cruzamento/carga/carga.js">
       <publishTime>04/01/2019 16:34:10</publishTime>
@@ -619,7 +619,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/01/2019 16:34:12</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.js">
-      <publishTime>04/22/2019 09:48:23</publishTime>
+      <publishTime>04/26/2019 09:50:38</publishTime>
     </File>
     <File Include="Content/js/mosaic-script.min.js">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -5455,7 +5455,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/10/2019 16:09:21</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>04/10/2019 16:12:00</publishTime>
+      <publishTime>04/26/2019 08:40:00</publishTime>
     </File>
     <File Include="Scripts/bootstrap.bundle.js">
       <publishTime>04/10/2019 16:11:33</publishTime>
@@ -5617,7 +5617,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/12/2019 08:48:47</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>04/18/2019 16:10:13</publishTime>
+      <publishTime>04/26/2019 10:53:28</publishTime>
     </File>
     <File Include="Views/DocumentosFiscais/Index.cshtml">
       <publishTime>03/27/2019 09:29:10</publishTime>
@@ -5716,7 +5716,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/02/2019 12:11:44</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>04/17/2019 11:01:16</publishTime>
+      <publishTime>04/26/2019 10:54:13</publishTime>
     </File>
     <File Include="Views/Usuarios/Create.cshtml">
       <publishTime>06/23/2017 11:02:57</publishTime>
@@ -5737,7 +5737,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:02:57</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/25/2019 14:38:18</publishTime>
+      <publishTime>04/26/2019 09:02:19</publishTime>
     </File>
   </ItemGroup>
 </Project>

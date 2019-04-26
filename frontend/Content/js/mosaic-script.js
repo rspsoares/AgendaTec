@@ -550,7 +550,7 @@ function LoadComboFiltered(url, comboName, idField, textField, valueFilter, sele
                     url: url,
                     dataType: "json",
                     type: "GET",
-                    async: true,
+                    async: false,
                     cache: false
                 },
                 parameterMap: function (data, type) {

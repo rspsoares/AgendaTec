@@ -73,10 +73,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2019 13:07:57</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>04/25/2019 14:37:16</publishTime>
+      <publishTime>04/25/2019 16:03:28</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
-      <publishTime>04/25/2019 14:37:16</publishTime>
+      <publishTime>04/25/2019 16:03:28</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
       <publishTime>04/25/2019 14:37:10</publishTime>
@@ -88,10 +88,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/25/2019 14:37:10</publishTime>
     </File>
     <File Include="bin/AgendaTech.WebAPI.dll">
-      <publishTime>04/25/2019 14:37:23</publishTime>
+      <publishTime>04/25/2019 16:12:58</publishTime>
     </File>
     <File Include="bin/AgendaTech.WebAPI.pdb">
-      <publishTime>04/25/2019 14:37:23</publishTime>
+      <publishTime>04/25/2019 16:12:58</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/23/2017 11:02:58</publishTime>

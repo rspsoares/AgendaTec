@@ -79,8 +79,9 @@ namespace AgendaTech.Business.Bindings
                     Time = x.Time,
                     Bonus = x.Bonus
                 })
-                .OrderBy(x => x.Date)
-                .ThenBy(x => x.ProfessionalName)
+                .OrderBy(x => x.ProfessionalName)
+                .ThenBy(x => x.Date)
+                .ThenBy(x => x.Hour)
                 .ToList();
         }
 

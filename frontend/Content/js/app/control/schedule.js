@@ -217,6 +217,7 @@ function LoadSchedules() {
             { field: "IDSchedule", hidden: true },
             { field: "IDProfessional", hidden: true },
             { field: "Time", hidden: true },
+            { field: "Price", hidden: true },
             { field: "ProfessionalName", title: "Profissional", width: "20%" },
             { field: "ServiceName", title: "Serviço", width: "15%" },
             { field: "ConsumerName", title: "Cliente", width: "20%" },
@@ -259,34 +260,6 @@ function Reschedule_click() {
     ShowModalReschedule();
 
     return true;
-}
-
-function CheckAvailability() {
-    var hasAvailability = false;
-    var appointments = GetSelectedAppointments();
-    
-    $.ajax({
-        url: '/Schedules/CheckAvailability',
-        data: JSON.stringify({ schedules: appointments, newDate: kendo.parseDate($("#dtNewDate").val(), "dd/MM/yyyy") }),
-        type: 'POST',
-        async: false,
-        contentType: 'application/json; charset=utf-8',
-        success: function (result) {            
-            if (result.Success) {
-                $('#modalReschedule').modal("hide");
-                hasAvailability = result.Data;
-            }
-            else {
-                ShowModalAlert(result.errorMessage);
-                return;
-            }
-        }
-    });
-
-    if (!hasAvailability)
-        ShowAvailabilityPopup();
-    else
-        RescheduleAppointments();
 }
 
 function ShowAvailabilityPopup() {
@@ -371,8 +344,9 @@ function GetSelectedAppointments() {
         appointment = {
             IDSchedule: row.IDSchedule,     
             IDProfessional: row.IDProfessional,
-            Date: row.Date + ' ' + row.Hour,         
-            Time: row.Time
+            Date: kendo.parseDate(row.Date + ' ' + row.Hour, "dd/MM/yyyy HH:mm"),         
+            Time: row.Time,
+            Price: row.Price
         };
 
         appointments.push(appointment);        
@@ -468,7 +442,7 @@ function SaveAppointment() {
         IDService: $("#ddlService").val(),
         IDConsumer: $("#ddlConsumer").val(),
         Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
-        Price: $("#txtPrice").val(),
+        Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: $("#txtTime").val(),
         Bonus: $('#chkBonus').bootstrapSwitch('state')        
     };

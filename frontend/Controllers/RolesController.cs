@@ -43,8 +43,8 @@ namespace AgendaTech.View.Controllers
             if (_usuarioLogado.Inscricao.Equals(EnUserType.Administrator))
             {
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/Customers' title='Clientes'>");
-                menu.AppendLine("<span class='item'>Clientes</span>");
+                menu.AppendLine("<a href='/Customers' title='Customer'>");
+                menu.AppendLine("<span class='item'>Customer</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
             }
@@ -58,8 +58,8 @@ namespace AgendaTech.View.Controllers
             if (_usuarioLogado.Inscricao.Equals(EnUserType.Administrator) || _usuarioLogado.Inscricao.Equals(EnUserType.Customer))
             {
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/Users' title='Usuários'>");
-                menu.AppendLine("<span class='item'>Usuários</span>");
+                menu.AppendLine("<a href='/Users' title='Clientes'>");
+                menu.AppendLine("<span class='item'>Clientes</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
                 menu.AppendLine("</li>");
