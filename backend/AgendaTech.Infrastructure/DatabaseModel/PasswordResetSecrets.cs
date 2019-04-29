@@ -21,5 +21,6 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public string Answer { get; set; }
     
         public virtual UserAccounts UserAccounts { get; set; }
+        public virtual C_UserAccounts C_UserAccounts { get; set; }
     }
 }

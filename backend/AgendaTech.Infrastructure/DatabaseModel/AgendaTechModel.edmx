@@ -15,6 +15,96 @@
           <Property Name="Model" Type="varbinary(max)" Nullable="false" />
           <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
+        <EntityType Name="_UserAccounts">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Source" Type="int" Nullable="false" />
+          <Property Name="Inscription" Type="int" Nullable="false" />
+          <Property Name="StartingPass" Type="nvarchar(max)" />
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tenant" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="254" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="LastUpdated" Type="datetime" Nullable="false" />
+          <Property Name="IsAccountClosed" Type="bit" Nullable="false" />
+          <Property Name="AccountClosed" Type="datetime" />
+          <Property Name="IsLoginAllowed" Type="bit" Nullable="false" />
+          <Property Name="LastLogin" Type="datetime" />
+          <Property Name="LastFailedLogin" Type="datetime" />
+          <Property Name="FailedLoginCount" Type="int" Nullable="false" />
+          <Property Name="PasswordChanged" Type="datetime" />
+          <Property Name="RequiresPasswordReset" Type="bit" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="254" />
+          <Property Name="IsAccountVerified" Type="bit" Nullable="false" />
+          <Property Name="LastFailedPasswordReset" Type="datetime" />
+          <Property Name="FailedPasswordResetCount" Type="int" Nullable="false" />
+          <Property Name="MobileCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="MobileCodeSent" Type="datetime" />
+          <Property Name="MobilePhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="MobilePhoneNumberChanged" Type="datetime" />
+          <Property Name="AccountTwoFactorAuthMode" Type="int" Nullable="false" />
+          <Property Name="CurrentTwoFactorAuthStatus" Type="int" Nullable="false" />
+          <Property Name="VerificationKey" Type="nvarchar" MaxLength="100" />
+          <Property Name="VerificationPurpose" Type="int" />
+          <Property Name="VerificationKeySent" Type="datetime" />
+          <Property Name="VerificationStorage" Type="nvarchar" MaxLength="100" />
+          <Property Name="HashedPassword" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
         <EntityType Name="AuthenticationAudits">
           <Key>
             <PropertyRef Name="ID" />
@@ -187,13 +277,69 @@
           <Property Name="Type" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="LinkedAccountClaims" Type="Self.LinkedAccountClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="LinkedAccountClaims">
@@ -202,12 +348,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="LinkedAccounts" Type="Self.LinkedAccounts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="LinkedAccounts">
@@ -216,12 +362,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="PasswordResetSecrets" Type="Self.PasswordResetSecrets" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="PasswordResetSecrets">
@@ -230,12 +376,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="TwoFactorAuthTokens" Type="Self.TwoFactorAuthTokens" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="TwoFactorAuthTokens">
@@ -244,12 +390,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="UserCertificates" Type="Self.UserCertificates" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="UserCertificates">
@@ -258,12 +404,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_UserClaims_dbo_UserAccounts_ParentKey">
-          <End Role="UserAccounts" Type="Self.UserAccounts" Multiplicity="1">
+          <End Role="_UserAccounts" Type="Self._UserAccounts" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="UserClaims" Type="Self.UserClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserAccounts">
+            <Principal Role="_UserAccounts">
               <PropertyRef Name="Key" />
             </Principal>
             <Dependent Role="UserClaims">
@@ -363,6 +509,12 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
         </Association>
         <EntityContainer Name="AgendaTechModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_UserAccounts" EntityType="Self._UserAccounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuthenticationAudits" EntityType="Self.AuthenticationAudits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LinkedAccountClaims" EntityType="Self.LinkedAccountClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LinkedAccounts" EntityType="Self.LinkedAccounts" Schema="dbo" store:Type="Tables" />
@@ -377,28 +529,44 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <EntitySet Name="UserAccounts" EntityType="Self.UserAccounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserCertificates" EntityType="Self.UserCertificates" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserClaims" EntityType="Self.UserClaims" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="LinkedAccountClaims" EntitySet="LinkedAccountClaims" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="LinkedAccounts" EntitySet="LinkedAccounts" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="PasswordResetSecrets" EntitySet="PasswordResetSecrets" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="TwoFactorAuthTokens" EntitySet="TwoFactorAuthTokens" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="UserCertificates" EntitySet="UserCertificates" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" Association="Self.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey">
-            <End Role="UserAccounts" EntitySet="UserAccounts" />
+            <End Role="_UserAccounts" EntitySet="_UserAccounts" />
             <End Role="UserClaims" EntitySet="UserClaims" />
           </AssociationSet>
           <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="Self.FK_TCGProfessionals_TCGCustomers">
@@ -502,6 +670,47 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="UserAccounts" EntitySet="UserAccounts" />
           </AssociationSet>
+          <EntitySet Name="C_UserAccounts" EntityType="AgendaTechModel.C_UserAccounts" />
+          <EntitySet Name="AspNetRoles" EntityType="AgendaTechModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="AgendaTechModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="AgendaTechModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="AgendaTechModel.AspNetUsers" />
+          <AssociationSet Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="LinkedAccountClaims" EntitySet="LinkedAccountClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="LinkedAccounts" EntitySet="LinkedAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="PasswordResetSecrets" EntitySet="PasswordResetSecrets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="TwoFactorAuthTokens" EntitySet="TwoFactorAuthTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="UserCertificates" EntitySet="UserCertificates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1" Association="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1">
+            <End Role="C_UserAccounts" EntitySet="C_UserAccounts" />
+            <End Role="UserClaims" EntitySet="UserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="AgendaTechModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="AgendaTechModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="AgendaTechModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -534,6 +743,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey" FromRole="LinkedAccountClaims" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1" FromRole="LinkedAccountClaims" ToRole="C_UserAccounts" />
         </EntityType>
         <EntityType Name="LinkedAccounts">
           <Key>
@@ -545,6 +755,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="ProviderAccountID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey" FromRole="LinkedAccounts" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1" FromRole="LinkedAccounts" ToRole="C_UserAccounts" />
         </EntityType>
         <EntityType Name="PasswordHistories">
           <Key>
@@ -565,6 +776,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Question" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Answer" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey" FromRole="PasswordResetSecrets" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1" FromRole="PasswordResetSecrets" ToRole="C_UserAccounts" />
         </EntityType>
         <EntityType Name="TCGUserGroup">
           <Key>
@@ -583,6 +795,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Token" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Issued" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey" FromRole="TwoFactorAuthTokens" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1" FromRole="TwoFactorAuthTokens" ToRole="C_UserAccounts" />
         </EntityType>
         <EntityType Name="UserAccounts">
           <Key>
@@ -640,6 +853,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Thumbprint" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey" FromRole="UserCertificates" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1" FromRole="UserCertificates" ToRole="C_UserAccounts" />
         </EntityType>
         <EntityType Name="UserClaims">
           <Key>
@@ -650,6 +864,7 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
           <Property Name="Type" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="UserAccounts" Relationship="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey" FromRole="UserClaims" ToRole="UserAccounts" />
+          <NavigationProperty Name="C_UserAccounts" Relationship="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1" FromRole="UserClaims" ToRole="C_UserAccounts" />
         </EntityType>
         <Association Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey">
           <End Type="AgendaTechModel.UserAccounts" Role="UserAccounts" Multiplicity="1">
@@ -879,6 +1094,216 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="C_UserAccounts">
+          <Key>
+            <PropertyRef Name="Key" />
+          </Key>
+          <Property Name="Key" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="Int32" Nullable="false" />
+          <Property Name="Inscription" Type="Int32" Nullable="false" />
+          <Property Name="StartingPass" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Tenant" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastUpdated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsAccountClosed" Type="Boolean" Nullable="false" />
+          <Property Name="AccountClosed" Type="DateTime" Precision="3" />
+          <Property Name="IsLoginAllowed" Type="Boolean" Nullable="false" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="LastFailedLogin" Type="DateTime" Precision="3" />
+          <Property Name="FailedLoginCount" Type="Int32" Nullable="false" />
+          <Property Name="PasswordChanged" Type="DateTime" Precision="3" />
+          <Property Name="RequiresPasswordReset" Type="Boolean" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="254" FixedLength="false" Unicode="true" />
+          <Property Name="IsAccountVerified" Type="Boolean" Nullable="false" />
+          <Property Name="LastFailedPasswordReset" Type="DateTime" Precision="3" />
+          <Property Name="FailedPasswordResetCount" Type="Int32" Nullable="false" />
+          <Property Name="MobileCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobileCodeSent" Type="DateTime" Precision="3" />
+          <Property Name="MobilePhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhoneNumberChanged" Type="DateTime" Precision="3" />
+          <Property Name="AccountTwoFactorAuthMode" Type="Int32" Nullable="false" />
+          <Property Name="CurrentTwoFactorAuthStatus" Type="Int32" Nullable="false" />
+          <Property Name="VerificationKey" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VerificationPurpose" Type="Int32" />
+          <Property Name="VerificationKeySent" Type="DateTime" Precision="3" />
+          <Property Name="VerificationStorage" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="HashedPassword" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LinkedAccountClaims" Relationship="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="LinkedAccountClaims" />
+          <NavigationProperty Name="LinkedAccounts" Relationship="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="LinkedAccounts" />
+          <NavigationProperty Name="PasswordResetSecrets" Relationship="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="PasswordResetSecrets" />
+          <NavigationProperty Name="TwoFactorAuthTokens" Relationship="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="TwoFactorAuthTokens" />
+          <NavigationProperty Name="UserCertificates" Relationship="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="UserCertificates" />
+          <NavigationProperty Name="UserClaims" Relationship="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1" FromRole="C_UserAccounts" ToRole="UserClaims" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="AgendaTechModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="AgendaTechModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="AgendaTechModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="AgendaTechModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="AgendaTechModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="AgendaTechModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <Association Name="FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.LinkedAccountClaims" Role="LinkedAccountClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="LinkedAccountClaims">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.LinkedAccounts" Role="LinkedAccounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="LinkedAccounts">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.PasswordResetSecrets" Role="PasswordResetSecrets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="PasswordResetSecrets">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.TwoFactorAuthTokens" Role="TwoFactorAuthTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="TwoFactorAuthTokens">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.UserCertificates" Role="UserCertificates" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="UserCertificates">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1">
+          <End Type="AgendaTechModel.C_UserAccounts" Role="C_UserAccounts" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.UserClaims" Role="UserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_UserAccounts">
+              <PropertyRef Name="Key" />
+            </Principal>
+            <Dependent Role="UserClaims">
+              <PropertyRef Name="ParentKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="AgendaTechModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="AgendaTechModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="AgendaTechModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="AgendaTechModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="AgendaTechModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1081,6 +1506,99 @@ warning 6035: The relationship 'FK_TSchedules_UserAccounts' has columns that are
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="C_UserAccounts">
+            <EntityTypeMapping TypeName="AgendaTechModel.C_UserAccounts">
+              <MappingFragment StoreEntitySet="_UserAccounts">
+                <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+                <ScalarProperty Name="VerificationStorage" ColumnName="VerificationStorage" />
+                <ScalarProperty Name="VerificationKeySent" ColumnName="VerificationKeySent" />
+                <ScalarProperty Name="VerificationPurpose" ColumnName="VerificationPurpose" />
+                <ScalarProperty Name="VerificationKey" ColumnName="VerificationKey" />
+                <ScalarProperty Name="CurrentTwoFactorAuthStatus" ColumnName="CurrentTwoFactorAuthStatus" />
+                <ScalarProperty Name="AccountTwoFactorAuthMode" ColumnName="AccountTwoFactorAuthMode" />
+                <ScalarProperty Name="MobilePhoneNumberChanged" ColumnName="MobilePhoneNumberChanged" />
+                <ScalarProperty Name="MobilePhoneNumber" ColumnName="MobilePhoneNumber" />
+                <ScalarProperty Name="MobileCodeSent" ColumnName="MobileCodeSent" />
+                <ScalarProperty Name="MobileCode" ColumnName="MobileCode" />
+                <ScalarProperty Name="FailedPasswordResetCount" ColumnName="FailedPasswordResetCount" />
+                <ScalarProperty Name="LastFailedPasswordReset" ColumnName="LastFailedPasswordReset" />
+                <ScalarProperty Name="IsAccountVerified" ColumnName="IsAccountVerified" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="RequiresPasswordReset" ColumnName="RequiresPasswordReset" />
+                <ScalarProperty Name="PasswordChanged" ColumnName="PasswordChanged" />
+                <ScalarProperty Name="FailedLoginCount" ColumnName="FailedLoginCount" />
+                <ScalarProperty Name="LastFailedLogin" ColumnName="LastFailedLogin" />
+                <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="IsLoginAllowed" ColumnName="IsLoginAllowed" />
+                <ScalarProperty Name="AccountClosed" ColumnName="AccountClosed" />
+                <ScalarProperty Name="IsAccountClosed" ColumnName="IsAccountClosed" />
+                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Tenant" ColumnName="Tenant" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="StartingPass" ColumnName="StartingPass" />
+                <ScalarProperty Name="Inscription" ColumnName="Inscription" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Key" ColumnName="Key" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="AgendaTechModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="AgendaTechModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="AgendaTechModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="AgendaTechModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="AgendaTechModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -71,7 +71,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AgendaTechModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\AspNetRoles.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\AspNetUserClaims.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\AspNetUserLogins.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\AspNetUsers.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\AuthenticationAudits.cs">
+      <DependentUpon>AgendaTechModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\C_UserAccounts.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\C__MigrationHistory.cs">

@@ -33,6 +33,20 @@
         <AssociationConnector Association="AgendaTechModel.FK_TCGServices_TCGCustomers" />
         <AssociationConnector Association="AgendaTechModel.FK_TSchedule_TCGCustomers" />
         <AssociationConnector Association="AgendaTechModel.FK_UserAccounts_TCGCustomers" />
+        <EntityTypeShape EntityType="AgendaTechModel.C_UserAccounts" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="AgendaTechModel.AspNetRoles" Width="1.5" PointX="13.125" PointY="2.5" />
+        <EntityTypeShape EntityType="AgendaTechModel.AspNetUserClaims" Width="1.5" PointX="17.625" PointY="3.625" />
+        <EntityTypeShape EntityType="AgendaTechModel.AspNetUserLogins" Width="1.5" PointX="17.625" PointY="1" />
+        <EntityTypeShape EntityType="AgendaTechModel.AspNetUsers" Width="1.5" PointX="15.375" PointY="1.375" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccountClaims_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_LinkedAccounts_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_PasswordResetSecrets_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_TwoFactorAuthTokens_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_UserCertificates_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_UserClaims_dbo_UserAccounts_ParentKey1" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AgendaTechModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="AgendaTechModel.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

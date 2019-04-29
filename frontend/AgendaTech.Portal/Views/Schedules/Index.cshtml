@@ -1,0 +1,275 @@
+﻿@{
+    ViewBag.Title = "Agenda";
+}
+
+@section breadcrumbs{
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> <a href="@Url.Action("Index", "Home")" title="Home">Home</a></li>
+        <li>Controles</li>
+        <li class="active">Agenda</li>
+    </ol>
+}
+
+@section scripts {
+    <script src="@Url.Content("/Content/js/agendatec-script.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/app/control/schedule.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        /* -- Setar Class em expand menu -- */
+        window.onload = setActiveMenu;
+        function setActiveMenu() {
+            $('li#usuarios').addClass('active');
+            $('.mini-nav ul li#usuarios ul').attr('style', 'display: none !important;');
+        }
+        $(document).ready(function () {
+            PageSetup();
+        });
+    </script>
+
+    <script id="rescheduleTemplate" type="text/x-kendo-template">
+        <a class="k-button" href="\#" onclick="return Reschedule_click()">
+            <span class="k-icon k-i-calendar" style="vertical-align:text-bottom"></span> Reagendar
+        </a>
+    </script>
+
+    <script id="deleteTemplate" type="text/x-kendo-template">
+        <a class="k-button" href="\#" onclick="return Delete_click()">
+            <span class="glyphicon glyphicon-remove" style="vertical-align:text-bottom"></span> Excluir
+        </a>
+    </script>
+}
+
+<h1>Agenda</h1>
+<br />
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-primary">
+        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapseFilter">
+            <h4 class="panel-title">
+                <small><span class="glyphicon glyphicon-chevron-right"></span></small> Filtros
+            </h4>
+        </div>
+        <div id="collapseFilter" class="panel-collapse">
+            <div class="panel-body">
+                <div class="row">
+                    <form>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Razão Social</strong></label>
+                                        <input id="ddlCustomerFilter" name="ddlCustomerFilter" class="filter" style="width: 100%;" data-required="true" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Profissional</strong></label>
+                                        <input id="ddlProfessionalFilter" name="ddlProfessionalFilter" class="filter" style="width: 100%;" data-required="true" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Serviço</strong></label>
+                                        <input id="ddlServiceFilter" name="ddlServiceFilter" class="filter" style="width: 100%;" data-required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label><strong>Cliente</strong></label>
+                                        <input id="ddlConsumerFilter" name="ddlConsumerFilter" class="filter" style="width: 100%;" data-required="true" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label><strong>Data Inicial</strong></label>
+                                        <input id="dtDateFromFilter" name="dtDateFromFilter" style="width: 100%">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label><strong>Data Final</strong></label>
+                                        <input id="dtDateToFilter" name="dtDateToFilter" style="width: 100%">
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label><strong>Bônus</strong></label><br />
+                                        <input id="chkBonusFilter" type="checkbox" data-field="chkBonus" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group" style="text-align:right">
+                                <button type="button" id="btnClear" class="btn btn-danger btn-xs">
+                                    <span class="glyphicon glyphicon-remove"></span> Limpar
+                                </button>
+                                <button type="button" id="btnSearch" class="btn btn-primary btn-xs">
+                                    <span class="glyphicon glyphicon-search"></span> Pesquisar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <button id="btnAddAppointment" type="button" class="btn btn-primary btn-xs" style="float: right;"><span class="glyphicon glyphicon-plus-sign"></span> Incluir</button>
+    <br /><br />
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div id="grid"></div>
+    </div>
+</div>
+
+<div id="modalScheduleEdit" class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong></strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="hidden" id="hiddenIDSchedule" />
+                    <form id="scheduleForm">
+                        <div class="col-sm-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="ddlCustomer" style="font-weight:bold">Razão Social</label> <br />
+                                    <input id="ddlCustomer" data-field="ddlCustomer" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="ddlProfessional" style="font-weight:bold">Profissional</label> <br />
+                                    <input id="ddlProfessional" data-field="ddlProfessional" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Serviço</strong></label>
+                                    <input id="ddlService" name="ddlService" style="width: 100%;" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Cliente</strong></label>
+                                    <input id="ddlConsumer" name="ddlConsumer" style="width: 100%;" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Data / Hora</strong></label>
+                                    <input id="dtDateTime" name="dtDateTime" style="width: 100%">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Valor</strong></label>
+                                    <input id="txtPrice" name="txtPrice" type="text" class="k-textbox" style="width: 100%;text-align:right" maxlength="15" value="0,00" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Duração (minutos)</strong></label>
+                                    <input id="txtTime" name="txtTime" type="text" class="k-textbox" style="width: 100%;text-align:right" maxlength="3" value="0" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Bônus</strong></label><br />
+                                    <input id="chkBonus" type="checkbox" data-field="chkBonus" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
+                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                </button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveAppointment(); }">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalReschedule" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong></strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="scheduleForm">
+                        <div class="col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Novo dia</strong></label>
+                                    <input id="dtNewDate" name="dtNewDate" style="width: 100%">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
+                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                </button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { RescheduleAppointments(); }">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalDeleteConfirmation" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong>Confirmação de exclusão</strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="scheduleForm">
+                        <div class="col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label><strong>Confirma exclusão dos agedamentos selecionados?</strong></label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
+                    <span class="glyphicon glyphicon-remove"></span> Não
+                </button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { DeleteAppointments(); }">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Sim
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
