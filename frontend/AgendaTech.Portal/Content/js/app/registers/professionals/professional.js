@@ -35,16 +35,16 @@
 
     dtBirthday.closest(".k-datepicker")
         .add(dtBirthday)
-        .removeClass("k-textbox");   
+        .removeClass("k-textbox");
 
-    LoadCombo("/Users/GetUserNameCombo", ['#ddlUserName'], "UkUser", "UserName", false);
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
+    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), false);
 
     $("#ddlCustomer")
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
 
-    LoadProfessionals();  
+    LoadProfessionals();
 }
 
 function ddlCustomerChange(e) {

@@ -191,6 +191,38 @@ namespace AgendaTech.Business.Bindings
                  .ToList();
         }
 
+        public List<UserAccountDTO> GetProfessionalNamesCombo(int idCustomer, out string errorMessage)
+        {
+            var users = new List<AspNetUsers>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                users = _commonRepository
+                    .GetAll()
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()))
+                    .ToList();
+
+                if (idCustomer > 0)
+                    users = users.Where(x => x.IdCustomer.Equals(idCustomer)).ToList();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return users
+                 .Select(x => new UserAccountDTO()
+                 {
+                     Id = x.Id,
+                     FullName = $"{x.FirstName} {x.LastName}"
+                 })
+                 .OrderBy(x => x.RoleDescription)
+                 .ToList();
+        }
+
         public List<UserAccountDTO> GetConsumerNamesCombo(int idCustomer, out string errorMessage)
         {
             var users = new List<AspNetUsers>();
@@ -201,7 +233,7 @@ namespace AgendaTech.Business.Bindings
             {
                 users = _commonRepository
                     .GetAll()
-                    .Where(x => x.IdRole.Equals((int)EnUserType.Consumer))
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString()))
                     .ToList();
 
                 if (idCustomer > 0)

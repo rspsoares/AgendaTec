@@ -10,6 +10,7 @@ namespace AgendaTech.Business.Contracts
         UserAccountDTO GetLoggedUserByEmail(string email, out string errorMessage);
         List<UserAccountDTO> GetRolesCombo(EnUserType userGroup, out string errorMessage);
         List<UserAccountDTO> GetUserNamesCombo(int idCustomer, out string errorMessage);
+        List<UserAccountDTO> GetProfessionalNamesCombo(int idCustomer, out string errorMessage);
         List<UserAccountDTO> GetConsumerNamesCombo(int idCustomer, out string errorMessage);
         void Update(UserAccountDTO e, out string errorMessage);   
         string CheckDuplicatedUser(UserAccountDTO userAccount, out string errorMessage);

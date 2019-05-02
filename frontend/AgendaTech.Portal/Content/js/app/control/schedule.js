@@ -99,8 +99,8 @@ function PageSetup() {
         .data("kendoDropDownList")
         .bind("change", ddlServiceChange);
 
-    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'UkUser', 'FullName', $("#ddlCustomerFilter").val(), false);
-    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'UkUser', 'FullName', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'Id', 'FullName', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'Id', 'FullName', $("#ddlCustomer").val(), false);
 
     LoadSchedules();
 }
@@ -108,13 +108,13 @@ function PageSetup() {
 function ddlCustomerFilterChange(e) {
     LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'IDProfessional', 'Name', $("#ddlCustomerFilter").val(), false);
     LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'IDService', 'Description', $("#ddlCustomerFilter").val(), false);
-    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'UkUser', 'FullName', $("#ddlCustomerFilter").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'Id', 'FullName', $("#ddlCustomerFilter").val(), false);
 }
 
 function ddlCustomerChange(e) {
     LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'IDProfessional', 'Name', $("#ddlCustomer").val(), false);
     LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'IDService', 'Description', $("#ddlCustomer").val(), false);
-    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'UkUser', 'FullName', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'Id', 'FullName', $("#ddlCustomer").val(), false);
 }
 
 function ddlServiceChange(e) {  

@@ -111,10 +111,22 @@ namespace AgendaTech.Portal.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetUserNameCombo(string idCustomer)
+        public JsonResult GetUserNameCombo(string filter)
         {
-            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);
             var userGroups = _userFacade.GetUserNamesCombo(customer, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = userGroups, Total = userGroups.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetProfessionalNameCombo(string filter)
+        {
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);
+            var userGroups = _userFacade.GetProfessionalNamesCombo(customer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);

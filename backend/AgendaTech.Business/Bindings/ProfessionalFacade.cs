@@ -34,7 +34,7 @@ namespace AgendaTech.Business.Bindings
                     professionals = professionals.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
 
                 if (!string.IsNullOrEmpty(professionalName))
-                    professionals = professionals.Where(x => x.Name.Contains(professionalName)).ToList();
+                    professionals = professionals.Where(x => x.Name.ToUpper().Contains(professionalName.ToUpper())).ToList();
             }
             catch (Exception ex)
             {
