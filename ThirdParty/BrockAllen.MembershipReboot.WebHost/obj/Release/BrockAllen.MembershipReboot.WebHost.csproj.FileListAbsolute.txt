@@ -1,7 +1,0 @@
-C:\_Rodrigo\Repositorios\AgendaTech\build\BrockAllen.MembershipReboot.WebHost.dll
-C:\_Rodrigo\Repositorios\AgendaTech\build\BrockAllen.MembershipReboot.WebHost.pdb
-C:\_Rodrigo\Repositorios\AgendaTech\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Release\BrockAllen.MembershipReboot.WebHost.csprojAssemblyReference.cache
-C:\_Rodrigo\Repositorios\AgendaTech\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Release\BrockAllen.MembershipReboot.WebHost.csproj.CoreCompileInputs.cache
-C:\_Rodrigo\Repositorios\AgendaTech\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Release\BrockAllen.MembershipReboot.WebHost.csproj.CopyComplete
-C:\_Rodrigo\Repositorios\AgendaTech\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Release\BrockAllen.MembershipReboot.WebHost.dll
-C:\_Rodrigo\Repositorios\AgendaTech\ThirdParty\BrockAllen.MembershipReboot.WebHost\obj\Release\BrockAllen.MembershipReboot.WebHost.pdb

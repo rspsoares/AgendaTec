@@ -1,7 +1,0 @@
-﻿Este e-mail é para confirmar a exclusão do seu número de telefone de sua conta no {applicationName}.
-
-Usuário: {username}
-
-Obrigado!
-
-{emailSignature}

@@ -49,7 +49,7 @@ namespace AgendaTech.Portal
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
+                RequireNonLetterOrDigit = false,
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true,
@@ -98,6 +98,16 @@ namespace AgendaTech.Portal
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+
+        public override Task<SignInStatus> PasswordSignInAsync(string userName, string password, bool rememberMe, bool shouldLockout)
+        {
+            var user = UserManager.FindByEmailAsync(userName).Result;
+
+            if (!user.IsEnabled)
+                return Task.FromResult(SignInStatus.Failure);
+
+            return base.PasswordSignInAsync(userName, password, rememberMe, shouldLockout);
         }
     }
 

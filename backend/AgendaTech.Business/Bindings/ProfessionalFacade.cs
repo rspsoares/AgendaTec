@@ -155,7 +155,7 @@ namespace AgendaTech.Business.Bindings
             }
         }
 
-        public bool CheckUserInUse(int idProfessional, Guid idUser, out string errorMessage)
+        public bool CheckUserInUse(int idProfessional, string idUser, out string errorMessage)
         {
             bool userInUse = true;
 

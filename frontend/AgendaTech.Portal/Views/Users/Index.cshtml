@@ -50,8 +50,8 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label><strong>Login</strong></label>
-                                        <input type="text" id="txtLoginFilter" name="txtLoginFilter" data-field="Login" data-operator="contains" placeholder="Login" class="k-textbox filter" style="width: 100%;" />
+                                        <label><strong>E-mail</strong></label>
+                                        <input type="text" id="txtEmailFilter" name="txtEmailFilter" data-field="Login" data-operator="contains" placeholder="E-mail" class="k-textbox filter" style="width: 100%;" />
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label><strong>Grupo</strong></label>
-                                        <input id="ddlUserGroupFilter" name="ddlUserGroupFilter" style="width: 100%;" data-field="Perfil" data-operator="eq" class="filter" />
+                                        <input id="ddlRoleFilter" name="ddlRoleFilter" style="width: 100%;" data-field="Perfil" data-operator="eq" class="filter" />
                                     </div>
                                 </div>
                             </div>
@@ -109,24 +109,24 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <input type="hidden" id="hiddenIDUser" />
+                    <input type="hidden" id="hiddenId" />
                     <form id="usuarioForm">
                         <div class="col-xs-12">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-bottom: 0px;">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtName" style="font-weight:bold">Nome</label> <br />
-                                    <input id="txtName" name="txtName" type="text" class="k-textbox" placeholder="Nome completo" style="width: 100%" minlength="2" required>
+                                    <label for="txtFirstName" style="font-weight:bold">Primeiro nome</label> <br />
+                                    <input id="txtFirstName" name="txtFirstName" type="text" class="k-textbox" placeholder="Primeiro nome" style="width: 100%" minlength="2" maxlength="50" required>
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtLogin" style="font-weight:bold">Usuário</label> <br />
-                                    <input id="txtLogin" name="txtLogin" type="text" class="k-textbox" placeholder="Login" style="width: 100%" minlength="2" required>
+                                    <label for="txtLastName" style="font-weight:bold">Sobrenome</label> <br />
+                                    <input id="txtLastName" name="txtLastName" type="text" class="k-textbox" placeholder="Sobrenome" style="width: 100%" minlength="2" maxlength="50" required>
                                 </div>
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtEmail" style="font-weight:bold">E-mail</label> <br />
                                     <input id="txtEmail" name="txtEmail" type="text" class="k-textbox" placeholder="E-mail" style="width: 100%" minlength="2" required>
@@ -142,15 +142,15 @@
 
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="ddlUserGroup" style="font-weight:bold">Grupo</label> <br />
-                                    <select id="ddlUserGroup" style="width: 100%;"></select>
+                                    <label for="ddlRole" style="font-weight:bold">Grupo</label> <br />
+                                    <select id="ddlRole" style="width: 100%;"></select>
                                 </div>
                             </div>
 
                             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="chkActive" style="font-weight:bold">Status</label> <br />
-                                    <input id="chkActive" type="checkbox" data-field="chkActive" checked data-on-text="ATIVO" data-off-text="INATIVO" data-size="small" style="width: 100%;">
+                                    <label for="chkIsEnabled" style="font-weight:bold">Status</label> <br />
+                                    <input id="chkIsEnabled" type="checkbox" data-field="chkIsEnabled" checked data-on-text="ATIVO" data-off-text="INATIVO" data-size="small" style="width: 100%;">
                                 </div>
                             </div>
                         </div>

@@ -65,6 +65,16 @@ namespace AgendaTech.Portal.Models
     public class RegisterViewModel
     {
         [Required]
+        [MaxLength(50)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

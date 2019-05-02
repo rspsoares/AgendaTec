@@ -18,7 +18,7 @@ namespace AgendaTech.Tests
         [TestMethod]
         public void User_GetAll()
         {
-            var users = _userRepository.GetGrid(string.Empty, string.Empty, 0, 0, out string errorMessage);
+            var users = _userRepository.GetGrid(string.Empty, string.Empty, 0, "0", out string errorMessage);
             Assert.IsTrue(users.Any());
         }
 
@@ -27,7 +27,7 @@ namespace AgendaTech.Tests
         {
             var fakeName = new Bogus.DataSets.Name();
             
-            var user = _userRepository.GetUserById(4, out string errorMessage);
+            var user = _userRepository.GetUserById("b1ce56c8-32a9-4b74-b5c1-1173ac6c8366", out string errorMessage);
             user.FirstName = fakeName.FirstName(null).ToString();
             user.LastName = fakeName.LastName(null).ToString();
             _userRepository.Update(user, out errorMessage);

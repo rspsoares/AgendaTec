@@ -39,7 +39,7 @@ namespace AgendaTech.Infrastructure.Repositories
             return result;
         }
 
-        public T GetById(int id)
+        public T GetById(object id)
         {
             var result = default(T);
             result = Activator.CreateInstance<T>();
@@ -77,7 +77,7 @@ namespace AgendaTech.Infrastructure.Repositories
             return e;
         }
 
-        public void Update(int id, T e)
+        public void Update(object id, T e)
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
             {
@@ -89,7 +89,7 @@ namespace AgendaTech.Infrastructure.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(object id)
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
             {

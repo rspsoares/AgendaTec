@@ -1,9 +1,11 @@
 ﻿using AgendaTech.Business.Contracts;
 using AgendaTech.Business.Entities;
+using AgendaTech.Portal.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,11 +14,11 @@ namespace AgendaTech.Portal.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly IUserFacade _userFacade;
-        
+        private readonly IUserFacade _userFacade;        
+
         public UsersController(IUserFacade userFacade)
         {
-            _userFacade = userFacade;            
+            _userFacade = userFacade;
         }
 
         public ActionResult Index()
@@ -25,13 +27,13 @@ namespace AgendaTech.Portal.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetUserGroupCombo()
+        public JsonResult GetRoleCombo()
         {
             var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var loggedUserRole = userManager.GetRoles(User.Identity.GetUserId()).FirstOrDefault();
 
             Enum.TryParse(loggedUserRole, out EnUserType enUserType);
-            var userGroups = _userFacade.GetUserGroupsCombo(enUserType, out string errorMessage);            
+            var userGroups = _userFacade.GetRolesCombo(enUserType, out string errorMessage);            
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
@@ -40,9 +42,9 @@ namespace AgendaTech.Portal.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetGrid(string name, string login, string idCustomer, string idUserGroup)
+        public JsonResult GetGrid(string name, string email, string idCustomer, string idRole)
         {
-            var users = _userFacade.GetGrid(name, login, int.Parse(idCustomer), int.Parse(idUserGroup), out string errorMessage);
+            var users = _userFacade.GetGrid(name, email, int.Parse(idCustomer), idRole, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os clientes." }, JsonRequestBehavior.AllowGet);
@@ -53,7 +55,7 @@ namespace AgendaTech.Portal.Controllers
         [HttpGet]
         public JsonResult GetUser(string idUser)
         {
-            var user = _userFacade.GetUserById(int.Parse(idUser), out string errorMessage);
+            var user = _userFacade.GetUserById(idUser, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o usuário." }, JsonRequestBehavior.AllowGet);
@@ -62,34 +64,49 @@ namespace AgendaTech.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveUser(UserAccountDTO userDTO)
+        public async Task<JsonResult> SaveUser(UserAccountDTO userDTO)
         {
-            var fullNameSplit = userDTO.FullName.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            userDTO.FirstName = fullNameSplit.FirstOrDefault();
-            userDTO.LastName = string.Join(" ", fullNameSplit.Skip(1));
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string error);
-            if (!string.IsNullOrEmpty(error))
+            userDTO.FirstName = userDTO.FirstName;
+            userDTO.LastName = userDTO.LastName;
+
+            var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
 
             if (!string.IsNullOrEmpty(checkResult))
                 return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);
 
-            //if (userDTO.IDUser.Equals(0))
-              //  userDTO.IDUser = _userSvc.CreateAccount(userDTO.UserName, "AgendaTech123", userDTO.Email).Key;
+            if (string.IsNullOrEmpty(userDTO.Id))
+            {
+                var user = new ApplicationUser
+                {
+                    IDCustomer = userDTO.IDCustomer,
+                    IDRole = userDTO.IdRole,
+                    FirstName = userDTO.FirstName,
+                    LastName = userDTO.LastName,
+                    UserName = userDTO.Email,
+                    Email = userDTO.Email
+                };
 
-            _userFacade.Update(userDTO, out error);
+                var result = await userManager.CreateAsync(user, "AgendaTec123");
+                if (!result.Succeeded)
+                    return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+                _userFacade.Update(userDTO, out errorMessage);
 
-            if (!string.IsNullOrEmpty(error))
+            if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public JsonResult CheckUserIsConsumer(string idUserGroup)
+        public JsonResult CheckUserIsConsumer(string idRole)
         {
-            var consumer = int.Parse(idUserGroup).Equals((int)EnUserType.Consumer);
+            var consumer = int.Parse(idRole).Equals((int)EnUserType.Consumer);
             return Json(new { Data = consumer }, JsonRequestBehavior.AllowGet);
         }
 

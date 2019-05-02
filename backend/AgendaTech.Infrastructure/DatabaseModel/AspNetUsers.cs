@@ -19,10 +19,17 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
-            this.AspNetRoles = new HashSet<AspNetRoles>();
+            this.TCGProfessionals = new HashSet<TCGProfessionals>();
+            this.TSchedules = new HashSet<TSchedules>();
+            this.AspNetRoles1 = new HashSet<AspNetRoles>();
         }
     
         public string Id { get; set; }
+        public string IdRole { get; set; }
+        public int IdCustomer { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public string PasswordHash { get; set; }
@@ -33,13 +40,19 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public Nullable<System.DateTime> LockoutEndDateUtc { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
-        public string UserName { get; set; }
+        public bool IsEnabled { get; set; }
     
+        public virtual AspNetRoles AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual TCGCustomers TCGCustomers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSchedules> TSchedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetRoles> AspNetRoles1 { get; set; }
     }
 }

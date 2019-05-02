@@ -83,27 +83,6 @@
     <Compile Include="DatabaseModel\AspNetUsers.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\AuthenticationAudits.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\C_UserAccounts.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\C__MigrationHistory.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\LinkedAccountClaims.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\LinkedAccounts.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\PasswordHistories.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\PasswordResetSecrets.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DatabaseModel\TCGCustomers.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
@@ -113,22 +92,7 @@
     <Compile Include="DatabaseModel\TCGServices.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\TCGUserGroup.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="DatabaseModel\TSchedules.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\TwoFactorAuthTokens.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\UserAccounts.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\UserCertificates.cs">
-      <DependentUpon>AgendaTechModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DatabaseModel\UserClaims.cs">
       <DependentUpon>AgendaTechModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

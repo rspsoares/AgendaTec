@@ -26,7 +26,7 @@ namespace AgendaTech.Portal.Controllers
         {
             var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
-            var consumer = string.IsNullOrEmpty(idConsumer) ? Guid.Empty : Guid.Parse(idConsumer);
+            var consumer = idConsumer ?? string.Empty;
             var dateInitial = string.IsNullOrEmpty(dateFrom) ? (DateTime?)null : DateTime.Parse(dateFrom);
             var dateFinal = string.IsNullOrEmpty(dateTo) ? (DateTime?)null : DateTime.Parse(dateTo);
             var bonusCheck = string.IsNullOrEmpty(bonus) ? (bool?)null : bonus.Equals("true") ? true : false;

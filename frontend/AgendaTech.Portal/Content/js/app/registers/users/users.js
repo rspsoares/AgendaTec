@@ -9,16 +9,15 @@
 
     $('#btnClear').click(function () {
         document.getElementById("txtNameFilter").value = "";
-        document.getElementById("txtLoginFilter").value = "";
-
+        document.getElementById("txtEmailFilter").value = "";
         $("#ddlCustomerFilter").data("kendoDropDownList").select(0);
-        $("#ddlUserGroup").data("kendoDropDownList").select(0);      
+        $("#ddlRole").data("kendoDropDownList").select(0);      
 
         LoadUsers();
     });
 
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
-    LoadCombo("/Users/GetUserGroupCombo", ['#ddlUserGroupFilter', '#ddlUserGroup'], "IDUserGroup", "GroupDescription", false);
+    LoadCombo("/Users/GetRoleCombo", ['#ddlRoleFilter', '#ddlRole'], "IdRole", "RoleDescription", false);
 
     LoadUsers();
 }
@@ -39,9 +38,9 @@ function LoadUsers() {
                     if (type === "read") {
                         return {
                             name: $('#txtNameFilter').val(),
-                            login: $('#txtLoginFilter').val(),
+                            email: $('#txtEmailFilter').val(),
                             idCustomer: $("#ddlCustomerFilter").val() === '' ? '0' : $("#ddlCustomerFilter").val(),
-                            idUserGroup: $("#ddlUserGroupFilter").val() === '' ? '0' : $("#ddlUserGroupFilter").val()
+                            idRole: $("#ddlRoleFilter").val() === '' ? '0' : $("#ddlRoleFilter").val()
                         };
                     }
                 }
@@ -63,10 +62,11 @@ function LoadUsers() {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDUser", hidden: true },
+            { field: "Id", hidden: true },
             { field: "FullName", title: "Nome", width: "50%" },
-            { field: "CustomerName", title: "Razão Social", width: "20%" },
-            { field: "GroupDescription", title: "Grupo", width: "20%" },
+            { field: "CustomerName", title: "Razão Social", width: "15%" },
+            { field: "RoleDescription", title: "Grupo", width: "15%" },
+            { field: "IsEnabled", title: "Status", width: "10%", template: "#:StatusDescription(IsEnabled)#" },     
             {
                 title: " ",
                 template: "<a onclick='javascript:{ UserEdit(this); }' class='k-button'>"
@@ -79,6 +79,13 @@ function LoadUsers() {
     });
 }
 
+function StatusDescription(status) {
+    if (status === true)
+        return "Ativo";
+    else
+        return "Inativo";
+}
+
 function AddUser() {
     CleanFields();
     LockFields(false);
@@ -89,10 +96,9 @@ function AddUser() {
 }
 
 function CleanFields() {
-    $("#hiddenIDUser").val(0);
-
-    $("#txtName").val("");
-    $("#txtLogin").val("");
+    $("#hiddenId").val("");
+    $("#txtFirstName").val("");
+    $("#txtLastName").val("");
     $("#txtEmail").val("");
 
     if (!$('#ddlCustomerFilter').prop('disabled')) {
@@ -100,10 +106,10 @@ function CleanFields() {
         ddlCustomer.select(0);
     }
 
-    var ddlUserGroup = $("#ddlUserGroup").data("kendoDropDownList");
-    ddlUserGroup.select(0);
+    var ddlRole = $("#ddlRole").data("kendoDropDownList");
+    ddlRole.select(0);
 
-    $('#chkActive').bootstrapSwitch('state', true);
+    $('#chkIsEnabled').bootstrapSwitch('state', true);
 }
 
 function UserEdit(e) {
@@ -117,20 +123,20 @@ function UserEdit(e) {
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
         url: "/Users/GetUser",
-        data: { "idUser": dataItem.IDUser },
+        data: { "idUser": dataItem.Id },
         cache: false,
         async: false,
         success: function (result) {
             if (result.Success) {
-                $("#hiddenIDUser").val(result.Data.IDUser);
-                $("#txtName").val(result.Data.FullName);
-                $("#txtLogin").val(result.Data.UserName);
+                $("#hiddenId").val(result.Data.Id);
+                $("#txtFirstName").val(result.Data.FirstName);                
+                $("#txtLastName").val(result.Data.LastName);
                 $("#txtEmail").val(result.Data.Email);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
-                $("#ddlUserGroup").data('kendoDropDownList').value(result.Data.IDUserGroup);
-                $('#chkActive').bootstrapSwitch('state', result.Data.Active);
+                $("#ddlRole").data('kendoDropDownList').value(result.Data.IdRole);
+                $('#chkIsEnabled').bootstrapSwitch('state', result.Data.IsEnabled);
 
-                LockFields(CheckUserIsConsumer(result.Data.IDUserGroup));
+                LockFields(CheckUserIsConsumer(result.Data.IdRole));
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -157,13 +163,13 @@ function SaveUser() {
     }
 
     userDTO = {
-        IDUser: parseInt($("#hiddenIDUser").val()),
-        FullName: $("#txtName").val(),
-        UserName: $("#txtLogin").val(),
+        Id: $("#hiddenId").val(),
+        FirstName: $("#txtFirstName").val(),
+        LastName: $("#txtLastName").val(),
         Email: $("#txtEmail").val(),
         IDCustomer: $("#ddlCustomer").val(),
-        IDUserGroup: $("#ddlUserGroup").val(),
-        Active: $('#chkActive').bootstrapSwitch('state')
+        IdRole: $("#ddlRole").val(),
+        IsEnabled: $('#chkIsEnabled').bootstrapSwitch('state')
     };
 
     $("#loading-page").show();
@@ -194,9 +200,6 @@ function ValidateRequiredFields() {
     if ($("#txtName").val() === '')
         errorMessage += 'Favor informar o Nome' + '<br/>';
 
-    if ($("#txtLogin").val() === '')
-        errorMessage += 'Favor informar o Login' + '<br/>';
-
     if ($("#txtEmail").val() === '')
         errorMessage += 'Favor informar o E-mail' + '<br/>';
     else {
@@ -207,18 +210,18 @@ function ValidateRequiredFields() {
     if ($("#ddlCustomer").val() === '')
         errorMessage += 'Favor informar o Cliente' + '<br/>';
 
-    if ($("#ddlUserGroup").val() === '')
+    if ($("#ddlRole").val() === '')
         errorMessage += 'Favor informar o Grupo do Usuário';    
 
     return errorMessage;
 }
 
-function CheckUserIsConsumer(idUserGroup) {
+function CheckUserIsConsumer(idRole) {
     var isConsumer = false;
 
     $.ajax({
         url: "/Users/CheckUserIsConsumer",
-        data: { "idUserGroup": idUserGroup },
+        data: { "idRole": idRole },
         type: "GET",
         async: false,
         dataType: "json",
@@ -232,9 +235,8 @@ function CheckUserIsConsumer(idUserGroup) {
 }
 
 function LockFields(lock) {
-    $("#txtName").prop('disabled', lock);
-    $("#txtLogin").prop('disabled', lock);
+    $("#txtName").prop('disabled', lock);    
     $("#txtEmail").prop('disabled', lock);
     $("#ddlCustomer").data("kendoDropDownList").enable(!lock);
-    $("#ddlUserGroup").data("kendoDropDownList").enable(!lock);    
+    $("#ddlRole").data("kendoDropDownList").enable(!lock);    
 }

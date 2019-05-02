@@ -1,1 +1,0 @@
-﻿Seu {applicationName} código de verificação é {code}.

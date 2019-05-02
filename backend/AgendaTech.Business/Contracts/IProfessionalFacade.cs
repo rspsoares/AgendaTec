@@ -11,6 +11,6 @@ namespace AgendaTech.Business.Contracts
         TCGProfessionals GetProfessionalById(int idProfessional, out string errorMessage);
         TCGProfessionals Insert(TCGProfessionals e, out string errorMessage);
         void Update(TCGProfessionals e, out string errorMessage);
-        bool CheckUserInUse(int idProfessional, Guid idUser, out string errorMessage);
+        bool CheckUserInUse(int idProfessional, string idUser, out string errorMessage);
     }
 }

@@ -70,14 +70,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ThirdParty\BrockAllen.MembershipReboot.Ef\BrockAllen.MembershipReboot.Ef.csproj">
-      <Project>{453C8A9D-72AA-4F8D-9354-8B0F57F2B58A}</Project>
-      <Name>BrockAllen.MembershipReboot.Ef</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ThirdParty\BrockAllen.MembershipReboot\BrockAllen.MembershipReboot.csproj">
-      <Project>{A33FE01F-AE9B-4BDE-B521-AB13916B1CFA}</Project>
-      <Name>BrockAllen.MembershipReboot</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AgendaTech.Infrastructure\AgendaTech.Infrastructure.csproj">
       <Project>{70425DFA-3C43-4928-909B-B055E90C2FF9}</Project>
       <Name>AgendaTech.Infrastructure</Name>

@@ -48,17 +48,28 @@
                         {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @Html.DisplayNameFor(c => c.FirstName)
+                                @Html.TextBoxFor(c => c.FirstName, new { @id = "txtFirstName", @style = "width: 100%;", @class = "k-textbox" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.DisplayNameFor(c => c.LastName)
+                                @Html.TextBoxFor(c => c.LastName, new { @id = "txtLastName", @style = "width: 100%;", @class = "k-textbox" })
+                            </div>
+
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Email)
                                 @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox" })
                             </div>
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Password)
-                                @Html.PasswordFor(c => c.Password, new { @id = "txtSenha", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.PasswordFor(c => c.Password, new { @id = "txtPassword", @style = "width: 100%;", @class = "k-textbox" })
                             </div>
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.ConfirmPassword)
-                                @Html.PasswordFor(c => c.ConfirmPassword, new { @id = "txtRepetirSenha", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.PasswordFor(c => c.ConfirmPassword, new { @id = "txtConfirmPassword", @style = "width: 100%;", @class = "k-textbox" })
                             </div>
                             <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Registrar</button>
                         }

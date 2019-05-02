@@ -18,14 +18,15 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public int IDCustomer { get; set; }
         public int IDProfessional { get; set; }
         public int IDService { get; set; }
-        public System.Guid IDConsumer { get; set; }
+        public string IDConsumer { get; set; }
         public System.DateTime Date { get; set; }
         public decimal Price { get; set; }
         public int Time { get; set; }
         public bool Bonus { get; set; }
     
-        public virtual TCGServices TCGServices { get; set; }
-        public virtual TCGProfessionals TCGProfessionals { get; set; }
         public virtual TCGCustomers TCGCustomers { get; set; }
+        public virtual TCGProfessionals TCGProfessionals { get; set; }
+        public virtual TCGServices TCGServices { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

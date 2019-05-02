@@ -1,5 +1,7 @@
 ﻿using AgendaTech.Business.Contracts;
+using AgendaTech.Business.Entities;
 using AgendaTech.Infrastructure.DatabaseModel;
+using AgendaTech.Portal.Helper;
 using System.Web.Mvc;
 
 namespace AgendaTech.Portal.Controllers
@@ -32,8 +34,8 @@ namespace AgendaTech.Portal.Controllers
 
         [HttpGet]
         public JsonResult GetCompanyNameCombo()
-        {
-            var idCustomer = 0;// _usuarioLogado.Inscricao.Equals(EnUserType.Administrator) ? 0 : _usuarioLogado.IDCustomer;
+        {            
+            var idCustomer = int.Parse(User.GetIdRole()).Equals((int)EnUserType.Administrator) ? 0 : int.Parse(User.GetIdCustomer());
             var customers = _customerFacade.GetCompanyNameCombo(idCustomer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

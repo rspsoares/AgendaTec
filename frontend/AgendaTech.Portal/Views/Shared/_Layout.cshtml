@@ -19,7 +19,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
 
-    @using Microsoft.AspNet.Identity    
+    @using AgendaTech.Portal.Helper
 </head>
 <body>
     <div id="Container" class="wrap">
@@ -51,8 +51,8 @@
                             </li>                                
                             <li class="light-grey-nav">                               
                                 <a data-toggle="dropdown" data-noajax="true" class="dropdown-toggle" href="#">
-                                    <span>&nbsp;</span>
-                                    <span>@User.Identity.GetUserName()</span>
+                                    <span>&nbsp;</span>                                    
+                                    <span>@User.GetFullName()</span>
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">

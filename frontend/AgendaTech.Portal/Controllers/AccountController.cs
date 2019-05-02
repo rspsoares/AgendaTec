@@ -82,7 +82,7 @@ namespace AgendaTech.Portal.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Login inválido. Favor confirmar o e-mail, senha e se o seu usuário está ativo.");
                     return View(model);
             }
         }
@@ -147,12 +147,21 @@ namespace AgendaTech.Portal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser {
+                    IDCustomer = 1,
+                    IDRole = ((int)EnUserType.Administrator).ToString(),
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    UserName = model.Email,
+                    Email = model.Email,
+                    IsEnabled = true
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user.Id, EnUserType.Administrator.ToString());
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    // await UserManager.AddToRoleAsync(user.Id, EnUserType.Administrator.ToString());
+                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

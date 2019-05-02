@@ -7,7 +7,6 @@ using Itenso.TimePeriod;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,7 +23,7 @@ namespace AgendaTech.Business.Bindings
             _commonRepository = new CommonRepository<TSchedules>();
         }
 
-        public List<ScheduleDTO> GetGrid(int idCustomer, int idProfessional, int idService, Guid idConsumer, DateTime? dateFrom, DateTime? dateTo, bool? bonus, out string errorMessage)
+        public List<ScheduleDTO> GetGrid(int idCustomer, int idProfessional, int idService, string idConsumer, DateTime? dateFrom, DateTime? dateTo, bool? bonus, out string errorMessage)
         {
             var schedules = new List<TSchedules>();
             IUserFacade userRepository = new UserFacade();
@@ -44,13 +43,13 @@ namespace AgendaTech.Business.Bindings
                 if (idService > 0)
                     schedules = schedules.Where(x => x.IDService.Equals(idService)).ToList();
 
-                if (!idConsumer.Equals(Guid.Empty))
+                if (!idConsumer.Equals(string.Empty))
                 {
                     schedules = schedules.Where(x => x.IDConsumer.Equals(idConsumer)).ToList();
-                    userAccountDTO = userRepository.GetUserByUq(idConsumer, out errorMessage);
+                    userAccountDTO = userRepository.GetUserById(idConsumer, out errorMessage);
                 }
 
-                if(dateFrom.HasValue)
+                if (dateFrom.HasValue)
                     schedules = schedules.Where(x => x.Date >= dateFrom.Value).ToList();
 
                 if (dateTo.HasValue)
