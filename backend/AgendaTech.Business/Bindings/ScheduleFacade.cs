@@ -50,10 +50,10 @@ namespace AgendaTech.Business.Bindings
                 }
 
                 if (dateFrom.HasValue)
-                    schedules = schedules.Where(x => x.Date >= dateFrom.Value).ToList();
+                    schedules = schedules.Where(x => x.Date.Date >= dateFrom.Value.Date).ToList();
 
                 if (dateTo.HasValue)
-                    schedules = schedules.Where(x => x.Date <= dateTo.Value).ToList();
+                    schedules = schedules.Where(x => x.Date.Date <= dateTo.Value.Date).ToList();
 
                 if(bonus.HasValue)
                     schedules = schedules.Where(x => x.Bonus.Equals(bonus)).ToList();
@@ -74,6 +74,7 @@ namespace AgendaTech.Business.Bindings
                     ConsumerName = $"{userAccountDTO.FirstName} {userAccountDTO.LastName}",
                     Date = x.Date.ToString("dd/MM/yyyy"),
                     Hour = x.Date.ToString("HH:mm"),
+                    Finish = x.Date.AddMinutes(x.Time).ToString("HH:mm"),
                     Price = x.Price,
                     Time = x.Time,
                     Bonus = x.Bonus

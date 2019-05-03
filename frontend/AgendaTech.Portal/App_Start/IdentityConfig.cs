@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AgendaTech.Portal.Models;
+using AgendaTech.Business.Entities;
 
 namespace AgendaTech.Portal
 {
@@ -104,7 +105,9 @@ namespace AgendaTech.Portal
         {
             var user = UserManager.FindByEmailAsync(userName).Result;
 
-            if (!user.IsEnabled)
+            var role = (EnUserType)int.Parse(user.IDRole);
+
+            if (!user.IsEnabled || role.Equals(EnUserType.Consumer))
                 return Task.FromResult(SignInStatus.Failure);
 
             return base.PasswordSignInAsync(userName, password, rememberMe, shouldLockout);

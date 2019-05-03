@@ -8,13 +8,10 @@
         <EntityTypeShape EntityType="AgendaTechModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="11.375" />
         <EntityTypeShape EntityType="AgendaTechModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="5.125" />
         <EntityTypeShape EntityType="AgendaTechModel.TCGCustomers" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="AgendaTechModel.TCGProfessionals" Width="1.5" PointX="8.25" PointY="5.875" />
         <EntityTypeShape EntityType="AgendaTechModel.TCGServices" Width="1.5" PointX="3" PointY="12.375" />
         <EntityTypeShape EntityType="AgendaTechModel.TSchedules" Width="1.5" PointX="10.5" PointY="8" />
-        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" />
         <AssociationConnector Association="AgendaTechModel.FK_TCGServices_TCGCustomers" />
         <AssociationConnector Association="AgendaTechModel.FK_TSchedule_TCGCustomers" />
-        <AssociationConnector Association="AgendaTechModel.FK_TSchedules_TCGProfessionals" />
         <AssociationConnector Association="AgendaTechModel.FK_TSchedules_TCGServices" />
         <EntityTypeShape EntityType="AgendaTechModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="10.5" />
         <EntityTypeShape EntityType="AgendaTechModel.AspNetUsers" Width="1.5" PointX="3" PointY="5.25" />
@@ -22,9 +19,12 @@
         <AssociationConnector Association="AgendaTechModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="AgendaTechModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="AgendaTechModel.FK_AspNetUsers_TCGCustomers" />
-        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_AspNetUsers" />
         <AssociationConnector Association="AgendaTechModel.FK_TSchedules_AspNetUsers" />
         <AssociationConnector Association="AgendaTechModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="AgendaTechModel.TCGProfessionals" Width="1.5" PointX="5.25" PointY="7.75" />
+        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_AspNetUsers" />
+        <AssociationConnector Association="AgendaTechModel.FK_TCGProfessionals_TCGCustomers" />
+        <AssociationConnector Association="AgendaTechModel.FK_TSchedules_TCGProfessionals" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

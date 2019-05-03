@@ -6,6 +6,7 @@ using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bogus.Extensions.Brazil;
 using System.Text.RegularExpressions;
+using System;
 
 namespace AgendaTech.Tests
 {
@@ -18,6 +19,9 @@ namespace AgendaTech.Tests
         {
             _customerRepository = new CustomerFacade();
         }
+
+        //GetCustomerById
+        //Update
 
         [TestMethod]
         public void Customer_Insert()
@@ -37,10 +41,34 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
-        public void Customer_GetAll()
+        public void Customer_GetGrid()
         {
             var customers = _customerRepository.GetGrid(string.Empty, out string errorMessage);
             Assert.IsTrue(customers.Any());
-        }     
+        }
+
+        [TestMethod]
+        public void Customer_GetCompanyNameCombo()
+        {
+            var customers = _customerRepository.GetCompanyNameCombo(1, out string errorMessage);
+            Assert.IsTrue(customers.Any());
+        }
+
+        [TestMethod]
+        public void Customer_GetCustomerById()
+        {
+            var customer = _customerRepository.GetCustomerById(1, out string errorMessage);
+            Assert.IsTrue(!customer.IDCustomer.Equals(0));
+        }
+
+        [TestMethod]
+        public void Customer_Update()
+        {
+            var customer = _customerRepository.GetCustomerById(1, out string errorMessage);
+            customer.HireDate = DateTime.Now;
+            _customerRepository.Update(customer, out errorMessage);
+
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
     }
 }

@@ -140,6 +140,14 @@ function ddlServiceChange(e) {
 }
 
 function LoadSchedules() {
+    var dateInitial = kendo.parseDate($("#dtDateFromFilter").val(), "dd/MM/yyyy");
+    var dateFinal = kendo.parseDate($("#dtDateToFilter").val(), "dd/MM/yyyy");
+
+    if (dateInitial !== null && dateFinal !== null && dateInitial > dateFinal) {
+        ShowModalAlert("A Data Inicial não pode ser maior do que a Data Final.");
+        return;
+    }
+
     $("#grid").html("");
     $("#grid").kendoGrid({
         toolbar: [
@@ -195,13 +203,13 @@ function LoadSchedules() {
                             idProfessional: $("#ddlProfessionalFilter").val(),
                             idService: $("#ddlServiceFilter").val(),
                             idConsumer: $("#ddlConsumerFilter").val(),
-                            dateFrom: kendo.parseDate($("#dtDateFromFilter").val(), "dd/MM/yyyy"),
-                            dateTo: kendo.parseDate($("#dtDateToFilter").val(), "dd/MM/yyyy"),
+                            dateFrom: $("#dtDateFromFilter").val(),
+                            dateTo: $("#dtDateToFilter").val(),
                             bonus: $('#chkBonusFilter').bootstrapSwitch('state')
                         };
                     }
                 }
-            },
+            },            
             pageSize: 10
         },       
         groupable: true,
@@ -222,7 +230,8 @@ function LoadSchedules() {
             { field: "ServiceName", title: "Serviço", width: "15%" },
             { field: "ConsumerName", title: "Cliente", width: "20%" },
             { field: "Date", title: "Data", width: "15%" },
-            { field: "Hour", title: "Hora", width: "15%" },
+            { field: "Hour", title: "Início", width: "15%" },
+            { field: "Finish", title: "Término", width: "15%" },
             { field: "Bonus", title: "Bônus", width: "10%", template: "#:BonusDescription(Bonus)#" },
             {
                 title: " ",

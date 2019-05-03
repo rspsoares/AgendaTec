@@ -1,7 +1,6 @@
 ﻿using AgendaTech.Business.Entities;
-using Microsoft.AspNet.Identity;
+using AgendaTech.Portal.Helper;
 using Microsoft.AspNet.Identity.Owin;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -13,9 +12,9 @@ namespace AgendaTech.Portal.Controllers
         public string MenuLateral()
         {         
             var menu = new StringBuilder();
-            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var role = userManager.GetRoles(User.Identity.GetUserId()).FirstOrDefault();
-
+            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();            
+            var role = (EnUserType)int.Parse(User.GetIdRole());
+            
             menu.AppendLine("<li>");
             menu.AppendLine("<a href='/Home' title='Principal'>");
             menu.AppendLine("<span class='glyphicon glyphicon glyphicon-home'/>");
@@ -28,7 +27,7 @@ namespace AgendaTech.Portal.Controllers
             menu.AppendLine("<span class='nav-title-item'>Cadastros</span>");
             menu.AppendLine("<ul>");
 
-            if (role.Equals(EnUserType.Administrator.ToString()))
+            if (role.Equals(EnUserType.Administrator))
             {
                 menu.AppendLine("<li>");
                 menu.AppendLine("<a href='/Customers' title='Customer'>");
@@ -43,7 +42,7 @@ namespace AgendaTech.Portal.Controllers
             menu.AppendLine("</a>");
             menu.AppendLine("</li>");
 
-            if (role.Equals(EnUserType.Administrator.ToString()) || role.Equals(EnUserType.Customer.ToString()))
+            if (role.Equals(EnUserType.Administrator) || role.Equals(EnUserType.Customer))
             {
                 menu.AppendLine("<li>");
                 menu.AppendLine("<a href='/Users' title='Clientes'>");

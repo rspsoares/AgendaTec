@@ -47,10 +47,10 @@ namespace AgendaTech.Business.Bindings
                 {
                     IDProfessional = x.IDProfessional,
                     IDCustomer = x.IDCustomer,
+                    IDUser = x.IDUser,
                     Name = x.Name,
                     Birthday = x.Birthday,
-                    Phone = x.Phone,
-                    Email = x.Email
+                    Phone = x.Phone
                 })
                 .OrderBy(x => x.IDCustomer)
                 .ThenBy(x => x.Name)
@@ -86,8 +86,7 @@ namespace AgendaTech.Business.Bindings
                     IDCustomer = x.IDCustomer,
                     Name = x.Name,
                     Birthday = x.Birthday,
-                    Phone = x.Phone,
-                    Email = x.Email
+                    Phone = x.Phone
                 })
                 .OrderBy(x => x.Name)                
                 .ToList();
@@ -110,8 +109,7 @@ namespace AgendaTech.Business.Bindings
                     IDUser = result.IDUser,
                     Name = result.Name,
                     Birthday = result.Birthday,
-                    Phone = result.Phone,
-                    Email = result.Email
+                    Phone = result.Phone
                 };
             }
             catch (Exception ex)

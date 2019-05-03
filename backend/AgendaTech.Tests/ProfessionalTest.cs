@@ -3,6 +3,7 @@ using AgendaTech.Business.Contracts;
 using AgendaTech.Infrastructure.DatabaseModel;
 using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Linq;
 
 namespace AgendaTech.Tests
@@ -15,17 +16,17 @@ namespace AgendaTech.Tests
         public ProfessionalTest()
         {
             _professionalRepository = new ProfessionalFacade();
-        }
+        }        
 
         [TestMethod]
         public void Professional_Insert()
         {
             var fakeProfessional = new Faker<TCGProfessionals>()
                 .RuleFor(t => t.IDCustomer, f => 1)
+                .RuleFor(t => t.IDUser, f => "8f6df88c-eb27-4b5b-a1eb-1b487eb49f52")
                 .RuleFor(t => t.Name, f => f.Name.FullName())
                 .RuleFor(t => t.Birthday, f => f.Date.Past(20))
-                .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber())
-                .RuleFor(t => t.Email, f => f.Internet.ExampleEmail());
+                .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber());
                 
             var idProfessional = _professionalRepository.Insert(fakeProfessional, out string errorMessage).IDProfessional;
 
@@ -33,10 +34,31 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
-        public void Professional_GetAll()
+        public void Professional_GetGrid()
         {
-            var professional = _professionalRepository.GetGrid(0, string.Empty, out string errorMessage);
-            Assert.IsTrue(professional.Any());
+            var professionals = _professionalRepository.GetGrid(0, string.Empty, out string errorMessage);
+            Assert.IsTrue(professionals.Any());
+        }
+
+        [TestMethod]
+        public void Professional_GetProfessionalNameCombo()
+        {
+            var professionals = _professionalRepository.GetProfessionalNameCombo(1, Guid.Empty, out string errorMessage);
+            Assert.IsTrue(professionals.Any());
+        }
+
+        [TestMethod]
+        public void Professional_GetProfessionalById()
+        {
+            var professional = _professionalRepository.GetProfessionalById(1, out string errorMessage);
+            Assert.IsTrue(!professional.IDProfessional.Equals(0)); 
+        }
+
+        [TestMethod]
+        public void Professional_CheckUserInUse()
+        {
+            var inUse = _professionalRepository.CheckUserInUse(1, "8f6df88c-eb27-4b5b-a1eb-1b487eb49f52", out string errorMessage);
+            Assert.IsTrue(inUse);
         }
 
         [TestMethod]

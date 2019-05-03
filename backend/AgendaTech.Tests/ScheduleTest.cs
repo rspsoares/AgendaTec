@@ -18,7 +18,7 @@ namespace AgendaTech.Tests
         {
             _scheduleFacade = new ScheduleFacade();
         }
-
+        
         [TestMethod]
         public void Schedule_Insert()
         {
@@ -26,7 +26,7 @@ namespace AgendaTech.Tests
                .RuleFor(t => t.IDCustomer, f => 1)
                .RuleFor(t => t.IDProfessional, f => 1)
                .RuleFor(t => t.IDService, f => 1)
-               .RuleFor(t => t.IDConsumer, f => "AF3165EC-BF80-4C29-B3CB-60443BA047A4")
+               .RuleFor(t => t.IDConsumer, f => "ae74421f-50a1-4b45-a14b-9f4b2b3ee2a5")
                .RuleFor(t => t.Date, f => f.Date.Soon())
                .RuleFor(t => t.Price, f => f.Random.Decimal(0, 1000))
                .RuleFor(t => t.Time, f => f.Random.Int(0, 60))
@@ -38,20 +38,42 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
-        public void Schedule_GetAll()
+        public void Schedule_GetGrid()
         {
-            var schedules = _scheduleFacade.GetGrid(1, 0, 0, string.Empty, null, null, false, out string errorMessage);
+            var schedules = _scheduleFacade.GetGrid(3, 0, 0, string.Empty, null, null, true, out string errorMessage);
             Assert.IsTrue(schedules.Any());
         }
 
         [TestMethod]
-        public void Schedule_Delete()
+        public void Schedule_GetScheduleById()
+        {
+            var schedule = _scheduleFacade.GetScheduleById(5, out string errorMessage);
+            Assert.IsTrue(!schedule.IDSchedule.Equals(0));
+        }
+
+        [TestMethod]
+        public void Schedule_Reschedule()
         {
             var schedules = new List<TSchedules>()
             {
                 new TSchedules()
                 {
-                    IDSchedule = 1
+                    IDSchedule = 2
+                }
+            };
+
+            _scheduleFacade.Reschedule(schedules, "2019-05-10", out string errorMessage);
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void Schedule_DeleteByList()
+        {
+            var schedules = new List<TSchedules>()
+            {
+                new TSchedules()
+                {
+                    IDSchedule = 8
                 }
             };
 
@@ -60,9 +82,16 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
+        public void Schedule_DeleteById()
+        {
+            _scheduleFacade.Delete(2, out string errorMessage);
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
         public void Schedule_CheckAvailability()
         {
-            var schedule = _scheduleFacade.GetScheduleById(14, out string errorMessage);
+            var schedule = _scheduleFacade.GetScheduleById(2, out string errorMessage);
             schedule.Date = DateTime.Parse($"{DateTime.Parse("2019-05-18").ToString("yyyy-MM-dd")} {schedule.Date.ToString("HH:mm")}");
             var schedules = new List<TSchedules>
             {
@@ -71,7 +100,7 @@ namespace AgendaTech.Tests
 
             var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out errorMessage);
             
-            Assert.IsTrue(!string.IsNullOrEmpty(availabilityCheck));
+            Assert.IsTrue(string.IsNullOrEmpty(availabilityCheck));
         }
     }
 }

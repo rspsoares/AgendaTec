@@ -87,7 +87,8 @@ namespace AgendaTech.Portal.Controllers
                     FirstName = userDTO.FirstName,
                     LastName = userDTO.LastName,
                     UserName = userDTO.Email,
-                    Email = userDTO.Email
+                    Email = userDTO.Email,
+                    IsEnabled = userDTO.IsEnabled
                 };
 
                 var result = await userManager.CreateAsync(user, "AgendaTec123");

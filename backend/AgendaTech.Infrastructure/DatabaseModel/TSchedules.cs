@@ -25,8 +25,8 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public bool Bonus { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }
-        public virtual TCGProfessionals TCGProfessionals { get; set; }
         public virtual TCGServices TCGServices { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual TCGProfessionals TCGProfessionals { get; set; }
     }
 }

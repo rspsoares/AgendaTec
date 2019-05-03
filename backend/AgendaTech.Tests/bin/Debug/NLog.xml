@@ -2964,8 +2964,7 @@
         </member>
         <member name="T:NLog.Config.LoggingConfiguration">
              <summary>
-             Keeps logging configuration and provides simple API
-             to modify it.
+             Keeps logging configuration and provides simple API to modify it.
              </summary>
             <remarks>This class is thread-safe.<c>.ToList()</c> is used for that purpose.</remarks>
         </member>
@@ -3141,21 +3140,21 @@
         </member>
         <member name="M:NLog.Config.LoggingConfiguration.AddRuleForAllLevels(System.String,System.String)">
             <summary>
-            Add a rule for alle loglevels.
+            Add a rule for all loglevels.
             </summary>
             <param name="targetName">Name of the target to be written when the rule matches.</param>
             <param name="loggerNamePattern">Logger name pattern. It may include the '*' wildcard at the beginning, at the end or at both ends.</param>
         </member>
         <member name="M:NLog.Config.LoggingConfiguration.AddRuleForAllLevels(NLog.Targets.Target,System.String)">
             <summary>
-            Add a rule for alle loglevels.
+            Add a rule for all loglevels.
             </summary>
             <param name="target">Target to be written to when the rule matches.</param>
             <param name="loggerNamePattern">Logger name pattern. It may include the '*' wildcard at the beginning, at the end or at both ends.</param>
         </member>
         <member name="M:NLog.Config.LoggingConfiguration.AddRuleForAllLevels(NLog.Targets.Target,System.String,System.Boolean)">
             <summary>
-            Add a rule for alle loglevels.
+            Add a rule for all loglevels.
             </summary>
             <param name="target">Target to be written to when the rule matches.</param>
             <param name="loggerNamePattern">Logger name pattern. It may include the '*' wildcard at the beginning, at the end or at both ends.</param>
@@ -3301,6 +3300,11 @@
             Get default file paths (including filename) for possible NLog config files. 
             </summary>
         </member>
+        <member name="M:NLog.Config.LoggingConfigurationFileLoader.GetAppSpecificNLogLocations(System.String)">
+            <summary>
+            Get default file paths (including filename) for possible NLog config files. 
+            </summary>
+        </member>
         <member name="T:NLog.Config.LoggingConfigurationParser">
             <summary>
             Loads NLog configuration from <see cref="T:NLog.Config.ILoggingConfigurationElement"/>
@@ -3373,14 +3377,6 @@
             </example>
             <param name="attributeValue"></param>
             <returns></returns>
-        </member>
-        <member name="M:NLog.Config.LoggingConfigurationParser.CleanSpaces(System.String)">
-            <summary>
-            Remove all spaces, also in between text. 
-            </summary>
-            <param name="s">text</param>
-            <returns>text without spaces</returns>
-            <remarks>Tabs and other whitespace is not removed!</remarks>
         </member>
         <member name="M:NLog.Config.ILoggingConfigurationSectionExtensions.GetOptionalBooleanValue(NLog.Config.ILoggingConfigurationElement,System.String,System.Boolean)">
             <summary>
@@ -3745,6 +3741,11 @@
         <member name="M:NLog.Config.NLogXmlElement.GetParsingErrors">
             <summary>
             Returns all parsing errors from current and all child elements.
+            </summary>
+        </member>
+        <member name="M:NLog.Config.NLogXmlElement.IsSpecialXmlAttribute(System.Xml.XmlReader)">
+            <summary>
+            Special attribute we could ignore
             </summary>
         </member>
         <member name="T:NLog.Config.PropertyTypeConverter">
@@ -4708,7 +4709,7 @@
         </member>
         <member name="T:NLog.GDC">
             <summary>
-            Global Diagnostics Context - used for log4net compatibility.
+            Global Diagnostics Context
             </summary>
             <remarks>This class was marked as obsolete on NLog 2.0 and it may be removed in a future release.</remarks>
         </member>
@@ -8092,7 +8093,28 @@
             Domain unloaded event.
             </summary>
         </member>
-        <member name="M:NLog.Internal.Fakeables.FileWrapper.Exists(System.String)">
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.AppDomainBaseDirectory">
+            <inheritdoc />
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.AppDomainConfigurationFile">
+            <inheritdoc />
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.CurrentProcessFilePath">
+            <inheritdoc />
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.EntryAssemblyLocation">
+            <inheritdoc />
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.EntryAssemblyFileName">
+            <inheritdoc />
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppEnvironmentWrapper.PrivateBinPath">
+            <inheritdoc />
+        </member>
+        <member name="M:NLog.Internal.Fakeables.AppEnvironmentWrapper.FileExists(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:NLog.Internal.Fakeables.AppEnvironmentWrapper.LoadXmlFile(System.String)">
             <inheritdoc />
         </member>
         <member name="T:NLog.Internal.Fakeables.IAppDomain">
@@ -8141,15 +8163,23 @@
             Domain unloaded event.
             </summary>
         </member>
-        <member name="T:NLog.Internal.Fakeables.IFile">
+        <member name="T:NLog.Internal.Fakeables.IAppEnvironment">
             <summary>
-            Abstract calls to File
+            Abstract calls for the application environment
             </summary>
         </member>
-        <member name="M:NLog.Internal.Fakeables.IFile.Exists(System.String)">
+        <member name="T:NLog.Internal.Fakeables.IFileSystem">
+            <summary>
+            Abstract calls to FileSystem
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.Fakeables.IFileSystem.FileExists(System.String)">
             <summary>Determines whether the specified file exists.</summary>
-            <param name="path">The file to check. </param>
-            <returns></returns>
+            <param name="path">The file to check.</param>
+        </member>
+        <member name="M:NLog.Internal.Fakeables.IFileSystem.LoadXmlFile(System.String)">
+            <summary>Returns the content of the specified file</summary>
+            <param name="path">The file to load.</param>
         </member>
         <member name="T:NLog.Internal.FileAppenders.BaseFileAppender">
             <summary>
@@ -8492,6 +8522,11 @@
         <member name="P:NLog.Internal.FileAppenders.ICreateFileParameters.IsArchivingEnabled">
             <summary>
             Should archive mutex be created?
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.FileAppenders.ICreateFileParameters.EnableFileDeleteSimpleMonitor">
+            <summary>
+            Should manual simple detection of file deletion be enabled?
             </summary>
         </member>
         <member name="T:NLog.Internal.FileAppenders.IFileAppenderFactory">
@@ -9077,8 +9112,7 @@
             Initializes a new instance of the <see cref="T:NLog.Internal.LoggerConfiguration" /> class.
             </summary>
             <param name="targetsByLevel">The targets by level.</param>
-            <param name="exceptionLoggingOldStyle">  Use the old exception log handling of NLog 3.0? 
-            </param>
+            <param name="exceptionLoggingOldStyle">  Use the old exception log handling of NLog 3.0?</param>
         </member>
         <member name="P:NLog.Internal.LoggerConfiguration.ExceptionLoggingOldStyle">
             <summary>
@@ -9092,15 +9126,6 @@
             </summary>
             <param name="level">The level.</param>
             <returns>Chain of targets with attached filters.</returns>
-        </member>
-        <member name="M:NLog.Internal.LoggerConfiguration.IsEnabled(NLog.LogLevel)">
-            <summary>
-            Determines whether the specified level is enabled.
-            </summary>
-            <param name="level">The level.</param>
-            <returns>
-            A value of <c>true</c> if the specified level is enabled; otherwise, <c>false</c>.
-            </returns>
         </member>
         <member name="F:NLog.Internal.LogMessageTemplateFormatter._forceTemplateRenderer">
             <summary>
@@ -9593,37 +9618,58 @@
             <param name="fileStream">The file stream.</param>
             <returns>The file characteristics, if the file information was retrieved successfully, otherwise null.</returns>
         </member>
-        <member name="T:NLog.Internal.PortableThreadIDHelper">
+        <member name="T:NLog.Internal.PortableProcessIDHelper">
             <summary>
-            Portable implementation of <see cref="T:NLog.Internal.ThreadIDHelper"/>.
+            Portable implementation of <see cref="T:NLog.Internal.ProcessIDHelper"/>.
             </summary>
         </member>
-        <member name="M:NLog.Internal.PortableThreadIDHelper.#ctor">
+        <member name="M:NLog.Internal.PortableProcessIDHelper.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:NLog.Internal.PortableThreadIDHelper" /> class.
+            Initializes a new instance of the <see cref="T:NLog.Internal.PortableProcessIDHelper" /> class.
             </summary>
         </member>
-        <member name="P:NLog.Internal.PortableThreadIDHelper.CurrentProcessID">
+        <member name="P:NLog.Internal.PortableProcessIDHelper.CurrentProcessID">
             <summary>
             Gets current process ID.
             </summary>
             <value></value>
         </member>
-        <member name="P:NLog.Internal.PortableThreadIDHelper.CurrentProcessName">
+        <member name="P:NLog.Internal.PortableProcessIDHelper.CurrentProcessFilePath">
             <summary>
             Gets current process name.
             </summary>
             <value></value>
         </member>
-        <member name="P:NLog.Internal.PortableThreadIDHelper.CurrentProcessBaseName">
+        <member name="T:NLog.Internal.ProcessIDHelper">
+            <summary>
+            Returns details about current process and thread in a portable manner.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.ProcessIDHelper.Instance">
+            <summary>
+            Gets the singleton instance of PortableThreadIDHelper or
+            Win32ThreadIDHelper depending on runtime environment.
+            </summary>
+            <value>The instance.</value>
+        </member>
+        <member name="P:NLog.Internal.ProcessIDHelper.CurrentProcessID">
+            <summary>
+            Gets current process ID.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.ProcessIDHelper.CurrentProcessFilePath">
+            <summary>
+            Gets current process absolute file path.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.ProcessIDHelper.CurrentProcessBaseName">
             <summary>
             Gets current process name (excluding filename extension, if any).
             </summary>
-            <value></value>
         </member>
-        <member name="M:NLog.Internal.PortableThreadIDHelper.GetProcessName">
+        <member name="M:NLog.Internal.ProcessIDHelper.Create">
             <summary>
-            Gets the name of the process.
+            Initializes the ThreadIDHelper class.
             </summary>
         </member>
         <member name="T:NLog.Internal.PropertiesDictionary">
@@ -10454,38 +10500,6 @@
             </summary>
             <returns>A <see cref="T:NLog.Config.StackTraceUsage" /> value that determines stack trace handling.</returns>
         </member>
-        <member name="T:NLog.Internal.ThreadIDHelper">
-            <summary>
-            Returns details about current process and thread in a portable manner.
-            </summary>
-        </member>
-        <member name="M:NLog.Internal.ThreadIDHelper.#cctor">
-            <summary>
-            Initializes static members of the ThreadIDHelper class.
-            </summary>
-        </member>
-        <member name="P:NLog.Internal.ThreadIDHelper.Instance">
-            <summary>
-            Gets the singleton instance of PortableThreadIDHelper or
-            Win32ThreadIDHelper depending on runtime environment.
-            </summary>
-            <value>The instance.</value>
-        </member>
-        <member name="P:NLog.Internal.ThreadIDHelper.CurrentProcessID">
-            <summary>
-            Gets current process ID.
-            </summary>
-        </member>
-        <member name="P:NLog.Internal.ThreadIDHelper.CurrentProcessName">
-            <summary>
-            Gets current process name.
-            </summary>
-        </member>
-        <member name="P:NLog.Internal.ThreadIDHelper.CurrentProcessBaseName">
-            <summary>
-            Gets current process name (excluding filename extension, if any).
-            </summary>
-        </member>
         <member name="T:NLog.Internal.ThreadLocalStorageHelper">
             <summary>
             Helper for dealing with thread-local storage.
@@ -10536,28 +10550,28 @@
             URL Encoding helper.
             </summary>
         </member>
-        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingFlag.UriString">
+        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingOptions.UriString">
             <summary>Allow UnreservedMarks instead of ReservedMarks, as specified by chosen RFC</summary>
         </member>
-        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingFlag.LegacyRfc2396">
+        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingOptions.LegacyRfc2396">
             <summary>Use RFC2396 standard (instead of RFC3986)</summary>
         </member>
-        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingFlag.LowerCaseHex">
+        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingOptions.LowerCaseHex">
             <summary>Should use lowercase when doing HEX escaping of special characters</summary>
         </member>
-        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingFlag.SpaceAsPlus">
+        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingOptions.SpaceAsPlus">
             <summary>Replace space ' ' with '+' instead of '%20'</summary>
         </member>
-        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingFlag.NLogLegacy">
+        <member name="F:NLog.Internal.UrlHelper.EscapeEncodingOptions.NLogLegacy">
             <summary>Skip UTF8 encoding, and prefix special characters with '%u'</summary>
         </member>
-        <member name="M:NLog.Internal.UrlHelper.EscapeDataEncode(System.String,System.Text.StringBuilder,NLog.Internal.UrlHelper.EscapeEncodingFlag)">
+        <member name="M:NLog.Internal.UrlHelper.EscapeDataEncode(System.String,System.Text.StringBuilder,NLog.Internal.UrlHelper.EscapeEncodingOptions)">
             <summary>
             Escape unicode string data for use in http-requests
             </summary>
             <param name="source">unicode string-data to be encoded</param>
             <param name="target">target for the encoded result</param>
-            <param name="flags"><see cref="T:NLog.Internal.UrlHelper.EscapeEncodingFlag"/>s for how to perform the encoding</param>
+            <param name="options"><see cref="T:NLog.Internal.UrlHelper.EscapeEncodingOptions"/>s for how to perform the encoding</param>
         </member>
         <member name="M:NLog.Internal.UrlHelper.WriteWideChars(System.Text.StringBuilder,System.Char[],System.Byte[],System.Char[])">
             <summary>
@@ -10568,11 +10582,11 @@
             <param name="byteArray"></param>
             <param name="hexChars"></param>
         </member>
-        <member name="M:NLog.Internal.UrlHelper.IsAllowedChar(NLog.Internal.UrlHelper.EscapeEncodingFlag,System.Char)">
+        <member name="M:NLog.Internal.UrlHelper.IsAllowedChar(NLog.Internal.UrlHelper.EscapeEncodingOptions,System.Char)">
             <summary>
             Is allowed?
             </summary>
-            <param name="flags"></param>
+            <param name="options"></param>
             <param name="ch"></param>
             <returns></returns>
         </member>
@@ -10596,33 +10610,25 @@
             <param name="fileStream">The file stream.</param>
             <returns>The file characteristics, if the file information was retrieved successfully, otherwise null.</returns>
         </member>
-        <member name="T:NLog.Internal.Win32ThreadIDHelper">
+        <member name="T:NLog.Internal.Win32ProcessIDHelper">
             <summary>
-            Win32-optimized implementation of <see cref="T:NLog.Internal.ThreadIDHelper"/>.
+            Win32-optimized implementation of <see cref="T:NLog.Internal.ProcessIDHelper"/>.
             </summary>
         </member>
-        <member name="M:NLog.Internal.Win32ThreadIDHelper.#ctor">
+        <member name="M:NLog.Internal.Win32ProcessIDHelper.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:NLog.Internal.Win32ThreadIDHelper" /> class.
+            Initializes a new instance of the <see cref="T:NLog.Internal.Win32ProcessIDHelper" /> class.
             </summary>
         </member>
-        <member name="P:NLog.Internal.Win32ThreadIDHelper.CurrentProcessID">
+        <member name="P:NLog.Internal.Win32ProcessIDHelper.CurrentProcessID">
             <summary>
             Gets current process ID.
             </summary>
-            <value></value>
         </member>
-        <member name="P:NLog.Internal.Win32ThreadIDHelper.CurrentProcessName">
+        <member name="P:NLog.Internal.Win32ProcessIDHelper.CurrentProcessFilePath">
             <summary>
-            Gets current process name.
+            Gets current process absolute file path.
             </summary>
-            <value></value>
-        </member>
-        <member name="P:NLog.Internal.Win32ThreadIDHelper.CurrentProcessBaseName">
-            <summary>
-            Gets current process name (excluding filename extension, if any).
-            </summary>
-            <value></value>
         </member>
         <member name="T:NLog.Internal.Xamarin.PreserveAttribute">
             <summary>
@@ -11374,6 +11380,12 @@
             </summary>
             <docgen category='Rendering Options' order='100' />
         </member>
+        <member name="P:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.ObjectPath">
+            <summary>
+            Gets or sets the object-property-navigation-path for lookup of nested property
+            </summary>
+            <docgen category='Rendering Options' order='20' />
+        </member>
         <member name="M:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
             <inheritdoc/>
         </member>
@@ -11626,7 +11638,7 @@
         </member>
         <member name="T:NLog.LayoutRenderers.GdcLayoutRenderer">
             <summary>
-            Global Diagnostics Context item. Provided for compatibility with log4net.
+            Render a Global Diagnostics Context item. See <see cref="T:NLog.GlobalDiagnosticsContext"/>
             </summary>
         </member>
         <member name="P:NLog.LayoutRenderers.GdcLayoutRenderer.Item">
@@ -12126,7 +12138,7 @@
         </member>
         <member name="T:NLog.LayoutRenderers.MdcLayoutRenderer">
             <summary>
-            Mapped Diagnostic Context item. Provided for compatibility with log4net.
+            Render a Mapped Diagnostic Context item, See <see cref="T:NLog.MappedDiagnosticsContext"/>
             </summary>
         </member>
         <member name="P:NLog.LayoutRenderers.MdcLayoutRenderer.Item">
@@ -12149,7 +12161,8 @@
         </member>
         <member name="T:NLog.LayoutRenderers.MdlcLayoutRenderer">
             <summary>
-            Mapped Diagnostic Logical Context item (based on CallContext).
+            Render a Mapped Diagnostic Logical Context item (based on CallContext).
+            See <see cref="T:NLog.MappedDiagnosticsLogicalContext"/>
             </summary>
         </member>
         <member name="P:NLog.LayoutRenderers.MdlcLayoutRenderer.Item">
@@ -12206,7 +12219,8 @@
         </member>
         <member name="T:NLog.LayoutRenderers.NdcLayoutRenderer">
             <summary>
-            Nested Diagnostic Context item. Provided for compatibility with log4net.
+            Render a Nested Diagnostic Context item.
+            See <see cref="T:NLog.NestedDiagnosticsContext"/>
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.NdcLayoutRenderer.#ctor">
@@ -12241,7 +12255,8 @@
         </member>
         <member name="T:NLog.LayoutRenderers.NdlcLayoutRenderer">
             <summary>
-            <see cref="T:NLog.NestedDiagnosticsLogicalContext"/> Renderer (Async scope)
+            Render a Nested Diagnostic Logical Context item (Async scope)
+            See <see cref="T:NLog.NestedDiagnosticsLogicalContext"/>
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.NdlcLayoutRenderer.#ctor">
@@ -13246,6 +13261,14 @@
             Gets or sets the length in characters. 
             </summary>
             <docgen category="Transformation Options" order="10"/>
+        </member>
+        <member name="P:NLog.LayoutRenderers.Wrappers.LeftLayoutRendererWrapper.Truncate">
+            <summary>
+            Same as <see cref="P:NLog.LayoutRenderers.Wrappers.LeftLayoutRendererWrapper.Length"/>-property, so it can be used as ambient property.
+            </summary>
+            <example>
+            ${message:truncate=80}
+            </example>
         </member>
         <member name="M:NLog.LayoutRenderers.Wrappers.LeftLayoutRendererWrapper.RenderInnerAndTransform(NLog.LogEventInfo,System.Text.StringBuilder,System.Int32)">
             <inheritdoc/>
@@ -18831,6 +18854,24 @@
             <param name="level">Log level to be checked.</param>
             <returns>A value of <see langword="true" /> if logging is enabled for the specified level, otherwise it returns <see langword="false" />.</returns>
         </member>
+        <member name="M:NLog.Logger.WithProperty(System.String,System.Object)">
+            <summary>
+            Creates new logger that automatically appends the specified property to all log events (without changing current logger)
+            </summary>
+            <param name="propertyKey">Property Name</param>
+            <param name="propertyValue">Property Value</param>
+            <returns>New Logger object that automatically appends specified property</returns>
+        </member>
+        <member name="M:NLog.Logger.SetProperty(System.String,System.Object)">
+            <summary>
+            Updates the specified context property for the current logger. The logger will append it for all log events
+            </summary>
+            <remarks>
+            Will affect all locations/contexts that makes use of the same named logger object.
+            </remarks>
+            <param name="propertyKey">Property Name</param>
+            <param name="propertyValue">Property Value</param>
+        </member>
         <member name="M:NLog.Logger.Log(NLog.LogEventInfo)">
             <summary>
             Writes the specified diagnostic message.
@@ -20435,12 +20476,6 @@
             <summary>
             Mapped Diagnostics Context - a thread-local structure that keeps a dictionary
             of strings and provides methods to output them in layouts. 
-            Mostly for compatibility with log4net.
-            </summary>
-        </member>
-        <member name="T:NLog.MappedDiagnosticsContext.ItemRemover">
-            <summary>
-            
             </summary>
         </member>
         <member name="M:NLog.MappedDiagnosticsContext.GetThreadDictionary(System.Boolean)">
@@ -20656,7 +20691,7 @@
         </member>
         <member name="T:NLog.MDC">
             <summary>
-            Mapped Diagnostics Context - used for log4net compatibility.
+            Mapped Diagnostics Context
             </summary>
             <remarks>This class marked as obsolete before NLog 2.0 and it may be removed in a future release.</remarks>
         </member>
@@ -21138,7 +21173,7 @@
         </member>
         <member name="T:NLog.NDC">
             <summary>
-            Nested Diagnostics Context - for log4net compatibility.
+            Nested Diagnostics Context
             </summary>
             <remarks>This class marked as obsolete on NLog 2.0 and it may be removed in a future release.</remarks>
         </member>
@@ -21194,7 +21229,6 @@
             <summary>
             Nested Diagnostics Context - a thread-local structure that keeps a stack
             of strings and provides methods to output them in layouts
-            Mostly for compatibility with log4net.
             </summary>
         </member>
         <member name="P:NLog.NestedDiagnosticsContext.TopMessage">
@@ -22013,6 +22047,14 @@
             </summary>
             <docgen category='Console Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.ColoredConsoleTarget.AutoFlush">
+            <summary>
+            Gets or sets a value indicating whether to auto-flush after <see cref="M:System.Console.WriteLine"/>
+            </summary>
+            <remarks>
+            Normally the standard Console.Out will have <see cref="P:System.IO.StreamWriter.AutoFlush"/> = false, but not when piped
+            </remarks>
+        </member>
         <member name="P:NLog.Targets.ColoredConsoleTarget.EnableAnsiOutput">
             <summary>
             Enables output using ANSI Color Codes
@@ -22040,6 +22082,9 @@
             <summary>
             Closes the target and releases any unmanaged resources.
             </summary>
+        </member>
+        <member name="M:NLog.Targets.ColoredConsoleTarget.FlushAsync(NLog.Common.AsyncContinuation)">
+            <inheritdoc />
         </member>
         <member name="M:NLog.Targets.ColoredConsoleTarget.Write(NLog.LogEventInfo)">
             <summary>
@@ -22259,6 +22304,14 @@
             </summary>
             <docgen category='Console Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.ConsoleTarget.AutoFlush">
+            <summary>
+            Gets or sets a value indicating whether to auto-flush after <see cref="M:System.Console.WriteLine"/>
+            </summary>
+            <remarks>
+            Normally the standard Console.Out will have <see cref="P:System.IO.StreamWriter.AutoFlush"/> = false, but not when piped
+            </remarks>
+        </member>
         <member name="M:NLog.Targets.ConsoleTarget.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.Targets.ConsoleTarget" /> class.
@@ -22286,6 +22339,9 @@
             <summary>
             Closes the target and releases any unmanaged resources.
             </summary>
+        </member>
+        <member name="M:NLog.Targets.ConsoleTarget.FlushAsync(NLog.Common.AsyncContinuation)">
+            <inheritdoc />
         </member>
         <member name="M:NLog.Targets.ConsoleTarget.Write(NLog.LogEventInfo)">
             <summary>
@@ -27823,6 +27879,21 @@
             is applied to the array of log events.
             </summary>
             <param name="logEvents">Array of log events to be post-filtered.</param>
+        </member>
+        <member name="M:NLog.Targets.Wrappers.PostFilteringTargetWrapper.ApplyFilter(System.Collections.Generic.IList{NLog.Common.AsyncLogEventInfo},NLog.Conditions.ConditionExpression)">
+            <summary>
+            Apply the condition to the buffer
+            </summary>
+            <param name="logEvents"></param>
+            <param name="resultFilter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.Targets.Wrappers.PostFilteringTargetWrapper.EvaluateAllRules(System.Collections.Generic.IList{NLog.Common.AsyncLogEventInfo})">
+            <summary>
+            Evaluate all the rules to get the filtering condition
+            </summary>
+            <param name="logEvents"></param>
+            <returns></returns>
         </member>
         <member name="T:NLog.Targets.Wrappers.RandomizeGroupTarget">
             <summary>

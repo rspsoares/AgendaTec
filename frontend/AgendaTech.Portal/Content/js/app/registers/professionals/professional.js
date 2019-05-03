@@ -124,8 +124,7 @@ function CleanFields() {
 
     $("#txtName").val("");
     $("#dtBirthday").val("");
-    $("#txtPhone").val("");
-    $("#txtEmail").val("");   
+    $("#txtPhone").val("");    
 }
 
 function ProfessionalEdit(e) {
@@ -151,7 +150,6 @@ function ProfessionalEdit(e) {
                 $("#txtName").val(result.Data.Name);
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $("#txtPhone").val(result.Data.Phone);
-                $("#txtEmail").val(result.Data.Email);
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -183,8 +181,7 @@ function SaveProfessional() {
         IDUser: $("#ddlUserName").val(),
         Name: $("#txtName").val(),
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
-        Phone: $("#txtPhone").val(),
-        Email: $("#txtEmail").val()
+        Phone: $("#txtPhone").val()        
     };
 
     $("#loading-page").show();
@@ -209,8 +206,7 @@ function SaveProfessional() {
 }
 
 function ValidateRequiredFields() {
-    var errorMessage = '';
-    var emailPattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+    var errorMessage = '';    
 
     if ($("#txtName").val() === '')
         errorMessage += 'Favor informar o Nome' + '<br/>';
@@ -222,14 +218,7 @@ function ValidateRequiredFields() {
         errorMessage += 'Favor informar a Data de Nascimento' + '<br/>';
 
     if ($("#txtPhone").val() === '')
-        errorMessage += 'Favor informar o Telefone' + '<br/>';
-
-    if ($("#txtEmail").val() === '')
-        errorMessage += 'Favor informar o E-mail' + '<br/>';
-    else {
-        if (!emailPattern.test($.trim($("#txtEmail").val())))
-            errorMessage += 'E-mail inválido' + '<br/>';
-    }
+        errorMessage += 'Favor informar o Telefone' + '<br/>';    
 
     return errorMessage;
 }

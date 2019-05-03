@@ -32,10 +32,24 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
-        public void Service_GetAll()
+        public void Service_GetGrid()
         {
             var services = _serviceRepository.GetGrid(0, string.Empty, out string errorMessage);
             Assert.IsTrue(services.Any());
+        }
+
+        [TestMethod]
+        public void Service_GetServiceNameCombo()
+        {
+            var services = _serviceRepository.GetServiceNameCombo(1, out string errorMessage);
+            Assert.IsTrue(services.Any());
+        }
+
+        [TestMethod]
+        public void Service_GetServiceById()
+        {
+            var service = _serviceRepository.GetServiceById(1, out string errorMessage);
+            Assert.IsTrue(!service.IDService.Equals(0));
         }
 
         [TestMethod]
