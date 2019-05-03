@@ -129,3 +129,5 @@ C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\obj\Debug\AgendaT
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\obj\Debug\AgendaTech.Portal.csproj.CopyComplete
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\obj\Debug\AgendaTech.Portal.dll
 C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\obj\Debug\AgendaTech.Portal.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\bin\Microsoft.Owin.Security.Cookies.dll
+C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\bin\Microsoft.Owin.Security.Cookies.xml
