@@ -32,8 +32,8 @@ namespace AgendaTech.Portal
                     "~/Content/jqueryvalidate/jquery.validate.js",
                     "~/Content/jqueryvalidate/messages_pt_BR.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/js-agendatec").Include(
-                     "~/Content/js/agendatec-script.js"));
+            bundles.Add(new ScriptBundle("~/bundles/menu-script").Include(
+                     "~/Content/js/menu.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                     "~/Content/modernizr/modernizr-*"));

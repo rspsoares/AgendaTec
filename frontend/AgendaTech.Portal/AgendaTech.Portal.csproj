@@ -247,7 +247,6 @@
     <Content Include="Content\jQuery\jquery.PrintArea.min.js" />
     <Content Include="Content\js\agendatec-script.js" />
     <Content Include="Content\js\app\control\schedule.js" />
-    <Content Include="Content\js\app\home.js" />
     <Content Include="Content\js\app\registers\customers\customers.js" />
     <Content Include="Content\js\app\registers\empresas\empresas.js" />
     <Content Include="Content\js\app\registers\grupos\grupos.js" />
@@ -259,6 +258,7 @@
     <Content Include="Content\js\app\registers\usuarios\create.js" />
     <Content Include="Content\js\app\registers\usuarios\edit.js" />
     <Content Include="Content\js\app\registers\usuarios\usuarios.js" />
+    <Content Include="Content\js\menu.js" />
     <Content Include="Content\kendo-ui\js\angular.min.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af-ZA.js" />
     <Content Include="Content\kendo-ui\js\cultures\kendo.culture.af.js" />
