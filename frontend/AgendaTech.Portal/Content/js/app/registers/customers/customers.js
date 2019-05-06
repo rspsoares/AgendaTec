@@ -207,13 +207,6 @@ function ValidateRequiredFields() {
     if ($("#txtCompanyName").val() === '')
         errorMessage += 'Favor informar a Razão Social' + '<br/>';
 
-    //if ($("#txtCNPJ").val() === '')
-    //    errorMessage += 'Favor informar o CNPJ' + '<br/>';
-    //else {
-    //    if (!CNPJCheck($("#txtCNPJ").val())) 
-    //        errorMessage += 'CNPJ inválido' + '<br/>';
-    //}
-
     if ($("#txtAddress").val() === '')
         errorMessage += 'Favor informar o Endereço' + '<br/>';
 

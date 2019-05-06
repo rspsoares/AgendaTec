@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/03/2019 16:58:54</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/03/2019 16:58:54</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/03/2019 16:58:54</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.pdb">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/03/2019 16:58:54</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.dll">
-      <publishTime>05/03/2019 14:30:52</publishTime>
+      <publishTime>05/06/2019 08:32:17</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.pdb">
-      <publishTime>05/03/2019 14:30:52</publishTime>
+      <publishTime>05/06/2019 08:32:17</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/23/2017 11:02:58</publishTime>
@@ -43,7 +43,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/Content/agendatec-default.css">
-      <publishTime>04/29/2019 11:20:09</publishTime>
+      <publishTime>05/03/2019 16:03:37</publishTime>
     </File>
     <File Include="bin/Content/images/layout/logo-mosaic.png">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -319,7 +319,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:03:00</publishTime>
     </File>
     <File Include="Content/agendatec-default.css">
-      <publishTime>04/29/2019 11:20:09</publishTime>
+      <publishTime>05/03/2019 16:03:37</publishTime>
     </File>
     <File Include="Content/angular/angular-1.2.19.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -532,7 +532,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2019 14:30:29</publishTime>
     </File>
     <File Include="Content/js/app/control/schedule.js">
-      <publishTime>05/03/2019 11:47:53</publishTime>
+      <publishTime>05/03/2019 16:03:38</publishTime>
     </File>
     <File Include="Content/js/app/home.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -544,40 +544,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/06/2019 07:45:12</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:40</publishTime>
     </File>
     <File Include="Content/js/app/registers/grupos/grupos.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:40</publishTime>
     </File>
     <File Include="Content/js/app/registers/perfil/perfis.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:41</publishTime>
     </File>
     <File Include="Content/js/app/registers/professionals/professional.js">
-      <publishTime>05/03/2019 09:54:14</publishTime>
+      <publishTime>05/06/2019 07:55:24</publishTime>
     </File>
     <File Include="Content/js/app/registers/roles.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:43</publishTime>
     </File>
     <File Include="Content/js/app/registers/services/service.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:44</publishTime>
     </File>
     <File Include="Content/js/app/registers/users/users.js">
-      <publishTime>05/02/2019 16:32:23</publishTime>
+      <publishTime>05/03/2019 16:03:45</publishTime>
     </File>
     <File Include="Content/js/app/registers/usuarios/create.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:46</publishTime>
     </File>
     <File Include="Content/js/app/registers/usuarios/edit.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:47</publishTime>
     </File>
     <File Include="Content/js/app/registers/usuarios/usuarios.js">
-      <publishTime>04/29/2019 11:20:10</publishTime>
+      <publishTime>05/03/2019 16:03:48</publishTime>
     </File>
     <File Include="Content/js/menu.js">
-      <publishTime>05/03/2019 14:30:29</publishTime>
+      <publishTime>05/03/2019 16:03:50</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/angular.min.js">
       <publishTime>04/29/2019 11:20:10</publishTime>
@@ -5482,10 +5482,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:11:08</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>05/03/2019 14:34:30</publishTime>
+      <publishTime>05/03/2019 16:02:43</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/02/2019 10:51:54</publishTime>
+      <publishTime>05/03/2019 16:02:42</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>04/29/2019 11:11:08</publishTime>
@@ -5506,13 +5506,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:11:08</publishTime>
     </File>
     <File Include="Views/Professionals/Index.cshtml">
-      <publishTime>05/03/2019 10:20:47</publishTime>
+      <publishTime>05/03/2019 16:02:41</publishTime>
     </File>
     <File Include="Views/Schedules/Index.cshtml">
-      <publishTime>04/29/2019 13:07:07</publishTime>
+      <publishTime>05/03/2019 16:02:39</publishTime>
     </File>
     <File Include="Views/Services/Index.cshtml">
-      <publishTime>04/29/2019 13:09:00</publishTime>
+      <publishTime>05/03/2019 16:02:37</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>04/29/2019 11:11:08</publishTime>
@@ -5530,7 +5530,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2019 10:22:53</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>05/02/2019 16:20:44</publishTime>
+      <publishTime>05/03/2019 16:02:35</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>05/02/2019 10:49:44</publishTime>
@@ -5539,7 +5539,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/03/2019 14:37:20</publishTime>
+      <publishTime>05/06/2019 08:32:19</publishTime>
     </File>
   </ItemGroup>
 </Project>

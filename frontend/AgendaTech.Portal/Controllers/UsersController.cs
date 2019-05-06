@@ -1,24 +1,22 @@
 ﻿using AgendaTech.Business.Contracts;
 using AgendaTech.Business.Entities;
 using AgendaTech.Portal.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using AgendaTech.Portal.Helper;
 
 namespace AgendaTech.Portal.Controllers
 {
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly IUserFacade _userFacade;        
-
+        private readonly IUserFacade _userFacade;
+        
         public UsersController(IUserFacade userFacade)
         {
-            _userFacade = userFacade;
+            _userFacade = userFacade;            
         }
 
         public ActionResult Index()
@@ -29,11 +27,8 @@ namespace AgendaTech.Portal.Controllers
         [HttpGet]
         public JsonResult GetRoleCombo()
         {
-            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var loggedUserRole = userManager.GetRoles(User.Identity.GetUserId()).FirstOrDefault();
-
-            Enum.TryParse(loggedUserRole, out EnUserType enUserType);
-            var userGroups = _userFacade.GetRolesCombo(enUserType, out string errorMessage);            
+            var enLoggedUserType = (EnUserType)int.Parse(User.GetIdRole());
+            var userGroups = _userFacade.GetRolesCombo(enLoggedUserType, out string errorMessage);            
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
@@ -107,7 +102,8 @@ namespace AgendaTech.Portal.Controllers
         [HttpGet]
         public JsonResult CheckUserIsConsumer(string idRole)
         {
-            var consumer = int.Parse(idRole).Equals((int)EnUserType.Consumer);
+            var enLoggedUserType = (EnUserType)int.Parse(User.GetIdRole());
+            var consumer = int.Parse(idRole).Equals((int)EnUserType.Consumer) && !enLoggedUserType.Equals(EnUserType.Administrator);
             return Json(new { Data = consumer }, JsonRequestBehavior.AllowGet);
         }
 

@@ -48,7 +48,8 @@
 }
 
 function ddlCustomerChange(e) {
-    $('#ddlUserName').data('kendoDropDownList').dataSource.read();       
+    //$('#ddlUserName').data('kendoDropDownList').dataSource.read();       
+    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), false);
 }
 
 function LoadProfessionals() {
@@ -107,7 +108,7 @@ function LoadProfessionals() {
 function AddProfessional() {
     CleanFields();
 
-    $('#ddlUserName').data('kendoDropDownList').dataSource.read();
+    //$('#ddlUserName').data('kendoDropDownList').dataSource.read();
 
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Profissional");
