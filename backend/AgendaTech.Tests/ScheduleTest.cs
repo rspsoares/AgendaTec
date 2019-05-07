@@ -45,6 +45,13 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
+        public void Schedule_GetAvailableHours()
+        {
+            var availables = _scheduleFacade.GetAvailableHours(1, 3, 8, DateTime.Now, true, out string errorMessage);
+            Assert.IsTrue(availables.Any());
+        }
+
+        [TestMethod]
         public void Schedule_GetScheduleById()
         {
             var schedule = _scheduleFacade.GetScheduleById(5, out string errorMessage);

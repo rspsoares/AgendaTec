@@ -15,5 +15,6 @@ namespace AgendaTech.Business.Contracts
         void Delete(List<TSchedules> schedules, out string errorMessage);
         string CheckAvailability(List<TSchedules> schedules, out string errorMessage, string newDate = null);
         void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage);
+        List<string> GetAvailableHours(int idCustomer, int idProfessional, int idService, DateTime date, bool authenticated, out string errorMessage);
     }
 }

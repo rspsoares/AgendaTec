@@ -55,7 +55,20 @@ function PageSetup() {
 
     $("#dtDateTime").kendoDateTimePicker({
         value: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9, 0, 0),
-        min: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9, 0, 0)        
+        min: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 9, 0, 0)//, 
+        //open: function (e) {
+        //    if (e.view === "time") {
+        //        e.sender.timeView.dataBind([
+        //            new Date(1970, 0, 1, 9, 10),
+        //            new Date(1970, 0, 1, 11, 20),
+        //            new Date(1970, 0, 1, 13, 30),
+        //            new Date(1970, 0, 1, 15, 40),
+        //            new Date(1970, 0, 1, 17, 50),
+        //            new Date(1970, 0, 1, 19, 10),
+        //            new Date(1970, 0, 1, 21, 20)
+        //        ]);
+            //}
+        //}
     });
 
     $('#txtPrice').on('keypress', function (e) {

@@ -71,7 +71,7 @@ namespace AgendaTech.Portal.Controllers
                 _scheduleFacade.Update(schedule, out errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o cliente." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o agendamento." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }

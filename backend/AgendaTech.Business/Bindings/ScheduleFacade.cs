@@ -85,6 +85,83 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
+        public List<string> GetAvailableHours(int idCustomer, int idProfessional, int idService, DateTime date, bool authenticated, out string errorMessage)
+        {
+            var hours = new List<string>();
+            ICustomerFacade customerRepository = new CustomerFacade();
+            IServiceFacade serviceRepository = new ServiceFacade();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                if(authenticated)
+                {
+                    if (idService > 0 && idProfessional > 0)
+                    {
+                        var customer = customerRepository.GetCustomerById(idCustomer, out errorMessage);
+                        var service = serviceRepository.GetServiceById(idService, out errorMessage);
+
+                        var appointments = _commonRepository
+                            .GetAll()
+                            .Where(x => x.IDCustomer.Equals(idCustomer) && x.IDProfessional.Equals(idProfessional) && x.Date.ToString("yyyy-MM-dd").Equals(date.ToString("yyyy-MM-dd")))
+                            .ToList();
+
+                        var availableSchedules = GetAvailableSchedules(appointments, customer, service, date);
+
+                        availableSchedules.ForEach(available => { hours.Add(available.ToString("HH:mm")); });
+                    }
+                    else
+                        errorMessage = "Para visualizar as opções de horários, favor selecionar o profissional e o serviço.";
+                }
+                else
+                    errorMessage = "Para visualizar as opções de horários, favor efetuar o Login.";
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return hours;
+        }
+
+        private List<DateTime> GetAvailableSchedules(List<TSchedules> appointments, TCGCustomers customer, TCGServices service, DateTime date)
+        {
+            var possibleHours = new List<DateTime>();            
+            var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.EndTime.ToString("HH")), int.Parse(customer.EndTime.ToString("mm")), 0);
+            
+            var timeBlockStart = new TimeBlock(
+                new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.StartTime.ToString("HH")), int.Parse(customer.StartTime.ToString("mm")), 0),
+                new TimeSpan(0, service.Time, 0));
+
+            possibleHours.Add(timeBlockStart.Start);
+            possibleHours.Add(timeBlockStart.End);
+            var nextPeriod = (ITimeBlock)timeBlockStart;
+
+            while (true)
+            {
+                nextPeriod = nextPeriod.GetNextPeriod(new TimeSpan(0, service.Time, 0));
+
+                if (nextPeriod.End > hourLimit)
+                    break;
+
+                possibleHours.Add(nextPeriod.Start);
+                possibleHours.Add(nextPeriod.End);                
+            }
+
+            appointments.ForEach(appointment =>
+            {
+                var timeRangeAppointment = new TimeRange(
+                    appointment.Date,
+                    appointment.Date.AddMinutes(appointment.Time));
+
+                possibleHours.RemoveAll(x => x >= timeRangeAppointment.Start && x < timeRangeAppointment.End);
+            });
+
+            return possibleHours;
+        }
+
         public TSchedules GetScheduleById(int idSchedule, out string errorMessage)
         {
             var schedule = new TSchedules();

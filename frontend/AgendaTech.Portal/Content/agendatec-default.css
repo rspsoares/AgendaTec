@@ -101,16 +101,9 @@ html, body{background-image:none !important;}
 #Left-Container nav ul.nav-list li .nav-title-item{display:block;width:195px;float:left;margin-top:-39px;margin-left:25px;}
 #Left-Container nav ul.nav-list li ul{padding:7px 0px;background:url('images/layout/bg-menu-treeview-y.gif') 20px 0 repeat-y;background-color:#7296a2;}
 #Left-Container nav ul.nav-list li ul li{min-height:33px;line-height:33px;background:url('images/layout/bg-menu-treeview-xy.gif') 20px 0 no-repeat;}
-
-#Left-Container nav ul.nav-list li ul li:hover{
-    color:#fff;
-    background-color:#a33d05;
-}
+#Left-Container nav ul.nav-list li ul li:hover{color:#fff;background-color:#a33d05;}
 
 #Left-Container nav ul.nav-list li ul li{padding:0 0 0 25px;}
-
-/*#Left-Container nav ul.nav-list li ul li.active a{color:#fff !important;}*/
-
 
 .minimize-menu { position: absolute; border-bottom: 1px solid #001941; background: #001941; color: #e4e4e4; padding: 2px 11px; width: 40px; height: 30px; display: block; right: 0; border-radius: 5px 0 0 5px; cursor: pointer; font-size: 19px; transition: all .1s linear 0s;}
 .minimize-menu:hover { border-bottom: 1px solid #001941; background: #001941; color: #fff; width: 40px;}
@@ -122,7 +115,7 @@ html, body{background-image:none !important;}
 .mini-nav ul.nav-list li ul li .item{display:block !important;}
 #nav-menu-mobile{position:absolute;width:100%;z-index:2;top:0px;padding:4px 0;font-size:15px;display:none;}
 #icone-lista{width:30px;cursor:pointer;margin:0px 10px 0 0;float:right;}
-.nav-list-mobile{position:absolute;list-style:none;width:100%;padding:15px 0px;background-color:#00544d;z-index:1000;display:none;margin-top:37px;}
+.nav-list-mobile { position: absolute; list-style: none; width: 100%;padding: 15px 0px;background-color: #7296a2; z-index: 1000; display: none; margin-top: 37px;}
 .nav-list-mobile li{cursor:pointer;list-style:none;min-height:39px;line-height:39px;color:#e4e4e4;}
 .nav-list-mobile li span{padding:0 0 0 10px;}
 .nav-list-mobile li:hover{color:#fff;}
@@ -132,6 +125,7 @@ html, body{background-image:none !important;}
 .nav-list-mobile li ul.submenu-menu-lista li{min-height:33px;line-height:33px;background:url('images/layout/bg-menu-treeview-xy.gif') 20px 0 no-repeat;padding-left:25px;}
 .nav-list-mobile li ul.submenu-menu-lista li:hover{color:#fff;background-color:#a33d05;}
 .nav-list-mobile li ul.submenu-menu-lista li.active a{color:#fff !important;}
+
 @media only screen and (max-width:767px){#nav-menu-mobile{display:block;}
 }
 #FooterContainer{position:relative;width:100%;min-height:45px;margin-top:-45px;clear:both;background-color:#ededed;color:#6b6c6f;}

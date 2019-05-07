@@ -48,7 +48,9 @@ namespace AgendaTech.Business.Bindings
                     Address = x.Address,
                     Phone = x.Phone,
                     HireDate = x.HireDate,
-                    Active = x.Active,
+                    StartTime = x.StartTime,
+                    EndTime = x.EndTime,
+                    Active = x.Active,                    
                     Note = x.Note
                 })
                 .OrderBy(x => x.CompanyName)
@@ -103,6 +105,8 @@ namespace AgendaTech.Business.Bindings
                     Phone = result.Phone,
                     HireDate = result.HireDate,
                     Active = result.Active,
+                    StartTime = result.StartTime,
+                    EndTime = result.EndTime,
                     Note = result.Note                    
                 };
             }

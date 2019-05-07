@@ -134,7 +134,7 @@ namespace AgendaTech.Client.Controllers
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
-        {
+        {           
             return View();
         }
 
@@ -144,12 +144,12 @@ namespace AgendaTech.Client.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
+        {            
+            if (ModelState.IsValid && Session["IdCustomer"] != null)
             {
                 var user = new ApplicationUser {
-                    IDCustomer = 1,
-                    IDRole = ((int)EnUserType.Administrator).ToString(),
+                    IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                    IDRole = ((int)EnUserType.Consumer).ToString(),
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     UserName = model.Email,

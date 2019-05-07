@@ -70,10 +70,8 @@ namespace AgendaTech.Portal.Controllers
         [HttpGet]
         public JsonResult GetProfessionalNameCombo(string filter)
         {
-            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);
-            var professional = Guid.Empty;// _usuarioLogado.Inscricao.Equals(EnUserType.Professional) ? _usuarioLogado.uqUsuario : Guid.Empty;
-
-            var professionals = _professionalFacade.GetProfessionalNameCombo(customer, professional, out string errorMessage);
+            var customer = string.IsNullOrEmpty(filter) ? 0 : int.Parse(filter);            
+            var professionals = _professionalFacade.GetProfessionalNameCombo(customer, Guid.Empty, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os profissionais." }, JsonRequestBehavior.AllowGet);

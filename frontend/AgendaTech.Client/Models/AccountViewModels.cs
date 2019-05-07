@@ -66,28 +66,28 @@ namespace AgendaTech.Client.Models
     {
         [Required]
         [MaxLength(50)]
-        [Display(Name = "First Name")]
+        [Display(Name = "Primeiro mome")]
         public string FirstName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        [Display(Name = "Last Name")]
+        [Display(Name = "Sobrenome")]
         public string LastName { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A senha deve ter no mínimo {2} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirmação senha")]
+        [Compare("Password", ErrorMessage = "A senha e a confirmação não confere.")]
         public string ConfirmPassword { get; set; }
     }
 

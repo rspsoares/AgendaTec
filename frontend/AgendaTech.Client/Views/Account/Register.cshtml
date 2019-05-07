@@ -35,7 +35,7 @@
         }
     </style>
 </head>
-<body>
+<body>    
     <div id="Container" class="wrap">
         <!-- Conteúdo -->
         <div id="ContentContainer">
@@ -45,7 +45,7 @@
                     <div class="legend">Criação de usuário</div>
                     <div class="control-group well">
                         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
+                        {                            
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
 
@@ -83,7 +83,7 @@
     <div id="FooterContainer">
         <div id="Footer">
             <div class="col-xs-12">
-                <small>&#174; @DateTime.Now.Year.ToString() - Todos direitos reservados.</small>              
+                <small>&#174; @DateTime.Now.Year.ToString() - Todos direitos reservados.</small>
             </div>
         </div>
     </div>

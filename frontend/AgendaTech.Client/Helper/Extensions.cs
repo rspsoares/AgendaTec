@@ -24,5 +24,10 @@ namespace AgendaTech.Client.Helper
         {
             return ((ClaimsIdentity)usr.Identity).FindFirst("IDCustomer")?.Value.ToString();
         }
+
+        public static string GetIdUser(this IPrincipal usr)
+        {
+            return ((ClaimsIdentity)usr.Identity).FindFirst("IDUser")?.Value.ToString();
+        }
     }
 }

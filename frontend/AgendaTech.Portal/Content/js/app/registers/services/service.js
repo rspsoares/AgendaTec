@@ -59,7 +59,6 @@ function LoadServices() {
                     type: "GET",
                     async: false,
                     cache: false
-
                 },
                 parameterMap: function (data, type) {
                     if (type === "read") {

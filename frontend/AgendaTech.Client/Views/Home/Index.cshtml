@@ -7,69 +7,8 @@
 
     @Styles.Render("~/Content/css")
 
-    <style type="text/css">
-        html {
-            background: none;
-        }
-
-        #DivLeft {
-            position: relative;
-            border-width: 2px;
-            width: 30%;
-            height: 250px;
-            float: left;
-            margin-left: 10px
-        }
-
-        #DivRight {
-            position: relative;
-            border-width: 2px;
-            width: 30%;
-            height: 250px;
-            float: right;
-            margin-left: 5px
-        }
-
-        #DivCenter {
-            position: relative;
-            border-width: 2px;
-            width: 38%;
-            height: 250px;
-            margin-left: 10px;
-            float: left;
-        }
-
-        #content {
-            position: relative;
-            min-height: 150px;
-        }
-
-        #content-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-
-        #content {
-            text-align: left;
-            width: 100%;
-            margin: auto;
-            position: relative;
-        }
-
-        #bg {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: url(../../Content/images/layout/background.png) center center;
-            opacity: 0.2;
-            width: 100%;
-            max-height: 400px;
-        }
-    </style>
-
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/kendo")
     @Scripts.Render("~/bundles/bootstrap")
@@ -83,52 +22,97 @@
 </head>
 <body>
     <div id="content">
-        <div id='bg'></div>
-        <div class="modal-footer">
-            <label><strong>Login: </strong></label>
-            <input type="text" id="txtLogin" name="txtLogin" data-field="Nome" class="k-textbox" style="width: 10%;" />
-            <label><strong>Senha: </strong></label>
-            <input type="text" id="txtPassword" name="txtPassword" class="k-textbox" style="width: 10%;" />
-            <button id="btnLogin" type="submit" class="btn btn-primary btn-xs">
-                <span class="glyphicon glyphicon-lock"></span> Entrar
-            </button>
-            <div class="row" style="text-align:right;margin-right:5px">
-                <a>Criar conta</a>
-            </div>
+        <div class="modal-footer" style="margin-right:20px">
+            @using AgendaTech.Client.Helper
+
+            @if (Request.IsAuthenticated)
+            {
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <h4>@User.GetFullName()</h4>
+                        </li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
+                    </ul>
+                }
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Criar conta", "Register", "Account", null, null)</li>
+                    <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                </ul>
+            }
         </div>
 
-        <div class="panel-body">
-            <div class="row">
-                <form>
-                    <div class="group">
-                        <div id="DivLeft">
-                            <div style="height: 35%">
-                                <label><strong>Profissional</strong></label><br />
-                                <input id="ddlProfessional" name="ddlProfessional" style="width: 100%;" />
-                            </div>
-                            <div>
-                                <label><strong>Serviço</strong></label><br />
-                                <input id="ddlService" name="ddlService" class="filter" style="width: 100%;" />
-                            </div>
+        <div class='some-page-wrapper'>
+            <div class='row'>
+                <div class='column'>
+                    <div class='left-column'>
+                        <div>
+                            <h4>Passo 1: Selecione o serviço</h4>
+                            <div id="listService" style="height: 100px; overflow: auto"></div>
                         </div>
-                        <div id="DivCenter">
-                            <div id="calendar" style="width: 100%; height:100%; text-align:center"></div>
-                        </div>
-                        <div id="DivRight">
-                            <div style="height: 87%">
-                                <label><strong>Horário</strong></label><br />
-                                <input id="ddlHour" name="ddlHour" class="filter" style="width: 90%;" />
-                            </div>
-                            <div style="text-align:right; width: 90%">
-                                <button type="button" id="btnProcess" class="btn btn-primary btn-xs">
-                                    <span class="glyphicon glyphicon-floppy-disk"></span> Confirmar
-                                </button>
-                            </div>
+                        <div>
+                            <h4>Passo 2: Selecione o profissional</h4>
+                            <div id="listProfessional" style="height: 100px; overflow: auto"></div>
                         </div>
                     </div>
-                </form>
+                </div>
+                <div class='column'>
+                    <div class='center-column'>
+                        <h4>Passo 3: Selecione o dia</h4>
+                        <div id="calendar" style="width: 100%; height:100%; text-align:center"></div>
+                    </div>
+                </div>
+                <div class='column'>
+                    <div class='right-column'>
+                        <div>
+                            <h4>Passo 4: Selecione o horário</h4>
+                            <div id="listHours" style="height: 200px; overflow: auto"></div>
+                        </div>
+                        <br />
+                        <div style="text-align:right">
+                            <button type="button" id="btnSaveAppointment" class="btn btn-primary btn-xs">
+                                <span class="glyphicon glyphicon-floppy-disk"></span> Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </body>
 </html>
+
+
+<div id="modalAlert" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong></strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger fade in" role="alert"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalSuccess" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong></strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success fade in" role="alert"></div>
+            </div>
+        </div>
+    </div>
+</div>

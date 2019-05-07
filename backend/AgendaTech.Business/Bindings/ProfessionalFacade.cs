@@ -92,6 +92,44 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
+        public List<TCGProfessionals> GetProfessionalNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
+        {
+            var professionals = new List<TCGProfessionals>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                if (authenticated)
+                    professionals = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));
+                else
+                {
+                    professionals.Add(new TCGProfessionals()
+                    {
+                        IDProfessional = 0,
+                        Name = "Para visualizar as opções de profissionais, favor efetuar o Login."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return professionals
+                .Select(x => new TCGProfessionals()
+                {
+                    IDProfessional = x.IDProfessional,
+                    IDCustomer = x.IDCustomer,
+                    Name = x.Name,
+                    Birthday = x.Birthday,
+                    Phone = x.Phone
+                })
+                .OrderBy(x => x.Name)
+                .ToList();
+        }
+
         public TCGProfessionals GetProfessionalById(int idProfessional, out string errorMessage)
         {
             var professional = new TCGProfessionals();

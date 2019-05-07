@@ -17,10 +17,10 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TCGCustomers()
         {
-            this.TCGServices = new HashSet<TCGServices>();
-            this.TSchedules = new HashSet<TSchedules>();
             this.AspNetUsers = new HashSet<AspNetUsers>();
             this.TCGProfessionals = new HashSet<TCGProfessionals>();
+            this.TCGServices = new HashSet<TCGServices>();
+            this.TSchedules = new HashSet<TSchedules>();
         }
     
         public int IDCustomer { get; set; }
@@ -29,16 +29,18 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public string Address { get; set; }
         public string Phone { get; set; }
         public System.DateTime HireDate { get; set; }
+        public System.DateTime StartTime { get; set; }
+        public System.DateTime EndTime { get; set; }
         public bool Active { get; set; }
         public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TCGServices> TCGServices { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TSchedules> TSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TCGServices> TCGServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSchedules> TSchedules { get; set; }
     }
 }

@@ -6,29 +6,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Portal\bin\Release\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\_Rodrigo\Repositorios\AgendaTech\frontend\AgendaTech.Client\bin\Release\Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/06/2019 16:11:17</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/06/2019 16:11:17</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/06/2019 11:54:11</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.pdb">
-      <publishTime>05/03/2019 14:10:10</publishTime>
+      <publishTime>05/06/2019 11:54:11</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.dll">
-      <publishTime>05/03/2019 14:30:52</publishTime>
+      <publishTime>05/06/2019 16:24:20</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.pdb">
-      <publishTime>05/03/2019 14:30:52</publishTime>
+      <publishTime>05/06/2019 16:24:20</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/23/2017 11:02:58</publishTime>
@@ -43,7 +43,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/Content/agendatec-default.css">
-      <publishTime>04/29/2019 11:20:09</publishTime>
+      <publishTime>05/07/2019 07:24:49</publishTime>
     </File>
     <File Include="bin/Content/images/layout/logo-mosaic.png">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -319,7 +319,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:03:00</publishTime>
     </File>
     <File Include="Content/agendatec-default.css">
-      <publishTime>04/29/2019 11:20:09</publishTime>
+      <publishTime>05/07/2019 07:24:49</publishTime>
     </File>
     <File Include="Content/angular/angular-1.2.19.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -576,8 +576,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/js/app/registers/usuarios/usuarios.js">
       <publishTime>04/29/2019 11:20:10</publishTime>
     </File>
+    <File Include="Content/js/client.js">
+      <publishTime>05/06/2019 16:00:56</publishTime>
+    </File>
     <File Include="Content/js/menu.js">
-      <publishTime>05/03/2019 14:30:29</publishTime>
+      <publishTime>05/03/2019 16:03:50</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/angular.min.js">
       <publishTime>04/29/2019 11:20:10</publishTime>
@@ -5386,7 +5389,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:20</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>04/29/2019 11:10:49</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>04/29/2019 18:56:09</publishTime>
@@ -5449,61 +5452,61 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:11:08</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginFailure.cshtml">
       <publishTime>04/29/2019 11:11:08</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
-      <publishTime>04/29/2019 16:43:28</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
-      <publishTime>04/29/2019 16:44:21</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>05/02/2019 12:18:37</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>05/02/2019 09:36:15</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
       <publishTime>04/29/2019 11:11:08</publishTime>
     </File>
     <File Include="Views/Account/SendCode.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Account/VerifyCode.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:30</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
       <publishTime>05/03/2019 14:34:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/02/2019 10:51:54</publishTime>
+      <publishTime>05/07/2019 07:30:06</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Manage/ChangePassword.cshtml">
-      <publishTime>04/29/2019 13:42:18</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Manage/ManageLogins.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Manage/SetPassword.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
-      <publishTime>04/29/2019 11:11:08</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/Professionals/Index.cshtml">
       <publishTime>05/03/2019 10:20:47</publishTime>
@@ -5533,13 +5536,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/02/2019 16:20:44</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>05/02/2019 10:49:44</publishTime>
+      <publishTime>05/03/2019 16:29:29</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/03/2019 14:37:20</publishTime>
+      <publishTime>05/07/2019 08:14:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

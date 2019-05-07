@@ -70,5 +70,12 @@ namespace AgendaTech.Tests
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }
+
+        [TestMethod]
+        public void Professional_GetProfessionalNameComboClient()
+        {
+            var professional = _professionalRepository.GetProfessionalNameComboClient(1, true, out string errorMessage);            
+            Assert.IsTrue(professional.Any());
+        }
     }
 }

@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>05/03/2019 16:58:54</publishTime>
+      <publishTime>05/06/2019 16:11:17</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
-      <publishTime>05/03/2019 16:58:54</publishTime>
+      <publishTime>05/06/2019 16:11:17</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>05/03/2019 16:58:54</publishTime>
+      <publishTime>05/06/2019 11:54:11</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.pdb">
-      <publishTime>05/03/2019 16:58:54</publishTime>
+      <publishTime>05/06/2019 11:54:11</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.dll">
-      <publishTime>05/06/2019 08:32:17</publishTime>
+      <publishTime>05/07/2019 07:31:02</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.pdb">
-      <publishTime>05/06/2019 08:32:17</publishTime>
+      <publishTime>05/07/2019 07:31:02</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/23/2017 11:02:58</publishTime>
@@ -43,7 +43,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/21/2019 17:17:50</publishTime>
     </File>
     <File Include="bin/Content/agendatec-default.css">
-      <publishTime>05/03/2019 16:03:37</publishTime>
+      <publishTime>05/07/2019 07:45:01</publishTime>
     </File>
     <File Include="bin/Content/images/layout/logo-mosaic.png">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -319,7 +319,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/23/2017 11:03:00</publishTime>
     </File>
     <File Include="Content/agendatec-default.css">
-      <publishTime>05/03/2019 16:03:37</publishTime>
+      <publishTime>05/07/2019 07:45:01</publishTime>
     </File>
     <File Include="Content/angular/angular-1.2.19.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -562,7 +562,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2019 16:03:43</publishTime>
     </File>
     <File Include="Content/js/app/registers/services/service.js">
-      <publishTime>05/03/2019 16:03:44</publishTime>
+      <publishTime>05/06/2019 10:10:42</publishTime>
     </File>
     <File Include="Content/js/app/registers/users/users.js">
       <publishTime>05/03/2019 16:03:45</publishTime>
@@ -5539,7 +5539,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/06/2019 08:32:19</publishTime>
+      <publishTime>05/07/2019 07:45:19</publishTime>
     </File>
   </ItemGroup>
 </Project>

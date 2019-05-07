@@ -46,6 +46,13 @@ namespace AgendaTech.Tests
         }
 
         [TestMethod]
+        public void Service_GetServiceNameComboClient()
+        {
+            var services = _serviceRepository.GetServiceNameComboClient(1, true, out string errorMessage);
+            Assert.IsTrue(services.Any());
+        }
+
+        [TestMethod]
         public void Service_GetServiceById()
         {
             var service = _serviceRepository.GetServiceById(1, out string errorMessage);

@@ -86,6 +86,43 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
+        public List<TCGServices> GetServiceNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
+        {
+            var services = new List<TCGServices>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                if (authenticated)
+                    services = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));                
+                else
+                {
+                    services.Add(new TCGServices()
+                    {
+                        IDService = 0,
+                        Description = "Para visualizar as opções de serviços, favor efetuar o Login."
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return services
+                .Select(x => new TCGServices()
+                {
+                    IDService = x.IDService,
+                    Description = x.Description,
+                    Time = x.Time,
+                    Price = x.Price
+                })
+                .OrderBy(x => x.Description)
+                .ToList();
+        }
+
         public TCGServices GetServiceById(int idService, out string errorMessage)
         {
             var service = new TCGServices();
