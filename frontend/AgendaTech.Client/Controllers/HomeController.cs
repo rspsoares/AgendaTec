@@ -12,17 +12,24 @@ namespace AgendaTech.Client.Controllers
         private readonly IServiceFacade _serviceFacade;
         private readonly IProfessionalFacade _professionalFacade;
         private readonly IScheduleFacade _scheduleFacade;
-        
-        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IScheduleFacade scheduleFacade)
+        private readonly ICustomerFacade _customerFacade;
+
+        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade)
         {
             _serviceFacade = serviceFacade;
             _professionalFacade = professionalFacade;
             _scheduleFacade = scheduleFacade;
+            _customerFacade = customerFacade;
         }
 
-        public ActionResult Index(string idCustomer)
+        public ActionResult Index(string customerKey)
         {
-            Session["IdCustomer"] = idCustomer;
+            if(!string.IsNullOrEmpty(customerKey))
+            {
+                var customer = _customerFacade.GetCustomerByKey(customerKey, out string errorMessage);
+                Session["IdCustomer"] = customer.IDCustomer.Equals(0) ? (int?)null : customer.IDCustomer;
+            }
+            
             return View();
         }
 

@@ -65,10 +65,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                services = _commonRepository.GetAll();
-
-                if (idCustomer > 0)
-                    services = services.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
+                services = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));
             }
             catch (Exception ex)
             {

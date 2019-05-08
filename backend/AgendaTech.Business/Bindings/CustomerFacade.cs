@@ -119,6 +119,41 @@ namespace AgendaTech.Business.Bindings
             return customer;
         }
 
+        public TCGCustomers GetCustomerByKey(string customerKey, out string errorMessage)
+        {
+            var customer = new TCGCustomers();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                var result = _commonRepository
+                    .Filter(x => x.CustomerKey.ToString().ToUpper().Equals(customerKey.ToUpper()))
+                    .FirstOrDefault();
+
+                customer = new TCGCustomers()
+                {
+                    IDCustomer = result.IDCustomer,
+                    CompanyName = result.CompanyName,
+                    CNPJ = result.CNPJ,
+                    Address = result.Address,
+                    Phone = result.Phone,
+                    HireDate = result.HireDate,
+                    Active = result.Active,
+                    StartTime = result.StartTime,
+                    EndTime = result.EndTime,
+                    Note = result.Note
+                };
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return customer;
+        }
+
         public TCGCustomers Insert(TCGCustomers e, out string errorMessage)
         {
             errorMessage = string.Empty;

@@ -170,10 +170,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                users = _commonRepository.GetAll();
-
-                if (idCustomer > 0)
-                    users = users.Where(x => x.IdCustomer.Equals(idCustomer)).ToList();             
+                users = _commonRepository.Filter(x => x.IdCustomer.Equals(idCustomer));                
             }
             catch (Exception ex)
             {
@@ -201,11 +198,8 @@ namespace AgendaTech.Business.Bindings
             {
                 users = _commonRepository
                     .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()))
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()) && x.IdCustomer.Equals(idCustomer))
                     .ToList();
-
-                if (idCustomer > 0)
-                    users = users.Where(x => x.IdCustomer.Equals(idCustomer)).ToList();
             }
             catch (Exception ex)
             {
@@ -233,11 +227,8 @@ namespace AgendaTech.Business.Bindings
             {
                 users = _commonRepository
                     .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString()))
-                    .ToList();
-
-                if (idCustomer > 0)
-                    users = users.Where(x => x.IdCustomer.Equals(idCustomer)).ToList();
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString()) && x.IdCustomer.Equals(idCustomer))
+                    .ToList();                
             }
             catch (Exception ex)
             {

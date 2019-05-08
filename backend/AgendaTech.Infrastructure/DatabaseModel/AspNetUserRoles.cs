@@ -12,12 +12,11 @@ namespace AgendaTech.Infrastructure.DatabaseModel
     using System;
     using System.Collections.Generic;
     
-    public partial class AuthenticationAudits
+    public partial class AspNetUserRoles
     {
-        public int ID { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Activity { get; set; }
-        public string Detail { get; set; }
-        public string ClientIP { get; set; }
+        public string UserId { get; set; }
+        public string RoleId { get; set; }
+    
+        public virtual AspNetRoles AspNetRoles { get; set; }
     }
 }

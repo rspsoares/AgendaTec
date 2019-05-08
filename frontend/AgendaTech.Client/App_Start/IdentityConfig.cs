@@ -105,13 +105,16 @@ namespace AgendaTech.Client
         {
             var user = UserManager.FindByEmailAsync(userName).Result;
 
-            var role = (EnUserType)int.Parse(user.IDRole);
-
-            if (!user.IsEnabled || role.Equals(EnUserType.Consumer))
+            if(user == null)
                 return Task.FromResult(SignInStatus.Failure);
 
+            var role = (EnUserType)int.Parse(user.IDRole);
+
+            if (!user.IsEnabled)
+                return Task.FromResult(SignInStatus.Failure);
+            
             return base.PasswordSignInAsync(userName, password, rememberMe, shouldLockout);
-        }
+        }    
     }
 
     public class ApplicationRoleManager : RoleManager<IdentityRole, string>

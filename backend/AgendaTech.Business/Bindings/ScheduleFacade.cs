@@ -27,8 +27,7 @@ namespace AgendaTech.Business.Bindings
         {
             var schedules = new List<TSchedules>();
             IUserFacade userRepository = new UserFacade();
-            var userAccountDTO = new UserAccountDTO();
-
+            
             errorMessage = string.Empty;
 
             try
@@ -43,12 +42,9 @@ namespace AgendaTech.Business.Bindings
                 if (idService > 0)
                     schedules = schedules.Where(x => x.IDService.Equals(idService)).ToList();
 
-                if (!idConsumer.Equals(string.Empty))
-                {
-                    schedules = schedules.Where(x => x.IDConsumer.Equals(idConsumer)).ToList();
-                    userAccountDTO = userRepository.GetUserById(idConsumer, out errorMessage);
-                }
-
+                if (!idConsumer.Equals(string.Empty))                
+                    schedules = schedules.Where(x => x.IDConsumer.Equals(idConsumer)).ToList();                    
+                
                 if (dateFrom.HasValue)
                     schedules = schedules.Where(x => x.Date.Date >= dateFrom.Value.Date).ToList();
 
@@ -71,7 +67,7 @@ namespace AgendaTech.Business.Bindings
                     IDProfessional = x.IDProfessional,
                     ProfessionalName = x.TCGProfessionals.Name,
                     ServiceName = x.TCGServices.Description,
-                    ConsumerName = $"{userAccountDTO.FirstName} {userAccountDTO.LastName}",
+                    ConsumerName = $"{x.AspNetUsers.FirstName} {x.AspNetUsers.LastName}",
                     Date = x.Date.ToString("dd/MM/yyyy"),
                     Hour = x.Date.ToString("HH:mm"),
                     Finish = x.Date.AddMinutes(x.Time).ToString("HH:mm"),

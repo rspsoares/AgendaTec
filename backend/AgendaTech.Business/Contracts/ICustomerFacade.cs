@@ -8,6 +8,7 @@ namespace AgendaTech.Business.Contracts
         List<TCGCustomers> GetGrid(string customerName, out string errorMessage);
         List<TCGCustomers> GetCompanyNameCombo(int idCustomer, out string errorMessage);
         TCGCustomers GetCustomerById(int idCustomer, out string errorMessage);
+        TCGCustomers GetCustomerByKey(string customerKey, out string errorMessage);
         TCGCustomers Insert(TCGCustomers e, out string errorMessage);
         void Update(TCGCustomers e, out string errorMessage);
     }

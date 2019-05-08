@@ -262,7 +262,7 @@ function CNPJCheck(c) {
     return true;
 }
 
-function LoadCombo(url, comboNames, idField, textField, selectFirstItem) {
+function LoadCombo(url, comboNames, idField, textField, selectFirstItem, defaultValue) {
     var dsData = undefined;
 
     $.ajax({
@@ -284,8 +284,9 @@ function LoadCombo(url, comboNames, idField, textField, selectFirstItem) {
     jQuery.each(comboNames, function (i, comboName) {
         $(comboName).kendoDropDownList({
             dataTextField: textField,
-            dataValueField: idField,
-            dataSource: dsData
+            dataValueField: idField,            
+            dataSource: dsData,
+            optionLabel: defaultValue
         });
 
         if (selectFirstItem)
@@ -293,10 +294,11 @@ function LoadCombo(url, comboNames, idField, textField, selectFirstItem) {
     });
 }
 
-function LoadComboFiltered(url, comboName, idField, textField, valueFilter, selectFirstItem) {
+function LoadComboFiltered(url, comboName, idField, textField, valueFilter, selectFirstItem, defaultValue) {    
     $(comboName).kendoDropDownList({        
         dataTextField: textField,
-        dataValueField: idField,
+        dataValueField: idField,     
+        optionLabel: defaultValue,
         dataSource: {
             schema: {
                 data: function (result) {

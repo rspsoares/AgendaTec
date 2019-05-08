@@ -24,6 +24,7 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         }
     
         public int IDCustomer { get; set; }
+        public System.Guid CustomerKey { get; set; }
         public string CompanyName { get; set; }
         public string CNPJ { get; set; }
         public string Address { get; set; }

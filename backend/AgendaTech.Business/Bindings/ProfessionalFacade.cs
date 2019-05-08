@@ -65,10 +65,7 @@ namespace AgendaTech.Business.Bindings
 
             try
             {
-                professionals = _commonRepository.GetAll();
-
-                if (idCustomer > 0)
-                    professionals = professionals.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();                
+                professionals = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));
 
                 if(!idUser.Equals(Guid.Empty))
                     professionals = professionals.Where(x => x.IDUser.Equals(idUser)).ToList();

@@ -28,8 +28,8 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public string Phone { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual TCGCustomers TCGCustomers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSchedules> TSchedules { get; set; }
-        public virtual TCGCustomers TCGCustomers { get; set; }
     }
 }

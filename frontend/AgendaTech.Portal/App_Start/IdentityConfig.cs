@@ -105,6 +105,9 @@ namespace AgendaTech.Portal
         {
             var user = UserManager.FindByEmailAsync(userName).Result;
 
+            if (user == null)
+                return Task.FromResult(SignInStatus.Failure);
+
             var role = (EnUserType)int.Parse(user.IDRole);
 
             if (!user.IsEnabled || role.Equals(EnUserType.Consumer))

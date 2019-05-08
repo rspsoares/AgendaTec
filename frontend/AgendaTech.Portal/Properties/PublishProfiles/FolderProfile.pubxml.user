@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTech.Business.dll">
-      <publishTime>05/07/2019 16:48:38</publishTime>
+      <publishTime>05/08/2019 16:07:57</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.pdb">
-      <publishTime>05/07/2019 16:48:38</publishTime>
+      <publishTime>05/08/2019 16:07:57</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll">
-      <publishTime>05/07/2019 16:48:37</publishTime>
+      <publishTime>05/08/2019 15:55:46</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.dll.config">
       <publishTime>04/01/2019 16:20:53</publishTime>
     </File>
     <File Include="bin/AgendaTech.Infrastructure.pdb">
-      <publishTime>05/07/2019 16:48:37</publishTime>
+      <publishTime>05/08/2019 15:55:46</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.dll">
-      <publishTime>05/07/2019 16:49:12</publishTime>
+      <publishTime>05/08/2019 16:07:58</publishTime>
     </File>
     <File Include="bin/AgendaTech.Portal.pdb">
-      <publishTime>05/07/2019 16:49:12</publishTime>
+      <publishTime>05/08/2019 16:07:58</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>06/23/2017 11:02:58</publishTime>
@@ -529,10 +529,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/agendatec-script.js">
-      <publishTime>05/03/2019 14:30:29</publishTime>
+      <publishTime>05/08/2019 13:30:43</publishTime>
     </File>
     <File Include="Content/js/app/control/schedule.js">
-      <publishTime>05/07/2019 08:56:20</publishTime>
+      <publishTime>05/08/2019 13:59:42</publishTime>
     </File>
     <File Include="Content/js/app/home.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -5509,7 +5509,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2019 16:02:41</publishTime>
     </File>
     <File Include="Views/Schedules/Index.cshtml">
-      <publishTime>05/07/2019 13:13:45</publishTime>
+      <publishTime>05/08/2019 14:01:30</publishTime>
     </File>
     <File Include="Views/Services/Index.cshtml">
       <publishTime>05/03/2019 16:02:37</publishTime>
@@ -5539,7 +5539,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/07/2019 16:49:15</publishTime>
+      <publishTime>05/08/2019 14:03:55</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -19,9 +19,8 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         {
             this.AspNetUserClaims = new HashSet<AspNetUserClaims>();
             this.AspNetUserLogins = new HashSet<AspNetUserLogins>();
-            this.TSchedules = new HashSet<TSchedules>();
-            this.AspNetRoles1 = new HashSet<AspNetRoles>();
             this.TCGProfessionals = new HashSet<TCGProfessionals>();
+            this.TSchedules = new HashSet<TSchedules>();
         }
     
         public string Id { get; set; }
@@ -47,12 +46,10 @@ namespace AgendaTech.Infrastructure.DatabaseModel
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TSchedules> TSchedules { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRoles> AspNetRoles1 { get; set; }
+        public virtual TCGCustomers TCGCustomers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
-        public virtual TCGCustomers TCGCustomers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TSchedules> TSchedules { get; set; }
     }
 }
