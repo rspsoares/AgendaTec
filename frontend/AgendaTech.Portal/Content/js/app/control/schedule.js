@@ -92,7 +92,7 @@ function PageSetup() {
     $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true, 'Selecione...');
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true, undefined);
     
     $("#ddlCustomerFilter")
         .data("kendoDropDownList")
@@ -389,17 +389,23 @@ function BonusDescription(bonus) {
 }
 
 function AddAppointment() {
-    CleanFields();
+    CleanFields(true);
 
     $('#modalScheduleEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalScheduleEdit .modal-dialog .modal-header center .modal-title strong').html("Controle de Agendamento");
     $('#modalScheduleEdit').modal({ backdrop: 'static', keyboard: false });
 }
 
-function CleanFields() {
+function CleanFields(loadFilterCombos) {
     $("#IDSchedule").val(0);   
-    $("#ddlCustomer").data("kendoDropDownList").select(0);
-    ddlCustomerChange();   
+
+    if (loadFilterCombos) {
+        $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
+        ddlCustomerChange();
+        $("#ddlProfessional").data('kendoDropDownList').value($("#ddlProfessionalFilter").val());
+        $("#ddlConsumer").data('kendoDropDownList').value($("#ddlConsumerFilter").val());
+    }
+    
     $("#dtDateTime").val("");
     $("#txtPrice").val("");
     $("#txtTime").val("");
@@ -410,7 +416,7 @@ function AppointmentEdit(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
     $("#loading-page").show();
 
-    CleanFields();
+    CleanFields(false);
 
     $.ajax({
         type: "GET",

@@ -47,8 +47,7 @@
     LoadProfessionals();
 }
 
-function ddlCustomerChange(e) {
-    //$('#ddlUserName').data('kendoDropDownList').dataSource.read();       
+function ddlCustomerChange(e) {    
     LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), false);
 }
 
@@ -106,21 +105,19 @@ function LoadProfessionals() {
 }
 
 function AddProfessional() {
-    CleanFields();
-
-    //$('#ddlUserName').data('kendoDropDownList').dataSource.read();
+    CleanFields(true);
 
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Profissional");
     $('#modalProfessionalEdit').modal({ backdrop: 'static', keyboard: false });
 }
 
-function CleanFields() {
+function CleanFields(loadFilterCombos) {
     $("#hiddenIDProfessional").val(0);
 
-    if (!$('#ddlCustomerFilter').prop('disabled')) {
-        var dropdownlist = $("#ddlCustomer").data("kendoDropDownList");
-        dropdownlist.select(0);
+    if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos) {
+        $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
+        ddlCustomerChange();
     }
 
     $("#txtName").val("");
@@ -132,7 +129,7 @@ function ProfessionalEdit(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
     $("#loading-page").show();
 
-    CleanFields();
+    CleanFields(false);
 
     $.ajax({
         type: "GET",
@@ -146,6 +143,7 @@ function ProfessionalEdit(e) {
             if (result.Success) {
                 $("#hiddenIDProfessional").val(result.Data.IDProfessional);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                ddlCustomerChange();
                 $('#ddlUserName').data('kendoDropDownList').dataSource.read();
                 $("#ddlUserName").data('kendoDropDownList').value(result.Data.IDUser);
                 $("#txtName").val(result.Data.Name);

@@ -87,7 +87,7 @@ function StatusDescription(status) {
 }
 
 function AddUser() {
-    CleanFields();
+    CleanFields(true);
     LockFields(false);
 
     $('#modalUserEdit .modal-dialog .modal-header center .modal-title strong').html("");
@@ -95,19 +95,22 @@ function AddUser() {
     $('#modalUserEdit').modal({ backdrop: 'static', keyboard: false });
 }
 
-function CleanFields() {
+function CleanFields(loadFilterCombos) {
     $("#hiddenId").val("");
     $("#txtFirstName").val("");
     $("#txtLastName").val("");
     $("#txtEmail").val("");
 
-    if (!$('#ddlCustomerFilter').prop('disabled')) {
-        var ddlCustomer = $("#ddlCustomer").data("kendoDropDownList");
-        ddlCustomer.select(0);
-    }
+    if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos)
+        $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
 
-    var ddlRole = $("#ddlRole").data("kendoDropDownList");
-    ddlRole.select(0);
+    if (loadFilterCombos) {
+        $("#ddlRole").data('kendoDropDownList').value($("#ddlRoleFilter").val());
+    }
+    else {
+        var ddlRole = $("#ddlRole").data("kendoDropDownList");
+        ddlRole.select(0);
+    }
 
     $('#chkIsEnabled').bootstrapSwitch('state', true);
 }
@@ -116,7 +119,7 @@ function UserEdit(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
     $("#loading-page").show();
 
-    CleanFields();
+    CleanFields(false);
 
     $.ajax({
         type: "GET",

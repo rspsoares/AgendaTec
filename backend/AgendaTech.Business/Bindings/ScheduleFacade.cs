@@ -81,7 +81,7 @@ namespace AgendaTech.Business.Bindings
                 .ToList();
         }
 
-        public List<string> GetAvailableHours(int idCustomer, int idProfessional, int idService, DateTime date, bool authenticated, out string errorMessage)
+        public List<string> GetAvailableHours(int idCustomer, int idProfessional, int idService, DateTime date, string idConsumer, bool authenticated, out string errorMessage)
         {
             var hours = new List<string>();
             ICustomerFacade customerRepository = new CustomerFacade();

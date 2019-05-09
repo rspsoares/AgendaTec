@@ -103,20 +103,18 @@ function LoadServices() {
 }
 
 function AddService() {
-    CleanFields();
+    CleanFields(true);
 
     $('#modalServiceEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalServiceEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Serviço");
     $('#modalServiceEdit').modal({ backdrop: 'static', keyboard: false });
 }
 
-function CleanFields() {
+function CleanFields(loadFilterCombos) {
     $("#hiddenIDService").val(0);
 
-    if (!$('#ddlCustomerFilter').prop('disabled')) {
-        var dropdownlist = $("#ddlCustomer").data("kendoDropDownList");
-        dropdownlist.select(0);
-    }
+    if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos)
+        $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
 
     $("#txtDescription").val("");
     $("#txtPrice").val("0,00");
@@ -127,7 +125,7 @@ function ServiceEdit(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
     $("#loading-page").show();
 
-    CleanFields();
+    CleanFields(false);
 
     $.ajax({
         type: "GET",

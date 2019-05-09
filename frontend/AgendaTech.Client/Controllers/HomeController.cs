@@ -59,7 +59,7 @@ namespace AgendaTech.Client.Controllers
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
             var date = DateTime.Parse(selectedDate);
             
-            var availables = _scheduleFacade.GetAvailableHours(idCustomer, professional, service, date, User.Identity.IsAuthenticated, out string errorMessage);            
+            var availables = _scheduleFacade.GetAvailableHours(idCustomer, professional, service, date, User.GetIdUser(), User.Identity.IsAuthenticated, out string errorMessage);            
 
             if(string.IsNullOrEmpty(errorMessage))
                 return Json(availables, JsonRequestBehavior.AllowGet);

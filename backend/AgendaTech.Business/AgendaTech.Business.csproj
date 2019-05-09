@@ -63,6 +63,7 @@
     <Compile Include="Contracts\IScheduleFacade.cs" />
     <Compile Include="Contracts\IServiceFacade.cs" />
     <Compile Include="Contracts\IUserFacade.cs" />
+    <Compile Include="Entities\CustomerDTO.cs" />
     <Compile Include="Entities\EnUserType.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
