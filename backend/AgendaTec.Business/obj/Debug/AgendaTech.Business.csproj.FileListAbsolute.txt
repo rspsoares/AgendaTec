@@ -1,0 +1,14 @@
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\NLog.config
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\AgendaTech.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\AgendaTech.Business.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\AgendaTech.Infrastructure.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\Itenso.TimePeriod.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\NLog.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\AgendaTech.Infrastructure.pdb
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\AgendaTech.Infrastructure.dll.config
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\bin\Debug\NLog.xml
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\obj\Debug\AgendaTech.Business.csprojAssemblyReference.cache
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\obj\Debug\AgendaTech.Business.csproj.CoreCompileInputs.cache
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\obj\Debug\AgendaTech.Business.csproj.CopyComplete
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\obj\Debug\AgendaTech.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTech\backend\AgendaTech.Business\obj\Debug\AgendaTech.Business.pdb

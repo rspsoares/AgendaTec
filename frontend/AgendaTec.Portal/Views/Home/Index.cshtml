@@ -1,0 +1,21 @@
+﻿@using AgendaTec.Portal.Helper
+
+@{
+    ViewBag.Title = "Home";
+}
+
+@section breadcrumbs{
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> <a href="@Url.Action("Index", "Home")" title="Home">Home</a></li>
+        <li class="active">Principal</li>
+    </ol>
+}
+
+<div class="row" style="margin-left:5px">
+    <h1>Olá @User.GetFirstName()! Esta é a sua agenda da semana:</h1>
+</div>
+
+@section Scripts {
+    <script src="@Url.Content("/Content/plugins/jquery-ui/jquery-ui.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/plugins/jquery-ui/homer.js")" type="text/javascript"></script>
+}
