@@ -1,6 +1,5 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
-using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Portal.Helper;
 using System.Web.Mvc;
 

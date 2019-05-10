@@ -3,6 +3,7 @@ using AgendaTec.Business.Entities;
 using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
+using AutoMapper;
 using Itenso.TimePeriod;
 using NLog;
 using System;
@@ -25,8 +26,8 @@ namespace AgendaTec.Business.Bindings
 
         public List<ScheduleDTO> GetGrid(int idCustomer, int idProfessional, int idService, string idConsumer, DateTime? dateFrom, DateTime? dateTo, bool? bonus, out string errorMessage)
         {
-            var schedules = new List<TSchedules>();
-            IUserFacade userRepository = new UserFacade();
+            var result = new List<ScheduleDTO>();
+            var schedules = new List<TSchedules>();            
             
             errorMessage = string.Empty;
 
@@ -53,6 +54,8 @@ namespace AgendaTec.Business.Bindings
 
                 if(bonus.HasValue)
                     schedules = schedules.Where(x => x.Bonus.Equals(bonus)).ToList();
+
+                result = Mapper.Map<List<TSchedules>, List<ScheduleDTO>>(schedules);
             }
             catch (Exception ex)
             {
@@ -60,21 +63,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return schedules
-                .Select(x => new ScheduleDTO()
-                {
-                    IDSchedule = x.IDSchedule,
-                    IDProfessional = x.IDProfessional,
-                    ProfessionalName = x.TCGProfessionals.Name,
-                    ServiceName = x.TCGServices.Description,
-                    ConsumerName = $"{x.AspNetUsers.FirstName} {x.AspNetUsers.LastName}",
-                    Date = x.Date.ToString("dd/MM/yyyy"),
-                    Hour = x.Date.ToString("HH:mm"),
-                    Finish = x.Date.AddMinutes(x.Time).ToString("HH:mm"),
-                    Price = x.Price,
-                    Time = x.Time,
-                    Bonus = x.Bonus
-                })
+            return result
                 .OrderBy(x => x.ProfessionalName)
                 .ThenBy(x => x.Date)
                 .ThenBy(x => x.Hour)
@@ -98,11 +87,7 @@ namespace AgendaTec.Business.Bindings
                         var customer = customerRepository.GetCustomerById(idCustomer, out errorMessage);
                         var service = serviceRepository.GetServiceById(idService, out errorMessage);
 
-
-                        //var possibleTimes = GetPossibleTimes(customer, service, date);
-                        var possibleTimes = GetPossibleTimes(new TCGCustomers(), service, date);
-
-
+                        var possibleTimes = GetPossibleTimes(customer, service, date);                        
 
                         var appointments = _commonRepository
                             .GetAll()
@@ -147,13 +132,13 @@ namespace AgendaTec.Business.Bindings
             return hours;
         }
 
-        private List<DateTime> GetPossibleTimes(TCGCustomers customer, TCGServices service, DateTime date)
+        private List<DateTime> GetPossibleTimes(CustomerDTO customer, ServiceDTO service, DateTime date)
         {
             var possibleHours = new List<DateTime>();            
-            var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.EndTime.ToString("HH")), int.Parse(customer.EndTime.ToString("mm")), 0);
+            var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.End.ToString("HH")), int.Parse(customer.End.ToString("mm")), 0);
             
             var timeBlockStart = new TimeBlock(
-                new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.StartTime.ToString("HH")), int.Parse(customer.StartTime.ToString("mm")), 0),
+                new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.Start.ToString("HH")), int.Parse(customer.Start.ToString("mm")), 0),
                 new TimeSpan(0, service.Time, 0));
 
             possibleHours.Add(timeBlockStart.Start);
@@ -174,28 +159,17 @@ namespace AgendaTec.Business.Bindings
             return possibleHours;
         }
 
-        public TSchedules GetScheduleById(int idSchedule, out string errorMessage)
+        public ScheduleDTO GetScheduleById(int idSchedule, out string errorMessage)
         {
+            var result = new ScheduleDTO();
             var schedule = new TSchedules();
-
+            
             errorMessage = string.Empty;
 
             try
             {
-                var result = _commonRepository.GetById(idSchedule);
-
-                schedule = new TSchedules()
-                {
-                    IDSchedule = result.IDSchedule,
-                    IDCustomer = result.IDCustomer,
-                    IDProfessional = result.IDProfessional,
-                    IDService = result.IDService,
-                    IDConsumer = result.IDConsumer,
-                    Date = result.Date,
-                    Price = result.Price,
-                    Time = result.Time,
-                    Bonus = result.Bonus
-                };
+                schedule = _commonRepository.GetById(idSchedule);
+                result = Mapper.Map<TSchedules, ScheduleDTO>(schedule);
             }
             catch (Exception ex)
             {
@@ -203,16 +177,18 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return schedule;
+            return result;
         }
 
-        public TSchedules Insert(TSchedules e, out string errorMessage)
+        public ScheduleDTO Insert(ScheduleDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                e = _commonRepository.Insert(e);
+                var result = Mapper.Map<ScheduleDTO, TSchedules>(e);
+                result = _commonRepository.Insert(result);
+                e.Id = result.IDSchedule;
             }
             catch (Exception ex)
             {
@@ -223,13 +199,14 @@ namespace AgendaTec.Business.Bindings
             return e;
         }
 
-        public void Update(TSchedules e, out string errorMessage)
+        public void Update(ScheduleDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                _commonRepository.Update(e.IDSchedule, e);
+                var result = Mapper.Map<ScheduleDTO, TSchedules>(e);
+                _commonRepository.Update(result.IDSchedule, result);
             }
             catch (Exception ex)
             {
@@ -238,13 +215,13 @@ namespace AgendaTec.Business.Bindings
             }
         }
 
-        public void Delete(List<TSchedules> schedules, out string errorMessage)
+        public void Delete(List<ScheduleDTO> schedules, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                schedules.ForEach(schedule => { _commonRepository.Delete(schedule.IDSchedule); });
+                schedules.ForEach(schedule => { _commonRepository.Delete(schedule.Id); });
             }
             catch (Exception ex)
             {
@@ -268,7 +245,7 @@ namespace AgendaTec.Business.Bindings
             }
         }
 
-        public string CheckAvailability(List<TSchedules> schedules, out string errorMessage, string newDate = null)
+        public string CheckAvailability(List<ScheduleDTO> schedules, out string errorMessage, string newDate = null)
         {
             var currentSchedules = new List<TSchedules>();
             var availabilityCheck = new StringBuilder();
@@ -280,24 +257,24 @@ namespace AgendaTec.Business.Bindings
                 schedules.ForEach(schedule =>
                 {
                     if(!string.IsNullOrEmpty(newDate))
-                        schedule.Date = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {schedule.Date.ToString("HH:mm")}");
+                        schedule.Date = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {DateTime.Parse(schedule.Date).ToString("HH:mm")}").ToString("yyyy-MM-dd HH:mm");
 
                     var timeRangeNewSchedule = new TimeRange(
-                        schedule.Date,
-                        schedule.Date.AddMinutes(schedule.Time));
+                        DateTime.Parse(schedule.Date),
+                        DateTime.Parse(schedule.Date).AddMinutes(schedule.Time));
 
-                    if (schedule.IDSchedule.Equals(0))
+                    if (schedule.Id.Equals(0))
                     {
                         currentSchedules = _commonRepository
-                            .Filter(x => x.IDProfessional.Equals(schedule.IDProfessional))
-                            .Where(x => x.Date.Date.Equals(schedule.Date.Date))
+                            .Filter(x => x.IDProfessional.Equals(schedule.IdProfessional))
+                            .Where(x => x.Date.Date.Equals(DateTime.Parse(schedule.Date).Date))
                             .ToList();
                     }                        
                     else
                     {
                         currentSchedules = _commonRepository
-                            .Filter(x => !x.IDSchedule.Equals(schedule.IDSchedule) && x.IDProfessional.Equals(schedule.IDProfessional))
-                            .Where(x => x.Date.Date.Equals(schedule.Date.Date))
+                            .Filter(x => !x.IDSchedule.Equals(schedule.Id) && x.IDProfessional.Equals(schedule.IdProfessional))
+                            .Where(x => x.Date.Date.Equals(DateTime.Parse(schedule.Date).Date))
                             .ToList();
                     }
 
@@ -311,7 +288,7 @@ namespace AgendaTec.Business.Bindings
                         {
                             availabilityCheck.AppendLine(
                                 $"Já existe um horário marcado para o funcionário {currentSchedules.First().TCGProfessionals.Name} " +
-                                $"no dia {schedule.Date.ToString("dd/MM/yyyy")} " +
+                                $"no dia {DateTime.Parse(schedule.Date).ToString("dd/MM/yyyy")} " +
                                 $"das {timeRangeCurrent.Start.ToString("HH:mm")} " +
                                 $"às {timeRangeCurrent.End.ToString("HH:mm")}.");
                         }                        
@@ -327,7 +304,7 @@ namespace AgendaTec.Business.Bindings
             return availabilityCheck.ToString();
         }        
       
-        public void Reschedule(List<TSchedules> schedules, string newDate, out string errorMessage)
+        public void Reschedule(List<ScheduleDTO> schedules, string newDate, out string errorMessage)
         {
             errorMessage = string.Empty;
 
@@ -335,7 +312,7 @@ namespace AgendaTec.Business.Bindings
             {
                 schedules.ForEach(schedule => 
                 {
-                    var appointment = _commonRepository.GetById(schedule.IDSchedule);
+                    var appointment = _commonRepository.GetById(schedule.Id);
                     var dateProposal = DateTime.Parse($"{DateTime.Parse(newDate).ToString("yyyy-MM-dd")} {appointment.Date.ToString("HH:mm")}");
 
                     appointment.Date = dateProposal;

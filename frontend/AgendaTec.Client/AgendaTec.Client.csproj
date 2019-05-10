@@ -1954,10 +1954,6 @@
       <Project>{80f1716b-68b6-46fc-8ecf-2875e181c4e7}</Project>
       <Name>AgendaTec.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\backend\AgendaTec.Infrastructure\AgendaTec.Infrastructure.csproj">
-      <Project>{70425DFA-3C43-4928-909B-B055E90C2FF9}</Project>
-      <Name>AgendaTec.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -20,8 +20,18 @@
         }
     });    
 
-    var dtHire = $("#dtHire");
 
+    var dtStartTime = $("#dtStart");
+    dtStartTime.kendoMaskedTextBox({
+        mask: "00:00"
+    });
+
+    var dtEndTime = $("#dtEnd");
+    dtEndTime.kendoMaskedTextBox({
+        mask: "00:00"
+    });
+
+    var dtHire = $("#dtHire");
     dtHire.kendoMaskedTextBox({
         mask: "00/00/0000"
     });
@@ -114,6 +124,8 @@ function CleanFields() {
     $("#txtCNPJ").val("");
     $("#txtAddress").val("");
     $("#txtPhone").val("");
+    $("#dtStart").val("");
+    $("#dtEnd").val("");
     $("#dtHire").val("");
     $('#chkActive').bootstrapSwitch('state', true);
     $("#txtNote").val("");
@@ -136,10 +148,13 @@ function CustomerEdit(e) {
         success: function (result) {
             if (result.Success) {
                 $("#hiddenID").val(result.Data.Id);
+                $("#hiddenKey").val(result.Data.Key);
                 $("#txtName").val(result.Data.Name);
                 $("#txtCNPJ").val(result.Data.CNPJ).trigger('input');
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
+                $("#dtStart").val(kendo.toString(kendo.parseDate(result.Data.Start, 'HH:mm'), 'HH:mm'));
+                $("#dtEnd").val(kendo.toString(kendo.parseDate(result.Data.End, 'HH:mm'), 'HH:mm'));
                 $("#dtHire").val(kendo.toString(kendo.parseDate(result.Data.Hire, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);                
                 $("#txtNote").val(result.Data.Note);             
@@ -170,10 +185,13 @@ function SaveCustomer() {
 
     customer = {
         Id: parseInt($("#hiddenID").val()),
+        Key: $("#hiddenKey").val(),
         Name: $("#txtName").val(),
         CNPJ: $("#txtCNPJ").val().replace(/[^\d]/g, ""),
         Address: $("#txtAddress").val(),
         Phone: $("#txtPhone").val(),
+        Start: kendo.parseDate($("#dtStart").val(), "HH:mm"),
+        End: kendo.parseDate($("#dtEnd").val(), "HH:mm"),
         Hire: kendo.parseDate($("#dtHire").val(), "dd/MM/yyyy"),
         Active: $('#chkActive').bootstrapSwitch('state'),
         Note: $("#txtNote").val()
@@ -211,7 +229,13 @@ function ValidateRequiredFields() {
 
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Telefone' + '<br/>';
-    
+
+    if ($("#dtStart").val() === '')
+        errorMessage += 'Favor informar o Horário Início atendimento' + '<br/>';
+
+    if ($("#dtEnd").val() === '')
+        errorMessage += 'Favor informar o Horário Término atendimento' + '<br/>';
+
     if($("#dtHire").val() === '')
         errorMessage += 'Favor informar a Data de Contratação' + '<br/>';
 

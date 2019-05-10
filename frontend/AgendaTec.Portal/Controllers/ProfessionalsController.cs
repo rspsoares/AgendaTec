@@ -1,5 +1,5 @@
 ﻿using AgendaTec.Business.Contracts;
-using AgendaTec.Infrastructure.DatabaseModel;
+using AgendaTec.Business.Entities;
 using System;
 using System.Web.Mvc;
 
@@ -45,18 +45,18 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveProfessional(TCGProfessionals professional)
+        public JsonResult SaveProfessional(ProfessionalDTO professional)
         {
             string errorMessage = string.Empty;
 
-            var userInUse = _professionalFacade.CheckUserInUse(professional.IDProfessional, professional.IDUser, out errorMessage);
+            var userInUse = _professionalFacade.CheckUserInUse(professional.Id, professional.IdUser, out errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro na verificação do profissional." }, JsonRequestBehavior.AllowGet);
 
             if (userInUse)
                 return Json(new { Success = false, errorMessage = "Este usuário já está sendo utilizado em outro funcionário." }, JsonRequestBehavior.AllowGet);
 
-            if (professional.IDProfessional.Equals(0))
+            if (professional.Id.Equals(0))
                 _professionalFacade.Insert(professional, out errorMessage);
             else
                 _professionalFacade.Update(professional, out errorMessage);

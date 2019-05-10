@@ -414,7 +414,6 @@
                             ctx.textAlign = actAlign;
                             ctx.textBaseline = textBaseline;
 
-                            // Personalização para Mosaic - Gráfico Federal Credits (Waterfall): Valor negativo abaixo da barra
                             if (reverseAlignBelowZero && (val.substring(0, 1) == '-' || val.substring(0, 1) == '(')) 
                                 y_pos = y_pos + 18;                           
 

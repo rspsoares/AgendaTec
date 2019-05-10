@@ -2,10 +2,12 @@
     $("#calendar").kendoCalendar({
         culture: "pt-BR",
         value: new Date(),
+        min: new Date(),
         change: function () {            
             GetAvalailableHours(kendo.toString(kendo.parseDate(this.value(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
         }
     });
+    $('#calendar').data('kendoCalendar').setOptions({ animation: false })
 
     GetProfessionals();
     GetServices();
@@ -65,11 +67,11 @@ function GetAvalailableHours(value) {
     
     var service = GetSelectedRow($("#listService").data("kendoListView"));
     if (service !== undefined)
-        idService = service.IDService;
+        idService = service.Id;
 
     var professional = GetSelectedRow($("#listProfessional").data("kendoListView"));
     if (professional !== undefined)
-        idProfessional = professional.IDProfessional;
+        idProfessional = professional.Id;
 
     var ds = new kendo.data.DataSource({
         transport: {
@@ -120,9 +122,9 @@ function SaveAppointment() {
         GetSelectedRow($("#listHours").data("kendoListView"));
 
     schedule = {
-        IDSchedule: 0,        
-        IDProfessional: professional.IDProfessional,
-        IDService: service.IDService,        
+        Id: 0,        
+        IdProfessional: professional.Id,
+        IdService: service.Id,        
         Date: dateTimeAppointment,
         Price: service.Price,
         Time: service.Time,

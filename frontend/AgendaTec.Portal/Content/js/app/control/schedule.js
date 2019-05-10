@@ -92,7 +92,7 @@ function PageSetup() {
     $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true, undefined);
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true, undefined);
     
     $("#ddlCustomerFilter")
         .data("kendoDropDownList")
@@ -102,11 +102,11 @@ function PageSetup() {
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
 
-    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'IDProfessional', 'Name', $("#ddlCustomerFilter").val(), false, 'Selecione...');
-    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'IDProfessional', 'Name', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'Id', 'Name', $("#ddlCustomerFilter").val(), false, 'Selecione...');
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'Id', 'Name', $("#ddlCustomer").val(), false);
 
-    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'IDService', 'Description', $("#ddlCustomerFilter").val(), false, 'Selecione...');
-    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'IDService', 'Description', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'Id', 'Description', $("#ddlCustomerFilter").val(), false, 'Selecione...');
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'Id', 'Description', $("#ddlCustomer").val(), false);
 
     $("#ddlService")
         .data("kendoDropDownList")
@@ -119,14 +119,14 @@ function PageSetup() {
 }
 
 function ddlCustomerFilterChange(e) {
-    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'IDProfessional', 'Name', $("#ddlCustomerFilter").val(), false, 'Selecione...');
-    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'IDService', 'Description', $("#ddlCustomerFilter").val(), false, 'Selecione...');
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessionalFilter', 'Id', 'Name', $("#ddlCustomerFilter").val(), false, 'Selecione...');
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlServiceFilter', 'Id', 'Description', $("#ddlCustomerFilter").val(), false, 'Selecione...');
     LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumerFilter', 'Id', 'FullName', $("#ddlCustomerFilter").val(), false, 'Selecione...');
 }
 
 function ddlCustomerChange(e) {
-    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'IDProfessional', 'Name', $("#ddlCustomer").val(), false);
-    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'IDService', 'Description', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Professionals/GetProfessionalNameCombo", '#ddlProfessional', 'Id', 'Name', $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Services/GetServiceNameCombo", '#ddlService', 'Id', 'Description', $("#ddlCustomer").val(), false);
     LoadComboFiltered("/Users/GetConsumerNamesCombo", '#ddlConsumer', 'Id', 'FullName', $("#ddlCustomer").val(), false);
 }
 
@@ -198,7 +198,7 @@ function LoadSchedules() {
                     return result.Total;
                 },
                 model: {
-                    id: "IDSchedule"
+                    id: "Id"
                 }
             },
             transport: {
@@ -235,8 +235,8 @@ function LoadSchedules() {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDSchedule", hidden: true },
-            { field: "IDProfessional", hidden: true },
+            { field: "Id", hidden: true },
+            { field: "IdProfessional", hidden: true },
             { field: "Time", hidden: true },
             { field: "Price", hidden: true },
             { field: "ProfessionalName", title: "Profissional", width: "20%" },
@@ -267,10 +267,10 @@ function Reschedule_click() {
     }
 
     var appointments = GetSelectedAppointments();
-    var referenceDate = appointments[0].Date;
+    var referenceDate = appointments[0].Date.setHours(0, 0, 0, 0);
 
     jQuery.each(appointments, function (i, item) {
-        if (item.Date !== referenceDate) {
+        if (item.Date.setHours(0, 0, 0, 0) !== referenceDate) {
             ShowModalAlert("Somente compromissos do mesmo dia podem ser reagendados em lote.");
             checkDifferentDates = false;
         }
@@ -364,9 +364,9 @@ function GetSelectedAppointments() {
         var row = $("#grid").data("kendoGrid").dataItem(this);
 
         appointment = {
-            IDSchedule: row.IDSchedule,     
-            IDProfessional: row.IDProfessional,
-            Date: kendo.parseDate(row.Date + ' ' + row.Hour, "dd/MM/yyyy HH:mm"),         
+            Id: row.Id,     
+            IdProfessional: row.IdProfessional,
+            Date: kendo.parseDate(row.Date + ' ' + row.Hour, "yyyy-MM-dd HH:mm"),         
             Time: row.Time,
             Price: row.Price
         };
@@ -397,7 +397,7 @@ function AddAppointment() {
 }
 
 function CleanFields(loadFilterCombos) {
-    $("#IDSchedule").val(0);   
+    $("#hiddenId").val(0);   
 
     if (loadFilterCombos) {
         $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
@@ -423,18 +423,18 @@ function AppointmentEdit(e) {
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
         url: "/Schedules/GetAppointment",
-        data: { "idSchedule": dataItem.IDSchedule },
+        data: { "idSchedule": dataItem.Id },
         cache: false,
         async: false,
         success: function (result) {
             if (result.Success) {
-                $("#hiddenIDSchedule").val(result.Data.IDSchedule);
-                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                $("#hiddenId").val(result.Data.Id);
+                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IdCustomer);
                 ddlCustomerChange();
-                $("#ddlProfessional").data('kendoDropDownList').value(result.Data.IDProfessional);
-                $("#ddlService").data('kendoDropDownList').value(result.Data.IDService);
-                $("#ddlConsumer").data('kendoDropDownList').value(result.Data.IDConsumer);
-                $("#dtDateTime").val(kendo.toString(kendo.parseDate(result.Data.Date, 'yyyy-MM-dd HH:mm'), 'dd/MM/yyyy HH:mm'));
+                $("#ddlProfessional").data('kendoDropDownList').value(result.Data.IdProfessional);
+                $("#ddlService").data('kendoDropDownList').value(result.Data.IdService);
+                $("#ddlConsumer").data('kendoDropDownList').value(result.Data.IdConsumer);
+                $("#dtDateTime").val(kendo.toString(kendo.parseDate(result.Data.Date + ' ' + result.Data.Hour, 'yyyy-MM-dd HH:mm'), 'dd/MM/yyyy HH:mm'));
                 $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);
                 $('#chkBonus').bootstrapSwitch('state', result.Data.Bonus);                
@@ -464,11 +464,11 @@ function SaveAppointment() {
     }
     
     schedule = {
-        IDSchedule: parseInt($("#hiddenIDSchedule").val()),
-        IDCustomer: $("#ddlCustomer").val(),
-        IDProfessional: $("#ddlProfessional").val(),
-        IDService: $("#ddlService").val(),
-        IDConsumer: $("#ddlConsumer").val(),
+        Id: parseInt($("#hiddenId").val()),
+        IdCustomer: $("#ddlCustomer").val(),
+        IdProfessional: $("#ddlProfessional").val(),
+        IdService: $("#ddlService").val(),
+        IdConsumer: $("#ddlConsumer").val(),
         Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
         Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: $("#txtTime").val(),

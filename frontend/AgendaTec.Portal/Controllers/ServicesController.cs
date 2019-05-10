@@ -1,5 +1,5 @@
 ﻿using AgendaTec.Business.Contracts;
-using AgendaTec.Infrastructure.DatabaseModel;
+using AgendaTec.Business.Entities;
 using System.Web.Mvc;
 
 namespace AgendaTec.Portal.Controllers
@@ -43,11 +43,11 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveService(TCGServices service)
+        public JsonResult SaveService(ServiceDTO service)
         {
             string errorMessage = string.Empty;
 
-            if (service.IDService.Equals(0))
+            if (service.Id.Equals(0))
                 _serviceFacade.Insert(service, out errorMessage);
             else
                 _serviceFacade.Update(service, out errorMessage);

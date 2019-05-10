@@ -24,6 +24,7 @@ namespace AgendaTec.Business.Bindings
 
         public List<CustomerDTO> GetGrid(string customerName, out string errorMessage)
         {
+            var result = new List<CustomerDTO>();
             var customers = new List<TCGCustomers>();
 
             errorMessage = string.Empty;
@@ -34,6 +35,8 @@ namespace AgendaTec.Business.Bindings
                     customers = _commonRepository.GetAll();
                 else
                     customers = _commonRepository.Filter(x => x.CompanyName.Contains(customerName));
+
+                result = Mapper.Map<List<TCGCustomers>, List<CustomerDTO>>(customers);
             }
             catch (Exception ex)
             {
@@ -41,10 +44,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return Mapper
-                .Map<List<TCGCustomers>, List<CustomerDTO>>(customers)
-                .OrderBy(x => x.Name)
-                .ToList(); 
+            return result.OrderBy(x => x.Name).ToList();
         }
 
         public List<CustomerDTO> GetCompanyNameCombo(int idCustomer, out string errorMessage)
@@ -68,9 +68,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return result
-                .OrderBy(x => x.Name)
-                .ToList();
+            return result.OrderBy(x => x.Name).ToList();
         }
 
         public CustomerDTO GetCustomerById(int idCustomer, out string errorMessage)

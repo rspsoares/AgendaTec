@@ -1,5 +1,5 @@
 ﻿using AgendaTec.Business.Contracts;
-using AgendaTec.Infrastructure.DatabaseModel;
+using AgendaTec.Business.Entities;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -52,9 +52,9 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveAppointment(TSchedules schedule)
+        public JsonResult SaveAppointment(ScheduleDTO schedule)
         {
-            var schedules = new List<TSchedules>
+            var schedules = new List<ScheduleDTO>
             {
                 schedule
             };
@@ -66,7 +66,7 @@ namespace AgendaTec.Portal.Controllers
             if (!string.IsNullOrEmpty(availabilityCheck))
                 return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
 
-            if (schedule.IDSchedule.Equals(0))
+            if (schedule.Id.Equals(0))
                 _scheduleFacade.Insert(schedule, out errorMessage);
             else
                 _scheduleFacade.Update(schedule, out errorMessage);
@@ -78,7 +78,7 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult DeleteAppointments(List<TSchedules> schedules)
+        public JsonResult DeleteAppointments(List<ScheduleDTO> schedules)
         {
             _scheduleFacade.Delete(schedules, out string errorMessage);
 
@@ -89,7 +89,7 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult RescheduleAppointment(List<TSchedules> schedules, string newDate)
+        public JsonResult RescheduleAppointment(List<ScheduleDTO> schedules, string newDate)
         {
             var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out string errorMessage, newDate);
             if (!string.IsNullOrEmpty(errorMessage))

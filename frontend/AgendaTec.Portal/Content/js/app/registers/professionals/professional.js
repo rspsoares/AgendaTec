@@ -37,8 +37,8 @@
         .add(dtBirthday)
         .removeClass("k-textbox");
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true);
-    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), false);
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
+    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "Name", $("#ddlCustomer").val(), false);
 
     $("#ddlCustomer")
         .data("kendoDropDownList")
@@ -89,7 +89,7 @@ function LoadProfessionals() {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDProfessional", hidden: true },
+            { field: "Id", hidden: true },
             { field: "Name", title: "Nome", width: "65%" },
             { field: "Phone", title: "Telefone", width: "25%" },            
             {
@@ -113,7 +113,7 @@ function AddProfessional() {
 }
 
 function CleanFields(loadFilterCombos) {
-    $("#hiddenIDProfessional").val(0);
+    $("#hiddenId").val(0);
 
     if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos) {
         $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
@@ -136,16 +136,16 @@ function ProfessionalEdit(e) {
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
         url: "/Professionals/GetProfessional",
-        data: { "idProfessional": dataItem.IDProfessional },
+        data: { "idProfessional": dataItem.Id },
         cache: false,
         async: false,
         success: function (result) {
             if (result.Success) {
-                $("#hiddenIDProfessional").val(result.Data.IDProfessional);
-                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                $("#hiddenId").val(result.Data.Id);
+                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IdCustomer);
                 ddlCustomerChange();
                 $('#ddlUserName').data('kendoDropDownList').dataSource.read();
-                $("#ddlUserName").data('kendoDropDownList').value(result.Data.IDUser);
+                $("#ddlUserName").data('kendoDropDownList').value(result.Data.IdUser);
                 $("#txtName").val(result.Data.Name);
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $("#txtPhone").val(result.Data.Phone);
@@ -175,9 +175,9 @@ function SaveProfessional() {
     }
 
     professional = {
-        IDProfessional: parseInt($("#hiddenIDProfessional").val()),
-        IDCustomer: $("#ddlCustomer").val(),
-        IDUser: $("#ddlUserName").val(),
+        Id: parseInt($("#hiddenId").val()),
+        IdCustomer: $("#ddlCustomer").val(),
+        IdUser: $("#ddlUserName").val(),
         Name: $("#txtName").val(),
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
         Phone: $("#txtPhone").val()        

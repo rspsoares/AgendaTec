@@ -40,28 +40,28 @@ namespace AgendaTec.Tests
         [TestMethod]
         public void User_GetProfessionalNamesCombo()
         {
-            var professionals = _userRepository.GetProfessionalNamesCombo(3, out string errorMessage);
+            var professionals = _userRepository.GetProfessionalNamesCombo(1, out string errorMessage);
             Assert.IsTrue(professionals.Any());
         }
 
         [TestMethod]
         public void User_GetConsumerNamesCombo()
         {
-            var consumers = _userRepository.GetConsumerNamesCombo(3, out string errorMessage);
+            var consumers = _userRepository.GetConsumerNamesCombo(1, out string errorMessage);
             Assert.IsTrue(consumers.Any());
         }
 
         [TestMethod]
         public void User_GetUserById()
         {
-            var user = _userRepository.GetUserById("089dc1c5-2670-4221-b4a6-d92f01b7b70d", out string errorMessage);
+            var user = _userRepository.GetUserById("039a1db4-d562-4014-8f68-17dff6a388e1", out string errorMessage);
             Assert.IsTrue(!user.Id.Equals(0));
         }
 
         [TestMethod]
         public void User_CheckDuplicatedUser()
         {
-            var user = _userRepository.GetUserById("089dc1c5-2670-4221-b4a6-d92f01b7b70d", out string errorMessage);
+            var user = _userRepository.GetUserById("039a1db4-d562-4014-8f68-17dff6a388e1", out string errorMessage);
             var duplicated = _userRepository.CheckDuplicatedUser(user, out errorMessage);
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
@@ -70,7 +70,7 @@ namespace AgendaTec.Tests
         [TestMethod]
         public void User_GetLoggedUserByEmail()
         {
-            var user = _userRepository.GetLoggedUserByEmail("teste@teste.com", out string errorMessage);
+            var user = _userRepository.GetLoggedUserByEmail("teste@ary.com.br", out string errorMessage);
             Assert.IsTrue(!user.Id.Equals(0));
         }
 
@@ -79,7 +79,7 @@ namespace AgendaTec.Tests
         {
             var fakeName = new Bogus.DataSets.Name();
             
-            var user = _userRepository.GetUserById("b1ce56c8-32a9-4b74-b5c1-1173ac6c8366", out string errorMessage);
+            var user = _userRepository.GetUserById("095c880b-50bb-4c6f-8cda-07de6a765317", out string errorMessage);
             user.FirstName = fakeName.FirstName(null).ToString();
             user.LastName = fakeName.LastName(null).ToString();
             _userRepository.Update(user, out errorMessage);

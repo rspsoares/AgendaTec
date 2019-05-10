@@ -11,8 +11,8 @@ namespace AgendaTec.Business.Entities
         public string Address { get; set; }
         public string Phone { get; set; }
         public DateTime Hire { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public bool Active { get; set; }
         public string Note { get; set; }
     }

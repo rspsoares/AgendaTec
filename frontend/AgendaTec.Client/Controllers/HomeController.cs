@@ -1,6 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
+using AgendaTec.Business.Entities;
 using AgendaTec.Client.Helper;
-using AgendaTec.Infrastructure.DatabaseModel;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -24,12 +24,14 @@ namespace AgendaTec.Client.Controllers
 
         public ActionResult Index(string customerKey)
         {
-            if(!string.IsNullOrEmpty(customerKey))
+            if (!string.IsNullOrEmpty(customerKey))
             {
                 var customer = _customerFacade.GetCustomerByKey(customerKey, out string errorMessage);
                 Session["IdCustomer"] = customer.Id.Equals(0) ? (int?)null : customer.Id;
             }
-            
+            else if (User.Identity.IsAuthenticated)
+                Session["IdCustomer"] = User.GetIdCustomer();
+
             return View();
         }
 
@@ -68,15 +70,15 @@ namespace AgendaTec.Client.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveAppointment(TSchedules schedule)
+        public JsonResult SaveAppointment(ScheduleDTO schedule)
         {
             if(!User.Identity.IsAuthenticated)
                 return Json(new { Success = false, errorMessage = "É necessário estar logado para realizar un agendamento." }, JsonRequestBehavior.AllowGet);
             
-            schedule.IDCustomer = int.Parse(User.GetIdCustomer());
-            schedule.IDConsumer = User.GetIdUser();
+            schedule.IdCustomer = int.Parse(User.GetIdCustomer());
+            schedule.IdConsumer = User.GetIdUser();
 
-            var schedules = new List<TSchedules>
+            var schedules = new List<ScheduleDTO>
             {
                 schedule
             };

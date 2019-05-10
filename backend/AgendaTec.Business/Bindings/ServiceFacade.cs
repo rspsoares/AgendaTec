@@ -1,7 +1,9 @@
 ﻿using AgendaTec.Business.Contracts;
+using AgendaTec.Business.Entities;
 using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
+using AutoMapper;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -20,8 +22,9 @@ namespace AgendaTec.Business.Bindings
             _commonRepository = new CommonRepository<TCGServices>();
         }
 
-        public List<TCGServices> GetGrid(int idCustomer, string serviceName, out string errorMessage)
+        public List<ServiceDTO> GetGrid(int idCustomer, string serviceName, out string errorMessage)
         {
+            var result = new List<ServiceDTO>();
             var services = new List<TCGServices>();
             
             errorMessage = string.Empty;
@@ -35,6 +38,8 @@ namespace AgendaTec.Business.Bindings
 
                 if (!string.IsNullOrEmpty(serviceName))
                     services = services.Where(x => x.Description.Contains(serviceName)).ToList();
+
+                result = Mapper.Map<List<TCGServices>, List<ServiceDTO>>(services);
             }
             catch (Exception ex)
             {
@@ -42,23 +47,15 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return services
-                .Select(x => new TCGServices()
-                {
-                   IDService = x.IDService,
-                   IDCustomer = x.IDCustomer,
-                   Description = x.Description,
-                   Price = x.Price,
-                   Time = x.Time
-                })         
-                .OrderBy(x => x.IDCustomer)
+            return result
+                .OrderBy(x => x.IdCustomer)
                 .ThenBy(x => x.Description)
                 .ToList();
         }
 
-
-        public List<TCGServices> GetServiceNameCombo(int idCustomer, out string errorMessage)
+        public List<ServiceDTO> GetServiceNameCombo(int idCustomer, out string errorMessage)
         {
+            var result = new List<ServiceDTO>();
             var services = new List<TCGServices>();
 
             errorMessage = string.Empty;
@@ -66,6 +63,7 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 services = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));
+                result = Mapper.Map<List<TCGServices>, List<ServiceDTO>>(services);
             }
             catch (Exception ex)
             {
@@ -73,18 +71,14 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return services
-                .Select(x => new TCGServices()
-                {
-                    IDService = x.IDService,                    
-                    Description = x.Description                    
-                })
-                .OrderBy(x => x.Description)                
+            return result
+                .OrderBy(x => x.Description)
                 .ToList();
         }
 
-        public List<TCGServices> GetServiceNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
+        public List<ServiceDTO> GetServiceNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
         {
+            var result = new List<ServiceDTO>();
             var services = new List<TCGServices>();
 
             errorMessage = string.Empty;
@@ -101,6 +95,8 @@ namespace AgendaTec.Business.Bindings
                         Description = "Para visualizar as opções de serviços, favor efetuar o Login."
                     });
                 }
+
+                result = Mapper.Map<List<TCGServices>, List<ServiceDTO>>(services);
             }
             catch (Exception ex)
             {
@@ -108,36 +104,22 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return services
-                .Select(x => new TCGServices()
-                {
-                    IDService = x.IDService,
-                    Description = x.Description,
-                    Time = x.Time,
-                    Price = x.Price
-                })
+            return result
                 .OrderBy(x => x.Description)
                 .ToList();
         }
 
-        public TCGServices GetServiceById(int idService, out string errorMessage)
+        public ServiceDTO GetServiceById(int idService, out string errorMessage)
         {
+            var result = new ServiceDTO();
             var service = new TCGServices();
 
             errorMessage = string.Empty;
 
             try
             {
-                var result = _commonRepository.GetById(idService);
-
-                service = new TCGServices()
-                {
-                    IDService = result.IDService,
-                    IDCustomer = result.IDCustomer,
-                    Description = result.Description,
-                    Price = result.Price,
-                    Time = result.Time
-                };
+                service = _commonRepository.GetById(idService);
+                result = Mapper.Map<TCGServices, ServiceDTO>(service);
             }
             catch (Exception ex)
             {
@@ -145,16 +127,18 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return service;
+            return result;
         }
 
-        public TCGServices Insert(TCGServices e, out string errorMessage)
+        public ServiceDTO Insert(ServiceDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                e = _commonRepository.Insert(e);
+                var result = Mapper.Map<ServiceDTO, TCGServices>(e);
+                result = _commonRepository.Insert(result);
+                e.Id = result.IDService;
             }
             catch (Exception ex)
             {
@@ -165,13 +149,14 @@ namespace AgendaTec.Business.Bindings
             return e;
         }
 
-        public void Update(TCGServices e, out string errorMessage)
+        public void Update(ServiceDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                _commonRepository.Update(e.IDService, e);
+                var result = Mapper.Map<ServiceDTO, TCGServices>(e);
+                _commonRepository.Update(result.IDService, result);
             }
             catch (Exception ex)
             {

@@ -10,9 +10,9 @@ namespace AgendaTec.Business.Helpers
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile<CustomerProfile>();
-
-
-
+                cfg.AddProfile<ServiceProfile>();
+                cfg.AddProfile<ProfessionalProfile>();
+                cfg.AddProfile<ScheduleProfile>();
             });
         }
 

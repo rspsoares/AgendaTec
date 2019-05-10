@@ -13,7 +13,7 @@
             dropdownlist.select(0);
         }
 
-        document.getElementById("txtDescriptionFilter").value = "";
+        $("#txtDescriptionFilter").val("");        
      
         LoadServices();
     });
@@ -44,7 +44,7 @@
             return false;
     });
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "IDCustomer", "CompanyName", true); 
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true); 
     LoadServices();
 }
 
@@ -86,7 +86,7 @@ function LoadServices() {
             pageSizes: [10, 25, 50]
         },
         columns: [
-            { field: "IDService", hidden: true },            
+            { field: "Id", hidden: true },            
             { field: "Description", title: "Descrição",  width: "50%" },
             { field: "Price", title: "Valor", template: '#=Price.FormatMoney(2, "", ".", ",") #', attributes: { style: "text-align:right;" } , width: "15%" },
             { field: "Time", title: "Tempo (minutos)", attributes: { style: "text-align:right;" }, width: "15%" },
@@ -111,7 +111,7 @@ function AddService() {
 }
 
 function CleanFields(loadFilterCombos) {
-    $("#hiddenIDService").val(0);
+    $("#hiddenId").val(0);
 
     if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos)
         $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
@@ -132,13 +132,13 @@ function ServiceEdit(e) {
         contentType: 'application/json; charset=utf-8',
         dataType: "json",
         url: "/Services/GetService",
-        data: { "idService": dataItem.IDService },
+        data: { "idService": dataItem.Id },
         cache: false,
         async: false,
         success: function (result) {
             if (result.Success) {
-                $("#hiddenIDService").val(result.Data.IDService);
-                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);                
+                $("#hiddenId").val(result.Data.Id);
+                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IdCustomer);                
                 $("#txtDescription").val(result.Data.Description);
                 $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);                
@@ -168,8 +168,8 @@ function SaveService() {
     }
 
     service = {
-        IDService: parseInt($("#hiddenIDService").val()),
-        IDCustomer: $("#ddlCustomer").val(),
+        Id: parseInt($("#hiddenId").val()),
+        IdCustomer: $("#ddlCustomer").val(),
         Description: $("#txtDescription").val(),
         Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: parseInt($("#txtTime").val())
