@@ -37,7 +37,7 @@ namespace AgendaTec.Business.Bindings
                     services = services.Where(x => x.IDCustomer.Equals(idCustomer)).ToList();
 
                 if (!string.IsNullOrEmpty(serviceName))
-                    services = services.Where(x => x.Description.Contains(serviceName)).ToList();
+                    services = services.Where(x => x.Description.ToUpper().Contains(serviceName.ToUpper())).ToList();
 
                 result = Mapper.Map<List<TCGServices>, List<ServiceDTO>>(services);
             }
