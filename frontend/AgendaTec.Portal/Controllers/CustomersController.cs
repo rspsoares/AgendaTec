@@ -54,6 +54,17 @@ namespace AgendaTec.Portal.Controllers
                 return Json(new { Success = true, Data = customer, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult GetCustomerHours()
+        {
+            var customer = _customerFacade.GetCustomerById(int.Parse(User.GetIdCustomer()), out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o cliente." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = customer, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult SaveCustomer(CustomerDTO customer)
         {

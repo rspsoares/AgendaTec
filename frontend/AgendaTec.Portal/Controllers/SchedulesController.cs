@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Portal.Helper;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -43,12 +44,12 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetAppointment(string idSchedule)
         {
-            var customer = _scheduleFacade.GetScheduleById(int.Parse(idSchedule), out string errorMessage);
+            var schedule = _scheduleFacade.GetScheduleById(int.Parse(idSchedule), out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o agendamento." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { Success = true, Data = customer, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = true, Data = schedule, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -105,5 +106,19 @@ namespace AgendaTec.Portal.Controllers
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpGet]
+        public JsonResult GetTodaysAppointments()
+        {
+
+            
+
+            //if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o agendamento." }, JsonRequestBehavior.AllowGet);
+            //else
+              //  return Json(new { Success = true, Data = schedules, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

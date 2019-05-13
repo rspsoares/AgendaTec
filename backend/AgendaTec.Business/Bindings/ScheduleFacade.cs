@@ -325,5 +325,29 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
         }
+
+        public List<AppointmentDTO> GetTodaysAppointments(int idProfessional, out string errorMessage)
+        {
+            var result = new List<AppointmentDTO>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                var appointments = _commonRepository
+                    .Filter(x => x.IDProfessional.Equals(idProfessional))
+                    .Where(x => x.Date.ToString("yyyy-MM-dd").Equals(DateTime.Now.ToString("yyyy-MM-dd")))
+                    .ToList();
+
+                result = Mapper.Map<List<TSchedules>, List<AppointmentDTO>>(appointments);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return result;
+        }
     }
 }

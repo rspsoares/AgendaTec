@@ -2,7 +2,6 @@
 <html class="no-js" lang="pt-br" id="htmlpage">
 <head>
     <meta charset="utf-8" />
-    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="BVF Informática - AgendaTec" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,8 +15,18 @@
     <title>..:: AgendaTec - @ViewBag.Title ::..</title>
 
     @Styles.Render("~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
+
+    <link href="~/Content/plugins/fullcalendar/packages/core/main.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/fullcalendar/packages/daygrid/main.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/fullcalendar/packages/timegrid/main.min.css" rel="stylesheet" />
+
+    <script src="~/Content/plugins/fullcalendar/packages/core/main.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/packages/core/locales-all.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/packages/daygrid/main.min.js"></script>
+    <script src="~/Content/plugins/fullcalendar/packages/timegrid/main.min.js"></script>
 
     @using AgendaTec.Portal.Helper
 </head>
@@ -48,10 +57,10 @@
                                     <span class="glyphicon glyphicon-home"></span>
                                     <span>&nbsp;</span>
                                 </a>
-                            </li>                                
-                            <li class="light-grey-nav">                               
+                            </li>
+                            <li class="light-grey-nav">
                                 <a data-toggle="dropdown" data-noajax="true" class="dropdown-toggle" href="#">
-                                    <span>&nbsp;</span>                                    
+                                    <span>&nbsp;</span>
                                     <span>@User.GetFullName()</span>
                                     <span class="caret"></span>
                                 </a>
@@ -59,7 +68,7 @@
                                     <li><a data-noajax="true" href="@Url.Content("~/Manage/ChangePassword")"><span class="glyphicon glyphicon-edit"></span> Alterar Senha</a></li>
                                     <li><a data-noajax="true" href="@Url.Action("LogOff", "Account")"><span class="glyphicon glyphicon-off"></span> Sair</a></li>
                                 </ul>
-                            </li>                            
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -100,7 +109,8 @@
     @Scripts.Render("~/bundles/jqueryValidate")
     @Scripts.Render("~/bundles/kendo")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/menu-script")
+    @Scripts.Render("~/bundles/menu-script")    
+
     @RenderSection("scripts", required: false)
     @RenderSection("Styles", required: false)
 </body>

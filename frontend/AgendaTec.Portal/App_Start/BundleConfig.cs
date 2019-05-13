@@ -3,8 +3,7 @@
 namespace AgendaTec.Portal
 {
     public class BundleConfig
-    {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+    {        
         public static void RegisterBundles(BundleCollection bundles)
         {
             /* -- SCRIPTS -- */
@@ -40,7 +39,7 @@ namespace AgendaTec.Portal
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/Content/angular/angular-1.2.19.js"));
-            
+
             /* -- CSS -- */
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/kendo-ui/styles/web/kendo.common.min.css",
@@ -49,7 +48,7 @@ namespace AgendaTec.Portal
                 "~/Content/bootstrap/css/bootstrap.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",
                 "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",
-                "~/Content/agendatec-default.css"));
+                "~/Content/agendatec-default.css"));       
         }
     }
 }

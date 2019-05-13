@@ -135,5 +135,15 @@ namespace AgendaTec.Tests
 
             Assert.IsTrue(string.IsNullOrEmpty(availabilityCheck));
         }
+
+        [TestMethod]
+        public void Schedule_GetTodaysAppointments()
+        {
+            ProfilesHelper.Initialize();
+            var schedules = _scheduleFacade.GetTodaysAppointments(5, out string errorMessage);           
+            ProfilesHelper.Reset();
+
+            Assert.IsTrue(schedules.Any());
+        }
     }
 }

@@ -1,0 +1,17 @@
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\NLog.config
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Business.pdb
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Infrastructure.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Itenso.TimePeriod.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\NLog.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Infrastructure.pdb
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Infrastructure.dll.config
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.pdb
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.xml
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\NLog.xml
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csprojAssemblyReference.cache
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.CoreCompileInputs.cache
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.CopyComplete
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.dll
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.pdb

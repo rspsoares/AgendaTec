@@ -247,6 +247,7 @@
     <Content Include="Content\jQuery\jquery.PrintArea.min.js" />
     <Content Include="Content\js\agendatec-script.js" />
     <Content Include="Content\js\app\control\schedule.js" />
+    <Content Include="Content\js\app\home.js" />
     <Content Include="Content\js\app\registers\customers\customers.js" />
     <Content Include="Content\js\app\registers\professionals\professional.js" />
     <Content Include="Content\js\app\registers\services\service.js" />
@@ -1117,46 +1118,42 @@
     <Content Include="Content\kendo-ui\styles\web\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendo-ui\styles\web\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\modernizr\modernizr-2.8.3.js" />
-    <Content Include="Content\plugins\d3\lib.js" />
-    <Content Include="Content\plugins\flot\base64.js" />
-    <Content Include="Content\plugins\flot\canvas2image.js" />
-    <Content Include="Content\plugins\flot\canvasAsImage.js" />
-    <Content Include="Content\plugins\flot\curvedLines.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\excanvas.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.colorhelpers.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.axislabels.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.canvas.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.categories.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.JUMlib.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.pie.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.resize.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.saveAsImage.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.spline.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.stack.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.symbol.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.tickrotor.js" />
-    <Content Include="Content\plugins\flot\jquery.flot.time.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.tooltip.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\plugins\flot\jquery.flot.valuelables.js" />
+    <Content Include="Content\plugins\fullcalendar\LICENSE.txt" />
+    <Content Include="Content\plugins\fullcalendar\packages\bootstrap\main.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\bootstrap\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\bootstrap\main.min.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\bootstrap\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\locales-all.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\locales-all.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\main.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\main.min.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\core\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\daygrid\main.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\daygrid\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\daygrid\main.min.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\daygrid\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\google-calendar\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\google-calendar\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\interaction\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\interaction\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\list\main.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\list\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\list\main.min.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\list\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\luxon\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\luxon\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\moment-timezone\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\moment-timezone\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\moment\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\moment\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\rrule\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\rrule\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\timegrid\main.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\timegrid\main.js" />
+    <Content Include="Content\plugins\fullcalendar\packages\timegrid\main.min.css" />
+    <Content Include="Content\plugins\fullcalendar\packages\timegrid\main.min.js" />
+    <Content Include="Content\plugins\fullcalendar\vendor\rrule.js" />
     <Content Include="Content\plugins\jquery-ui\ajax.js" />
     <Content Include="Content\plugins\jquery-ui\ajax\jsonp.js" />
     <Content Include="Content\plugins\jquery-ui\ajax\load.js" />
@@ -1903,6 +1900,7 @@
     <Content Include="Content\plugins\jquery-ui\README.md" />
     <Content Include="Content\plugins\jquery-ui\sizzle\dist\sizzle.min.map" />
     <Content Include="Content\plugins\jquery-ui\ui\.jshintrc" />
+    <Content Include="Content\plugins\fullcalendar\CHANGELOG.md" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
