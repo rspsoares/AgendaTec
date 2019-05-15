@@ -11,7 +11,7 @@ namespace AgendaTec.Portal.Controllers
         }
         
         public ActionResult Index()
-        {         
+        {
             return View();
         }
     }

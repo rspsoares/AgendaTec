@@ -2,8 +2,8 @@
 {
     public class AppointmentDTO
     {
-        public string Title { get; set; }
-        public string Start { get; set; }
-        public string End { get; set; }
+        public string title { get; set; }
+        public string start { get; set; }
+        public string end { get; set; }
     }
 }

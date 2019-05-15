@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 
 namespace AgendaTec.Portal.Helper
@@ -23,6 +24,16 @@ namespace AgendaTec.Portal.Helper
         public static string GetIdCustomer(this IPrincipal usr)
         {
             return ((ClaimsIdentity)usr.Identity).FindFirst("IDCustomer")?.Value.ToString();
+        }
+
+        public static string GetIdUser(this IPrincipal usr)
+        {
+            return ((ClaimsIdentity)usr.Identity)
+                .Claims
+                .ToList()
+                .Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"))
+                .SingleOrDefault()?
+                .Value;           
         }
     }
 }

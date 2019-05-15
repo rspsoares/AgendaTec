@@ -36,9 +36,9 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus));
 
             CreateMap<TSchedules, AppointmentDTO>()
-                .ForMember(d => d.Title, s => s.MapFrom(m => m.TCGServices.Description + " - " + m.AspNetUsers.FirstName + " " + m.AspNetUsers.LastName))
-                .ForMember(d => d.Start, s => s.MapFrom(m => m.Date.ToString("HH:mm")))
-                .ForMember(d => d.End, s => s.MapFrom(m => m.Date.AddMinutes(m.Time).ToString("HH:mm")));
+                .ForMember(d => d.title, s => s.MapFrom(m => m.TCGServices.Description + " - " + m.AspNetUsers.FirstName + " " + m.AspNetUsers.LastName))
+                .ForMember(d => d.start, s => s.MapFrom(m => m.Date.ToString("yyyy-MM-ddTHH:mm:ss")))
+                .ForMember(d => d.end, s => s.MapFrom(m => m.Date.AddMinutes(m.Time).ToString("yyyy-MM-ddTHH:mm:ss")));
         }
     }
 }

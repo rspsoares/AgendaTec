@@ -326,16 +326,22 @@ namespace AgendaTec.Business.Bindings
             }
         }
 
-        public List<AppointmentDTO> GetTodaysAppointments(int idProfessional, out string errorMessage)
+        public List<AppointmentDTO> GetTodaysAppointments(string idUser, out string errorMessage)
         {
             var result = new List<AppointmentDTO>();
+            IProfessionalFacade professionalRepository = new ProfessionalFacade();
 
             errorMessage = string.Empty;
 
             try
             {
+                if (string.IsNullOrEmpty(idUser))
+                    return result;
+
+                var professional = professionalRepository.GetProfessionalByUserId(idUser, out errorMessage);
+
                 var appointments = _commonRepository
-                    .Filter(x => x.IDProfessional.Equals(idProfessional))
+                    .Filter(x => x.IDProfessional.Equals(professional.Id))
                     .Where(x => x.Date.ToString("yyyy-MM-dd").Equals(DateTime.Now.ToString("yyyy-MM-dd")))
                     .ToList();
 

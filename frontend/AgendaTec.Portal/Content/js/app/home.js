@@ -21,18 +21,7 @@
         minTime: kendo.toString(kendo.parseDate(customerHours.startTime), 'HH:mm'),
         maxTime: kendo.toString(kendo.parseDate(customerHours.endTime), 'HH:mm'),
         allDaySlot: false,
-        events: [           
-            {
-                title: 'Meeting',
-                start: '2019-05-13T10:30:00',
-                end: '2019-05-13T12:30:00'
-            },
-            {
-                title: 'Meeting',
-                start: '2019-05-13T14:30:00',
-                end: '2019-05-13T15:30:00'
-            }           
-        ]
+        events: appointments       
     });
 
     calendar.render();
@@ -68,22 +57,22 @@ function GetCustomerHours() {
 function GetAppointments() {
     var appointments = [];
 
-    //$.ajax({
-    //    type: "GET",
-    //    contentType: 'application/json; charset=utf-8',
-    //    dataType: "json",
-    //    url: "/Schedules/GetTodaysAppointments",
-    //    cache: false,
-    //    async: false,
-    //    success: function (result) {
-    //        if (result.Success) 
-    //            appointments = result.Data;            
-    //        else {
-    //            ShowModalAlert(result.errorMessage);
-    //            return;
-    //        }
-    //    }
-    //});
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        url: "/Schedules/GetTodaysAppointments",
+        cache: false,
+        async: false,
+        success: function (result) {
+            if (result.Success) 
+                appointments = result.Data;            
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
 
     return appointments;
 }

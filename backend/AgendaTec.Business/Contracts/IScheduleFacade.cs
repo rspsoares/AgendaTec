@@ -15,6 +15,6 @@ namespace AgendaTec.Business.Contracts
         string CheckAvailability(List<ScheduleDTO> schedules, out string errorMessage, string newDate = null);
         void Reschedule(List<ScheduleDTO> schedules, string newDate, out string errorMessage);
         List<string> GetAvailableHours(int idCustomer, int idProfessional, int idService, DateTime date, string idConsumer, bool authenticated, out string errorMessage);
-        List<AppointmentDTO> GetTodaysAppointments(int idProfessional, out string errorMessage);
+        List<AppointmentDTO> GetTodaysAppointments(string idUser, out string errorMessage);
     }
 }

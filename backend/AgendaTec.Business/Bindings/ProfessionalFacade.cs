@@ -135,6 +135,28 @@ namespace AgendaTec.Business.Bindings
             return result;
         }
 
+        public ProfessionalDTO GetProfessionalByUserId(string idUser, out string errorMessage)
+        {
+            var result = new ProfessionalDTO();
+            var professional = new TCGProfessionals();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                professional = _commonRepository.Filter(x => x.IDUser.Equals(idUser)).SingleOrDefault();
+                result = Mapper.Map<TCGProfessionals, ProfessionalDTO>(professional);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return result;
+        }
+
+
         public ProfessionalDTO Insert(ProfessionalDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;

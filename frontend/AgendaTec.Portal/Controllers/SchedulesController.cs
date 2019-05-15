@@ -111,14 +111,15 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetTodaysAppointments()
         {
+            var professionalRole = (EnUserType)int.Parse(User.GetIdRole());
+            var idUser = professionalRole.Equals(EnUserType.Professional) ? User.GetIdUser() : null;
 
-            
+            var appointments = _scheduleFacade.GetTodaysAppointments(idUser, out string errorMessage);            
 
-            //if (!string.IsNullOrEmpty(errorMessage))
+            if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao obter o agendamento." }, JsonRequestBehavior.AllowGet);
-            //else
-              //  return Json(new { Success = true, Data = schedules, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = appointments, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
-
     }
 }
