@@ -140,7 +140,7 @@ namespace AgendaTec.Tests
         public void Schedule_GetTodaysAppointments()
         {
             ProfilesHelper.Initialize();
-            var schedules = _scheduleFacade.GetTodaysAppointments(5, out string errorMessage);           
+            var schedules = _scheduleFacade.GetTodaysAppointments("91977155-844a-41a2-be45-e16f7444840a", out string errorMessage);           
             ProfilesHelper.Reset();
 
             Assert.IsTrue(schedules.Any());

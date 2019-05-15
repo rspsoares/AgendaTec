@@ -9,7 +9,7 @@ using AgendaTec.Portal.Models;
 using AgendaTec.Business.Entities;
 
 namespace AgendaTec.Portal.Controllers
-{
+{    
     [Authorize]
     public class AccountController : Controller
     {

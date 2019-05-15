@@ -19,6 +19,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Active, s => s.MapFrom(m => m.Active))
                 .ForMember(d => d.Start, s => s.MapFrom(m => m.StartTime))
                 .ForMember(d => d.End, s => s.MapFrom(m => m.EndTime))
+                .ForMember(d => d.CPFRequired, s => s.MapFrom(m => m.CPFRequired))
                 .ForMember(d => d.Note, s => s.MapFrom(m => m.Note));
 
             CreateMap<CustomerDTO, TCGCustomers>()
@@ -32,6 +33,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Active, s => s.MapFrom(m => m.Active))
                 .ForMember(d => d.StartTime, s => s.MapFrom(m => m.Start))
                 .ForMember(d => d.EndTime, s => s.MapFrom(m => m.End))
+                .ForMember(d => d.CPFRequired, s => s.MapFrom(m => m.CPFRequired))
                 .ForMember(d => d.Note, s => s.MapFrom(m => m.Note));
         }
     }

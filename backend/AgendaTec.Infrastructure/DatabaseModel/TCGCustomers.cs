@@ -33,6 +33,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public System.DateTime StartTime { get; set; }
         public System.DateTime EndTime { get; set; }
         public bool Active { get; set; }
+        public bool CPFRequired { get; set; }
         public string Note { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

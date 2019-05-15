@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/13/2019 11:26:58</publishTime>
+      <publishTime>05/15/2019 09:25:10</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/13/2019 11:26:58</publishTime>
+      <publishTime>05/15/2019 09:25:10</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/10/2019 15:52:37</publishTime>
+      <publishTime>05/15/2019 09:21:44</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/09/2019 12:44:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/10/2019 15:52:37</publishTime>
+      <publishTime>05/15/2019 09:21:44</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/13/2019 11:27:01</publishTime>
+      <publishTime>05/15/2019 10:56:24</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/13/2019 11:27:01</publishTime>
+      <publishTime>05/15/2019 10:56:24</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -562,7 +562,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2019 16:46:37</publishTime>
     </File>
     <File Include="Content/js/app/home.js">
-      <publishTime>04/29/2019 11:20:09</publishTime>
+      <publishTime>05/15/2019 08:58:49</publishTime>
     </File>
     <File Include="Content/js/app/home/dashboard.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -571,7 +571,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>05/10/2019 07:36:19</publishTime>
+      <publishTime>05/15/2019 10:01:44</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
       <publishTime>05/03/2019 16:03:40</publishTime>
@@ -4317,6 +4317,117 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/plugins/flot/jquery.flot.valuelables.js">
       <publishTime>05/10/2019 16:09:50</publishTime>
     </File>
+    <File Include="Content/plugins/fullcalendar/CHANGELOG.md">
+      <publishTime>05/13/2019 12:25:59</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/LICENSE.txt">
+      <publishTime>05/13/2019 12:25:59</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/bootstrap/main.css">
+      <publishTime>05/13/2019 12:26:00</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/bootstrap/main.js">
+      <publishTime>05/13/2019 12:26:00</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/bootstrap/main.min.css">
+      <publishTime>05/13/2019 12:26:00</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/bootstrap/main.min.js">
+      <publishTime>05/13/2019 12:26:00</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/locales-all.js">
+      <publishTime>05/13/2019 12:26:00</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/locales-all.min.js">
+      <publishTime>05/13/2019 12:26:01</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/main.css">
+      <publishTime>05/13/2019 12:26:01</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/main.js">
+      <publishTime>05/13/2019 12:26:01</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/main.min.css">
+      <publishTime>05/13/2019 12:26:01</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/core/main.min.js">
+      <publishTime>05/13/2019 12:26:01</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/daygrid/main.css">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/daygrid/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/daygrid/main.min.css">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/daygrid/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/google-calendar/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/google-calendar/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/interaction/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/interaction/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/list/main.css">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/list/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/list/main.min.css">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/list/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/luxon/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/luxon/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/moment-timezone/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/moment-timezone/main.min.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/moment/main.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/moment/main.min.js">
+      <publishTime>05/13/2019 12:26:04</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/rrule/main.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/rrule/main.min.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/timegrid/main.css">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/timegrid/main.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/timegrid/main.min.css">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/packages/timegrid/main.min.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
+    <File Include="Content/plugins/fullcalendar/vendor/rrule.js">
+      <publishTime>05/13/2019 12:26:05</publishTime>
+    </File>
     <File Include="Content/plugins/jquery-ui/.bower.json">
       <publishTime>04/29/2019 11:20:18</publishTime>
     </File>
@@ -5509,10 +5620,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:16</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>05/13/2019 11:00:27</publishTime>
+      <publishTime>05/15/2019 09:58:23</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/09/2019 11:18:16</publishTime>
+      <publishTime>05/13/2019 15:57:05</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>05/09/2019 11:18:16</publishTime>
@@ -5551,7 +5662,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 13:14:59</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/09/2019 12:48:27</publishTime>
+      <publishTime>05/13/2019 15:34:32</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>05/09/2019 11:18:15</publishTime>
@@ -5566,7 +5677,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/13/2019 11:10:57</publishTime>
+      <publishTime>05/15/2019 09:02:06</publishTime>
     </File>
   </ItemGroup>
 </Project>

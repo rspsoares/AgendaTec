@@ -75,6 +75,7 @@
           <Property Name="StartTime" Type="datetime" Nullable="false" />
           <Property Name="EndTime" Type="datetime" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="CPFRequired" Type="bit" Nullable="false" />
           <Property Name="Note" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="TCGProfessionals">
@@ -383,7 +384,7 @@
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -611,6 +612,7 @@
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CPFRequired" Type="Boolean" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="TCGCustomers" ToRole="AspNetUsers" />
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
@@ -771,6 +773,7 @@
             <EntityTypeMapping TypeName="AgendaTecModel.TCGCustomers">
               <MappingFragment StoreEntitySet="TCGCustomers">
                 <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CPFRequired" ColumnName="CPFRequired" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="EndTime" ColumnName="EndTime" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />

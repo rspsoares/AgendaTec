@@ -92,58 +92,60 @@
                     <input type="hidden" id="hiddenKey" />
                     <form id="usuarioForm">
                         <div class="col-xs-12">
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-bottom: 0px;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtName" style="font-weight:bold">Razão Social</label> <br />
-                                    <input type="text" class="k-textbox" id="txtName" name="txtName" placeholder="Razão Social" style="width: 100%"  maxlength="80">
+                                    <input type="text" class="k-textbox" id="txtName" name="txtName" placeholder="Razão Social" style="width: 100%" maxlength="80">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="txtCNPJ">CPF / CNPJ</label> <br />
-                                    <input type="text" class="k-textbox" id="txtCNPJ" name="txtCNPJ" placeholder="CNPJ" maxlength="14" style="width: 100%">
+                                    <label id="labelCPFCNPJ" for="txtCPFCNPJ">CPF / CNPJ</label> <br />
+                                    <input type="text" class="k-textbox" id="txtCPFCNPJ" name="txtCPFCNPJ" placeholder="CPF / CNPJ" maxlength="14" style="width: 100%">
                                 </div>
                             </div>
-
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="txtAddress" style="font-weight:bold">Endereço</label> <br />
-                                    <input type="text" class="k-textbox" id="txtAddress" name="txtAddress" placeholder="Endereço" style="width: 100%"  maxlength="80" >
-                                </div>
-                            </div>
-
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtPhone" style="font-weight:bold">Telefone</label> <br />
-                                    <input type="text" class="k-textbox" id="txtPhone" name="txtPhone" placeholder="Telefone" style="width: 100%"  maxlength="50" >
+                                    <input type="text" class="k-textbox" id="txtPhone" name="txtPhone" placeholder="Telefone" style="width: 100%" maxlength="50">
                                 </div>
                             </div>
 
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="dtStart" style="font-weight:bold">Horário Início atendimento</label> <br />
+                                    <label for="txtAddress" style="font-weight:bold">Endereço</label> <br />
+                                    <input type="text" class="k-textbox" id="txtAddress" name="txtAddress" placeholder="Endereço" style="width: 100%" maxlength="80">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="dtStart" style="font-weight:bold">Início atendimento</label> <br />
                                     <input id="dtStart" name="dtStart" style="width: 100%">
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-bottom: 0px;">
                                 <div class="form-group">
-                                    <label for="dtEnd" style="font-weight:bold">Horário Término atendimento</label> <br />
+                                    <label for="dtEnd" style="font-weight:bold">Término atendimento</label> <br />
                                     <input id="dtEnd" name="dtEnd" style="width: 100%">
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="dtHire" style="font-weight:bold">Data de Contratação</label> <br />
                                     <input id="dtHire" name="dtHire" style="width: 100%">
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="chkActive" style="font-weight:bold">Status</label> <br />
                                     <input id="chkActive" type="checkbox" data-field="chkActive" checked data-on-text="ATIVO" data-off-text="INATIVO" data-size="small" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="chkCPFRequired" style="font-weight:bold">CPF obrigatório</label> <br />
+                                    <input id="chkCPFRequired" type="checkbox" data-field="chkCPFRequired" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
                                 </div>
                             </div>
 

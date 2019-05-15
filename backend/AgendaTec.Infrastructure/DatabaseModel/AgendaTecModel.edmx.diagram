@@ -21,7 +21,7 @@
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_AspNetUsers" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_TCGProfessionals" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_TCGServices" />
-        <EntityTypeShape EntityType="AgendaTecModel.TCGCustomers" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="AgendaTecModel.TCGCustomers" Width="1.5" PointX="0.75" PointY="7.625" />
         <AssociationConnector Association="AgendaTecModel.FK_AspNetUsers_TCGCustomers" />
         <AssociationConnector Association="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" />
         <AssociationConnector Association="AgendaTecModel.FK_TCGServices_TCGCustomers" />

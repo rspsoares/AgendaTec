@@ -18,8 +18,7 @@
             e.preventDefault();
             LoadCustomers();
         }
-    });    
-
+    });   
 
     var dtStartTime = $("#dtStart");
     dtStartTime.kendoMaskedTextBox({
@@ -45,7 +44,15 @@
         .removeClass("k-textbox");   
 
     $('#chkActive').bootstrapSwitch();
-
+    $('#chkCPFRequired').bootstrapSwitch();
+    $('#chkCPFRequired').on('switchChange.bootstrapSwitch', function (event, state) {
+        if (state) {
+            $('#labelCPFCNPJ').css({ 'font-weight': 'bold' });
+        }
+        else {
+            $('#labelCPFCNPJ').css({ 'font-weight': '' });
+        }        
+    });
     LoadCustomers();  
 }
 
@@ -121,13 +128,14 @@ function AddCustomer() {
 function CleanFields() {
     $("#hiddenID").val(0);
     $("#txtName").val("");
-    $("#txtCNPJ").val("");
+    $("#txtCPFCNPJ").val("");
     $("#txtAddress").val("");
     $("#txtPhone").val("");
     $("#dtStart").val("");
     $("#dtEnd").val("");
     $("#dtHire").val("");
     $('#chkActive').bootstrapSwitch('state', true);
+    $('#chkCPFRequired').bootstrapSwitch('state', true);
     $("#txtNote").val("");
 }
 
@@ -150,13 +158,20 @@ function CustomerEdit(e) {
                 $("#hiddenID").val(result.Data.Id);
                 $("#hiddenKey").val(result.Data.Key);
                 $("#txtName").val(result.Data.Name);
-                $("#txtCNPJ").val(result.Data.CNPJ).trigger('input');
+                $("#txtCPFCNPJ").val(result.Data.CNPJ).trigger('input');
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
                 $("#dtStart").val(kendo.toString(kendo.parseDate(result.Data.Start, 'HH:mm'), 'HH:mm'));
                 $("#dtEnd").val(kendo.toString(kendo.parseDate(result.Data.End, 'HH:mm'), 'HH:mm'));
                 $("#dtHire").val(kendo.toString(kendo.parseDate(result.Data.Hire, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
-                $('#chkActive').bootstrapSwitch('state', result.Data.Active);                
+                $('#chkActive').bootstrapSwitch('state', result.Data.Active);
+                $('#chkCPFRequired').bootstrapSwitch('state', result.Data.CPFRequired);
+
+                if (result.Data.CPFRequired) 
+                    $('#labelCPFCNPJ').css({ 'font-weight': 'bold' });                
+                else 
+                    $('#labelCPFCNPJ').css({ 'font-weight': '' });                  
+
                 $("#txtNote").val(result.Data.Note);             
             }
             else {
@@ -187,13 +202,14 @@ function SaveCustomer() {
         Id: parseInt($("#hiddenID").val()),
         Key: $("#hiddenKey").val(),
         Name: $("#txtName").val(),
-        CNPJ: $("#txtCNPJ").val().replace(/[^\d]/g, ""),
+        CNPJ: $("#txtCPFCNPJ").val().replace(/[^\d]/g, ""),
         Address: $("#txtAddress").val(),
         Phone: $("#txtPhone").val(),
         Start: kendo.parseDate($("#dtStart").val(), "HH:mm"),
         End: kendo.parseDate($("#dtEnd").val(), "HH:mm"),
         Hire: kendo.parseDate($("#dtHire").val(), "dd/MM/yyyy"),
         Active: $('#chkActive').bootstrapSwitch('state'),
+        CPFRequired: $('#chkCPFRequired').bootstrapSwitch('state'),
         Note: $("#txtNote").val()
     };
 
@@ -239,5 +255,8 @@ function ValidateRequiredFields() {
     if($("#dtHire").val() === '')
         errorMessage += 'Favor informar a Data de Contratação' + '<br/>';
 
+    if ($('#chkCPFRequired').bootstrapSwitch('state') && $("#txtCPFCNPJ").val() === '')
+        errorMessage += 'Favor informar o CPF / CNPJ' + '<br/>';
+    
     return errorMessage;
 }
