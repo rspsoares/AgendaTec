@@ -20,6 +20,17 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/kendo")
+    @Scripts.Render("~/bundles/bootstrap")
+    
+    <script src="~/Content/plugins/jquery.maskedinput-1.3.1.min.js"></script>
+    
+    <script type='text/javascript'>
+        $(function () {           
+            $('#txtCPF').mask('999.999.999-99');
+        });
+    </script>
 
     @model AgendaTec.Client.Models.RegisterViewModel
 
@@ -35,7 +46,7 @@
         }
     </style>
 </head>
-<body>    
+<body>
     <div id="Container" class="wrap">
         <!-- Conteúdo -->
         <div id="ContentContainer">
@@ -45,31 +56,36 @@
                     <div class="legend">Criação de usuário</div>
                     <div class="control-group well">
                         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {                            
+                        {
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary("", new { @class = "text-danger" })
 
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.FirstName)
-                                @Html.TextBoxFor(c => c.FirstName, new { @id = "txtFirstName", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.TextBoxFor(c => c.FirstName, new { @id = "txtFirstName", @style = "width: 100%;", @class = "k-textbox", @maxlength = "50" })
                             </div>
 
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.LastName)
-                                @Html.TextBoxFor(c => c.LastName, new { @id = "txtLastName", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.TextBoxFor(c => c.LastName, new { @id = "txtLastName", @style = "width: 100%;", @class = "k-textbox", @maxlength = "50" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.DisplayNameFor(c => c.CPF)
+                                @Html.TextBoxFor(c => c.CPF, new { @id = "txtCPF", @style = "width: 100%;", @class = "k-textbox", @maxlength = "11", data_mask = "date" })
                             </div>
 
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Email)
-                                @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox", @maxlength = "50" })
                             </div>
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Password)
-                                @Html.PasswordFor(c => c.Password, new { @id = "txtPassword", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.PasswordFor(c => c.Password, new { @id = "txtPassword", @style = "width: 100%;", @class = "k-textbox", @maxlength = "20" })
                             </div>
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.ConfirmPassword)
-                                @Html.PasswordFor(c => c.ConfirmPassword, new { @id = "txtConfirmPassword", @style = "width: 100%;", @class = "k-textbox" })
+                                @Html.PasswordFor(c => c.ConfirmPassword, new { @id = "txtConfirmPassword", @style = "width: 100%;", @class = "k-textbox", @maxlength = "20" })
                             </div>
                             <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Registrar</button>
                         }
@@ -87,53 +103,5 @@
             </div>
         </div>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/kendo")
-    @Scripts.Render("~/bundles/bootstrap")
-    @*@RenderSection("scripts", required: false)*@
 </body>
 </html>
-
-
-@*@model AgendaTec.Client.Models.RegisterViewModel
-    @{
-        ViewBag.Title = "Register";
-    }
-
-    <h2>@ViewBag.Title.</h2>
-
-    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
-        <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
-            </div>
-        </div>
-    }
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@

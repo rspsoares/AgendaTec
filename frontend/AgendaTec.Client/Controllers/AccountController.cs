@@ -8,6 +8,8 @@ using Microsoft.Owin.Security;
 using AgendaTec.Client.Models;
 using AgendaTec.Business.Entities;
 using AgendaTec.Client.Helper;
+using AgendaTec.Business.Helpers;
+using System.Collections.Generic;
 
 namespace AgendaTec.Client.Controllers
 {
@@ -148,34 +150,47 @@ namespace AgendaTec.Client.Controllers
         {            
             if (ModelState.IsValid && Session["IdCustomer"] != null)
             {
-                var user = new ApplicationUser {
-                    IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
-                    IDRole = ((int)EnUserType.Consumer).ToString(),
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    UserName = model.Email,
-                    Email = model.Email,
-                    IsEnabled = true
-                };
-
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (model.CPF.IsCPF())
                 {
-                    // await UserManager.AddToRoleAsync(user.Id, EnUserType.Administrator.ToString());
-                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var user = new ApplicationUser
+                    {
+                        IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                        IDRole = ((int)EnUserType.Consumer).ToString(),
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        CPF = model.CPF.CleanMask(),
+                        UserName = model.Email,
+                        Email = model.Email,
+                        IsEnabled = true
+                    };
 
-                    return RedirectToAction("Index", "Home");
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                    AddErrors(result);
                 }
-                AddErrors(result);
+                else
+                {
+                    var cpfErrorValidation = new IdentityResult(new List<string>
+                    {
+                        "CPF inválido"
+                    });
+
+                    AddErrors(cpfErrorValidation);
+                }
             }
 
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
 

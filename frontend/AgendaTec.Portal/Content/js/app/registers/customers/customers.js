@@ -20,6 +20,15 @@
         }
     });   
 
+    $("#txtCPFCNPJ").focusin(function () { $(this).unmask(); });
+
+    $("#txtCPFCNPJ").focusout(function () {        
+        if ($(this).val().length === 14)         
+            $(this).mask('99.999.999/9999-99');        
+        else if ($(this).val().length === 11) 
+            $(this).mask('999.999.999-99');        
+    });
+
     var dtStartTime = $("#dtStart");
     dtStartTime.kendoMaskedTextBox({
         mask: "00:00"
@@ -158,7 +167,7 @@ function CustomerEdit(e) {
                 $("#hiddenID").val(result.Data.Id);
                 $("#hiddenKey").val(result.Data.Key);
                 $("#txtName").val(result.Data.Name);
-                $("#txtCPFCNPJ").val(result.Data.CNPJ).trigger('input');
+                $("#txtCPFCNPJ").val(result.Data.CNPJ).trigger('input').trigger("focusout");                
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
                 $("#dtStart").val(kendo.toString(kendo.parseDate(result.Data.Start, 'HH:mm'), 'HH:mm'));
@@ -202,7 +211,7 @@ function SaveCustomer() {
         Id: parseInt($("#hiddenID").val()),
         Key: $("#hiddenKey").val(),
         Name: $("#txtName").val(),
-        CNPJ: $("#txtCPFCNPJ").val().replace(/[^\d]/g, ""),
+        CNPJ: $("#txtCPFCNPJ").val().replace(/[^\d]/g, "").trim(),
         Address: $("#txtAddress").val(),
         Phone: $("#txtPhone").val(),
         Start: kendo.parseDate($("#dtStart").val(), "HH:mm"),
@@ -229,7 +238,7 @@ function SaveCustomer() {
                 LoadCustomers();
             }                
             else                 
-                ShowModalAlert("Erro ao gravar alterações.");            
+                ShowModalAlert(result.errorMessage);            
         }
     });
 }

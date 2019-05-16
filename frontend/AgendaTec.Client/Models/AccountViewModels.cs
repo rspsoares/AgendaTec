@@ -64,23 +64,25 @@ namespace AgendaTec.Client.Models
 
     public class RegisterViewModel
     {
-        [Required]
-        [MaxLength(50)]
+        [Required]        
         [Display(Name = "Primeiro nome")]
         public string FirstName { get; set; }
 
-        [Required]
-        [MaxLength(50)]
+        [Required]        
         [Display(Name = "Sobrenome")]
         public string LastName { get; set; }
 
+        [Required]        
+        [Display(Name = "CPF")]
+        public string CPF { get; set; }
+
         [Required]
-        [EmailAddress]
+        [EmailAddress]        
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "A senha deve ter no mínimo {2} caracteres de comprimento.", MinimumLength = 6)]
+        [StringLength(20, ErrorMessage = "A senha deve ter no mínimo {2} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }

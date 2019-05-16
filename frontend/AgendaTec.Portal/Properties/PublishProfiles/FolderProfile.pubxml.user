@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/16/2019 08:34:12</publishTime>
+      <publishTime>05/16/2019 11:21:27</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/16/2019 08:34:12</publishTime>
+      <publishTime>05/16/2019 11:21:27</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/15/2019 14:44:26</publishTime>
+      <publishTime>05/16/2019 11:21:26</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/09/2019 12:44:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/15/2019 14:44:26</publishTime>
+      <publishTime>05/16/2019 11:21:26</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/16/2019 08:34:45</publishTime>
+      <publishTime>05/16/2019 14:21:57</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/16/2019 08:34:45</publishTime>
+      <publishTime>05/16/2019 14:21:57</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -571,7 +571,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>05/15/2019 10:01:44</publishTime>
+      <publishTime>05/16/2019 10:34:39</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
       <publishTime>05/03/2019 16:03:40</publishTime>
@@ -5620,7 +5620,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:16</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>05/15/2019 09:58:23</publishTime>
+      <publishTime>05/16/2019 09:27:19</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>05/13/2019 15:57:05</publishTime>

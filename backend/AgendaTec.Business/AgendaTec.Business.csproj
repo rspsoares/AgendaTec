@@ -74,6 +74,7 @@
     <Compile Include="Entities\ServiceDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
     <Compile Include="Helpers\ProfilesHelper.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Profiles\CustomerProfile.cs" />
     <Compile Include="Profiles\ProfessionalProfile.cs" />
     <Compile Include="Profiles\ScheduleProfile.cs" />

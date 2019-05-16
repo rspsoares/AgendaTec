@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using AgendaTec.Portal.Helper;
 using System.Web.Mvc;
 
@@ -69,6 +70,18 @@ namespace AgendaTec.Portal.Controllers
         public JsonResult SaveCustomer(CustomerDTO customer)
         {
             string errorMessage = string.Empty;
+
+            if (!string.IsNullOrEmpty(customer.CNPJ))
+            {
+                if (!customer.CNPJ.Length.Equals(11) && !customer.CNPJ.Length.Equals(14))
+                    return Json(new { Success = false, errorMessage = "CPF / CNPJ inválido." }, JsonRequestBehavior.AllowGet);
+
+                if (customer.CNPJ.Length.Equals(11) && !customer.CNPJ.IsCPF())
+                    return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
+
+                if (customer.CNPJ.Length.Equals(14) && !customer.CNPJ.IsCNPJ())
+                    return Json(new { Success = false, errorMessage = "CNPJ inválido." }, JsonRequestBehavior.AllowGet);
+            }
 
             if (customer.Id.Equals(0))
                 _customerFacade.Insert(customer, out errorMessage);
