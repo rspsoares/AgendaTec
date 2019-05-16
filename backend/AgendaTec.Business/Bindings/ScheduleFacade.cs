@@ -284,7 +284,7 @@ namespace AgendaTec.Business.Bindings
                             current.Date,
                             current.Date.AddMinutes(current.Time));
 
-                        if (timeRangeCurrent.OverlapsWith(timeRangeNewSchedule))
+                        if (timeRangeCurrent.OverlapsWith(timeRangeNewSchedule) && availabilityCheck.Length.Equals(0))
                         {
                             availabilityCheck.AppendLine(
                                 $"Já existe um horário marcado para o funcionário {currentSchedules.First().TCGProfessionals.Name} " +

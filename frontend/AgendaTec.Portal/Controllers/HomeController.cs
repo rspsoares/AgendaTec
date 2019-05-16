@@ -1,8 +1,7 @@
 ﻿using System.Web.Mvc;
 
 namespace AgendaTec.Portal.Controllers
-{
-    [RequireHttps]
+{    
     [Authorize]
     public class HomeController : Controller
     {

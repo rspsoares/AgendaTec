@@ -144,7 +144,7 @@ namespace AgendaTec.Business.Bindings
                 roles = _rolesRepository.GetAll();
 
                 if (!userGroup.Equals(EnUserType.Administrator))
-                    roles = roles.Where(x => !x.Id.Equals((int)EnUserType.Administrator)).ToList();
+                    roles = roles.Where(x => !int.Parse(x.Id).Equals((int)EnUserType.Administrator)).ToList();
             }
             catch (Exception ex)
             {
@@ -158,7 +158,7 @@ namespace AgendaTec.Business.Bindings
                      IdRole = x.Id,
                      RoleDescription = x.Name,
                  })
-                 .OrderBy(x => x.RoleDescription)
+                 .OrderBy(x => x.IdRole)
                  .ToList();
         }
 

@@ -200,7 +200,7 @@
                 <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
                     <span class="glyphicon glyphicon-remove"></span> Cancelar
                 </button>
-                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveAppointment(); }">
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveAppointment_click(); }">
                     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
                 </button>
             </div>
@@ -272,3 +272,28 @@
         </div>
     </div>
 </div>
+
+<div id="modalOverlapConfirmation" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong>Confirmação de sobreposição de agendamento (encaixe)</strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group" style="font-weight:bold; margin-left:10px"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
+                    <span class="glyphicon glyphicon-remove"></span> Não
+                </button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveAppointment(); }">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Sim
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    

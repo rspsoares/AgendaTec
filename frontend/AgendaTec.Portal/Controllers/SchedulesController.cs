@@ -53,7 +53,7 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveAppointment(ScheduleDTO schedule)
+        public JsonResult CheckAvailability(ScheduleDTO schedule)
         {
             var schedules = new List<ScheduleDTO>
             {
@@ -64,8 +64,18 @@ namespace AgendaTec.Portal.Controllers
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao verificar a disponibilidade da agenda." }, JsonRequestBehavior.AllowGet);
 
-            if (!string.IsNullOrEmpty(availabilityCheck))
-                return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveAppointment(ScheduleDTO schedule)
+        {
+            var errorMessage = string.Empty;
+
+            var schedules = new List<ScheduleDTO>
+            {
+                schedule
+            };
 
             if (schedule.Id.Equals(0))
                 _scheduleFacade.Insert(schedule, out errorMessage);

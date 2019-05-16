@@ -453,17 +453,37 @@ function AppointmentEdit(e) {
     $("#loading-page").hide();
 }
 
-function SaveAppointment() {
-    var schedule = [];
-
+function SaveAppointment_click() {
     var errorMessages = ValidateRequiredFields();
 
     if (errorMessages !== '') {
         ShowModalAlert(errorMessages);
         return;
     }
-    
-    schedule = {
+
+    var appointment = GetAppointment();
+
+    $.ajax({
+        url: '/Schedules/CheckAvailability',
+        data: JSON.stringify({ schedule: appointment }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            if (result.Success && result.errorMessage !== '') {                                
+                result.errorMessage = result.errorMessage + '<br />' + 'Deseja continuar?';
+                
+                $('#modalOverlapConfirmation').modal({ backdrop: 'static', keyboard: false });                
+                $('#modalOverlapConfirmation .modal-dialog .modal-body .row .form-group').html(result.errorMessage);
+            }
+            else 
+                ShowModalAlert("Erro ao verificar disponibilidade.");                            
+        }
+    });    
+}
+
+function GetAppointment() {
+    var schedule = {
         Id: parseInt($("#hiddenId").val()),
         IdCustomer: $("#ddlCustomer").val(),
         IdProfessional: $("#ddlProfessional").val(),
@@ -472,14 +492,24 @@ function SaveAppointment() {
         Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
         Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: $("#txtTime").val(),
-        Bonus: $('#chkBonus').bootstrapSwitch('state')        
+        Bonus: $('#chkBonus').bootstrapSwitch('state')
     };
+
+    return schedule;
+
+}
+
+function SaveAppointment() {    
+
+    $('#modalOverlapConfirmation').modal("hide");
+
+    var appointment = GetAppointment();
 
     $("#loading-page").show();
 
     $.ajax({
         url: '/Schedules/SaveAppointment',
-        data: JSON.stringify({ schedule: schedule }),
+        data: JSON.stringify({ schedule: appointment }),
         type: 'POST',
         async: false,
         contentType: 'application/json; charset=utf-8',
