@@ -132,7 +132,7 @@ namespace AgendaTec.Business.Bindings
             return hours;
         }
 
-        private List<DateTime> GetPossibleTimes(CustomerDTO customer, ServiceDTO service, DateTime date)
+        public List<DateTime> GetPossibleTimes(CustomerDTO customer, ServiceDTO service, DateTime date)
         {
             var possibleHours = new List<DateTime>();            
             var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.End.ToString("HH")), int.Parse(customer.End.ToString("mm")), 0);

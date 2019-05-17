@@ -213,7 +213,7 @@ namespace AgendaTec.Business.Bindings
                      Id = x.Id,
                      FullName = $"{x.FirstName} {x.LastName}"
                  })
-                 .OrderBy(x => x.RoleDescription)
+                 .OrderBy(x => x.FullName)
                  .ToList();
         }
 

@@ -25,6 +25,7 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetGrid(string idCustomer, string idProfessional, string idService, string idConsumer, string dateFrom, string dateTo, string bonus)
         {
+            var result = new JsonResult();
             var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
             var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
@@ -36,9 +37,13 @@ namespace AgendaTec.Portal.Controllers
             var schedules = _scheduleFacade.GetGrid(customer, professional, service, consumer, dateInitial, dateFinal, bonusCheck, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter as agendas." }, JsonRequestBehavior.AllowGet);
+                result = Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter as agendas." }, JsonRequestBehavior.AllowGet);
             else
-                return Json(new { Success = true, Data = schedules, Total = schedules.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+                result = Json(new { Success = true, Data = schedules, Total = schedules.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+
+            result.MaxJsonLength = int.MaxValue;
+
+            return result;
         }
 
         [HttpGet]
