@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
@@ -60,6 +61,7 @@ namespace AgendaTec.Business.Bindings
                     LastName = x.LastName,
                     FullName = $"{x.FirstName} {x.LastName}",
                     Email = x.Email,
+                    Phone = x.PhoneNumber,
                     IdRole = x.AspNetRoles.Id,
                     RoleDescription = x.AspNetRoles.Name,
                     IDCustomer = x.TCGCustomers?.IDCustomer ?? 0,
@@ -88,6 +90,7 @@ namespace AgendaTec.Business.Bindings
                     LastName = result.LastName,
                     FullName = $"{result.FirstName} {result.LastName}",
                     Email = result.Email,
+                    Phone = result.PhoneNumber,
                     IdRole = result.AspNetRoles.Id,
                     RoleDescription = result.AspNetRoles.Name,
                     IDCustomer = result.TCGCustomers?.IDCustomer ?? 0,
@@ -259,6 +262,7 @@ namespace AgendaTec.Business.Bindings
                 user.IdRole = e.IdRole;
                 user.IdCustomer = e.IDCustomer;
                 user.Email = e.Email;
+                user.PhoneNumber = e.Phone.CleanMask();
                 user.IsEnabled = e.IsEnabled;
 
                 _commonRepository.Update(e.Id, user);

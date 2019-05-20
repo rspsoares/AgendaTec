@@ -16,6 +16,8 @@
         LoadUsers();
     });
 
+    $("#txtPhone").mask("(99) 9.9999-9999");
+
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
     LoadCombo("/Users/GetRoleCombo", ['#ddlRoleFilter', '#ddlRole'], "IdRole", "RoleDescription", false);
 
@@ -100,6 +102,7 @@ function CleanFields(loadFilterCombos) {
     $("#txtFirstName").val("");
     $("#txtLastName").val("");
     $("#txtEmail").val("");
+    $("#txtPhone").val("");
 
     if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos)
         $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
@@ -132,9 +135,10 @@ function UserEdit(e) {
         success: function (result) {
             if (result.Success) {
                 $("#hiddenId").val(result.Data.Id);
-                $("#txtFirstName").val(result.Data.FirstName);                
+                $("#txtFirstName").val(result.Data.FirstName);
                 $("#txtLastName").val(result.Data.LastName);
                 $("#txtEmail").val(result.Data.Email);
+                $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
                 $("#ddlRole").data('kendoDropDownList').value(result.Data.IdRole);
                 $('#chkIsEnabled').bootstrapSwitch('state', result.Data.IsEnabled);
@@ -170,6 +174,7 @@ function SaveUser() {
         FirstName: $("#txtFirstName").val(),
         LastName: $("#txtLastName").val(),
         Email: $("#txtEmail").val(),
+        Phone: $("#txtPhone").val(),
         IDCustomer: $("#ddlCustomer").val(),
         IdRole: $("#ddlRole").val(),
         IsEnabled: $('#chkIsEnabled').bootstrapSwitch('state')
@@ -210,6 +215,9 @@ function ValidateRequiredFields() {
             errorMessage += 'E-mail inválido' + '<br/>';
     }
 
+    if ($("#txtPhone").val() === '')
+        errorMessage += 'Favor informar o Celular' + '<br/>';
+
     if ($("#ddlCustomer").val() === '')
         errorMessage += 'Favor informar o Cliente' + '<br/>';
 
@@ -240,6 +248,7 @@ function CheckUserIsConsumer(idRole) {
 function LockFields(lock) {
     $("#txtName").prop('disabled', lock);    
     $("#txtEmail").prop('disabled', lock);
+    $("#txtPhone").prop('disabled', lock);
     $("#ddlCustomer").data("kendoDropDownList").enable(!lock);
     $("#ddlRole").data("kendoDropDownList").enable(!lock);    
 }

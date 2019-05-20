@@ -81,6 +81,10 @@ namespace AgendaTec.Client.Models
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
+        [Required]        
+        [Display(Name = "Celular")]
+        public string Phone { get; set; }
+
         [Required]
         [StringLength(20, ErrorMessage = "A senha deve ter no mínimo {2} caracteres de comprimento.", MinimumLength = 6)]
         [DataType(DataType.Password)]

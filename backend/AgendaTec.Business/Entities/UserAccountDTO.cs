@@ -8,6 +8,7 @@
         public string LastName { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
         public bool IsEnabled { get; set; }
         public string IdRole { get; set; }       
         public string RoleDescription { get; set; }

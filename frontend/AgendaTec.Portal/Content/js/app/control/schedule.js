@@ -225,6 +225,7 @@ function LoadSchedules() {
             },            
             pageSize: 10
         },       
+        scrollable: true,
         groupable: true,
         sortable: true,
         reorderable: true,

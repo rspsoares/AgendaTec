@@ -1955,10 +1955,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\Popup.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Menu\" />
-    <Folder Include="Views\Roles\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

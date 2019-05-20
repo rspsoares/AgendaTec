@@ -103,6 +103,7 @@ namespace AgendaTec.Business.Helpers
                 character != ')' &&
                 character != '.' &&
                 character != '-' &&
+                character != ' ' &&
                 character != '/').Aggregate(string.Empty, (current, character) => current + character);
         }
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AgendaTec.Portal.Helper;
+using AgendaTec.Business.Helpers;
 
 namespace AgendaTec.Portal.Controllers
 {
@@ -83,6 +84,7 @@ namespace AgendaTec.Portal.Controllers
                     LastName = userDTO.LastName,
                     UserName = userDTO.Email,
                     Email = userDTO.Email,
+                    PhoneNumber = userDTO.Phone.CleanMask(),
                     IsEnabled = userDTO.IsEnabled
                 };
 

@@ -29,6 +29,7 @@
     <script type='text/javascript'>
         $(function () {           
             $('#txtCPF').mask('999.999.999-99');
+            $('#txtPhone').mask("(99) 9.9999-9999");
         });
     </script>
 
@@ -79,9 +80,15 @@
                                 @Html.DisplayNameFor(c => c.Email)
                                 @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox", @maxlength = "50" })
                             </div>
+
+                            <div class="form-group">
+                                @Html.DisplayNameFor(c => c.Phone)
+                                @Html.TextBoxFor(c => c.Phone, new { @id = "txtPhone", @style = "width: 100%;", @class = "k-textbox", @maxlength = "50" })
+                            </div>
+
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.Password)
-                                @Html.PasswordFor(c => c.Password, new { @id = "txtPassword", @style = "width: 100%;", @class = "k-textbox", @maxlength = "20" })
+                                @Html.PasswordFor(c => c.Password, new { @id = "txtPassword", @style = "width: 100%;", @class = "k-textbox", @maxlength = "30" })
                             </div>
                             <div class="form-group">
                                 @Html.DisplayNameFor(c => c.ConfirmPassword)

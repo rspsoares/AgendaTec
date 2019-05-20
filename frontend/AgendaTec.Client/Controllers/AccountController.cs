@@ -161,6 +161,7 @@ namespace AgendaTec.Client.Controllers
                         CPF = model.CPF.CleanMask(),
                         UserName = model.Email,
                         Email = model.Email,
+                        PhoneNumber = model.Phone.CleanMask(),
                         IsEnabled = true
                     };
 
