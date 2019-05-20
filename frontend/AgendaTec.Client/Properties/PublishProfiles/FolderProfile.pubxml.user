@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/16/2019 11:21:27</publishTime>
+      <publishTime>05/20/2019 10:09:29</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/16/2019 11:21:27</publishTime>
+      <publishTime>05/20/2019 10:09:29</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/16/2019 11:21:26</publishTime>
+      <publishTime>05/20/2019 09:14:43</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/09/2019 12:44:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/16/2019 11:21:26</publishTime>
+      <publishTime>05/20/2019 09:14:43</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/16/2019 15:25:21</publishTime>
+      <publishTime>05/20/2019 10:29:04</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/16/2019 15:25:21</publishTime>
+      <publishTime>05/20/2019 10:29:04</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -5509,7 +5509,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 12:49:18</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>05/16/2019 15:24:03</publishTime>
+      <publishTime>05/20/2019 10:26:43</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>05/09/2019 11:18:14</publishTime>
@@ -5527,13 +5527,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:15</publishTime>
     </File>
     <File Include="Views/Client/Index.cshtml">
-      <publishTime>05/16/2019 11:23:28</publishTime>
+      <publishTime>05/20/2019 11:22:59</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
       <publishTime>05/03/2019 14:34:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/09/2019 11:18:14</publishTime>
+      <publishTime>05/20/2019 11:23:24</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>05/09/2019 11:18:14</publishTime>
@@ -5587,7 +5587,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/16/2019 15:25:22</publishTime>
+      <publishTime>05/20/2019 11:25:18</publishTime>
     </File>
   </ItemGroup>
 </Project>

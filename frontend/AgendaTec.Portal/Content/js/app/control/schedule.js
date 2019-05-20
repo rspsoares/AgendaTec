@@ -224,14 +224,20 @@ function LoadSchedules() {
                 }
             },            
             pageSize: 10
-        },       
-        scrollable: true,
-        groupable: true,
-        sortable: true,
+        },        
+        groupable: true,        
         reorderable: true,
-        resizable: true,        
-        selectable: "multiple",
         change: onChange,
+        scrollable: true,
+        resizable: true,
+        sortable: true,
+        selectable: "multiple",
+        dataBound: function (e) {
+            var grid = this;
+            grid.tbody.find("tr").dblclick(function (e) {                                
+                AppointmentEdit(undefined, grid.dataItem(this));                
+            });
+        },
         pageable: {
             pageSizes: [10, 25, 50]
         },
@@ -241,12 +247,12 @@ function LoadSchedules() {
             { field: "Time", hidden: true },
             { field: "Price", hidden: true },
             { field: "ProfessionalName", title: "Profissional", width: "20%" },
-            { field: "ServiceName", title: "Serviço", width: "15%" },
+            //{ field: "ServiceName", title: "Serviço", width: "15%" },
             { field: "ConsumerName", title: "Cliente", width: "20%" },
             { field: "Date", title: "Data", width: "15%" },
             { field: "Hour", title: "Início", width: "15%" },
             { field: "Finish", title: "Término", width: "15%" },
-            { field: "Bonus", title: "Bônus", width: "10%", template: "#:BonusDescription(Bonus)#" },
+            //{ field: "Bonus", title: "Bônus", width: "10%", template: "#:BonusDescription(Bonus)#" },
             {
                 title: " ",
                 template: "<a onclick='javascript:{AppointmentEdit(this);}' class='k-button'>"
@@ -413,8 +419,14 @@ function CleanFields(loadFilterCombos) {
     $('#chkBonus').bootstrapSwitch('state', true);
 }
 
-function AppointmentEdit(e) {
-    var dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
+function AppointmentEdit(e, selectedRow) {
+    var dataItem;
+
+    if (selectedRow === undefined)
+        dataItem = $("#grid").data("kendoGrid").dataItem(e.parentElement.parentElement);
+    else 
+        dataItem = selectedRow;
+    
     $("#loading-page").show();
 
     CleanFields(false);

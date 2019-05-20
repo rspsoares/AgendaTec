@@ -4,6 +4,9 @@
     <!-- META TAGS -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     @Styles.Render("~/Content/css")
 
@@ -18,6 +21,7 @@
         $(document).ready(function () {
             PageSetup();
         });
+
     </script>
 </head>
 <body>
@@ -48,38 +52,34 @@
             }
         </div>
 
-        <div class='some-page-wrapper'>
-            <div class='row'>
-                <div class='column'>
-                    <div class='left-column'>
-                        <div>
-                            <h4>Passo 1: Selecione o serviço</h4>
-                            <div id="listService" style="height: 100px; overflow: auto"></div>
-                        </div>
-                        <div>
-                            <h4>Passo 2: Selecione o profissional</h4>
-                            <div id="listProfessional" style="height: 100px; overflow: auto"></div>
-                        </div>
+        <div class="container">
+            
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div>
+                        <h4>Passo 1: Selecione o serviço</h4>
+                        <div id="listService" style="height: 100px; overflow: auto"></div>
+                    </div>
+                    <div>
+                        <h4>Passo 2: Selecione o profissional</h4>
+                        <div id="listProfessional" style="height: 100px; overflow: auto"></div>
                     </div>
                 </div>
-                <div class='column'>
-                    <div class='center-column'>
-                        <h4>Passo 3: Selecione o dia</h4>
-                        <div id="calendar" style="width: 100%; height:100%; text-align:center"></div>
-                    </div>
+                <div class="col-sm-4">
+                    <h4>Passo 3: Selecione o dia</h4>
+                    <div id="calendar" style="width: 100%; height:100%; text-align:center"></div>
                 </div>
-                <div class='column'>
-                    <div class='right-column'>
-                        <div>
-                            <h4>Passo 4: Selecione o horário</h4>
-                            <div id="listHours" style="height: 200px; overflow: auto"></div>
-                        </div>
-                        <br />
-                        <div style="text-align:right">
-                            <button type="button" id="btnSaveAppointment" class="btn btn-primary btn-xs">
-                                <span class="glyphicon glyphicon-floppy-disk"></span> Confirmar
-                            </button>
-                        </div>
+                <div class="col-sm-4">
+                    <div>
+                        <h4>Passo 4: Selecione o horário</h4>
+                        <div id="listHours" style="height: 200px; overflow: auto"></div>
+                    </div>
+                    <br />
+                    <div style="text-align:right">
+                        <button type="button" id="btnSaveAppointment" class="btn btn-primary btn-xs">
+                            <span class="glyphicon glyphicon-floppy-disk"></span> Confirmar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,6 @@
     </div>
 </body>
 </html>
-
 
 <div id="modalAlert" class="modal fade">
     <div class="modal-dialog modal-sm">
