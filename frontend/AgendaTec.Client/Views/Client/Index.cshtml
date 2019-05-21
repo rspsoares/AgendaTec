@@ -1,100 +1,22 @@
-﻿@*<!DOCTYPE html>
-    <html class="no-js" lang="pt-br" id="htmlpage" ng-app>
-    <head>
-        <title>Just a simple test ;-)</title>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        @Styles.Render("~/Content/css")
-    </head>
-    <body>
-        <h1>Site do cliente</h1>
-        <hr />
-
-        <h2>Agende seu horário</h2>
-        <br />
-
-        <div class="embed-responsive embed-responsive-16by9">
-            <iframe class="embed-responsive-item" src="http://191.252.2.112:91/?customerKey=AA5CBEEC-1EE5-431D-AA1C-C9239F5821FA"></iframe>
-        </div>
-    </body>
-    </html>*@
-
-
-
-
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html class="no-js" lang="pt-br" id="htmlpage" ng-app>
 <head>
-    <base href="https://demos.telerik.com/kendo-ui/grid/checkbox-selection">
-    <style>
-        html {
-            font-size: 14px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    </style>
-    <title></title>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.514/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.514/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.2.514/styles/kendo.material.mobile.min.css" />
-
-    <script src="https://kendo.cdn.telerik.com/2019.2.514/js/jquery.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2019.2.514/js/kendo.all.min.js"></script>
-
-
-    @*<link rel="stylesheet" href="../content/shared/styles/examples-offline.css">
-    <script src="../content/shared/js/console.js"></script>*@
+    <title>Just a simple test ;-)</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
 </head>
 <body>
-    <div id="example">
-        <div id="grid"></div>
+    <h1>Site do cliente</h1>
+    <hr />
 
-        <script>
-                function onChange(arg) {
-                    kendoConsole.log("The selected product ids are: [" + this.selectedKeyNames().join(", ") + "]");
-                }
+    <h2>Agende seu horário</h2>
+    <br />
 
-                $(document).ready(function () {
-                    $("#grid").kendoGrid({
-                        dataSource: {
-                            pageSize: 10,
-                            transport: {
-                                read:  {
-                                    url: "https://demos.telerik.com/kendo-ui/service/Products",
-                                    dataType: "jsonp"
-                                }
-                            },
-                            schema: {
-                                model: {
-                                    id: "ProductID"
-                                }
-                            }
-                        },
-                        pageable: true,
-                        scrollable: false,
-                        persistSelection: true,
-                        sortable: true,
-                        change: onChange,
-                        columns: [
-                            { selectable: true, width: "50px" },
-                            { field:"ProductName", title: "Product Name" },
-                            { field: "UnitPrice", title:"Unit Price", format: "{0:c}"},
-                            { field: "UnitsInStock", title:"Units In Stock"},
-                            { field: "Discontinued"}]
-                    });
-                });
-        </script>
-        <div class="box wide">
-            <h4>Console log</h4>
-            <div class="console"></div>
-        </div>
-        <style>
-            .console div {
-                height: 3.3em;
-            }
-        </style>
+    <div class="embed-responsive embed-responsive-16by9">
+        <iframe class="embed-responsive-item" src="http://191.252.2.112:91/?customerKey=AA5CBEEC-1EE5-431D-AA1C-C9239F5821FA"></iframe>
     </div>
-
-
 </body>
 </html>
+

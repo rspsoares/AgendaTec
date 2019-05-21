@@ -8,7 +8,8 @@ namespace AgendaTec.Portal
         {
             /* -- SCRIPTS -- */
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                  "~/Content/jquery/jquery-2.2.4.min.js",
+                  //"~/Content/jquery/jquery-2.2.4.min.js",                  
+                  "~/Content/jquery/jquery-1.12.4.min.js",
                   "~/Content/jquery/jquery-treeview.min.js",
                   "~/Content/jquery/jquery.PrintArea.min.js",
                   "~/Content/jquery/jquery.maskedinput.min.js",
@@ -44,7 +45,7 @@ namespace AgendaTec.Portal
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/kendo-ui/styles/web/kendo.common.min.css",
                 "~/Content/kendo-ui/styles/web/kendo.blueopal.min.css",
-                "~/Content/kendo-ui/styles/web/kendo.mobile.all.css",
+                "~/Content/kendo-ui/styles/web/kendo.blueopal.mobile.all.css",
                 "~/Content/bootstrap/css/bootstrap.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",
                 "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",

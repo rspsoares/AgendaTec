@@ -245,6 +245,7 @@
     <Content Include="Content\jqueryvalidate\jquery.validate.min.js" />
     <Content Include="Content\jqueryvalidate\messages_pt_BR.js" />
     <Content Include="Content\jqueryvalidate\messages_pt_BR.min.js" />
+    <Content Include="Content\jQuery\jquery-1.12.4.min.js" />
     <Content Include="Content\jQuery\jquery-2.2.4.min.js" />
     <Content Include="Content\jQuery\jquery-treeview.js" />
     <Content Include="Content\jQuery\jquery-treeview.min.js" />
@@ -1868,6 +1869,7 @@
     <Content Include="Content\plugins\jquery-ui\README.md" />
     <Content Include="Content\plugins\jquery-ui\sizzle\dist\sizzle.min.map" />
     <Content Include="Content\plugins\jquery-ui\ui\.jshintrc" />
+    <Content Include="Content\kendo-ui\styles\web\fonts\glyphs\WebComponentsIcons.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

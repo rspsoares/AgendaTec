@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/20/2019 10:09:29</publishTime>
+      <publishTime>05/21/2019 07:59:18</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/20/2019 10:09:29</publishTime>
+      <publishTime>05/21/2019 07:59:18</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/20/2019 09:14:43</publishTime>
+      <publishTime>05/21/2019 07:26:00</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/09/2019 12:44:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/20/2019 09:14:43</publishTime>
+      <publishTime>05/21/2019 07:26:00</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/20/2019 10:29:04</publishTime>
+      <publishTime>05/21/2019 08:02:38</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/20/2019 10:29:04</publishTime>
+      <publishTime>05/21/2019 08:02:38</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -527,6 +527,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/images/layout/logo-mosaic.png">
       <publishTime>04/29/2019 11:20:09</publishTime>
+    </File>
+    <File Include="Content/jQuery/jquery-1.12.4.min.js">
+      <publishTime>05/20/2019 16:42:41</publishTime>
     </File>
     <File Include="Content/jQuery/jquery-2.2.4.min.js">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -1705,7 +1708,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:12</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/kendo.all.min.js">
-      <publishTime>04/29/2019 11:20:12</publishTime>
+      <publishTime>05/20/2019 16:28:40</publishTime>
     </File>
     <File Include="Content/kendo-ui/js/kendo.all.min.js.map">
       <publishTime>04/29/2019 11:20:12</publishTime>
@@ -3291,6 +3294,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/kendo-ui/styles/web/fonts/glyphs/KendoUIGlyphs.woff">
       <publishTime>04/29/2019 11:20:16</publishTime>
     </File>
+    <File Include="Content/kendo-ui/styles/web/fonts/glyphs/WebComponentsIcons.ttf">
+      <publishTime>05/20/2019 16:46:20</publishTime>
+    </File>
     <File Include="Content/kendo-ui/styles/web/HighContrast/editor.png">
       <publishTime>04/29/2019 11:20:16</publishTime>
     </File>
@@ -3364,13 +3370,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:16</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.blueopal.min.css">
-      <publishTime>04/29/2019 11:20:16</publishTime>
+      <publishTime>05/20/2019 16:29:38</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.blueopal.min.css.map">
       <publishTime>04/29/2019 11:20:16</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.blueopal.mobile.min.css">
-      <publishTime>04/29/2019 11:20:16</publishTime>
+      <publishTime>05/20/2019 16:30:30</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.blueopal.mobile.min.css.map">
       <publishTime>04/29/2019 11:20:16</publishTime>
@@ -3442,7 +3448,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:16</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.common.min.css">
-      <publishTime>04/29/2019 11:20:16</publishTime>
+      <publishTime>05/20/2019 16:29:18</publishTime>
     </File>
     <File Include="Content/kendo-ui/styles/web/kendo.common.min.css.map">
       <publishTime>04/29/2019 11:20:16</publishTime>
@@ -5527,13 +5533,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:15</publishTime>
     </File>
     <File Include="Views/Client/Index.cshtml">
-      <publishTime>05/20/2019 11:22:59</publishTime>
+      <publishTime>05/20/2019 17:17:25</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
       <publishTime>05/03/2019 14:34:30</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/20/2019 11:23:24</publishTime>
+      <publishTime>05/21/2019 08:02:34</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>05/09/2019 11:18:14</publishTime>
@@ -5587,7 +5593,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/20/2019 11:25:18</publishTime>
+      <publishTime>05/21/2019 08:05:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

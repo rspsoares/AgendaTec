@@ -122,7 +122,6 @@ namespace AgendaTec.Portal.Controllers
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpGet]
         public JsonResult GetTodaysAppointments()
         {
