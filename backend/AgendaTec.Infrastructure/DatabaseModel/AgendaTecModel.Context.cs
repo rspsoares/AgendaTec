@@ -34,5 +34,6 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public virtual DbSet<TSchedules> TSchedules { get; set; }
         public virtual DbSet<TCGCustomers> TCGCustomers { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<TDirectMailing> TDirectMailing { get; set; }
     }
 }

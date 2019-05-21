@@ -1,5 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace AgendaTec.Business.Helpers
 {
@@ -105,6 +108,48 @@ namespace AgendaTec.Business.Helpers
                 character != '-' &&
                 character != ' ' &&
                 character != '/').Aggregate(string.Empty, (current, character) => current + character);
+        }
+
+        public static string ToUnsecureString(this SecureString securePassword)
+        {
+            if (securePassword == null)
+                throw new ArgumentNullException("Please, inform the Secure Password");
+
+            var unmanagedString = IntPtr.Zero;
+
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(securePassword);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
+        }
+
+        public static SecureString ToSecureString(this string plainPassword)
+        {
+            var secureString = new SecureString();
+
+            foreach (var c in plainPassword.ToCharArray())
+                secureString.AppendChar(c);
+
+            secureString.MakeReadOnly();
+
+            return secureString;
+        }
+
+        public static SecureString ToSecureString(this char[] charArray)
+        {
+            var secureString = new SecureString();
+
+            foreach (var c in charArray)
+                secureString.AppendChar(c);
+
+            secureString.MakeReadOnly();
+
+            return secureString;
         }
     }
 }

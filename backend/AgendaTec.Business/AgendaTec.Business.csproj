@@ -57,29 +57,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bindings\CustomerFacade.cs" />
+    <Compile Include="Bindings\DirectMailingFacade.cs" />
     <Compile Include="Bindings\ProfessionalFacade.cs" />
     <Compile Include="Bindings\ScheduleFacade.cs" />
     <Compile Include="Bindings\ServiceFacade.cs" />
     <Compile Include="Bindings\UserFacade.cs" />
     <Compile Include="Contracts\ICustomerFacade.cs" />
+    <Compile Include="Contracts\IDirectMailingFacade.cs" />
     <Compile Include="Contracts\IProfessionalFacade.cs" />
     <Compile Include="Contracts\IScheduleFacade.cs" />
     <Compile Include="Contracts\IServiceFacade.cs" />
     <Compile Include="Contracts\IUserFacade.cs" />
     <Compile Include="Entities\AppointmentDTO.cs" />
     <Compile Include="Entities\CustomerDTO.cs" />
+    <Compile Include="Entities\DirectMailingDTO.cs" />
+    <Compile Include="Entities\EnMailingIntervalType.cs" />
     <Compile Include="Entities\EnUserType.cs" />
     <Compile Include="Entities\ProfessionalDTO.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />
     <Compile Include="Entities\ServiceDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
     <Compile Include="Helpers\ProfilesHelper.cs" />
+    <Compile Include="Helpers\SecurityHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Profiles\CustomerProfile.cs" />
+    <Compile Include="Profiles\DirectMailingProfile.cs" />
     <Compile Include="Profiles\ProfessionalProfile.cs" />
     <Compile Include="Profiles\ScheduleProfile.cs" />
     <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">
@@ -95,6 +106,12 @@
       <Project>{70425dfa-3c43-4928-909b-b055e90c2ff9}</Project>
       <Name>AgendaTec.Infrastructure</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

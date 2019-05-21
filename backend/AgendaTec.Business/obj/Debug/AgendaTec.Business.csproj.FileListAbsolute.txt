@@ -11,6 +11,8 @@ C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapp
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\NLog.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csprojAssemblyReference.cache
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.Properties.Resources.resources
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.GenerateResource.cache
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.CoreCompileInputs.cache
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.CopyComplete
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.dll

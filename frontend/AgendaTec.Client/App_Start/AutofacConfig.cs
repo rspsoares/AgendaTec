@@ -19,6 +19,7 @@ namespace AgendaTec.Client.App_Start
             builder.RegisterType<ProfessionalFacade>().As<IProfessionalFacade>().InstancePerLifetimeScope();
             builder.RegisterType<UserFacade>().As<IUserFacade>().InstancePerLifetimeScope();
             builder.RegisterType<ScheduleFacade>().As<IScheduleFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<DirectMailingFacade>().As<IDirectMailingFacade>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

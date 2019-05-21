@@ -72,6 +72,7 @@
     <Compile Include="ProfessionalTest.cs" />
     <Compile Include="ScheduleTest.cs" />
     <Compile Include="StressTest.cs" />
+    <Compile Include="DirectMailingTest.cs" />
     <Compile Include="UserTest.cs" />
   </ItemGroup>
   <ItemGroup>

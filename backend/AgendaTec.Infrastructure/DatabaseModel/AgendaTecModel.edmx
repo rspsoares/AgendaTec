@@ -100,6 +100,19 @@
           <Property Name="Price" Type="decimal" Precision="15" Scale="2" Nullable="false" />
           <Property Name="Time" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="TDirectMailing">
+          <Key>
+            <PropertyRef Name="IDMail" />
+          </Key>
+          <Property Name="IDMail" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDCustomer" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BodyContent" Type="varchar(max)" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="LastProcessed" Type="datetime" Nullable="false" />
+          <Property Name="IntervalType" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="TSchedules">
           <Key>
             <PropertyRef Name="IDSchedule" />
@@ -216,6 +229,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TDirectMailing_TCGCustomers">
+          <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
+          <End Role="TDirectMailing" Type="Self.TDirectMailing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TDirectMailing">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TSchedule_TCGCustomers">
           <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
           <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
@@ -273,6 +298,7 @@
           <EntitySet Name="TCGCustomers" EntityType="Self.TCGCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGProfessionals" EntityType="Self.TCGProfessionals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGServices" EntityType="Self.TCGServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TDirectMailing" EntityType="Self.TDirectMailing" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TSchedules" EntityType="Self.TSchedules" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUsers_AspNetRoles" Association="Self.FK_AspNetUsers_AspNetRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -305,6 +331,10 @@
           <AssociationSet Name="FK_TCGServices_TCGCustomers" Association="Self.FK_TCGServices_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGServices" EntitySet="TCGServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TDirectMailing_TCGCustomers" Association="Self.FK_TDirectMailing_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TDirectMailing" EntitySet="TDirectMailing" />
           </AssociationSet>
           <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="Self.FK_TSchedule_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
@@ -384,6 +414,11 @@
           <AssociationSet Name="FK_TSchedules_AspNetUsers" Association="AgendaTecModel.FK_TSchedules_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <EntitySet Name="TDirectMailing" EntityType="AgendaTecModel.TDirectMailing" />
+          <AssociationSet Name="FK_TDirectMailing_TCGCustomers" Association="AgendaTecModel.FK_TDirectMailing_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TDirectMailing" EntitySet="TDirectMailing" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="AspNetRoles">
@@ -527,6 +562,7 @@
           <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
           <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="TCGCustomers" ToRole="AspNetUsers" />
+          <NavigationProperty Name="TDirectMailing" Relationship="AgendaTecModel.FK_TDirectMailing_TCGCustomers" FromRole="TCGCustomers" ToRole="TDirectMailing" />
         </EntityType>
         <Association Name="FK_TCGProfessionals_TCGCustomers">
           <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
@@ -669,6 +705,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TDirectMailing">
+          <Key>
+            <PropertyRef Name="IDMail" />
+          </Key>
+          <Property Name="IDMail" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDCustomer" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BodyContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastProcessed" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IntervalType" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TDirectMailing_TCGCustomers" FromRole="TDirectMailing" ToRole="TCGCustomers" />
+        </EntityType>
+        <Association Name="FK_TDirectMailing_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.TDirectMailing" Role="TDirectMailing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TDirectMailing">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -787,6 +849,20 @@
                 <ScalarProperty Name="IdCustomer" ColumnName="IdCustomer" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TDirectMailing">
+            <EntityTypeMapping TypeName="AgendaTecModel.TDirectMailing">
+              <MappingFragment StoreEntitySet="TDirectMailing">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="IntervalType" ColumnName="IntervalType" />
+                <ScalarProperty Name="LastProcessed" ColumnName="LastProcessed" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
+                <ScalarProperty Name="IDMail" ColumnName="IDMail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
