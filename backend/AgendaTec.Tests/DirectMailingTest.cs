@@ -11,11 +11,11 @@ namespace AgendaTec.Tests
     [TestClass]
     public class DirectMailingTest
     {
-        private readonly IDirectMailingFacade _directMailingRepository;
+        private readonly IDirectMailFacade _directMailingRepository;
 
         public DirectMailingTest()
         {
-            _directMailingRepository = new DirectMailingFacade();
+            _directMailingRepository = new DirectMailFacade();
         }
 
         [TestMethod]
@@ -23,14 +23,12 @@ namespace AgendaTec.Tests
         {
             ProfilesHelper.Initialize();
 
-            var fakeMail = new Faker<DirectMailingDTO>()
+            var fakeMail = new Faker<DirectMailDTO>()
                 .RuleFor(t => t.IdCustomer, f => 1)
                 .RuleFor(t => t.Description, f => f.Name.JobArea())
-                .RuleFor(t => t.Content, f => f.Lorem.Sentence(20))
-                .RuleFor(t => t.Start, f => f.Date.Past(20))
-                .RuleFor(t => t.Last, f => f.Date.Past(20))
-                .RuleFor(t => t.Interval, f => 1)
-                .RuleFor(t => t.Active, f => f.Random.Bool());
+                .RuleFor(t => t.Content, f => f.Lorem.Sentence(20))                
+                .RuleFor(t => t.IntervalType, f => 1)
+                .RuleFor(t => t.Resend, f => f.Random.Bool());
 
             var idDirectMail = _directMailingRepository.Insert(fakeMail, out string errorMessage).Id;
 

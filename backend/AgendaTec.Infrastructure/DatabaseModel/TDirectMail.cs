@@ -12,16 +12,15 @@ namespace AgendaTec.Infrastructure.DatabaseModel
     using System;
     using System.Collections.Generic;
     
-    public partial class TDirectMailing
+    public partial class TDirectMail
     {
         public int IDMail { get; set; }
         public int IDCustomer { get; set; }
         public string Description { get; set; }
         public string BodyContent { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime LastProcessed { get; set; }
+        public Nullable<System.DateTime> LastProcessed { get; set; }
         public int IntervalType { get; set; }
-        public bool Active { get; set; }
+        public bool Resend { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }
     }

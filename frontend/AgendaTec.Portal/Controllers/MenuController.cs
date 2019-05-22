@@ -72,7 +72,7 @@ namespace AgendaTec.Portal.Controllers
                 menu.AppendLine("</li>");
 
                 menu.AppendLine("<li>");
-                // menu.AppendLine("<a href='/MalaDireta' title='Mala Direta'>");
+                menu.AppendLine("<a href='/DirectMails' title='Mala Direta'>");
                 menu.AppendLine("<span class='item'>Mala Direta</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");

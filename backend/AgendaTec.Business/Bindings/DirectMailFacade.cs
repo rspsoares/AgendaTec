@@ -12,20 +12,20 @@ using System.Reflection;
 
 namespace AgendaTec.Business.Bindings
 {
-    public class DirectMailingFacade : IDirectMailingFacade
+    public class DirectMailFacade : IDirectMailFacade
     {
-        private readonly ICommonRepository<TDirectMailing> _commonRepository;
+        private readonly ICommonRepository<TDirectMail> _commonRepository;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
-        public DirectMailingFacade()
+        public DirectMailFacade()
         {
-            _commonRepository = new CommonRepository<TDirectMailing>();
+            _commonRepository = new CommonRepository<TDirectMail>();
         }
 
-        public List<DirectMailingDTO> GetGrid(int idCustomer, string description, out string errorMessage)
+        public List<DirectMailDTO> GetGrid(int idCustomer, string description, out string errorMessage)
         {
-            var result = new List<DirectMailingDTO>();
-            var mailings = new List<TDirectMailing>();
+            var result = new List<DirectMailDTO>();
+            var mailings = new List<TDirectMail>();
 
             errorMessage = string.Empty;
 
@@ -36,7 +36,7 @@ namespace AgendaTec.Business.Bindings
                 if (!string.IsNullOrEmpty(description))                    
                     mailings = _commonRepository.Filter(x => x.Description.Contains(description));
 
-                result = Mapper.Map<List<TDirectMailing>, List<DirectMailingDTO>>(mailings);
+                result = Mapper.Map<List<TDirectMail>, List<DirectMailDTO>>(mailings);
             }
             catch (Exception ex)
             {
@@ -47,16 +47,16 @@ namespace AgendaTec.Business.Bindings
             return result;            
         }
 
-        public DirectMailingDTO GetDirectMailingById(int idMailing, out string errorMessage)
+        public DirectMailDTO GetDirectMailingById(int idDirectMail, out string errorMessage)
         {
-            var mailing = new DirectMailingDTO();
+            var mailing = new DirectMailDTO();
 
             errorMessage = string.Empty;
 
             try
             {
-                var result = _commonRepository.GetById(idMailing);
-                mailing = Mapper.Map<TDirectMailing, DirectMailingDTO>(result);
+                var result = _commonRepository.GetById(idDirectMail);
+                mailing = Mapper.Map<TDirectMail, DirectMailDTO>(result);
             }
             catch (Exception ex)
             {
@@ -67,13 +67,13 @@ namespace AgendaTec.Business.Bindings
             return mailing;
         }
 
-        public DirectMailingDTO Insert(DirectMailingDTO e, out string errorMessage)
+        public DirectMailDTO Insert(DirectMailDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                var result = Mapper.Map<DirectMailingDTO, TDirectMailing>(e);
+                var result = Mapper.Map<DirectMailDTO, TDirectMail>(e);
                 result = _commonRepository.Insert(result);
                 e.Id = result.IDMail;
             }
@@ -86,13 +86,13 @@ namespace AgendaTec.Business.Bindings
             return e;
         }
 
-        public void Update(DirectMailingDTO e, out string errorMessage)
+        public void Update(DirectMailDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                var result = Mapper.Map<DirectMailingDTO, TDirectMailing>(e);
+                var result = Mapper.Map<DirectMailDTO, TDirectMail>(e);
                 _commonRepository.Update(result.IDMail, result);
             }
             catch (Exception ex)
@@ -102,13 +102,54 @@ namespace AgendaTec.Business.Bindings
             }
         }
 
-        public void Delete(int idDirectMailing, out string errorMessage)
+        public void Delete(int idDirectMail, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                _commonRepository.Delete(idDirectMailing);
+                _commonRepository.Delete(idDirectMail);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+        }
+
+        public List<string> GetIntervalCombo(out string errorMessage)
+        {
+            var intervals = new List<string>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                intervals = Enum
+                    .GetValues(typeof(EnMailingIntervalType))
+                    .Cast<EnMailingIntervalType>()
+                    .Select(v => v.ToString())
+                    .OrderBy(x => x)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return intervals;
+        }
+
+        public void ResendDirectMail(int idDirectMail, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                var result = _commonRepository.GetById(idDirectMail);
+                result.Resend = true;
+                _commonRepository.Update(result.IDMail, result);
             }
             catch (Exception ex)
             {
