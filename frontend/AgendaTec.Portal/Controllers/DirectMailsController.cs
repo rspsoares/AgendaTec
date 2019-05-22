@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using System;
 using System.Web;
 using System.Web.Mvc;
@@ -10,14 +11,18 @@ namespace AgendaTec.Portal.Controllers
     public class DirectMailsController : Controller
     {
         private readonly IDirectMailFacade _directMailFacade;
+        private EnMailType _enMailType;
 
         public DirectMailsController(IDirectMailFacade directMailFacade)
         {
             _directMailFacade = directMailFacade;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string MailType)
         {
+            _enMailType = (EnMailType)int.Parse(MailType);
+
+            ViewData["MailType"] = StringExtensions.GetEnumDescription(_enMailType);
             return View();
         }
 
@@ -39,7 +44,7 @@ namespace AgendaTec.Portal.Controllers
         {
             var directMail = _directMailFacade.GetDirectMailingById(int.Parse(idDirectMail), out string errorMessage);
 
-            var enMailingIntervalType = (EnMailingIntervalType)directMail.IntervalType;
+            var enMailingIntervalType = (EnMailIntervalType)directMail.IntervalType;
             directMail.Interval = enMailingIntervalType.ToString();
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -53,7 +58,7 @@ namespace AgendaTec.Portal.Controllers
         {
             string errorMessage;
 
-            Enum.TryParse(directMail.Interval, out EnMailingIntervalType enIntervalType);
+            Enum.TryParse(directMail.Interval, out EnMailIntervalType enIntervalType);
             directMail.IntervalType = (int)enIntervalType;
 
             directMail.Content = HttpUtility.HtmlDecode(directMail.Content);            

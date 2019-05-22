@@ -126,8 +126,8 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 intervals = Enum
-                    .GetValues(typeof(EnMailingIntervalType))
-                    .Cast<EnMailingIntervalType>()
+                    .GetValues(typeof(EnMailIntervalType))
+                    .Cast<EnMailIntervalType>()
                     .Select(v => v.ToString())
                     .OrderBy(x => x)
                     .ToList();

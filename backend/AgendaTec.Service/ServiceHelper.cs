@@ -1,8 +1,11 @@
 ﻿using AgendaTec.Business.Helpers;
 using FluentValidation;
 using NLog;
+using NLog.Targets;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace AgendaTec.Service
@@ -57,6 +60,45 @@ namespace AgendaTec.Service
                 RuleFor(config => config.LoggerControl.CleanUpInfo).NotNull().WithMessage("Log de Limpeza de logs antigos Info não definido.");
                 RuleFor(config => config.LoggerControl.CleanUpError).NotNull().WithMessage("Log de Limpeza de logs antigos Error não definido.");
             }
+        }
+
+        public static void DeleteOldLocalLogs(int daysLimit)
+        {
+            GetLogFolders().ForEach(logFolder =>
+            {
+                var oldLogs = Directory
+                    .GetFiles(logFolder)
+                    .Where(x => new FileInfo(x).LastWriteTime.Date < DateTime.Today.AddDays(-daysLimit).Date)
+                    .ToList();
+
+                oldLogs.ForEach(x => { DeleteFile(x); });
+            });
+        }
+
+        private static List<string> GetLogFolders()
+        {
+            var logFolders = new List<string>();
+            var logEventInfo = new LogEventInfo
+            {
+                TimeStamp = DateTime.Now
+            };
+
+            LogManager.Configuration.LoggingRules.ToList().ForEach(logRule =>
+            {
+                logRule.Targets.ToList().ForEach(targetLog =>
+                {
+                    var logTarget = (FileTarget)targetLog;
+                    logFolders.Add(Path.GetDirectoryName(logTarget.FileName.Render(logEventInfo)));
+                });
+            });
+
+            return logFolders;
+        }
+
+        public static void DeleteFile(string filePath)
+        {
+            if (File.Exists(filePath))
+                File.Delete(filePath);
         }
     }
 }

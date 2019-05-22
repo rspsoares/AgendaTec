@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -150,6 +151,18 @@ namespace AgendaTec.Business.Helpers
             secureString.MakeReadOnly();
 
             return secureString;
+        }
+
+        public static string GetEnumDescription(Enum value)
+        {
+            var fi = value.GetType().GetField(value.ToString());
+
+            var attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+
+            if (attributes != null && attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
         }
     }
 }

@@ -71,7 +71,8 @@
     <Compile Include="Entities\AppointmentDTO.cs" />
     <Compile Include="Entities\CustomerDTO.cs" />
     <Compile Include="Entities\DirectMailDTO.cs" />
-    <Compile Include="Entities\EnMailingIntervalType.cs" />
+    <Compile Include="Entities\EnMailIntervalType.cs" />
+    <Compile Include="Entities\EnMailType.cs" />
     <Compile Include="Entities\EnUserType.cs" />
     <Compile Include="Entities\ProfessionalDTO.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />

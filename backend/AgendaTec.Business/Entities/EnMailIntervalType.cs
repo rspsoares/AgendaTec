@@ -1,6 +1,6 @@
 ﻿namespace AgendaTec.Business.Entities
 {
-    public enum EnMailingIntervalType
+    public enum EnMailIntervalType
     {
         Eventual = 1,
         Mensal = 2

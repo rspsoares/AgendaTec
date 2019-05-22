@@ -110,6 +110,7 @@
           <Property Name="BodyContent" Type="varchar(max)" Nullable="false" />
           <Property Name="LastProcessed" Type="datetime" />
           <Property Name="IntervalType" Type="int" Nullable="false" />
+          <Property Name="MailType" Type="int" Nullable="false" />
           <Property Name="Resend" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TSchedules">
@@ -714,6 +715,7 @@
           <Property Name="BodyContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LastProcessed" Type="DateTime" Precision="3" />
           <Property Name="IntervalType" Type="Int32" Nullable="false" />
+          <Property Name="MailType" Type="Int32" Nullable="false" />
           <Property Name="Resend" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TDirectMail_TCGCustomers" FromRole="TDirectMail" ToRole="TCGCustomers" />
         </EntityType>
@@ -854,6 +856,7 @@
             <EntityTypeMapping TypeName="AgendaTecModel.TDirectMail">
               <MappingFragment StoreEntitySet="TDirectMail">
                 <ScalarProperty Name="Resend" ColumnName="Resend" />
+                <ScalarProperty Name="MailType" ColumnName="MailType" />
                 <ScalarProperty Name="IntervalType" ColumnName="IntervalType" />
                 <ScalarProperty Name="LastProcessed" ColumnName="LastProcessed" />
                 <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />

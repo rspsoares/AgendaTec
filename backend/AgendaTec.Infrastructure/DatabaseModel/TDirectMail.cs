@@ -20,6 +20,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public string BodyContent { get; set; }
         public Nullable<System.DateTime> LastProcessed { get; set; }
         public int IntervalType { get; set; }
+        public int MailType { get; set; }
         public bool Resend { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }

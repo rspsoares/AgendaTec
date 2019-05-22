@@ -69,11 +69,32 @@ namespace AgendaTec.Portal.Controllers
                 menu.AppendLine("<a href='/Schedules' title='Agenda'>");
                 menu.AppendLine("<span class='item'>Agenda</span>");
                 menu.AppendLine("</a>");
+                menu.AppendLine("</li>");               
+            }
+
+            menu.AppendLine("</li>");
+            menu.AppendLine("</ul>");
+
+            menu.AppendLine("<li>");
+            menu.AppendLine("<span class='glyphicon glyphicon glyphicon-book'/>");
+            menu.AppendLine("<span class='item'>Mala Direta</span>");
+            menu.AppendLine("<ul>");
+            {
+                menu.AppendLine("<li>");
+                menu.AppendLine("<a href='/DirectMails?MailType=0' title='Mala Direta'>");
+                menu.AppendLine("<span class='item'>Geral</span>");
+                menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
 
                 menu.AppendLine("<li>");
-                menu.AppendLine("<a href='/DirectMails' title='Mala Direta'>");
-                menu.AppendLine("<span class='item'>Mala Direta</span>");
+                menu.AppendLine("<a href='/DirectMails?MailType=1' title='Mala Direta'>");
+                menu.AppendLine("<span class='item'>E-Mail</span>");
+                menu.AppendLine("</a>");
+                menu.AppendLine("</li>");
+
+                menu.AppendLine("<li>");
+                menu.AppendLine("<a href='/DirectMails?MailType=2' title='Mala Direta'>");
+                menu.AppendLine("<span class='item'>WhatsApp</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
             }

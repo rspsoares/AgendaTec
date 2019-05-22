@@ -26,7 +26,7 @@
         <AssociationConnector Association="AgendaTecModel.FK_AspNetUsers_TCGCustomers" />
         <AssociationConnector Association="AgendaTecModel.FK_TCGProfessionals_AspNetUsers" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_AspNetUsers" />
-        <EntityTypeShape EntityType="AgendaTecModel.TDirectMail" Width="1.5" PointX="3" PointY="15.5" />
+        <EntityTypeShape EntityType="AgendaTecModel.TDirectMail" Width="1.5" PointX="3" PointY="16.375" />
         <AssociationConnector Association="AgendaTecModel.FK_TDirectMail_TCGCustomers" />
       </Diagram>
     </edmx:Diagrams>
