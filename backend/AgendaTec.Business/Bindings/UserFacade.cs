@@ -297,5 +297,36 @@ namespace AgendaTec.Business.Bindings
 
             return checkResult;
         }     
+
+        public List<UserAccountDTO> GetUserRecipients(int idCustomer, out string errorMessage)
+        {
+            var users = new List<AspNetUsers>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                users = _commonRepository
+                    .Filter(x => x.IdCustomer.Equals(idCustomer))
+                    .ToList();              
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return users
+                .Select(x => new UserAccountDTO()
+                {
+                    Id = x.Id,
+                    IDCustomer = x.IdCustomer,
+                    FullName = $"{x.FirstName} {x.LastName}",
+                    Email = x.Email,
+                    Phone = x.PhoneNumber                    
+                 })
+                 .OrderBy(x => x.FullName)
+                 .ToList();
+        }
     }
 }

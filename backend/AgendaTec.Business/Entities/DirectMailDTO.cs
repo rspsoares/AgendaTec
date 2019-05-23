@@ -11,6 +11,8 @@ namespace AgendaTec.Business.Entities
         public DateTime? Last { get; set; }
         public string Interval { get; set; }
         public int IntervalType { get; set; }
+        public int MailType { get; set; }
+        public string MailTypeDescription { get; set; }
         public bool Resend { get; set; }
     }
 }

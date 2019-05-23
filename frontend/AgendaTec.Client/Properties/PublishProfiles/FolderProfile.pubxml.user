@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/21/2019 07:59:18</publishTime>
+      <publishTime>05/23/2019 09:41:33</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/21/2019 07:59:18</publishTime>
+      <publishTime>05/23/2019 09:41:33</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/21/2019 07:26:00</publishTime>
+      <publishTime>05/22/2019 16:42:59</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
-      <publishTime>05/09/2019 12:44:12</publishTime>
+      <publishTime>05/21/2019 09:58:37</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/21/2019 07:26:00</publishTime>
+      <publishTime>05/22/2019 16:42:59</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/21/2019 08:02:38</publishTime>
+      <publishTime>05/23/2019 11:02:08</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/21/2019 08:02:38</publishTime>
+      <publishTime>05/23/2019 11:02:08</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -5593,7 +5593,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/21/2019 08:05:02</publishTime>
+      <publishTime>05/23/2019 11:02:10</publishTime>
     </File>
   </ItemGroup>
 </Project>

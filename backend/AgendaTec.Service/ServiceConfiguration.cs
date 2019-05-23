@@ -1,5 +1,4 @@
-﻿using NLog;
-using System.Security;
+﻿using System.Security;
 
 namespace AgendaTec.Service
 {
@@ -10,17 +9,6 @@ namespace AgendaTec.Service
         public string SendMailUserName { get; set; }
         public SecureString SendMailPassword { get; set; }
         public int SendMailPort { get; set; }
-        public int LogDays { get; set; }
-        public LoggerControl LoggerControl { get; set; }
-    }
-
-    public class LoggerControl
-    {
-        public Logger ServiceInfo { get; set; }
-        public Logger ServiceError { get; set; }
-        public Logger SendMailInfo { get; set; }
-        public Logger SendMailError { get; set; }        
-        public Logger CleanUpInfo { get; set; }
-        public Logger CleanUpError { get; set; }
-    }
+        public int LogDays { get; set; }       
+    }   
 }

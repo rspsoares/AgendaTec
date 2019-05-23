@@ -3,6 +3,6 @@
     public enum EnMailIntervalType
     {
         Eventual = 1,
-        Mensal = 2
+        Monthly = 2
     }
 }

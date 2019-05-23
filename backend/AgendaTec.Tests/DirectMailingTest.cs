@@ -41,7 +41,7 @@ namespace AgendaTec.Tests
         public void DirectMailing_GetGrid()
         {
             ProfilesHelper.Initialize();
-            var mailings = _directMailingRepository.GetGrid(1, string.Empty, out string errorMessage);
+            var mailings = _directMailingRepository.GetGrid(1, 0, string.Empty, out string errorMessage);
             ProfilesHelper.Reset();
 
             Assert.IsTrue(mailings.Any());
@@ -62,7 +62,7 @@ namespace AgendaTec.Tests
         {
             ProfilesHelper.Initialize();
 
-            var mailing = _directMailingRepository.GetGrid(1, string.Empty, out string errorMessage).First();
+            var mailing = _directMailingRepository.GetGrid(1, 0, string.Empty, out string errorMessage).First();
             mailing.Description = new Bogus.DataSets.Name().JobArea();
             _directMailingRepository.Update(mailing, out errorMessage);
 

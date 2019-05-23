@@ -1,4 +1,8 @@
-﻿using AgendaTec.Business.Helpers;
+﻿using AgendaTec.Business.Bindings;
+using AgendaTec.Business.Contracts;
+using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
+using NLog;
 using System;
 using System.Reflection;
 using System.ServiceProcess;
@@ -8,7 +12,10 @@ namespace AgendaTec.Service
 {
     public partial class AgendaTecService : ServiceBase
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private ServiceConfiguration _configuration = new ServiceConfiguration();
+        private readonly IDirectMailFacade _directMailFacade = new DirectMailFacade();
+        private readonly IUserFacade _userFacade = new UserFacade();
 
         public AgendaTecService()
         {
@@ -23,68 +30,102 @@ namespace AgendaTec.Service
             if (!string.IsNullOrEmpty(errorMessage))
                 throw new Exception(errorMessage);
 
+            _logger.Info($"({MethodBase.GetCurrentMethod().Name}) Starting Service...");
+
             sendMailTimer = new Timer(new TimerCallback(SendMailCallback), null, (int)TimeSpan.FromSeconds(1).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.SendMailInterval).TotalMilliseconds);
             cleanUpTimer = new Timer(new TimerCallback(CleanUpCallback), null, (int)TimeSpan.FromSeconds(10).TotalMilliseconds, (int)TimeSpan.FromHours(1).TotalMilliseconds);
         }
 
         protected override void OnStop()
         {
+            _logger.Info($"({MethodBase.GetCurrentMethod().Name}) Disposing Service...");
+
             sendMailTimer.Dispose();
             cleanUpTimer.Dispose();
         }
 
         private void SendMailCallback(object state)
         {
-            var loggerInfo = _configuration.LoggerControl.SendMailInfo;
-            var loggerError = _configuration.LoggerControl.SendMailError;
-
             if (sendMailLock)
                 return;
 
             sendMailLock = true;
 
-            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to send direct mailing...");
+            _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to send direct mailing...");
 
             try
             {
-                
+                var mailPendings = _directMailFacade.GetPendingDirectMail(out string errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
+                    sendMailLock = false;
+                    return;
+                }
 
+                mailPendings.ForEach(mail =>
+                {
+                    try
+                    {
+                        var recipients = _userFacade.GetUserRecipients(mail.IdCustomer, out errorMessage);
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
+                            return;                            
+                        }
+
+                        switch ((EnMailType)mail.MailType)
+                        {
+                            case EnMailType.All:
+                                DirectMailHelper.SendMail(mail, recipients);
+                                //WhatsApp
+                                break;
+                            case EnMailType.Email:
+                                DirectMailHelper.SendMail(mail, recipients);
+                                break;
+                            case EnMailType.WhatsApp:
+                                //WhatsApp
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] ID: {mail.Id}. Error: {ex.Message} - {ex.InnerException}");                        
+                    }
+                });
             }
             catch (Exception ex)
             {
-                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
+                _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
             }
             finally
             {
                 sendMailLock = false;
-                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
+                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
             }
         }
 
         private void CleanUpCallback(object state)
-        {
-            var loggerInfo = _configuration.LoggerControl.CleanUpInfo;
-            var loggerError = _configuration.LoggerControl.CleanUpError;
-
+        {           
             if (cleanUpLock)
                 return;
 
             cleanUpLock = true;
 
-            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting cleanup...");
+            _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting cleanup...");
 
             try
             {
-                //CoreExtensions.DeleteOldLocalLogs(_configuration.LogDays);
+                ServiceHelper.DeleteOldLocalLogs(_configuration.LogDays);
             }
             catch (Exception ex)
             {
-                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
+                _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
             }
             finally
             {
                 cleanUpLock = false;
-                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
+                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
             }
         }
 
@@ -92,7 +133,7 @@ namespace AgendaTec.Service
         {
             _configuration = ServiceHelper.LoadConfigurations(out string configErrorMessage);
 
-            CleanUpCallback(null);
+            //CleanUpCallback(null);
             SendMailCallback(null);
         }
     }

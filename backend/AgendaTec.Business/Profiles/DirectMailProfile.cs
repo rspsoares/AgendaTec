@@ -14,6 +14,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Description, s => s.MapFrom(m => m.Description))
                 .ForMember(d => d.Content, s => s.MapFrom(m => m.BodyContent))
                 .ForMember(d => d.Last, s => s.MapFrom(m => m.LastProcessed))
+                .ForMember(d => d.MailType, s => s.MapFrom(m => m.MailType))                
                 .ForMember(d => d.IntervalType, s => s.MapFrom(m => m.IntervalType));
 
             CreateMap<DirectMailDTO, TDirectMail>()
@@ -22,6 +23,7 @@ namespace AgendaTec.Business.Profiles
                .ForMember(d => d.Description, s => s.MapFrom(m => m.Description))
                .ForMember(d => d.BodyContent, s => s.MapFrom(m => m.Content))
                .ForMember(d => d.LastProcessed, s => s.MapFrom(m => m.Last))
+               .ForMember(d => d.MailType, s => s.MapFrom(m => m.MailType))
                .ForMember(d => d.IntervalType, s => s.MapFrom(m => m.IntervalType));
         }
     }

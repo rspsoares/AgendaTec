@@ -10,8 +10,7 @@ namespace AgendaTec.Portal.Controllers
     [Authorize]
     public class DirectMailsController : Controller
     {
-        private readonly IDirectMailFacade _directMailFacade;
-        private EnMailType _enMailType;
+        private readonly IDirectMailFacade _directMailFacade;        
 
         public DirectMailsController(IDirectMailFacade directMailFacade)
         {
@@ -20,18 +19,18 @@ namespace AgendaTec.Portal.Controllers
 
         public ActionResult Index(string MailType)
         {
-            _enMailType = (EnMailType)int.Parse(MailType);
+            var enMailType = (EnMailType)int.Parse(MailType);
 
-            ViewData["MailType"] = StringExtensions.GetEnumDescription(_enMailType);
+            ViewData["MailType"] = StringExtensions.GetEnumDescription(enMailType);
             return View();
         }
 
         [HttpGet]
-        public JsonResult GetGrid(string idCustomer, string description)
+        public JsonResult GetGrid(string idCustomer, string mailType, string description)
         {
             int customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
 
-            var directMails = _directMailFacade.GetGrid(customer, description, out string errorMessage);
+            var directMails = _directMailFacade.GetGrid(customer, int.Parse(mailType), description, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter as Malas Diretas." }, JsonRequestBehavior.AllowGet);
@@ -60,7 +59,7 @@ namespace AgendaTec.Portal.Controllers
 
             Enum.TryParse(directMail.Interval, out EnMailIntervalType enIntervalType);
             directMail.IntervalType = (int)enIntervalType;
-
+            
             directMail.Content = HttpUtility.HtmlDecode(directMail.Content);            
 
             if (directMail.Id.Equals(0))

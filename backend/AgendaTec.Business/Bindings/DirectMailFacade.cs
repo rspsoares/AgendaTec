@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
@@ -22,9 +23,9 @@ namespace AgendaTec.Business.Bindings
             _commonRepository = new CommonRepository<TDirectMail>();
         }
 
-        public List<DirectMailDTO> GetGrid(int idCustomer, string description, out string errorMessage)
+        public List<DirectMailDTO> GetGrid(int idCustomer, int mailType, string description, out string errorMessage)
         {
-            var result = new List<DirectMailDTO>();
+            var results = new List<DirectMailDTO>();
             var mailings = new List<TDirectMail>();
 
             errorMessage = string.Empty;
@@ -33,10 +34,20 @@ namespace AgendaTec.Business.Bindings
             {
                 mailings = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer)).ToList();
 
-                if (!string.IsNullOrEmpty(description))                    
-                    mailings = _commonRepository.Filter(x => x.Description.Contains(description));
+                var enMailType = (EnMailType)mailType;
+                if(!enMailType.Equals(EnMailType.All))
+                    mailings = mailings.Where(x => x.MailType.Equals(mailType)).ToList();
 
-                result = Mapper.Map<List<TDirectMail>, List<DirectMailDTO>>(mailings);
+                if (!string.IsNullOrEmpty(description))                    
+                    mailings = mailings.Where(x => x.Description.Contains(description)).ToList();
+
+                results = Mapper.Map<List<TDirectMail>, List<DirectMailDTO>>(mailings);
+
+                results.ForEach(result =>
+                {
+                    var type = (EnMailType)result.MailType;
+                    result.MailTypeDescription = StringExtensions.GetEnumDescription(type);
+                });
             }
             catch (Exception ex)
             {
@@ -44,7 +55,10 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
 
-            return result;            
+            return results
+                .OrderBy(x => x.MailTypeDescription)
+                .ThenBy(x => x.Description)
+                .ToList();            
         }
 
         public DirectMailDTO GetDirectMailingById(int idDirectMail, out string errorMessage)
@@ -156,6 +170,34 @@ namespace AgendaTec.Business.Bindings
                 errorMessage = ex.Message;
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
             }
+        }
+
+        public List<DirectMailDTO> GetPendingDirectMail(out string errorMessage)
+        {
+            var results = new List<DirectMailDTO>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                var pendings = _commonRepository
+                    .GetAll()
+                    .Where
+                        (x => (x.IntervalType.Equals((int)EnMailIntervalType.Eventual) && (!x.LastProcessed.HasValue || x.Resend)) || // Eventual
+                        (x.IntervalType.Equals((int)EnMailIntervalType.Monthly) && x.LastProcessed.Value <= DateTime.Now.AddMonths(-1))) // Monthly
+                    .OrderBy(x => x.IDCustomer)
+                    .ThenBy(x => x.MailType)
+                    .ToList();
+
+                results = Mapper.Map<List<TDirectMail>, List<DirectMailDTO>>(pendings);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+            }
+
+            return results;
         }
     }
 }

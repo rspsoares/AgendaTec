@@ -4,13 +4,13 @@ namespace AgendaTec.Business.Entities
 {
     public enum EnMailType
     {
-        [Description("Mala Direta - Geral")]
+        [Description("Geral")]
         All = 0,
 
-        [Description("Mala Direta - E-Mail")]
+        [Description("E-Mail")]
         Email = 1,
 
-        [Description("Mala Direta - WhatsApp")]
+        [Description("WhatsApp")]
         WhatsApp = 2
     }
 }

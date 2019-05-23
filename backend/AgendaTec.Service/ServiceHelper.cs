@@ -21,16 +21,7 @@ namespace AgendaTec.Service
                 SendMailUserName = ConfigurationManager.AppSettings["SendMailUserName"],
                 SendMailPassword = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["SendMailPassword"])),
                 SendMailPort = int.Parse(ConfigurationManager.AppSettings["SendMailPort"] ?? "587"),
-                LogDays = int.Parse(ConfigurationManager.AppSettings["LogDays"] ?? "30"),
-                LoggerControl = new LoggerControl()
-                {
-                    ServiceInfo = LogManager.GetLogger("ServiceInfoLogger"),
-                    ServiceError = LogManager.GetLogger("ServiceErrorLogger"),
-                    SendMailInfo = LogManager.GetLogger("SendMailInfoLogger"),
-                    SendMailError = LogManager.GetLogger("SendMailErrorLogger"),
-                    CleanUpInfo = LogManager.GetLogger("CleanUpInfoLogger"),
-                    CleanUpError = LogManager.GetLogger("CleanUpErrorLogger")
-                }
+                LogDays = int.Parse(ConfigurationManager.AppSettings["LogDays"] ?? "30")                
             };
 
             var results = new ServiceConfigurationValidator().Validate(serviceConfiguration);
@@ -51,14 +42,7 @@ namespace AgendaTec.Service
                 RuleFor(config => config.SendMailPassword).NotNull().NotEmpty().WithMessage("Send Mail Password não definido.");
                 RuleFor(config => config.SendMailPort).NotNull().NotEqual(0).WithMessage("Send Mail Port não definido.");
 
-                RuleFor(config => config.LogDays).NotNull().NotEqual(0).WithMessage("Log Days não definido.");
-
-                RuleFor(config => config.LoggerControl.ServiceInfo).NotNull().WithMessage("Log de Service Info não definido.");
-                RuleFor(config => config.LoggerControl.ServiceError).NotNull().WithMessage("Log de Service Error não definido.");
-                RuleFor(config => config.LoggerControl.SendMailInfo).NotNull().WithMessage("Log de Send Mail Info não definido.");
-                RuleFor(config => config.LoggerControl.SendMailError).NotNull().WithMessage("Log de Send Mail Error não definido.");
-                RuleFor(config => config.LoggerControl.CleanUpInfo).NotNull().WithMessage("Log de Limpeza de logs antigos Info não definido.");
-                RuleFor(config => config.LoggerControl.CleanUpError).NotNull().WithMessage("Log de Limpeza de logs antigos Error não definido.");
+                RuleFor(config => config.LogDays).NotNull().NotEqual(0).WithMessage("Log Days não definido.");             
             }
         }
 
@@ -66,12 +50,15 @@ namespace AgendaTec.Service
         {
             GetLogFolders().ForEach(logFolder =>
             {
-                var oldLogs = Directory
-                    .GetFiles(logFolder)
-                    .Where(x => new FileInfo(x).LastWriteTime.Date < DateTime.Today.AddDays(-daysLimit).Date)
-                    .ToList();
+                if (Directory.Exists(logFolder))
+                {
+                    var oldLogs = Directory
+                        .GetFiles(logFolder)
+                        .Where(x => new FileInfo(x).LastWriteTime.Date < DateTime.Today.AddDays(-daysLimit).Date)
+                        .ToList();
 
-                oldLogs.ForEach(x => { DeleteFile(x); });
+                    oldLogs.ForEach(x => { DeleteFile(x); });
+                }
             });
         }
 
