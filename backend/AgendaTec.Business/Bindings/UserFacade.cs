@@ -48,8 +48,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return users
@@ -60,6 +60,7 @@ namespace AgendaTec.Business.Bindings
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     FullName = $"{x.FirstName} {x.LastName}",
+                    CPF = x.CPF,
                     Email = x.Email,
                     Phone = x.PhoneNumber,
                     IdRole = x.AspNetRoles.Id,
@@ -89,6 +90,7 @@ namespace AgendaTec.Business.Bindings
                     FirstName = result.FirstName,
                     LastName = result.LastName,
                     FullName = $"{result.FirstName} {result.LastName}",
+                    CPF = result.CPF,
                     Email = result.Email,
                     Phone = result.PhoneNumber,
                     IdRole = result.AspNetRoles.Id,
@@ -100,8 +102,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return user;
@@ -124,8 +126,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return new UserAccountDTO()
@@ -151,8 +153,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return roles
@@ -177,8 +179,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return users
@@ -206,8 +208,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return users
@@ -235,8 +237,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return users
@@ -259,6 +261,7 @@ namespace AgendaTec.Business.Bindings
 
                 user.FirstName = e.FirstName;
                 user.LastName = e.LastName;
+                user.CPF = e.CPF.CleanMask();
                 user.IdRole = e.IdRole;
                 user.IdCustomer = e.IDCustomer;
                 user.Email = e.Email;
@@ -269,8 +272,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
         }
 
@@ -291,8 +294,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return checkResult;
@@ -312,8 +315,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return users
@@ -321,6 +324,7 @@ namespace AgendaTec.Business.Bindings
                 {
                     Id = x.Id,
                     IDCustomer = x.IdCustomer,
+                    IdRole = x.IdRole,
                     FullName = $"{x.FirstName} {x.LastName}",
                     Email = x.Email,
                     Phone = x.PhoneNumber                    

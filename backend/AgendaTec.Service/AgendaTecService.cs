@@ -67,30 +67,41 @@ namespace AgendaTec.Service
                 {
                     try
                     {
+                        _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description}...");
+
                         var recipients = _userFacade.GetUserRecipients(mail.IdCustomer, out errorMessage);
                         if (!string.IsNullOrEmpty(errorMessage))
                         {
                             _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
-                            return;                            
+                            return;
                         }
 
                         switch ((EnMailType)mail.MailType)
                         {
                             case EnMailType.All:
-                                DirectMailHelper.SendMail(mail, recipients);
-                                //WhatsApp
+                                DirectMailHelper.SendMail(_configuration, mail, recipients);
+                                //TODO: WhatsApp
                                 break;
                             case EnMailType.Email:
-                                DirectMailHelper.SendMail(mail, recipients);
+                                DirectMailHelper.SendMail(_configuration, mail, recipients);
                                 break;
                             case EnMailType.WhatsApp:
-                                //WhatsApp
+                                //TODO: WhatsApp
                                 break;
                         }
+
+                        mail.Last = DateTime.Now;
+                        mail.Resend = false;
+
+                        _directMailFacade.Update(mail, out errorMessage);
+                        if (!string.IsNullOrEmpty(errorMessage))                        
+                            _logger.Error($"[{MethodBase.GetCurrentMethod().Name}] Error on updating direct mail send: {errorMessage}");
+
+                        _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description} completed.");
                     }
                     catch (Exception ex)
                     {
-                        _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] ID: {mail.Id}. Error: {ex.Message} - {ex.InnerException}");                        
+                        _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] ID: {mail.Id}. Error: {ex.Message} - {ex.InnerException}");
                     }
                 });
             }

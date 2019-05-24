@@ -43,8 +43,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return result
@@ -67,8 +67,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return result
@@ -100,8 +100,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return result
@@ -123,8 +123,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return result;
@@ -142,8 +142,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
             return e;
@@ -160,8 +160,8 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
-                errorMessage = ex.Message;
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
         }
     }

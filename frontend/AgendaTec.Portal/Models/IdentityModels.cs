@@ -8,7 +8,8 @@ namespace AgendaTec.Portal.Models
     public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
-        public string LastName { get; set; }        
+        public string LastName { get; set; }
+        public string CPF { get; set; }
         public string IDRole { get; set; }
         public int IDCustomer { get; set; }
         public bool IsEnabled { get; set; }

@@ -1,4 +1,5 @@
-﻿using AgendaTec.Business.Helpers;
+﻿using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using FluentValidation;
 using NLog;
 using NLog.Targets;
@@ -18,7 +19,7 @@ namespace AgendaTec.Service
             {
                 SendMailInterval = int.Parse(ConfigurationManager.AppSettings["SendMailInterval"] ?? "60"),
                 SendMailHost = ConfigurationManager.AppSettings["SendMailHost"],
-                SendMailUserName = ConfigurationManager.AppSettings["SendMailUserName"],
+                SendMailLogin = ConfigurationManager.AppSettings["SendMailLogin"],
                 SendMailPassword = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["SendMailPassword"])),
                 SendMailPort = int.Parse(ConfigurationManager.AppSettings["SendMailPort"] ?? "587"),
                 LogDays = int.Parse(ConfigurationManager.AppSettings["LogDays"] ?? "30")                
@@ -38,7 +39,7 @@ namespace AgendaTec.Service
                 RuleFor(config => config.SendMailInterval).NotNull().NotEqual(0).WithMessage("Intervalo de Verificação não definido.");
 
                 RuleFor(config => config.SendMailHost).NotNull().NotEmpty().WithMessage("Send Mail Host não definido.");
-                RuleFor(config => config.SendMailUserName).NotNull().NotEmpty().WithMessage("Send Mail User Name não definido.");
+                RuleFor(config => config.SendMailLogin).NotNull().NotEmpty().WithMessage("Send Mail Login não definido.");
                 RuleFor(config => config.SendMailPassword).NotNull().NotEmpty().WithMessage("Send Mail Password não definido.");
                 RuleFor(config => config.SendMailPort).NotNull().NotEqual(0).WithMessage("Send Mail Port não definido.");
 

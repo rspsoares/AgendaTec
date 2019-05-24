@@ -74,6 +74,9 @@ namespace AgendaTec.Portal.Controllers
             if (!string.IsNullOrEmpty(checkResult))
                 return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);
 
+            if (!userDTO.CPF.IsCPF())            
+                return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
+
             if (string.IsNullOrEmpty(userDTO.Id))
             {
                 var user = new ApplicationUser
@@ -82,6 +85,7 @@ namespace AgendaTec.Portal.Controllers
                     IDRole = userDTO.IdRole,
                     FirstName = userDTO.FirstName,
                     LastName = userDTO.LastName,
+                    CPF = userDTO.CPF.CleanMask(),
                     UserName = userDTO.Email,
                     Email = userDTO.Email,
                     PhoneNumber = userDTO.Phone.CleanMask(),

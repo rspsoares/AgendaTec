@@ -185,8 +185,8 @@ function DirectMailEdit(e) {
                 $("#hiddenId").val(result.Data.Id);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IdCustomer);
                 $("#txtDescription").val(result.Data.Description);     
-                $("#txtContent").data("kendoEditor").value(result.Data.Content);                
-                $("#txtLast").val(result.Data.Last);
+                $("#txtContent").data("kendoEditor").value(result.Data.Content);
+                $("#txtLast").val(kendo.toString(kendo.parseDate(result.Data.Last, 'yyyy-MM-dd HH:mm:ss'), 'dd/MM/yyyy HH:mm:ss'));
                 $("#ddlInterval").data('kendoDropDownList').value(result.Data.Interval);
             }
             else {

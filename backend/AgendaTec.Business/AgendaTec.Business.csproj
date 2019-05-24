@@ -76,6 +76,7 @@
     <Compile Include="Entities\EnUserType.cs" />
     <Compile Include="Entities\ProfessionalDTO.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />
+    <Compile Include="Entities\ServiceConfiguration.cs" />
     <Compile Include="Entities\ServiceDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
     <Compile Include="Helpers\DirectMailHelper.cs" />
