@@ -115,14 +115,13 @@ namespace AgendaTec.Business.Bindings
 
         public ProfessionalDTO GetProfessionalById(int idProfessional, out string errorMessage)
         {
-            var result = new ProfessionalDTO();
-            var professional = new TCGProfessionals();
+            var result = new ProfessionalDTO();            
 
             errorMessage = string.Empty;
 
             try
             {
-                professional = _commonRepository.GetById(idProfessional);
+                var professional = _commonRepository.GetById(idProfessional);
                 result = Mapper.Map<TCGProfessionals, ProfessionalDTO>(professional);
               
             }
@@ -163,9 +162,6 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                //Criar usuário
-                //Retornar ID do usuário pro e.IdUser
-
                 var result = Mapper.Map<ProfessionalDTO, TCGProfessionals>(e);
                 result = _commonRepository.Insert(result);
                 e.Id = result.IDProfessional;
@@ -207,6 +203,26 @@ namespace AgendaTec.Business.Bindings
                     .GetAll()
                     .Where(x => !x.IDProfessional.Equals(idProfessional) && x.IDUser.Equals(idUser))
                     .Any();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+
+            return userInUse;
+        }
+
+        public bool CheckUserInUse(string email, out string errorMessage)
+        {
+            bool userInUse = true;
+            IUserFacade userFacade = new UserFacade();
+
+            try
+            {
+                var user = userFacade.GetUserByEmail(email, out errorMessage);
+
+                userInUse = user != null;                
             }
             catch (Exception ex)
             {

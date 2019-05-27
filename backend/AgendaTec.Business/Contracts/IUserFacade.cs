@@ -7,7 +7,7 @@ namespace AgendaTec.Business.Contracts
     {
         List<UserAccountDTO> GetGrid(string name, string email, int idCustomer, string idRole, out string errorMessage);
         UserAccountDTO GetUserById(string iUser, out string errorMessage);  
-        UserAccountDTO GetLoggedUserByEmail(string email, out string errorMessage);
+        UserAccountDTO GetUserByEmail(string email, out string errorMessage);
         List<UserAccountDTO> GetRolesCombo(EnUserType userGroup, out string errorMessage);
         List<UserAccountDTO> GetUserNamesCombo(int idCustomer, out string errorMessage);
         List<UserAccountDTO> GetProfessionalNamesCombo(int idCustomer, out string errorMessage);

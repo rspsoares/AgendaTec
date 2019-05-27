@@ -109,7 +109,7 @@ namespace AgendaTec.Business.Bindings
             return user;
         }
 
-        public UserAccountDTO GetLoggedUserByEmail(string email, out string errorMessage)
+        public UserAccountDTO GetUserByEmail(string email, out string errorMessage)
         {
             var user = new AspNetUsers();
 
@@ -119,10 +119,7 @@ namespace AgendaTec.Business.Bindings
             {
                 user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
                 if (user == null)
-                {
-                    errorMessage = "E-mail não encontrado";
-                    return null;
-                }           
+                    return null;                           
             }
             catch (Exception ex)
             {

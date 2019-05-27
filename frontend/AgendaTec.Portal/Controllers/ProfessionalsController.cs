@@ -1,6 +1,11 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
+using AgendaTec.Portal.Models;
+using Microsoft.AspNet.Identity.Owin;
 using System;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AgendaTec.Portal.Controllers
@@ -45,21 +50,55 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveProfessional(ProfessionalDTO professional)
+        public async Task<JsonResult> SaveProfessional(ProfessionalDTO professional)
         {
-            string errorMessage = string.Empty;
-
-            var userInUse = _professionalFacade.CheckUserInUse(professional.Id, professional.IdUser, out errorMessage);
-            if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, errorMessage = "Houve um erro na verificação do profissional." }, JsonRequestBehavior.AllowGet);
-
-            if (userInUse)
-                return Json(new { Success = false, errorMessage = "Este usuário já está sendo utilizado em outro funcionário." }, JsonRequestBehavior.AllowGet);
-
+            string errorMessage;
+          
             if (professional.Id.Equals(0))
+            {
+                var userInUse = _professionalFacade.CheckUserInUse(professional.Email, out errorMessage);
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return Json(new { Success = false, errorMessage = "Houve um erro na verificação do profissional." }, JsonRequestBehavior.AllowGet);
+
+                if (userInUse)
+                    return Json(new { Success = false, errorMessage = "Este e-mail já está sendo utilizado por outro funcionário." }, JsonRequestBehavior.AllowGet);
+
+                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                var user = new ApplicationUser
+                {
+                    IDCustomer = professional.IdCustomer,
+                    IDRole = ((int)EnUserType.Professional).ToString(),
+                    FirstName = professional.Name.Substring(0, professional.Name.IndexOf(" ")),
+                    LastName = professional.Name.Substring(professional.Name.IndexOf(" ") + 1),
+                    CPF = professional.CPF.CleanMask(),
+                    UserName = professional.Email,
+                    Email = professional.Email,
+                    PhoneNumber = professional.Phone.CleanMask(),
+                    IsEnabled = true,
+                    RootUser = false
+                };
+
+                var result = await userManager.CreateAsync(user, "AgendaTec123");
+                if (!result.Succeeded)
+                    return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
+
+                professional.IdUser = user.Id;                
                 _professionalFacade.Insert(professional, out errorMessage);
+            }                
             else
+            {
+                var userInUse = _professionalFacade.CheckUserInUse(professional.Id, professional.IdUser, out errorMessage);
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return Json(new { Success = false, errorMessage = "Houve um erro na verificação do profissional." }, JsonRequestBehavior.AllowGet);
+
+                if (userInUse)
+                    return Json(new { Success = false, errorMessage = "Este usuário já está sendo utilizado em outro funcionário." }, JsonRequestBehavior.AllowGet);
+
                 _professionalFacade.Update(professional, out errorMessage);
+            }                
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o profissional." }, JsonRequestBehavior.AllowGet);

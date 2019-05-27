@@ -38,17 +38,20 @@
         .removeClass("k-textbox");
 
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
-    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "Name", $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "Name", $("#ddlCustomer").val(), true, "Selecione...");
 
     $("#ddlCustomer")
         .data("kendoDropDownList")
         .bind("change", ddlCustomerChange);
 
+    $('#txtCPF').mask('999.999.999-99');
+    $("#txtPhone").mask("(99) 9.9999-9999");
+
     LoadProfessionals();
 }
 
 function ddlCustomerChange(e) {    
-    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), false);
+    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), true, "Selecione...");
 }
 
 function LoadProfessionals() {
@@ -107,6 +110,10 @@ function LoadProfessionals() {
 function AddProfessional() {
     CleanFields(true);
 
+    $("#txtCPF").prop('disabled', false);
+    $("#txtEmail").prop('disabled', false);
+    $("#ddlUserName").data("kendoDropDownList").enable(false);    
+
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Profissional");
     $('#modalProfessionalEdit').modal({ backdrop: 'static', keyboard: false });
@@ -123,6 +130,8 @@ function CleanFields(loadFilterCombos) {
     $("#txtName").val("");
     $("#dtBirthday").val("");
     $("#txtPhone").val("");    
+    $("#txtCPF").val("");    
+    $("#txtEmail").val("");
 }
 
 function ProfessionalEdit(e) {
@@ -130,6 +139,10 @@ function ProfessionalEdit(e) {
     $("#loading-page").show();
 
     CleanFields(false);
+
+    $("#txtCPF").prop('disabled', true);    
+    $("#txtEmail").prop('disabled', true);    
+    $("#ddlUserName").data("kendoDropDownList").enable(true);
 
     $.ajax({
         type: "GET",
@@ -148,7 +161,9 @@ function ProfessionalEdit(e) {
                 $("#ddlUserName").data('kendoDropDownList').value(result.Data.IdUser);
                 $("#txtName").val(result.Data.Name);
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
-                $("#txtPhone").val(result.Data.Phone);
+                $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
+                $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
+                $("#txtEmail").val(result.Data.Email);
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -180,7 +195,9 @@ function SaveProfessional() {
         IdUser: $("#ddlUserName").val(),
         Name: $("#txtName").val(),
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
-        Phone: $("#txtPhone").val()        
+        Phone: $("#txtPhone").val(),
+        CPF: $("#txtCPF").val(),
+        Email: $("#txtEmail").val()
     };
 
     $("#loading-page").show();
@@ -206,18 +223,28 @@ function SaveProfessional() {
 
 function ValidateRequiredFields() {
     var errorMessage = '';    
+    var emailPattern = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
     if ($("#txtName").val() === '')
         errorMessage += 'Favor informar o Nome' + '<br/>';
-
-    if ($("#ddlUserName").val() === '')
-        errorMessage += 'Favor informar o Usuário' + '<br/>';
 
     if ($("#dtBirthday").val() === '')
         errorMessage += 'Favor informar a Data de Nascimento' + '<br/>';
 
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Telefone' + '<br/>';    
+
+    if (parseInt($("#hiddenId").val()) > 0) {
+        if ($("#ddlUserName").val() === '')
+            errorMessage += 'Favor informar o Usuário' + '<br/>';
+
+        if ($("#txtEmail").val() === '')
+            errorMessage += 'Favor informar o E-mail' + '<br/>';
+        else {
+            if (!emailPattern.test($.trim($("#txtEmail").val())))
+                errorMessage += 'E-mail inválido' + '<br/>';
+        }
+    }
 
     return errorMessage;
 }

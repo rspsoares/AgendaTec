@@ -40,6 +40,12 @@ namespace AgendaTec.Portal.Controllers
             menu.AppendLine("</a>");
             menu.AppendLine("</li>");
 
+            menu.AppendLine("<li>");
+            menu.AppendLine("<a href='/Professionals' title='Profissionais'>");
+            menu.AppendLine("<span class='item'>Profissionais</span>");
+            menu.AppendLine("</a>");
+            menu.AppendLine("</li>");
+
             if (role.Equals(EnUserType.Administrator) || role.Equals(EnUserType.Customer))
             {
                 menu.AppendLine("<li>");
@@ -48,13 +54,7 @@ namespace AgendaTec.Portal.Controllers
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
                 menu.AppendLine("</li>");
-            }
-
-            menu.AppendLine("<li>");
-            menu.AppendLine("<a href='/Professionals' title='Profissionais'>");
-            menu.AppendLine("<span class='item'>Profissionais</span>");
-            menu.AppendLine("</a>");
-            menu.AppendLine("</li>");
+            }          
 
             menu.AppendLine("</ul>");
 

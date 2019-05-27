@@ -71,7 +71,7 @@ namespace AgendaTec.Tests
         [TestMethod]
         public void User_GetLoggedUserByEmail()
         {
-            var user = _userRepository.GetLoggedUserByEmail("teste@ary.com.br", out string errorMessage);
+            var user = _userRepository.GetUserByEmail("teste@ary.com.br", out string errorMessage);
             Assert.IsTrue(!user.Id.Equals(0));
         }
 
