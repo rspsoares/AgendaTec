@@ -14,6 +14,7 @@ namespace AgendaTec.Business.Entities
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public bool Active { get; set; }
+        public bool Root { get; set; }
         public bool CPFRequired { get; set; }
         public string Note { get; set; }
     }

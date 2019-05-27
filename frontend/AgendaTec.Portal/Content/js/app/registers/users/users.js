@@ -102,6 +102,7 @@ function CleanFields(loadFilterCombos) {
     $("#hiddenId").val("");
     $("#txtFirstName").val("");
     $("#txtLastName").val("");
+    $('#txtCPF').val("");
     $("#txtEmail").val("");
     $("#txtPhone").val("");
 

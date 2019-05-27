@@ -2,6 +2,7 @@
 using AgendaTec.Business.Bindings;
 using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AgendaTec.Tests
@@ -83,6 +84,16 @@ namespace AgendaTec.Tests
             user.FirstName = fakeName.FirstName(null).ToString();
             user.LastName = fakeName.LastName(null).ToString();
             _userRepository.Update(user, out errorMessage);
+
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void User_UpdateAdminUsersByCustomer()
+        {
+            ProfilesHelper.Initialize();
+            _userRepository.UpdateAdminUsersByCustomer(1, out string errorMessage);
+            ProfilesHelper.Reset();
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }

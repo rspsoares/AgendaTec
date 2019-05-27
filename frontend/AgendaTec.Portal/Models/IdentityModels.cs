@@ -13,6 +13,7 @@ namespace AgendaTec.Portal.Models
         public string IDRole { get; set; }
         public int IDCustomer { get; set; }
         public bool IsEnabled { get; set; }
+        public bool RootUser { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         { 
@@ -22,6 +23,7 @@ namespace AgendaTec.Portal.Models
             userIdentity.AddClaim(new Claim("FullName", $"{FirstName} {LastName}"));
             userIdentity.AddClaim(new Claim("IDRole", IDRole));
             userIdentity.AddClaim(new Claim("IDCustomer", IDCustomer.ToString()));
+            userIdentity.AddClaim(new Claim("RootUser", RootUser ? "1" : "0"));
 
             return userIdentity;
         }        

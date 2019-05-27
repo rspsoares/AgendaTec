@@ -15,5 +15,8 @@ namespace AgendaTec.Business.Contracts
         void Update(UserAccountDTO e, out string errorMessage);   
         string CheckDuplicatedUser(UserAccountDTO userAccount, out string errorMessage);
         List<UserAccountDTO> GetUserRecipients(int idCustomer, out string errorMessage);
+        void UpdateAdminUsersByCustomer(int idCustomer, out string errorMessage);
+        bool GetUserIsRoot(int idCustomer, string idUser);
+        bool GetUserIsRoot(int idCustomer, int idRole);
     }
 }

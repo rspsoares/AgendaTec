@@ -135,12 +135,14 @@ namespace AgendaTec.Business.Bindings
 
         public void Update(CustomerDTO e, out string errorMessage)
         {
-            errorMessage = string.Empty;
+            IUserFacade userFacade = new UserFacade();
 
             try
             {
                 var result = Mapper.Map<CustomerDTO, TCGCustomers>(e);
                 _commonRepository.Update(result.IDCustomer, result);
+
+                userFacade.UpdateAdminUsersByCustomer(e.Id, out errorMessage);
             }
             catch (Exception ex)
             {

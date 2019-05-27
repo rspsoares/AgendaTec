@@ -53,6 +53,7 @@
         .removeClass("k-textbox");   
 
     $('#chkActive').bootstrapSwitch();
+    $('#chkRoot').bootstrapSwitch();
     $('#chkCPFRequired').bootstrapSwitch();
     $('#chkCPFRequired').on('switchChange.bootstrapSwitch', function (event, state) {
         if (state) {
@@ -62,6 +63,7 @@
             $('#labelCPFCNPJ').css({ 'font-weight': '' });
         }        
     });
+    
     LoadCustomers();  
 }
 
@@ -144,6 +146,7 @@ function CleanFields() {
     $("#dtEnd").val("");
     $("#dtHire").val("");
     $('#chkActive').bootstrapSwitch('state', true);
+    $('#chkRoot').bootstrapSwitch('state', false);
     $('#chkCPFRequired').bootstrapSwitch('state', true);
     $("#txtNote").val("");
 }
@@ -174,6 +177,7 @@ function CustomerEdit(e) {
                 $("#dtEnd").val(kendo.toString(kendo.parseDate(result.Data.End, 'HH:mm'), 'HH:mm'));
                 $("#dtHire").val(kendo.toString(kendo.parseDate(result.Data.Hire, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);
+                $('#chkRoot').bootstrapSwitch('state', result.Data.Root);
                 $('#chkCPFRequired').bootstrapSwitch('state', result.Data.CPFRequired);
 
                 if (result.Data.CPFRequired) 
@@ -218,6 +222,7 @@ function SaveCustomer() {
         End: kendo.parseDate($("#dtEnd").val(), "HH:mm"),
         Hire: kendo.parseDate($("#dtHire").val(), "dd/MM/yyyy"),
         Active: $('#chkActive').bootstrapSwitch('state'),
+        Root: $('#chkRoot').bootstrapSwitch('state'),
         CPFRequired: $('#chkCPFRequired').bootstrapSwitch('state'),
         Note: $("#txtNote").val()
     };

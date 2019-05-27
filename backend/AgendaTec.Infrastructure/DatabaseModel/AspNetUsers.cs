@@ -41,6 +41,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public bool IsEnabled { get; set; }
+        public bool RootUser { get; set; }
     
         public virtual AspNetRoles AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

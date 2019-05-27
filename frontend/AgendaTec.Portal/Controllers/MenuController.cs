@@ -1,8 +1,6 @@
 ﻿using AgendaTec.Business.Entities;
 using AgendaTec.Portal.Helper;
-using Microsoft.AspNet.Identity.Owin;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AgendaTec.Portal.Controllers
@@ -12,7 +10,7 @@ namespace AgendaTec.Portal.Controllers
         public string MenuLateral()
         {         
             var menu = new StringBuilder();
-            var userManager = Request.GetOwinContext().GetUserManager<ApplicationUserManager>();            
+            var rootUser = User.GetIsUserRoot();
             var role = (EnUserType)int.Parse(User.GetIdRole());
             
             menu.AppendLine("<li>");
@@ -27,7 +25,7 @@ namespace AgendaTec.Portal.Controllers
             menu.AppendLine("<span class='nav-title-item'>Cadastros</span>");
             menu.AppendLine("<ul>");
 
-            if (role.Equals(EnUserType.Administrator))
+            if (rootUser)
             {
                 menu.AppendLine("<li>");
                 menu.AppendLine("<a href='/Customers' title='Customer'>");

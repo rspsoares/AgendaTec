@@ -267,6 +267,7 @@ namespace AgendaTec.Business.Bindings
                 user.Email = e.Email;
                 user.PhoneNumber = e.Phone.CleanMask();
                 user.IsEnabled = e.IsEnabled;
+                user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(e.IdRole));
 
                 _commonRepository.Update(e.Id, user);
             }
@@ -332,5 +333,103 @@ namespace AgendaTec.Business.Bindings
                  .OrderBy(x => x.FullName)
                  .ToList();
         }
+
+        public void UpdateAdminUsersByCustomer(int idCustomer, out string errorMessage)
+        {
+            var users = new List<AspNetUsers>();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                users = _commonRepository
+                    .Filter(x => x.IdCustomer.Equals(idCustomer))
+                    .Where(x => int.Parse(x.IdRole).Equals((int)EnUserType.Administrator))
+                    .ToList();
+
+                users.ForEach(user =>
+                {
+                    user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(user.IdRole));
+                    _commonRepository.Update(user.Id, user);
+                });
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+        }
+
+        public bool GetUserIsRoot(int idCustomer, string idUser)
+        {
+            ICustomerFacade customerFacade = new CustomerFacade();
+            var root = false;
+
+            string errorMessage;
+
+            try
+            {
+                var customer = customerFacade.GetCustomerById(idCustomer, out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))                
+                    return false;
+
+                var user = GetUserById(idUser, out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return false;
+
+                root = UserIsRoot(customer.Root, int.Parse(user.IdRole));
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+
+            return root;
+        }
+
+        public bool GetUserIsRoot(int idCustomer, int idRole)
+        {
+            ICustomerFacade customerFacade = new CustomerFacade();
+            var root = false;
+
+            string errorMessage;
+
+            try
+            {
+                var customer = customerFacade.GetCustomerById(idCustomer, out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return false;
+
+                root = UserIsRoot(customer.Root, idRole);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+
+            return root;
+        }
+
+        private bool UserIsRoot(bool customerRoot, int idRole)
+        {
+            ICustomerFacade customerFacade = new CustomerFacade();
+            var root = false;
+
+            string errorMessage;
+
+            try
+            {                
+                root = idRole.Equals((int)EnUserType.Administrator) && customerRoot;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+
+            return root;
+        }        
     }
 }

@@ -35,5 +35,10 @@ namespace AgendaTec.Portal.Helper
                 .SingleOrDefault()?
                 .Value;           
         }
+
+        public static bool GetIsUserRoot(this IPrincipal usr)
+        {
+            return ((ClaimsIdentity)usr.Identity).FindFirst("RootUser").Value.Equals("1");
+        }
     }
 }

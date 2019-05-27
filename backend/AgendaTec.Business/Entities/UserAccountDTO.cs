@@ -13,9 +13,10 @@
         public bool IsEnabled { get; set; }
         public string IdRole { get; set; }       
         public string RoleDescription { get; set; }
-        public int IDCustomer { get; set; }
+        public int IDCustomer { get; set; }        
         public string CustomerName { get; set; }
         public string InitialPassword { get; set; }
         public string NewPassword { get; set; }
+        public bool RootUser { get; set; }
     }
 }

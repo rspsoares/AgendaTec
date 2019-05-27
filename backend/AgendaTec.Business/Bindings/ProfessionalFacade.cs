@@ -163,6 +163,9 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
+                //Criar usuário
+                //Retornar ID do usuário pro e.IdUser
+
                 var result = Mapper.Map<ProfessionalDTO, TCGProfessionals>(e);
                 result = _commonRepository.Insert(result);
                 e.Id = result.IDProfessional;
