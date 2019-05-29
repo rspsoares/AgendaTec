@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/27/2019 17:04:02</publishTime>
+      <publishTime>05/29/2019 14:27:30</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/27/2019 17:04:02</publishTime>
+      <publishTime>05/29/2019 14:27:30</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/27/2019 15:26:40</publishTime>
+      <publishTime>05/28/2019 15:30:25</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/21/2019 09:58:37</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/27/2019 15:26:40</publishTime>
+      <publishTime>05/28/2019 15:30:25</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/27/2019 17:04:03</publishTime>
+      <publishTime>05/29/2019 14:27:31</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/27/2019 17:04:03</publishTime>
+      <publishTime>05/29/2019 14:27:31</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -589,7 +589,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2019 16:03:41</publishTime>
     </File>
     <File Include="Content/js/app/registers/professionals/professional.js">
-      <publishTime>05/27/2019 14:55:13</publishTime>
+      <publishTime>05/29/2019 15:05:42</publishTime>
     </File>
     <File Include="Content/js/app/registers/roles.js">
       <publishTime>05/03/2019 16:03:43</publishTime>
@@ -5656,7 +5656,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:15</publishTime>
     </File>
     <File Include="Views/Professionals/Index.cshtml">
-      <publishTime>05/27/2019 14:09:45</publishTime>
+      <publishTime>05/28/2019 13:16:55</publishTime>
     </File>
     <File Include="Views/Schedules/Index.cshtml">
       <publishTime>05/20/2019 09:32:11</publishTime>

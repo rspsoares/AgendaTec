@@ -98,6 +98,9 @@
     <Compile Include="DatabaseModel\TDirectMail.cs">
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\TProfessionalService.cs">
+      <DependentUpon>AgendaTecModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\TSchedules.cs">
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>

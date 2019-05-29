@@ -57,16 +57,6 @@ namespace AgendaTec.Tests
         }
 
         [TestMethod]
-        public void Service_GetServiceNameComboClient()
-        {
-            ProfilesHelper.Initialize();
-            var services = _serviceRepository.GetServiceNameComboClient(1, true, out string errorMessage);
-            ProfilesHelper.Reset();
-
-            Assert.IsTrue(services.Any());
-        }
-
-        [TestMethod]
         public void Service_GetServiceById()
         {
             ProfilesHelper.Initialize();

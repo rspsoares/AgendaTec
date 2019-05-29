@@ -9,8 +9,8 @@
     });
     $('#calendar').data('kendoCalendar').setOptions({ animation: false })
 
-    GetProfessionals();
     GetServices();
+    GetProfessionals();    
     GetAvalailableHours(kendo.toString(kendo.parseDate(new Date(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
 
     $('#btnSaveAppointment').click(function () {
@@ -19,11 +19,24 @@
 }
 
 function GetProfessionals() {
+    var idService = '';
+
+    var service = GetSelectedRow($("#listService").data("kendoListView"));
+    if (service !== undefined)
+        idService = service.IdService;
+
     var ds = new kendo.data.DataSource({
         transport: {
             read: {
                 url: "/Home/GetProfessionals",
                 type: "GET"
+            },
+            parameterMap: function (data, type) {
+                if (type === "read") {
+                    return {                        
+                        idService: idService                        
+                    };
+                }
             }
         },
         pageSize: 5
@@ -45,7 +58,7 @@ function GetServices() {
             read: {
                 url: "/Home/GetServices",
                 type: "GET"
-            }
+            }            
         },
         pageSize: 5
     });
@@ -56,6 +69,7 @@ function GetServices() {
         dataSource: ds,
         template: "<div style='margin: 4px'>#:Description#</div>",
         change: function () {
+            GetProfessionals();
             GetAvalailableHours(kendo.toString(kendo.parseDate($("#calendar").data("kendoCalendar").value(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
         }
     });
@@ -67,7 +81,7 @@ function GetAvalailableHours(value) {
     
     var service = GetSelectedRow($("#listService").data("kendoListView"));
     if (service !== undefined)
-        idService = service.Id;
+        idService = service.IdService;
 
     var professional = GetSelectedRow($("#listProfessional").data("kendoListView"));
     if (professional !== undefined)

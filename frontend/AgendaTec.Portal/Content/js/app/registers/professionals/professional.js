@@ -47,11 +47,59 @@
     $('#txtCPF').mask('999.999.999-99');
     $("#txtPhone").mask("(99) 9.9999-9999");
 
+    LoadAvailableServices();
+
+    $("#lstSelecteds").kendoListBox({
+        dataTextField: "Description",
+        dataValueField: "Id",
+        dataSource: []
+    });
+
     LoadProfessionals();
 }
 
 function ddlCustomerChange(e) {    
     LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), true, "Selecione...");
+
+    var listBox = $("#lstSelecteds").data("kendoListBox");
+    listBox.remove(listBox.items());    
+
+    $("#lstAvailables").data("kendoListBox").dataSource.read();
+}
+
+function LoadAvailableServices() {
+    $("#lstAvailables").kendoListBox({
+        connectWith: "lstSelecteds",
+        dataTextField: "Description",
+        dataValueField: "Id",
+        toolbar: {
+            tools: ["transferTo", "transferFrom", "transferAllTo", "transferAllFrom"]
+        },
+        dataSource: {
+            schema: {
+                data: function (result) {
+                    return result.Data;
+                }
+            },
+            transport: {
+                read: {
+                    url: "/Professionals/GetProfessionalServices",
+                    dataType: "json",
+                    type: "GET",
+                    async: true,
+                    cache: false
+                },
+                parameterMap: function (data, type) {
+                    if (type === "read") {
+                        return {
+                            idCustomer: $("#ddlCustomer").val(),
+                            idProfessional: $("#hiddenId").val()
+                        };
+                    }
+                }
+            }
+        }
+    });
 }
 
 function LoadProfessionals() {
@@ -164,6 +212,7 @@ function ProfessionalEdit(e) {
                 $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
                 $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
                 $("#txtEmail").val(result.Data.Email);
+                LoadSelectedServices(result.Data.Services);               
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -179,6 +228,11 @@ function ProfessionalEdit(e) {
     $("#loading-page").hide();
 }
 
+function LoadSelectedServices(services) {
+    $("#lstAvailables").data("kendoListBox").dataSource.read();
+    $("#lstSelecteds").data("kendoListBox").dataSource.data(services);
+}
+
 function SaveProfessional() {
     var professional = [];
 
@@ -189,6 +243,15 @@ function SaveProfessional() {
         return;
     }
 
+    var services = [];
+    $.each($("#lstSelecteds").data("kendoListBox").dataSource.view(), function (key, value) {        
+        var service = {
+            IdService: value.IdService,
+            Description: value.Description
+        };
+        services.push(service);
+    });    
+
     professional = {
         Id: parseInt($("#hiddenId").val()),
         IdCustomer: $("#ddlCustomer").val(),
@@ -197,7 +260,8 @@ function SaveProfessional() {
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
         Phone: $("#txtPhone").val(),
         CPF: $("#txtCPF").val(),
-        Email: $("#txtEmail").val()
+        Email: $("#txtEmail").val(),
+        Services: services
     };
 
     $("#loading-page").show();
@@ -246,5 +310,8 @@ function ValidateRequiredFields() {
         }
     }
 
+    if($("#lstSelecteds").data("kendoListBox").items().length === 0)
+        errorMessage += 'Favor associar algum serviço ao profissional' + '<br/>';
+    
     return errorMessage;
 }

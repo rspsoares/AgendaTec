@@ -5,16 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="da7322f17f26484bb9c901e9ef75eb22" Name="AgendaTecDiagram" ZoomLevel="80">
-        <EntityTypeShape EntityType="AgendaTecModel.AspNetRoles" Width="1.5" PointX="3.75" PointY="10.375" />
-        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserClaims" Width="1.5" PointX="8.25" PointY="10.5" />
-        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserLogins" Width="1.5" PointX="8.25" PointY="13.25" />
-        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserRoles" Width="1.5" PointX="6" PointY="13.5" />
-        <EntityTypeShape EntityType="AgendaTecModel.AspNetUsers" Width="1.5" PointX="6" PointY="6.375" />
-        <EntityTypeShape EntityType="AgendaTecModel.TCGCustomers" Width="1.5" PointX="0.75" PointY="7" />
-        <EntityTypeShape EntityType="AgendaTecModel.TCGProfessionals" Width="1.5" PointX="8.25" PointY="6.875" />
-        <EntityTypeShape EntityType="AgendaTecModel.TCGServices" Width="1.5" PointX="3" PointY="6.375" />
-        <EntityTypeShape EntityType="AgendaTecModel.TDirectMail" Width="1.5" PointX="3" PointY="16" />
-        <EntityTypeShape EntityType="AgendaTecModel.TSchedules" Width="1.5" PointX="10.5" PointY="7.5" />
+        <EntityTypeShape EntityType="AgendaTecModel.AspNetRoles" Width="1.5" PointX="3.75" PointY="12" />
+        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserClaims" Width="1.5" PointX="8.25" PointY="12.375" />
+        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserLogins" Width="1.5" PointX="8.25" PointY="15.125" />
+        <EntityTypeShape EntityType="AgendaTecModel.AspNetUserRoles" Width="1.5" PointX="6" PointY="15.125" />
+        <EntityTypeShape EntityType="AgendaTecModel.AspNetUsers" Width="1.5" PointX="6" PointY="8" />
+        <EntityTypeShape EntityType="AgendaTecModel.TCGCustomers" Width="1.5" PointX="0.75" PointY="8.625" />
+        <EntityTypeShape EntityType="AgendaTecModel.TCGProfessionals" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="AgendaTecModel.TCGServices" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="AgendaTecModel.TDirectMail" Width="1.5" PointX="3" PointY="17.75" />
+        <EntityTypeShape EntityType="AgendaTecModel.TProfessionalService" Width="1.5" PointX="10.5" PointY="8.625" />
+        <EntityTypeShape EntityType="AgendaTecModel.TSchedules" Width="1.5" PointX="10.5" PointY="12.125" />
         <AssociationConnector Association="AgendaTecModel.FK_AspNetUsers_AspNetRoles" />
         <AssociationConnector Association="AgendaTecModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" />
         <AssociationConnector Association="AgendaTecModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
@@ -26,7 +27,9 @@
         <AssociationConnector Association="AgendaTecModel.FK_TCGServices_TCGCustomers" />
         <AssociationConnector Association="AgendaTecModel.FK_TDirectMail_TCGCustomers" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedule_TCGCustomers" />
+        <AssociationConnector Association="AgendaTecModel.FK_TProfessionalService_TCGProfessionals" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_TCGProfessionals" />
+        <AssociationConnector Association="AgendaTecModel.FK_TProfessionalService_TCGServices" />
         <AssociationConnector Association="AgendaTecModel.FK_TSchedules_TCGServices" />
       </Diagram>
     </edmx:Diagrams>

@@ -11,13 +11,15 @@ namespace AgendaTec.Client.Controllers
     {
         private readonly IServiceFacade _serviceFacade;
         private readonly IProfessionalFacade _professionalFacade;
+        private readonly IProfessionalServiceFacade _professionalServiceFacade;
         private readonly IScheduleFacade _scheduleFacade;
         private readonly ICustomerFacade _customerFacade;
 
-        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade)
+        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IProfessionalServiceFacade professionalServiceFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade)
         {
             _serviceFacade = serviceFacade;
             _professionalFacade = professionalFacade;
+            _professionalServiceFacade = professionalServiceFacade;
             _scheduleFacade = scheduleFacade;
             _customerFacade = customerFacade;
         }
@@ -38,17 +40,18 @@ namespace AgendaTec.Client.Controllers
         [HttpGet]
         public JsonResult GetServices()
         {
-            var idCustomer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
-            var services = _serviceFacade.GetServiceNameComboClient(idCustomer, User.Identity.IsAuthenticated, out string errorMessage);
+            var customer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());            
+            var services = _professionalServiceFacade.GetServicesComboClient(customer, User.Identity.IsAuthenticated, out string errorMessage);
 
             return Json(services, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        public JsonResult GetProfessionals()
+        public JsonResult GetProfessionals(string idService)
         {
-            var idCustomer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
-            var professionals = _professionalFacade.GetProfessionalNameComboClient(idCustomer, User.Identity.IsAuthenticated, out string errorMessage);
+            var customer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
+            var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
+            var professionals = _professionalServiceFacade.GetProfessionalNameComboClient(customer, service, User.Identity.IsAuthenticated, out string errorMessage);
 
             return Json(professionals, JsonRequestBehavior.AllowGet);            
         }

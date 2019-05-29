@@ -68,6 +68,6 @@ namespace AgendaTec.Portal.Controllers
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os serviços." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, Data = services, Total = services.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
-        }
+        }       
     }
 }

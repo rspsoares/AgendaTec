@@ -115,6 +115,14 @@
           <Property Name="MailType" Type="int" Nullable="false" />
           <Property Name="Resend" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="TProfessionalService">
+          <Key>
+            <PropertyRef Name="IDProfesisonalService" />
+          </Key>
+          <Property Name="IDProfesisonalService" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDProfessional" Type="int" Nullable="false" />
+          <Property Name="IDService" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TSchedules">
           <Key>
             <PropertyRef Name="IDSchedule" />
@@ -243,6 +251,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TProfessionalService_TCGProfessionals">
+          <End Role="TCGProfessionals" Type="Self.TCGProfessionals" Multiplicity="1" />
+          <End Role="TProfessionalService" Type="Self.TProfessionalService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGProfessionals">
+              <PropertyRef Name="IDProfessional" />
+            </Principal>
+            <Dependent Role="TProfessionalService">
+              <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TProfessionalService_TCGServices">
+          <End Role="TCGServices" Type="Self.TCGServices" Multiplicity="1" />
+          <End Role="TProfessionalService" Type="Self.TProfessionalService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGServices">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="TProfessionalService">
+              <PropertyRef Name="IDService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TSchedule_TCGCustomers">
           <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
           <End Role="TSchedules" Type="Self.TSchedules" Multiplicity="*" />
@@ -301,6 +333,7 @@
           <EntitySet Name="TCGProfessionals" EntityType="Self.TCGProfessionals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGServices" EntityType="Self.TCGServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TDirectMail" EntityType="Self.TDirectMail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TProfessionalService" EntityType="Self.TProfessionalService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TSchedules" EntityType="Self.TSchedules" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AspNetUsers_AspNetRoles" Association="Self.FK_AspNetUsers_AspNetRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -338,6 +371,14 @@
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TDirectMail" EntitySet="TDirectMail" />
           </AssociationSet>
+          <AssociationSet Name="FK_TProfessionalService_TCGProfessionals" Association="Self.FK_TProfessionalService_TCGProfessionals">
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+            <End Role="TProfessionalService" EntitySet="TProfessionalService" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TProfessionalService_TCGServices" Association="Self.FK_TProfessionalService_TCGServices">
+            <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TProfessionalService" EntitySet="TProfessionalService" />
+          </AssociationSet>
           <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="Self.FK_TSchedule_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
@@ -369,6 +410,7 @@
           <EntitySet Name="TCGProfessionals" EntityType="AgendaTecModel.TCGProfessionals" />
           <EntitySet Name="TCGServices" EntityType="AgendaTecModel.TCGServices" />
           <EntitySet Name="TDirectMail" EntityType="AgendaTecModel.TDirectMail" />
+          <EntitySet Name="TProfessionalService" EntityType="AgendaTecModel.TProfessionalService" />
           <EntitySet Name="TSchedules" EntityType="AgendaTecModel.TSchedules" />
           <AssociationSet Name="FK_AspNetUsers_AspNetRoles" Association="AgendaTecModel.FK_AspNetUsers_AspNetRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -414,9 +456,17 @@
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
+          <AssociationSet Name="FK_TProfessionalService_TCGProfessionals" Association="AgendaTecModel.FK_TProfessionalService_TCGProfessionals">
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+            <End Role="TProfessionalService" EntitySet="TProfessionalService" />
+          </AssociationSet>
           <AssociationSet Name="FK_TSchedules_TCGProfessionals" Association="AgendaTecModel.FK_TSchedules_TCGProfessionals">
             <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
             <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TProfessionalService_TCGServices" Association="AgendaTecModel.FK_TProfessionalService_TCGServices">
+            <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TProfessionalService" EntitySet="TProfessionalService" />
           </AssociationSet>
           <AssociationSet Name="FK_TSchedules_TCGServices" Association="AgendaTecModel.FK_TSchedules_TCGServices">
             <End Role="TCGServices" EntitySet="TCGServices" />
@@ -527,6 +577,7 @@
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_TCGProfessionals_AspNetUsers" FromRole="TCGProfessionals" ToRole="AspNetUsers" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TProfessionalService" Relationship="AgendaTecModel.FK_TProfessionalService_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TProfessionalService" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedules_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TSchedules" />
         </EntityType>
         <EntityType Name="TCGServices">
@@ -539,6 +590,7 @@
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
           <Property Name="Time" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
+          <NavigationProperty Name="TProfessionalService" Relationship="AgendaTecModel.FK_TProfessionalService_TCGServices" FromRole="TCGServices" ToRole="TProfessionalService" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedules_TCGServices" FromRole="TCGServices" ToRole="TSchedules" />
         </EntityType>
         <EntityType Name="TDirectMail">
@@ -554,6 +606,16 @@
           <Property Name="MailType" Type="Int32" Nullable="false" />
           <Property Name="Resend" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TDirectMail_TCGCustomers" FromRole="TDirectMail" ToRole="TCGCustomers" />
+        </EntityType>
+        <EntityType Name="TProfessionalService">
+          <Key>
+            <PropertyRef Name="IDProfesisonalService" />
+          </Key>
+          <Property Name="IDProfesisonalService" Type="Guid" Nullable="false" />
+          <Property Name="IDProfessional" Type="Int32" Nullable="false" />
+          <Property Name="IDService" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TProfessionalService_TCGProfessionals" FromRole="TProfessionalService" ToRole="TCGProfessionals" />
+          <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TProfessionalService_TCGServices" FromRole="TProfessionalService" ToRole="TCGServices" />
         </EntityType>
         <EntityType Name="TSchedules">
           <Key>
@@ -711,6 +773,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TProfessionalService_TCGProfessionals">
+          <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="1" />
+          <End Type="AgendaTecModel.TProfessionalService" Role="TProfessionalService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGProfessionals">
+              <PropertyRef Name="IDProfessional" />
+            </Principal>
+            <Dependent Role="TProfessionalService">
+              <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TSchedules_TCGProfessionals">
           <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="1" />
           <End Type="AgendaTecModel.TSchedules" Role="TSchedules" Multiplicity="*" />
@@ -720,6 +794,18 @@
             </Principal>
             <Dependent Role="TSchedules">
               <PropertyRef Name="IDProfessional" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TProfessionalService_TCGServices">
+          <End Type="AgendaTecModel.TCGServices" Role="TCGServices" Multiplicity="1" />
+          <End Type="AgendaTecModel.TProfessionalService" Role="TProfessionalService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGServices">
+              <PropertyRef Name="IDService" />
+            </Principal>
+            <Dependent Role="TProfessionalService">
+              <PropertyRef Name="IDService" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -854,6 +940,15 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
                 <ScalarProperty Name="IDMail" ColumnName="IDMail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TProfessionalService">
+            <EntityTypeMapping TypeName="AgendaTecModel.TProfessionalService">
+              <MappingFragment StoreEntitySet="TProfessionalService">
+                <ScalarProperty Name="IDService" ColumnName="IDService" />
+                <ScalarProperty Name="IDProfessional" ColumnName="IDProfessional" />
+                <ScalarProperty Name="IDProfesisonalService" ColumnName="IDProfesisonalService" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -26,7 +26,7 @@ namespace AgendaTec.Business.Bindings
         {
             var result = new List<ServiceDTO>();
             var services = new List<TCGServices>();
-            
+
             errorMessage = string.Empty;
 
             try
@@ -74,51 +74,17 @@ namespace AgendaTec.Business.Bindings
             return result
                 .OrderBy(x => x.Description)
                 .ToList();
-        }
-
-        public List<ServiceDTO> GetServiceNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
-        {
-            var result = new List<ServiceDTO>();
-            var services = new List<TCGServices>();
-
-            errorMessage = string.Empty;
-
-            try
-            {
-                if (authenticated)
-                    services = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));                
-                else
-                {
-                    services.Add(new TCGServices()
-                    {
-                        IDService = 0,
-                        Description = "Para visualizar as opções de serviços, favor efetuar o Login."
-                    });
-                }
-
-                result = Mapper.Map<List<TCGServices>, List<ServiceDTO>>(services);
-            }
-            catch (Exception ex)
-            {
-                errorMessage = $"{ex.Message} - {ex.InnerException}";
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
-            }
-
-            return result
-                .OrderBy(x => x.Description)
-                .ToList();
-        }
+        }      
 
         public ServiceDTO GetServiceById(int idService, out string errorMessage)
         {
             var result = new ServiceDTO();
-            var service = new TCGServices();
 
             errorMessage = string.Empty;
 
             try
             {
-                service = _commonRepository.GetById(idService);
+                var service = _commonRepository.GetById(idService);
                 result = Mapper.Map<TCGServices, ServiceDTO>(service);
             }
             catch (Exception ex)

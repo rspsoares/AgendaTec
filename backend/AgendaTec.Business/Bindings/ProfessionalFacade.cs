@@ -15,11 +15,13 @@ namespace AgendaTec.Business.Bindings
     public class ProfessionalFacade : IProfessionalFacade
     {
         private readonly ICommonRepository<TCGProfessionals> _commonRepository;
+        private readonly IProfessionalServiceFacade _professionalServiceFacade;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public ProfessionalFacade()
         {
             _commonRepository = new CommonRepository<TCGProfessionals>();
+            _professionalServiceFacade = new ProfessionalServiceFacade();
         }
 
         public List<ProfessionalDTO> GetGrid(int idCustomer, string professionalName, out string errorMessage)
@@ -80,39 +82,6 @@ namespace AgendaTec.Business.Bindings
                 .ToList();
         }
 
-        public List<ProfessionalDTO> GetProfessionalNameComboClient(int idCustomer, bool authenticated, out string errorMessage)
-        {
-            var result = new List<ProfessionalDTO>();
-            var professionals = new List<TCGProfessionals>();
-
-            errorMessage = string.Empty;
-
-            try
-            {
-                if (authenticated)
-                    professionals = _commonRepository.Filter(x => x.IDCustomer.Equals(idCustomer));
-                else
-                {
-                    professionals.Add(new TCGProfessionals()
-                    {
-                        IDProfessional = 0,
-                        Name = "Para visualizar as opções de profissionais, favor efetuar o Login."
-                    });
-                }
-
-                result = Mapper.Map<List<TCGProfessionals>, List<ProfessionalDTO>>(professionals);
-            }
-            catch (Exception ex)
-            {
-                errorMessage = $"{ex.Message} - {ex.InnerException}";
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
-            }
-
-            return result
-                .OrderBy(x => x.Name)
-                .ToList();
-        }
-
         public ProfessionalDTO GetProfessionalById(int idProfessional, out string errorMessage)
         {
             var result = new ProfessionalDTO();            
@@ -123,7 +92,6 @@ namespace AgendaTec.Business.Bindings
             {
                 var professional = _commonRepository.GetById(idProfessional);
                 result = Mapper.Map<TCGProfessionals, ProfessionalDTO>(professional);
-              
             }
             catch (Exception ex)
             {
@@ -158,13 +126,13 @@ namespace AgendaTec.Business.Bindings
 
         public ProfessionalDTO Insert(ProfessionalDTO e, out string errorMessage)
         {
-            errorMessage = string.Empty;
-
             try
             {
                 var result = Mapper.Map<ProfessionalDTO, TCGProfessionals>(e);
                 result = _commonRepository.Insert(result);
                 e.Id = result.IDProfessional;
+
+                _professionalServiceFacade.SaveProfessionalService(e.Id, e.Services, out errorMessage);
             }
             catch (Exception ex)
             {
@@ -177,12 +145,12 @@ namespace AgendaTec.Business.Bindings
 
         public void Update(ProfessionalDTO e, out string errorMessage)
         {
-            errorMessage = string.Empty;
-
             try
             {
                 var result = Mapper.Map<ProfessionalDTO, TCGProfessionals>(e);
                 _commonRepository.Update(result.IDProfessional, result);
+
+                _professionalServiceFacade.SaveProfessionalService(e.Id, e.Services, out errorMessage);
             }
             catch (Exception ex)
             {
@@ -231,6 +199,6 @@ namespace AgendaTec.Business.Bindings
             }
 
             return userInUse;
-        }
+        }       
     }
 }

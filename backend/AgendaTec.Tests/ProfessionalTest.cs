@@ -90,16 +90,6 @@ namespace AgendaTec.Tests
             ProfilesHelper.Reset();
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
-        }
-
-        [TestMethod]
-        public void Professional_GetProfessionalNameComboClient()
-        {
-            ProfilesHelper.Initialize();
-            var professional = _professionalRepository.GetProfessionalNameComboClient(1, true, out string errorMessage);
-            ProfilesHelper.Reset();
-
-            Assert.IsTrue(professional.Any());
-        }
+        }       
     }
 }

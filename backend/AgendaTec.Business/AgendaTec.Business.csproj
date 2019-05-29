@@ -59,12 +59,14 @@
     <Compile Include="Bindings\CustomerFacade.cs" />
     <Compile Include="Bindings\DirectMailFacade.cs" />
     <Compile Include="Bindings\ProfessionalFacade.cs" />
+    <Compile Include="Bindings\ProfessionalServiceFacade.cs" />
     <Compile Include="Bindings\ScheduleFacade.cs" />
     <Compile Include="Bindings\ServiceFacade.cs" />
     <Compile Include="Bindings\UserFacade.cs" />
     <Compile Include="Contracts\ICustomerFacade.cs" />
     <Compile Include="Contracts\IDirectMailFacade.cs" />
     <Compile Include="Contracts\IProfessionalFacade.cs" />
+    <Compile Include="Contracts\IProfessionalServiceFacade.cs" />
     <Compile Include="Contracts\IScheduleFacade.cs" />
     <Compile Include="Contracts\IServiceFacade.cs" />
     <Compile Include="Contracts\IUserFacade.cs" />

@@ -16,6 +16,7 @@ namespace AgendaTec.Portal.App_Start
 
             builder.RegisterType<CustomerFacade>().As<ICustomerFacade>().InstancePerLifetimeScope();
             builder.RegisterType<ServiceFacade>().As<IServiceFacade>().InstancePerLifetimeScope();
+            builder.RegisterType<ProfessionalServiceFacade>().As<IProfessionalServiceFacade>().InstancePerLifetimeScope();
             builder.RegisterType<ProfessionalFacade>().As<IProfessionalFacade>().InstancePerLifetimeScope();
             builder.RegisterType<UserFacade>().As<IUserFacade>().InstancePerLifetimeScope();
             builder.RegisterType<ScheduleFacade>().As<IScheduleFacade>().InstancePerLifetimeScope();

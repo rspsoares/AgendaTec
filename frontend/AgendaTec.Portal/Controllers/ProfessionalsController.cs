@@ -14,10 +14,12 @@ namespace AgendaTec.Portal.Controllers
     public class ProfessionalsController : Controller
     {
         private readonly IProfessionalFacade _professionalFacade;
-        
-        public ProfessionalsController(IProfessionalFacade professionalFacade)
+        private readonly IProfessionalServiceFacade _professionalServiceFacade;
+
+        public ProfessionalsController(IProfessionalFacade professionalFacade, IProfessionalServiceFacade professionalServiceFacade)
         {
             _professionalFacade = professionalFacade;
+            _professionalServiceFacade = professionalServiceFacade;
         }
 
         public ActionResult Index()
@@ -116,6 +118,20 @@ namespace AgendaTec.Portal.Controllers
                 return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os profissionais." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, Data = professionals, Total = professionals.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetProfessionalServices(string idCustomer, string idProfessional)
+        {
+            var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
+            var customer = string.IsNullOrEmpty(idCustomer) ? 0 : int.Parse(idCustomer);
+
+            var services = _professionalServiceFacade.GetAvailablesProfessionalServices(customer, professional, out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os serviços do profissional." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = services, Total = services.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }
     }
 }

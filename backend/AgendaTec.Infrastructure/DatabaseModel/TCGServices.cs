@@ -17,6 +17,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TCGServices()
         {
+            this.TProfessionalService = new HashSet<TProfessionalService>();
             this.TSchedules = new HashSet<TSchedules>();
         }
     
@@ -27,6 +28,8 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public int Time { get; set; }
     
         public virtual TCGCustomers TCGCustomers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TProfessionalService> TProfessionalService { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSchedules> TSchedules { get; set; }
     }

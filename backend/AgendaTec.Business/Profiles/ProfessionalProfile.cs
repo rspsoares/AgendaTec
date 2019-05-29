@@ -16,7 +16,13 @@ namespace AgendaTec.Business.Profiles
                .ForMember(d => d.Birthday, s => s.MapFrom(m => m.Birthday))
                .ForMember(d => d.Phone, s => s.MapFrom(m => m.Phone))
                .ForMember(d => d.CPF, s => s.MapFrom(m => m.AspNetUsers.CPF))
-               .ForMember(d => d.Email, s => s.MapFrom(m => m.AspNetUsers.Email));
+               .ForMember(d => d.Email, s => s.MapFrom(m => m.AspNetUsers.Email))
+               .ForMember(d => d.Services, s => s.MapFrom(m => m.TProfessionalService));
+
+            CreateMap<TProfessionalService, ProfessionalServiceDTO>()
+                .ForMember(d => d.Id, s => s.MapFrom(m => m.IDProfesisonalService))
+                .ForMember(d => d.IdService, s => s.MapFrom(m => m.TCGServices.IDService))
+                .ForMember(d => d.Description, s => s.MapFrom(m => m.TCGServices.Description));
 
             CreateMap<ProfessionalDTO, TCGProfessionals>()
                .ForMember(d => d.IDProfessional, s => s.MapFrom(m => m.Id))
