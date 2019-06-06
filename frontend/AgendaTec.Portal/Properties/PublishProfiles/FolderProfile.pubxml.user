@@ -10,25 +10,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>05/29/2019 16:52:17</publishTime>
+      <publishTime>06/03/2019 10:01:33</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>05/29/2019 16:52:17</publishTime>
+      <publishTime>06/03/2019 10:01:33</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>05/29/2019 15:59:14</publishTime>
+      <publishTime>06/03/2019 10:01:32</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/21/2019 09:58:37</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>05/29/2019 15:59:14</publishTime>
+      <publishTime>06/03/2019 10:01:32</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>05/29/2019 16:52:20</publishTime>
+      <publishTime>06/03/2019 10:01:40</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>05/29/2019 16:52:20</publishTime>
+      <publishTime>06/03/2019 10:01:40</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>

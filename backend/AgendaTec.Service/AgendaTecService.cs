@@ -140,12 +140,22 @@ namespace AgendaTec.Service
             }
         }
 
+
+        private void WhatsApp()
+        {
+
+           
+        }
         public void Debug()
         {
             _configuration = ServiceHelper.LoadConfigurations(out string configErrorMessage);
 
             //CleanUpCallback(null);
-            SendMailCallback(null);
+            DirectMailHelper.WhatsApp();
+
+            //SendMailCallback(null);
+
+            
         }
     }
 }
