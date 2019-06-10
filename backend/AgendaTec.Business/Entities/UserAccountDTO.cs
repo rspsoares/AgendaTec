@@ -18,5 +18,6 @@
         public string InitialPassword { get; set; }
         public string NewPassword { get; set; }
         public bool RootUser { get; set; }
+        public bool DirectMail { get; set; }
     }
 }

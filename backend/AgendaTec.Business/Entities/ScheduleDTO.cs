@@ -16,5 +16,6 @@
         public decimal Price { get; set; }
         public int Time { get; set; }
         public bool Bonus { get; set; }
+        public bool Attended { get; set; }
     }
 }

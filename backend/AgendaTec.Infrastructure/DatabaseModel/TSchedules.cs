@@ -23,6 +23,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public decimal Price { get; set; }
         public int Time { get; set; }
         public bool Bonus { get; set; }
+        public bool Attended { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual TCGCustomers TCGCustomers { get; set; }

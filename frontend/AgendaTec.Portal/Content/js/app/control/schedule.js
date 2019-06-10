@@ -92,6 +92,8 @@ function PageSetup() {
     $('#chkBonusFilter').bootstrapSwitch();
     $('#chkBonus').bootstrapSwitch();
 
+    $('#chkAttended').bootstrapSwitch();
+
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true, undefined);
     
     $("#ddlCustomerFilter")
@@ -413,6 +415,7 @@ function CleanFields(loadFilterCombos) {
     $("#txtPrice").val("");
     $("#txtTime").val("");
     $('#chkBonus').bootstrapSwitch('state', true);
+    $('#chkAttended').bootstrapSwitch('state', false);
 }
 
 function AppointmentEdit(e) {    
@@ -441,7 +444,8 @@ function AppointmentEdit(e) {
                 $("#dtDateTime").val(kendo.toString(kendo.parseDate(result.Data.Date + ' ' + result.Data.Hour, 'yyyy-MM-dd HH:mm'), 'dd/MM/yyyy HH:mm'));
                 $("#txtPrice").val(result.Data.Price.FormatMoney(2, '', '.', ','));
                 $("#txtTime").val(result.Data.Time);
-                $('#chkBonus').bootstrapSwitch('state', result.Data.Bonus);                
+                $('#chkBonus').bootstrapSwitch('state', result.Data.Bonus);    
+                $('#chkAttended').bootstrapSwitch('state', result.Data.Attended);    
             }
             else {
                 ShowModalAlert(result.errorMessage);
@@ -474,14 +478,21 @@ function SaveAppointment_click() {
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function (result) {
-            if (result.Success && result.errorMessage !== '') {                                
-                result.errorMessage = result.errorMessage + '<br />' + 'Deseja continuar?';
-                
-                $('#modalOverlapConfirmation').modal({ backdrop: 'static', keyboard: false });                
-                $('#modalOverlapConfirmation .modal-dialog .modal-body .row .form-group').html(result.errorMessage);
+            if (!result.Success) {
+                ShowModalAlert("Erro ao verificar disponibilidade.");
+                return;
             }
-            else 
-                ShowModalAlert("Erro ao verificar disponibilidade.");                            
+
+            if (result.errorMessage !== '') {
+                result.errorMessage = result.errorMessage + '<br />' + 'Deseja continuar?';
+
+                $('#modalOverlapConfirmation').modal({ backdrop: 'static', keyboard: false });
+                $('#modalOverlapConfirmation .modal-dialog .modal-body .row .form-group').html(result.errorMessage);
+
+                return;
+            }
+
+            SaveAppointment();
         }
     });    
 }
@@ -496,11 +507,11 @@ function GetAppointment() {
         Date: kendo.parseDate($("#dtDateTime").val(), "dd/MM/yyyy HH:mm"),
         Price: Math.abs(parseFloat($("#txtPrice").val().replace(/\./g, '').replace(",", "."))),
         Time: $("#txtTime").val(),
-        Bonus: $('#chkBonus').bootstrapSwitch('state')
+        Bonus: $('#chkBonus').bootstrapSwitch('state'),
+        Attended: $('#chkAttended').bootstrapSwitch('state')
     };
 
     return schedule;
-
 }
 
 function SaveAppointment() {    

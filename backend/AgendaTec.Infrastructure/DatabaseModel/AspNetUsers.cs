@@ -42,6 +42,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public int AccessFailedCount { get; set; }
         public bool IsEnabled { get; set; }
         public bool RootUser { get; set; }
+        public bool DirectMail { get; set; }
     
         public virtual AspNetRoles AspNetRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -14,6 +14,7 @@ namespace AgendaTec.Portal.Models
         public int IDCustomer { get; set; }
         public bool IsEnabled { get; set; }
         public bool RootUser { get; set; }
+        public bool DirectMail { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         { 

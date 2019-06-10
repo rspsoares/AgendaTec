@@ -67,7 +67,8 @@ namespace AgendaTec.Business.Bindings
                     RoleDescription = x.AspNetRoles.Name,
                     IDCustomer = x.TCGCustomers?.IDCustomer ?? 0,
                     CustomerName = x.TCGCustomers?.CompanyName ?? string.Empty,
-                    IsEnabled = x.IsEnabled
+                    IsEnabled = x.IsEnabled,
+                    DirectMail = x.DirectMail
                 })
                 .OrderBy(x => x.UserName)
                 .ToList();
@@ -97,7 +98,8 @@ namespace AgendaTec.Business.Bindings
                     RoleDescription = result.AspNetRoles.Name,
                     IDCustomer = result.TCGCustomers?.IDCustomer ?? 0,
                     CustomerName = result.TCGCustomers?.CompanyName ?? string.Empty,
-                    IsEnabled = result.IsEnabled
+                    IsEnabled = result.IsEnabled,
+                    DirectMail = result.DirectMail
                 };
             }
             catch (Exception ex)
@@ -265,6 +267,7 @@ namespace AgendaTec.Business.Bindings
                 user.PhoneNumber = e.Phone.CleanMask();
                 user.IsEnabled = e.IsEnabled;
                 user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(e.IdRole));
+                user.DirectMail = e.DirectMail;
 
                 _commonRepository.Update(e.Id, user);
             }
@@ -308,7 +311,7 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 users = _commonRepository
-                    .Filter(x => x.IdCustomer.Equals(idCustomer))
+                    .Filter(x => x.IdCustomer.Equals(idCustomer) && x.DirectMail)
                     .ToList();              
             }
             catch (Exception ex)

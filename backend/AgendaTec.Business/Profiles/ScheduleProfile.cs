@@ -22,7 +22,9 @@ namespace AgendaTec.Business.Profiles
                .ForMember(d => d.Time, s => s.MapFrom(m => m.Time))
                .ForMember(d => d.Finish, s => s.MapFrom(m => m.Date.AddMinutes(m.Time).ToString("HH:mm")))
                .ForMember(d => d.Price, s => s.MapFrom(m => m.Price))
-               .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus));
+               .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus))
+               .ForMember(d => d.Attended, s => s.MapFrom(m => m.Attended));
+               ;
 
             CreateMap<ScheduleDTO, TSchedules>()
                 .ForMember(d => d.IDSchedule, s => s.MapFrom(m => m.Id))
@@ -33,7 +35,8 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Date, s => s.MapFrom(m => m.Date))
                 .ForMember(d => d.Price, s => s.MapFrom(m => m.Price))
                 .ForMember(d => d.Time, s => s.MapFrom(m => m.Time))
-                .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus));
+                .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus))
+                .ForMember(d => d.Attended, s => s.MapFrom(m => m.Attended));
 
             CreateMap<TSchedules, AppointmentDTO>()
                 .ForMember(d => d.title, s => s.MapFrom(m => m.TCGServices.Description + " - " + m.AspNetUsers.FirstName + " " + m.AspNetUsers.LastName))

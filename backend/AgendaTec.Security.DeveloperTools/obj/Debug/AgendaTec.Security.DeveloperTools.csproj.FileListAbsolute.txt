@@ -31,7 +31,6 @@ C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\bin
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\bin\Debug\Microsoft.IdentityModel.Logging.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.csprojAssemblyReference.cache
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.FrmMain.resources
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.Properties.Resources.resources
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.csproj.GenerateResource.cache

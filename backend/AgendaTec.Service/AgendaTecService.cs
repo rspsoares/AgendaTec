@@ -153,9 +153,7 @@ namespace AgendaTec.Service
             //CleanUpCallback(null);
             DirectMailHelper.WhatsApp();
 
-            //SendMailCallback(null);
-
-            
+            //SendMailCallback(null);            
         }
     }
 }

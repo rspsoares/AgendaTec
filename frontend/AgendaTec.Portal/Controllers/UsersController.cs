@@ -90,7 +90,8 @@ namespace AgendaTec.Portal.Controllers
                     Email = userDTO.Email,
                     PhoneNumber = userDTO.Phone.CleanMask(),
                     IsEnabled = userDTO.IsEnabled,
-                    RootUser = _userFacade.GetUserIsRoot(userDTO.IDCustomer, int.Parse(userDTO.IdRole))
+                    RootUser = _userFacade.GetUserIsRoot(userDTO.IDCustomer, int.Parse(userDTO.IdRole)),
+                    DirectMail = userDTO.DirectMail
                 };
 
                 var result = await userManager.CreateAsync(user, "AgendaTec123");

@@ -19,6 +19,9 @@
     $("#txtPhone").mask("(99) 9.9999-9999");
     $('#txtCPF').mask('999.999.999-99');
 
+    $('#chkIsEnabled').bootstrapSwitch();
+    $('#chkDirectMail').bootstrapSwitch();
+
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
     LoadCombo("/Users/GetRoleCombo", ['#ddlRoleFilter', '#ddlRole'], "IdRole", "RoleDescription", false);
 
@@ -118,6 +121,7 @@ function CleanFields(loadFilterCombos) {
     }
 
     $('#chkIsEnabled').bootstrapSwitch('state', true);
+    $('#chkDirectMail').bootstrapSwitch('state', true);
 }
 
 function UserEdit(e) {
@@ -145,6 +149,7 @@ function UserEdit(e) {
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
                 $("#ddlRole").data('kendoDropDownList').value(result.Data.IdRole);
                 $('#chkIsEnabled').bootstrapSwitch('state', result.Data.IsEnabled);
+                $('#chkDirectMail').bootstrapSwitch('state', result.Data.DirectMail);
 
                 LockFields(CheckUserIsConsumer(result.Data.IdRole));
             }
@@ -181,7 +186,8 @@ function SaveUser() {
         Phone: $("#txtPhone").val(),
         IDCustomer: $("#ddlCustomer").val(),
         IdRole: $("#ddlRole").val(),
-        IsEnabled: $('#chkIsEnabled').bootstrapSwitch('state')
+        IsEnabled: $('#chkIsEnabled').bootstrapSwitch('state'),
+        DirectMail: $('#chkDirectMail').bootstrapSwitch('state')
     };
 
     $("#loading-page").show();
