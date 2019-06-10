@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace AgendaTec.Business.Helpers
 {
@@ -66,19 +67,24 @@ namespace AgendaTec.Business.Helpers
 
         public static void WhatsApp()
         {
-            const string accountSid = "AC5db9b8f017698ab0b069b0a7c792db78";
-            const string authToken = "f83ba3c441c0bd888c7fc1099ff0f47d";
+            const string accountSid = "ACa92047e3a6ae5077af119e032ef65536";
+            const string authToken = "173a0316a3c545503475206b821c480e";
 
             TwilioClient.Init(accountSid, authToken);
 
-            var message = MessageResource.Create(
-                from: new Twilio.Types.PhoneNumber("whatsapp:+551132305360"),
-                body: "Hi Joe! Thanks for placing an order with us. We’ll let you know once your order has been processed and delivered. Your order number is O12235234",
-                to: new Twilio.Types.PhoneNumber("whatsapp:+5511998056533")
-            );
+            try
+            {             
+                var message = MessageResource.Create(
+                    from: new PhoneNumber("whatsapp:+14155238886"),
+                    body: "Promoção imperdível dia dos Namorados: nononononononononono",
+                    to: new PhoneNumber("whatsapp:+5511998056533")
+                );
+            }
+            catch (System.Exception ex)
+            {
 
-
-
+                throw;
+            }
         }
     }
 }

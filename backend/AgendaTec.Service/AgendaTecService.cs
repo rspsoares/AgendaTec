@@ -112,7 +112,7 @@ namespace AgendaTec.Service
             finally
             {
                 sendMailLock = false;
-                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
+                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
             }
         }
 
@@ -136,7 +136,7 @@ namespace AgendaTec.Service
             finally
             {
                 cleanUpLock = false;
-                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Proccess complete.");
+                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
             }
         }
 
