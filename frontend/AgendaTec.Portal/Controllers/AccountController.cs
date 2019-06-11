@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AgendaTec.Portal.Models;
 using AgendaTec.Business.Entities;
+using AgendaTec.Portal.Helper;
 
 namespace AgendaTec.Portal.Controllers
 {    
@@ -72,9 +73,11 @@ namespace AgendaTec.Portal.Controllers
             }
 
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: true);
+
             switch (result)
             {
                 case SignInStatus.Success:
+                    var role = (EnUserType)int.Parse(User.GetIdRole());
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
