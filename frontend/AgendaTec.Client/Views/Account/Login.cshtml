@@ -40,30 +40,34 @@
         <div id="ContentContainer">
             <div id="Center-Container">
                 <div class="col-lg-4 col-lg-offset-3 col-md-4 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12" style="margin-top: 10px;">
-                    <div class="legend">Login</div>
-                    <div class="control-group well">
-                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
-                            <div class="form-group">
-                                @Html.DisplayNameFor(c => c.Email)
-                                @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox", @autofocus = "" })
-                            </div>
-                            <div class="form-group">
-                                @Html.DisplayNameFor(c => c.Password)
-                                @Html.PasswordFor(c => c.Password, new { @style = "width: 100%;", @class = "k-textbox" })
-                            </div>
-                            <div class="form-group">
-                                <button id="btnLogin" type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
-                                <button type="button" id="btnRestorePass" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-refresh"></span> Esqueci minha senha</button>
-                            </div>
-                            @*<p>
-                                @Html.ActionLink("Register as a new user", "Register")
-                            </p>*@
-                        }
-                    </div>
-                </div>
+                    <section id="loginForm">
+                        <div class="legend">Login</div>
+                        <div class="control-group well">
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    @Html.DisplayNameFor(c => c.Email)
+                                    @Html.TextBoxFor(c => c.Email, new { @id = "txtEmail", @style = "width: 100%;", @class = "k-textbox", @autofocus = "" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DisplayNameFor(c => c.Password)
+                                    @Html.PasswordFor(c => c.Password, new { @style = "width: 100%;", @class = "k-textbox" })
+                                </div>
+                                <div class="form-group">
+                                    <button id="btnLogin" type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
+                                    <button type="button" id="btnRestorePass" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-refresh"></span> Esqueci minha senha</button>
+                                </div>                                
+                            }
+
+                            <hr />
+                            
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+
+                        </div>
+                    </section>
+                </div>               
             </div>
         </div>
     </div>

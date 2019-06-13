@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using AgendaTec.Client.Models;
+using Microsoft.Owin.Security.Google;
 
 namespace AgendaTec.Client
 {
@@ -57,11 +58,11 @@ namespace AgendaTec.Client
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "739871960102-ea4hlf5htgrjo08s5gfur1cekaaic4n8.apps.googleusercontent.com",
+                ClientSecret = "xJAF9xRIIksAabbdCPynSQAb"
+            });
         }
     }
 }

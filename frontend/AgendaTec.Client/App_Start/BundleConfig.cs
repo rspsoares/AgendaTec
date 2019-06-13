@@ -42,6 +42,7 @@ namespace AgendaTec.Client
                 "~/Content/kendo-ui/styles/web/kendo.blueopal.min.css",
                 "~/Content/kendo-ui/styles/web/kendo.blueopal.mobile.all.css",
                 "~/Content/bootstrap/css/bootstrap.css",
+                "~/Content/bootstrap/css/bootstrap-social.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",
                 "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",
                 "~/Content/agendatec-default.css"));
