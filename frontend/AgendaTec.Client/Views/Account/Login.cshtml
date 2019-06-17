@@ -21,7 +21,7 @@
     @Styles.Render("~/Content/css")
 
     @using AgendaTec.Client.Models
-    @model LoginViewModel
+    @model LoginViewModel    
 
     <style type="text/css">
         html {
@@ -58,13 +58,13 @@
                                 <div class="form-group">
                                     <button id="btnLogin" type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-lock"></span> Entrar</button>
                                     <button type="button" id="btnRestorePass" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-refresh"></span> Esqueci minha senha</button>
-                                </div>                                
+                                </div>
                             }
 
                             <hr />
-                            
-                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
 
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                         
                         </div>
                     </section>
                 </div>               
@@ -83,15 +83,5 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/kendo")
     @Scripts.Render("~/bundles/bootstrap")
-
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            $('#btnRestorePass').click(function () {
-                window.location = '@Url.Content("~/Account/ForgotPassword")';
-            });
-        });
-    </script>
-
 </body>
 </html>

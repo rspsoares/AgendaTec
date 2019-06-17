@@ -2,7 +2,6 @@
 using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
-using Bogus;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;

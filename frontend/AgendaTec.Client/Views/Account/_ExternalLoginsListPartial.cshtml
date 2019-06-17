@@ -1,16 +1,16 @@
 ﻿@model AgendaTec.Client.Models.ExternalLoginListViewModel
-
 @{
-    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl })) {
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+    {
         @Html.AntiForgeryToken()
-    <div id="socialLoginList">
-        <button type="submit" class="loginBtn loginBtn--google" id="Google" name="provider" value="Google" title="Entrar com Google">
-            Entrar com Google
-        </button>
+        <div id="socialLoginList">
+            <button type="submit" class="loginBtn loginBtn--google" id="Google" name="provider" value="Google" title="Entrar com Google">
+                Entrar com Google
+            </button>
 
-        <button class="loginBtn loginBtn--facebook">
-            Login with Facebook
-        </button>
-    </div>
+            <button class="loginBtn loginBtn--facebook">
+                Entrar com Facebook
+            </button>
+        </div>
     }
 }
