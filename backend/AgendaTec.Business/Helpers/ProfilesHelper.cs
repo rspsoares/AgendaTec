@@ -14,6 +14,7 @@ namespace AgendaTec.Business.Helpers
                 cfg.AddProfile<ProfessionalProfile>();
                 cfg.AddProfile<ScheduleProfile>();
                 cfg.AddProfile<DirectMailProfile>();
+                cfg.AddProfile<UserProfile>();
             });
         }
 

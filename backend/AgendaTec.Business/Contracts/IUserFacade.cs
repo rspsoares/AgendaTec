@@ -12,7 +12,8 @@ namespace AgendaTec.Business.Contracts
         List<UserAccountDTO> GetUserNamesCombo(int idCustomer, out string errorMessage);
         List<UserAccountDTO> GetProfessionalNamesCombo(int idCustomer, out string errorMessage);
         List<UserAccountDTO> GetConsumerNamesCombo(int idCustomer, out string errorMessage);
-        void Update(UserAccountDTO e, out string errorMessage);   
+        void Update(UserAccountDTO e, out string errorMessage);
+        void UpdateRequiredFields(UserAccountDTO e, out string errorMessage);
         string CheckDuplicatedUser(UserAccountDTO userAccount, out string errorMessage);
         List<UserAccountDTO> GetUserRecipients(int idCustomer, out string errorMessage);
         void UpdateAdminUsersByCustomer(int idCustomer, out string errorMessage);

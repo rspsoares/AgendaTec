@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,6 +11,7 @@ namespace AgendaTec.Portal.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CPF { get; set; }
+        public DateTime? BirthDate { get; set; }
         public string IDRole { get; set; }
         public int IDCustomer { get; set; }
         public bool IsEnabled { get; set; }

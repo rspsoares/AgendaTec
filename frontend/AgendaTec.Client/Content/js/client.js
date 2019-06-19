@@ -7,7 +7,11 @@
             GetAvalailableHours(kendo.toString(kendo.parseDate(this.value(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
         }
     });
-    $('#calendar').data('kendoCalendar').setOptions({ animation: false })
+    $('#calendar').data('kendoCalendar').setOptions({ animation: false });
+
+    $("#dtBirthday").mask("99/99/9999");
+    $("#txtPhone").mask("(99) 9.9999-9999");
+    $('#txtCPF').mask('999.999.999-99');
 
     GetServices();
     GetProfessionals();    
@@ -159,8 +163,13 @@ function SaveAppointment() {
                 GetAvalailableHours(kendo.toString(kendo.parseDate($("#calendar").data("kendoCalendar").value(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 ShowModalSucess("Agendamento realizado com sucesso.");
             }
-            else
-                ShowModalAlert(result.errorMessage);
+            else {
+
+                if (result.errorMessage === 'Required fields')
+                    ShowModalUserRequiredFields();                
+                else
+                    ShowModalAlert(result.errorMessage);
+            }                
         }
     });
 }
@@ -184,4 +193,86 @@ function ShowModalSucess(dataHtml) {
     $('#modalSuccess .modal-dialog .modal-header center .modal-title strong').html("Sucesso");
     $('#modalSuccess .modal-dialog .modal-body .alert').html("");
     $('#modalSuccess .modal-dialog .modal-body .alert').html(dataHtml);
+}
+
+function ShowModalUserRequiredFields() {    
+    $("#loading-page").show();
+
+    $.ajax({
+        type: "GET",
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        url: "/Home/GetUserRequiredFields",        
+        cache: false,
+        async: false,
+        success: function (result) {
+            $("#loading-page").hide();
+            if (result.Success) {
+                $("#dtBirthday").val(result.Data.Birthday).mask('99/99/9999');
+                $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
+                $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
+            }
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
+    
+    $('#modalRequiredFields').modal({ backdrop: 'static', keyboard: false });
+}
+
+function SaveUserRequiredFields() {
+    var errorMessages = ValidateRequiredFields();
+
+    if (errorMessages !== '') {
+        ShowModalAlert(errorMessages);
+        return;
+    }
+
+    var consumer = {        
+        Birthday: $("#dtBirthday").val(),
+        CPF: $("#txtCPF").val(),        
+        Phone: $("#txtPhone").val()        
+    };
+
+    $("#loading-page").show();
+
+    $.ajax({
+        url: '/Home/SaveUserRequiredFields',
+        data: JSON.stringify({ consumer: consumer }),
+        type: 'POST',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (result) {
+            $("#loading-page").hide();
+            if (result.Success) {
+                $('#modalRequiredFields').modal("hide");
+                SaveAppointment();
+            }
+            else
+                ShowModalAlert(result.errorMessage);
+        }
+    });
+}
+
+function ValidateRequiredFields() {
+    var errorMessage = '';
+   
+    if (!isValidDate($("#dtBirthday").val()))
+        errorMessage += 'Data de Nascimento inválida' + '<br/>';
+
+    if ($("#txtCPF").val() === '')
+        errorMessage += 'Favor informar o CPF' + '<br/>';
+
+    if ($("#txtPhone").val() === '')
+        errorMessage += 'Favor informar o Celular' + '<br/>';
+
+    return errorMessage;
+}
+
+function isValidDate(s) {
+    var bits = s.split('/');
+    var d = new Date(bits[2] + '/' + bits[1] + '/' + bits[0]);
+    return !!(d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[0]));
 }

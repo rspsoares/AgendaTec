@@ -16,6 +16,8 @@
         LoadUsers();
     });
 
+    $("#dtBirthday").mask("99/99/9999");
+
     $("#txtPhone").mask("(99) 9.9999-9999");
     $('#txtCPF').mask('999.999.999-99');
 
@@ -105,6 +107,7 @@ function CleanFields(loadFilterCombos) {
     $("#hiddenId").val("");
     $("#txtFirstName").val("");
     $("#txtLastName").val("");
+    $("#dtBirthday").val("");
     $('#txtCPF').val("");
     $("#txtEmail").val("");
     $("#txtPhone").val("");
@@ -143,6 +146,7 @@ function UserEdit(e) {
                 $("#hiddenId").val(result.Data.Id);
                 $("#txtFirstName").val(result.Data.FirstName);
                 $("#txtLastName").val(result.Data.LastName);
+                $("#dtBirthday").val(result.Data.Birthday).mask('99/99/9999');
                 $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
                 $("#txtEmail").val(result.Data.Email);
                 $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
@@ -181,6 +185,7 @@ function SaveUser() {
         Id: $("#hiddenId").val(),
         FirstName: $("#txtFirstName").val(),
         LastName: $("#txtLastName").val(),
+        Birthday: $("#dtBirthday").val(),
         CPF: $("#txtCPF").val(),
         Email: $("#txtEmail").val(),
         Phone: $("#txtPhone").val(),
@@ -224,6 +229,9 @@ function ValidateRequiredFields() {
         if (!emailPattern.test($.trim($("#txtEmail").val())))
             errorMessage += 'E-mail inválido' + '<br/>';
     }
+
+    if (!isValidDate($("#dtBirthday").val()))
+        errorMessage += 'Data de Nascimento inválida' + '<br/>';
 
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Celular' + '<br/>';

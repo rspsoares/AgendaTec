@@ -110,3 +110,50 @@
         </div>
     </div>
 </div>
+
+<div id="modalRequiredFields" class="modal fade">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="javascript: { CloseModal(this); }" aria-hidden="true">×</button>
+                <center><h4 class="modal-title"><strong>Favor atualizar os seguintes campos para continuar</strong></h4></center>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="requiredFieldsForm">
+                        <div class="col-sm-12">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="dtBirthday" style="font-weight:bold">Data de Nascimento</label> <br />
+                                    <input id="dtBirthday" name="dtBirthday" type="text" class="k-textbox" style="width: 100%" required>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="txtCPF" style="font-weight:bold">CPF</label> <br />
+                                    <input id="txtCPF" name="txtCPF" type="text" class="k-textbox" placeholder="CPF" style="width: 100%" maxlength="30" required>
+                                </div>
+                            </div>                            
+                            
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="txtPhone" style="font-weight:bold">Celular</label> <br />
+                                    <input id="txtPhone" name="txtPhone" type="text" class="k-textbox" placeholder="Telefone" style="width: 100%" maxlength="30" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCancel" class="btn btn-danger btn-xs" onclick="javascript: { CloseModal(this); }">
+                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                </button>
+                <button type="button" id="btnSave" class="btn btn-primary btn-xs" onclick="javascript: { SaveUserRequiredFields(); }">
+                    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

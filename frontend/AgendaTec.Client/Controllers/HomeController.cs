@@ -1,5 +1,6 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
+using AgendaTec.Business.Helpers;
 using AgendaTec.Client.Helper;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,16 @@ namespace AgendaTec.Client.Controllers
         private readonly IProfessionalServiceFacade _professionalServiceFacade;
         private readonly IScheduleFacade _scheduleFacade;
         private readonly ICustomerFacade _customerFacade;
+        private readonly IUserFacade _userFacade;
 
-        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IProfessionalServiceFacade professionalServiceFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade)
+        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IProfessionalServiceFacade professionalServiceFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade, IUserFacade userFacade)
         {
             _serviceFacade = serviceFacade;
             _professionalFacade = professionalFacade;
             _professionalServiceFacade = professionalServiceFacade;
             _scheduleFacade = scheduleFacade;
             _customerFacade = customerFacade;
+            _userFacade = userFacade;
         }
 
         public ActionResult Index(string customerKey)
@@ -76,7 +79,7 @@ namespace AgendaTec.Client.Controllers
         public JsonResult SaveAppointment(ScheduleDTO schedule)
         {
             if(!User.Identity.IsAuthenticated)
-                return Json(new { Success = false, errorMessage = "É necessário estar logado para realizar un agendamento." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, errorMessage = "É necessário estar logado para realizar um agendamento." }, JsonRequestBehavior.AllowGet);
             
             schedule.IdCustomer = int.Parse(User.GetIdCustomer());
             schedule.IdConsumer = User.GetIdUser();
@@ -86,7 +89,14 @@ namespace AgendaTec.Client.Controllers
                 schedule
             };
 
-            var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out string errorMessage);
+            var checkRequiredFields = _scheduleFacade.CheckRequiredFields(schedule.IdConsumer, out string errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao verificar os campos cadastrais." }, JsonRequestBehavior.AllowGet);
+
+            if(!checkRequiredFields)
+                return Json(new { Success = false, errorMessage = "Required fields" }, JsonRequestBehavior.AllowGet);
+
+            var availabilityCheck = _scheduleFacade.CheckAvailability(schedules, out errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao verificar a disponibilidade da agenda." }, JsonRequestBehavior.AllowGet);
 
@@ -96,9 +106,36 @@ namespace AgendaTec.Client.Controllers
             _scheduleFacade.Insert(schedule, out errorMessage);            
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o cliente." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o agendamento." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserRequiredFields()
+        {
+            var consumer = _userFacade.GetUserById(User.GetIdUser(), out string errorMessage);
+
+            if (string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = true, Data = consumer, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);            
+            else
+                return Json(new { Success = false, Data = consumer, errorMessage = "Houve um erro ao obter os campos obrigatórios." }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SaveUserRequiredFields(UserAccountDTO consumer)
+        {
+            if (!consumer.CPF.IsCPF())
+                return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
+
+            consumer.Id = User.GetIdUser();
+
+            _userFacade.UpdateRequiredFields(consumer, out string errorMessage);
+            
+            if (string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = true, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = false,errorMessage = "Houve um erro ao obter os campos obrigatórios." }, JsonRequestBehavior.AllowGet);
         }
     }
 }

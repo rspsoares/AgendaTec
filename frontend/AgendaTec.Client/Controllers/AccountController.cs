@@ -9,7 +9,6 @@ using AgendaTec.Client.Models;
 using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
 using System.Collections.Generic;
-using System.Security.Claims;
 
 namespace AgendaTec.Client.Controllers
 {

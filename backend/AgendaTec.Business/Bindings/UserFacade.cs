@@ -61,6 +61,7 @@ namespace AgendaTec.Business.Bindings
                     LastName = x.LastName,
                     FullName = $"{x.FirstName} {x.LastName}",
                     CPF = x.CPF,
+                    Birthday = x.BirthDate.HasValue ? x.BirthDate.Value.ToString("dd/MM/yyyy") : string.Empty,
                     Email = x.Email,
                     Phone = x.PhoneNumber,
                     IdRole = x.AspNetRoles.Id,
@@ -92,6 +93,7 @@ namespace AgendaTec.Business.Bindings
                     LastName = result.LastName,
                     FullName = $"{result.FirstName} {result.LastName}",
                     CPF = result.CPF,
+                    Birthday = result.BirthDate.HasValue ? result.BirthDate.Value.ToString("dd/MM/yyyy") : string.Empty,
                     Email = result.Email,
                     Phone = result.PhoneNumber,
                     IdRole = result.AspNetRoles.Id,
@@ -261,6 +263,7 @@ namespace AgendaTec.Business.Bindings
                 user.FirstName = e.FirstName;
                 user.LastName = e.LastName;
                 user.CPF = e.CPF.CleanMask();
+                user.BirthDate = DateTime.Parse(e.Birthday);
                 user.IdRole = e.IdRole;
                 user.IdCustomer = e.IDCustomer;
                 user.Email = e.Email;
@@ -268,6 +271,27 @@ namespace AgendaTec.Business.Bindings
                 user.IsEnabled = e.IsEnabled;
                 user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(e.IdRole));
                 user.DirectMail = e.DirectMail;
+
+                _commonRepository.Update(e.Id, user);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+        }
+
+        public void UpdateRequiredFields(UserAccountDTO e, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                var user = _commonRepository.Filter(x => x.Id.Equals(e.Id)).Single();
+
+                user.CPF = e.CPF.CleanMask();
+                user.BirthDate = DateTime.Parse(e.Birthday);
+                user.PhoneNumber = e.Phone.CleanMask();
 
                 _commonRepository.Update(e.Id, user);
             }

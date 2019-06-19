@@ -25,8 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaTec.Service", "backen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaTec.Security.DeveloperTools", "backend\AgendaTec.Security.DeveloperTools\AgendaTec.Security.DeveloperTools.csproj", "{67742C2F-E5EA-4327-B184-CD1975495398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVC_Seguranca", "MVC_Seguranca\MVC_Seguranca.csproj", "{A407FD28-5543-4578-B28A-0570E2FEA415}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,10 +59,6 @@ Global
 		{67742C2F-E5EA-4327-B184-CD1975495398}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67742C2F-E5EA-4327-B184-CD1975495398}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67742C2F-E5EA-4327-B184-CD1975495398}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A407FD28-5543-4578-B28A-0570E2FEA415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A407FD28-5543-4578-B28A-0570E2FEA415}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A407FD28-5543-4578-B28A-0570E2FEA415}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A407FD28-5543-4578-B28A-0570E2FEA415}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,7 +71,6 @@ Global
 		{70425DFA-3C43-4928-909B-B055E90C2FF9} = {AD7C5224-C8A8-4B5E-B3FA-613EE7686B0A}
 		{20E3772A-FE3B-4A88-95FD-7FC954803D1A} = {77A87263-B25D-48F7-872C-326C22811B85}
 		{67742C2F-E5EA-4327-B184-CD1975495398} = {AD7C5224-C8A8-4B5E-B3FA-613EE7686B0A}
-		{A407FD28-5543-4578-B28A-0570E2FEA415} = {5C9C5AC6-5FCA-4CB6-A6D7-7624826440C8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07980CC7-14F6-4E93-8BA0-1B64551CF529}

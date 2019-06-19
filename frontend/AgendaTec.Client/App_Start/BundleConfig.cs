@@ -11,6 +11,7 @@ namespace AgendaTec.Client
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                   //"~/Content/jquery/jquery-2.2.4.min.js",                  
                   "~/Content/jquery/jquery-1.12.4.min.js",
+                  "~/Content/jquery/jquery.maskedinput.min.js",
                   "~/Content/jquery/jquery.cookie.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/kendo").Include(

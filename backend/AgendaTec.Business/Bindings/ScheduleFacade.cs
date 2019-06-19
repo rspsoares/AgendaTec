@@ -355,5 +355,25 @@ namespace AgendaTec.Business.Bindings
 
             return result;
         }
+
+        public bool CheckRequiredFields(string idConsumer, out string errorMessage)
+        {
+            IUserFacade userFacade = new UserFacade();
+
+            errorMessage = string.Empty;
+
+            try
+            {
+                var consumer = userFacade.GetUserById(idConsumer, out errorMessage);
+                return !string.IsNullOrEmpty(consumer.CPF) && !string.IsNullOrEmpty(consumer.Phone) && !string.IsNullOrEmpty(consumer.Birthday);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+
+            return false;
+        }
     }
 }

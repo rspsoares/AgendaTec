@@ -1,2 +1,0 @@
-C:\_Rodrigo\Repositorios\AgendaTec\MVC_Seguranca\bin\EntityFramework.SqlServer.xml
-C:\_Rodrigo\Repositorios\AgendaTec\MVC_Seguranca\bin\Microsoft.AspNet.Identity.Core.xml

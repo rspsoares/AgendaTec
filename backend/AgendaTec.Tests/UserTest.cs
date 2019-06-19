@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using AgendaTec.Business.Bindings;
 using AgendaTec.Business.Contracts;
+using Bogus;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Bogus.Extensions.Brazil;
+using System.Text.RegularExpressions;
 using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AgendaTec.Tests
 {
@@ -96,6 +99,25 @@ namespace AgendaTec.Tests
             ProfilesHelper.Reset();
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+        }
+
+        [TestMethod]
+        public void User_UpdateRequiredFields()
+        {
+            ProfilesHelper.Initialize();
+            
+            var fakeConsumer = new Faker<UserAccountDTO>()
+                .RuleFor(t => t.Id, f => "7e70e65f-54da-48ec-b162-90f62ddd3048")
+                .RuleFor(t => t.CPF, f => Regex.Replace(f.Person.Cpf(), @"[^\d]", ""))
+                .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber().CleanMask())
+                .RuleFor(t => t.Birthday, f => f.Date.Recent().ToString());
+
+            _userRepository.UpdateRequiredFields(fakeConsumer, out string errorMessage);
+
+            ProfilesHelper.Reset();
+
+            Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
+
         }
     }
 }
