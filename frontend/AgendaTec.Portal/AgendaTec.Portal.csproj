@@ -216,6 +216,9 @@
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\fonts\segoeui.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\images\icones\ico-collapse.png" />
     <Content Include="Content\images\icones\ico-expand.png" />
     <Content Include="Content\images\icones\ico-list-menu.png" />
