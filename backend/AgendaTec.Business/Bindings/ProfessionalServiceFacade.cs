@@ -34,7 +34,7 @@ namespace AgendaTec.Business.Bindings
             {
                 services = repository
                     .Filter(x => x.IDCustomer.Equals(idCustomer))
-                    .Select(x => new ProfessionalServiceDTO() { IdService = x.IDService, Description = x.Description })
+                    .Select(x => new ProfessionalServiceDTO() { IdService = x.IDService, Description = x.Description, Time = x.Time, Price = x.Price })
                     .ToList();
 
                 if (idProfessional > 0)
@@ -102,7 +102,7 @@ namespace AgendaTec.Business.Bindings
                 {
                     result = repositoryService
                         .Filter(x => x.IDCustomer.Equals(idCustomer))
-                        .Select(x => new ProfessionalServiceDTO() { IdService = x.IDService, Description = x.Description })
+                        .Select(x => new ProfessionalServiceDTO() { IdService = x.IDService, Description = x.Description, Time = x.Time, Price = x.Price })
                         .ToList();
                 }
                 else

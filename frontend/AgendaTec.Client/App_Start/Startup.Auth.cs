@@ -6,12 +6,13 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using AgendaTec.Client.Models;
 using Microsoft.Owin.Security.Google;
+using System.Configuration;
+using AgendaTec.Business.Helpers;
 
 namespace AgendaTec.Client
 {
     public partial class Startup
-    {
-        // For more information on configuring authentication, please visit https://go.microsoft.com/fwlink/?LinkId=301864
+    {   
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
@@ -60,9 +61,15 @@ namespace AgendaTec.Client
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "739871960102-ea4hlf5htgrjo08s5gfur1cekaaic4n8.apps.googleusercontent.com",
-                ClientSecret = "xJAF9xRIIksAabbdCPynSQAb"
+                ClientId = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationGoogleId"])).ToUnsecureString(),
+                ClientSecret = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationGoogleSecret"])).ToUnsecureString(),
             });
+
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "739871960102-ea4hlf5htgrjo08s5gfur1cekaaic4n8.apps.googleusercontent.com",
+            //    ClientSecret = "xJAF9xRIIksAabbdCPynSQAb"
+            //});
         }
     }
 }

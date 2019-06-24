@@ -26,5 +26,7 @@ namespace AgendaTec.Business.Entities
         public Guid Id { get; set; }        
         public int IdService { get; set; }
         public string Description { get; set; }
+        public int Time { get; set; }
+        public decimal Price { get; set; }
     }
 }

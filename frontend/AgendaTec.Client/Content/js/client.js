@@ -142,7 +142,7 @@ function SaveAppointment() {
     schedule = {
         Id: 0,        
         IdProfessional: professional.Id,
-        IdService: service.Id,        
+        IdService: service.IdService,        
         Date: dateTimeAppointment,
         Price: service.Price,
         Time: service.Time,
@@ -226,7 +226,7 @@ function SaveUserRequiredFields() {
     var errorMessages = ValidateRequiredFields();
 
     if (errorMessages !== '') {
-        ShowModalAlert(errorMessages);
+        $("#lbError").html(errorMessages);
         return;
     }
 
@@ -251,7 +251,7 @@ function SaveUserRequiredFields() {
                 SaveAppointment();
             }
             else
-                ShowModalAlert(result.errorMessage);
+                $("#lbError").text(result.errorMessage);                
         }
     });
 }

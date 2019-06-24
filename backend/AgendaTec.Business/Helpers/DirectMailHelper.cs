@@ -1,4 +1,5 @@
 ﻿using AgendaTec.Business.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -80,10 +81,9 @@ namespace AgendaTec.Business.Helpers
                     to: new PhoneNumber("whatsapp:+5511998056533")
                 );
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
     }

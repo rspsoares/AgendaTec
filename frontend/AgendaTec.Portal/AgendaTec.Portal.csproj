@@ -219,20 +219,12 @@
     <Content Include="Content\images\icones\ico-collapse.png" />
     <Content Include="Content\images\icones\ico-expand.png" />
     <Content Include="Content\images\icones\ico-list-menu.png" />
-    <Content Include="Content\images\layout\background.png" />
     <Content Include="Content\images\layout\bg-icon-mosaic.jpg" />
-    <Content Include="Content\images\layout\bg-icon-pepsico.jpg" />
     <Content Include="Content\images\layout\bg-menu-big.jpg" />
     <Content Include="Content\images\layout\bg-menu-mini.jpg" />
     <Content Include="Content\images\layout\bg-menu-treeview-xy.gif" />
     <Content Include="Content\images\layout\bg-menu-treeview-y.gif" />
-    <Content Include="Content\images\layout\bg01.jpg" />
     <Content Include="Content\images\layout\loading-page.gif" />
-    <Content Include="Content\images\layout\logo-fospar.png" />
-    <Content Include="Content\images\layout\logo-keeptrue.png" />
-    <Content Include="Content\images\layout\logo-mosaic.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Content\jqueryvalidate\jquery.validate.js" />
     <Content Include="Content\jqueryvalidate\jquery.validate.min.js" />
     <Content Include="Content\jqueryvalidate\messages_pt_BR.js" />
