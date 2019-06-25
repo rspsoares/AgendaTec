@@ -65,7 +65,7 @@ namespace AgendaTec.Client.Controllers
             var idCustomer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
             var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
-            var date = DateTime.Parse(selectedDate);
+            var date = string.IsNullOrEmpty(selectedDate) ? DateTime.MinValue : DateTime.Parse(selectedDate);
             
             var availables = _scheduleFacade.GetAvailableHours(idCustomer, professional, service, date, User.GetIdUser(), User.Identity.IsAuthenticated, out string errorMessage);            
 

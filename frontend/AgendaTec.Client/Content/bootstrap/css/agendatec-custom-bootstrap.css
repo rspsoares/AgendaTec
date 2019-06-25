@@ -2370,3 +2370,10 @@ label,
 .panel-footer{border-top-right-radius:0;border-top-left-radius:0;}
 .panel-default .close{color:#222222;}
 .modal .close{color:#222222;}
+
+#calendar,
+#calendar .k-calendar-view,
+#calendar .k-content {
+    width: 100%;
+    max-height: 250px;
+}

@@ -5,7 +5,8 @@
         min: new Date(),
         change: function () {            
             GetAvalailableHours(kendo.toString(kendo.parseDate(this.value(), 'yyyy-MM-dd'), 'dd/MM/yyyy'));
-        }
+        },
+        footer: false
     });
     $('#calendar').data('kendoCalendar').setOptions({ animation: false });
 
