@@ -99,10 +99,16 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 if (authenticated)
-                {
+                {   
                     result = repositoryService
                         .Filter(x => x.IDCustomer.Equals(idCustomer))
-                        .Select(x => new ProfessionalServiceDTO() { IdService = x.IDService, Description = x.Description, Time = x.Time, Price = x.Price })
+                        .Select(x => new ProfessionalServiceDTO()
+                        {
+                            IdService = x.IDService,
+                            Description = x.TCGCustomers.ShowServicePrice ? $"{x.Description} - R$ {x.Price}" : x.Description,
+                            Time = x.Time,
+                            Price = x.Price
+                        })
                         .ToList();
                 }
                 else

@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>06/27/2019 08:30:35</publishTime>
+      <publishTime>06/27/2019 16:36:05</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.dll.config">
-      <publishTime>06/24/2019 08:21:37</publishTime>
+      <publishTime>06/27/2019 16:33:40</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>06/27/2019 08:30:35</publishTime>
+      <publishTime>06/27/2019 16:36:05</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>06/26/2019 09:32:14</publishTime>
+      <publishTime>06/27/2019 16:36:04</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/21/2019 09:58:37</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>06/26/2019 09:32:14</publishTime>
+      <publishTime>06/27/2019 16:36:04</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>06/27/2019 08:41:14</publishTime>
+      <publishTime>06/27/2019 16:36:38</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>06/27/2019 08:41:14</publishTime>
+      <publishTime>06/27/2019 16:36:38</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -139,19 +139,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/05/2018 16:10:50</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.JsonWebTokens.dll">
-      <publishTime>01/23/2019 01:17:14</publishTime>
+      <publishTime>06/24/2019 19:50:48</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.JsonWebTokens.pdb">
       <publishTime>01/23/2019 01:06:22</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.Logging.dll">
-      <publishTime>01/23/2019 01:18:00</publishTime>
+      <publishTime>06/24/2019 19:52:42</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.Logging.pdb">
       <publishTime>01/23/2019 01:06:14</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.Tokens.dll">
-      <publishTime>01/23/2019 01:23:12</publishTime>
+      <publishTime>06/24/2019 19:55:56</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.Tokens.pdb">
       <publishTime>01/23/2019 01:06:18</publishTime>
@@ -346,7 +346,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/08/2018 12:18:16</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
-      <publishTime>01/23/2019 01:16:08</publishTime>
+      <publishTime>06/24/2019 19:49:42</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.pdb">
       <publishTime>01/23/2019 01:06:26</publishTime>
@@ -373,7 +373,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/28/2018 13:04:24</publishTime>
     </File>
     <File Include="bin/Twilio.dll">
-      <publishTime>06/12/2019 18:23:52</publishTime>
+      <publishTime>06/26/2019 19:26:16</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>06/23/2017 11:03:00</publishTime>
@@ -610,7 +610,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>05/27/2019 09:04:56</publishTime>
+      <publishTime>06/27/2019 12:56:48</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
       <publishTime>05/03/2019 16:03:40</publishTime>
@@ -5665,7 +5665,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:16</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>05/29/2019 15:15:21</publishTime>
+      <publishTime>06/27/2019 11:42:41</publishTime>
     </File>
     <File Include="Views/DirectMails/Index.cshtml">
       <publishTime>05/23/2019 09:38:36</publishTime>
@@ -5725,7 +5725,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:10:49</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/27/2019 08:56:02</publishTime>
+      <publishTime>06/27/2019 16:36:42</publishTime>
     </File>
   </ItemGroup>
 </Project>

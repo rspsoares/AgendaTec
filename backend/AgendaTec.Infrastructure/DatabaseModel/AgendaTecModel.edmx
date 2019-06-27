@@ -82,6 +82,7 @@
           <Property Name="CPFRequired" Type="bit" Nullable="false" />
           <Property Name="Note" Type="varchar(max)" />
           <Property Name="RootCompany" Type="bit" Nullable="false" />
+          <Property Name="ShowServicePrice" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TCGProfessionals">
           <Key>
@@ -409,7 +410,6 @@
           <EntitySet Name="AspNetUserLogins" EntityType="AgendaTecModel.AspNetUserLogins" />
           <EntitySet Name="AspNetUserRoles" EntityType="AgendaTecModel.AspNetUserRoles" />
           <EntitySet Name="AspNetUsers" EntityType="AgendaTecModel.AspNetUsers" />
-          <EntitySet Name="TCGCustomers" EntityType="AgendaTecModel.TCGCustomers" />
           <EntitySet Name="TCGProfessionals" EntityType="AgendaTecModel.TCGProfessionals" />
           <EntitySet Name="TCGServices" EntityType="AgendaTecModel.TCGServices" />
           <EntitySet Name="TDirectMail" EntityType="AgendaTecModel.TDirectMail" />
@@ -431,32 +431,12 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_AspNetUsers_TCGCustomers" Association="AgendaTecModel.FK_AspNetUsers_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
           <AssociationSet Name="FK_TCGProfessionals_AspNetUsers" Association="AgendaTecModel.FK_TCGProfessionals_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
           </AssociationSet>
           <AssociationSet Name="FK_TSchedules_AspNetUsers" Association="AgendaTecModel.FK_TSchedules_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="TSchedules" EntitySet="TSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="AgendaTecModel.FK_TCGProfessionals_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCGServices_TCGCustomers" Association="AgendaTecModel.FK_TCGServices_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TCGServices" EntitySet="TCGServices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TDirectMail_TCGCustomers" Association="AgendaTecModel.FK_TDirectMail_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TDirectMail" EntitySet="TDirectMail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="AgendaTecModel.FK_TSchedule_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
           <AssociationSet Name="FK_TProfessionalService_TCGProfessionals" Association="AgendaTecModel.FK_TProfessionalService_TCGProfessionals">
@@ -473,6 +453,27 @@
           </AssociationSet>
           <AssociationSet Name="FK_TSchedules_TCGServices" Association="AgendaTecModel.FK_TSchedules_TCGServices">
             <End Role="TCGServices" EntitySet="TCGServices" />
+            <End Role="TSchedules" EntitySet="TSchedules" />
+          </AssociationSet>
+          <EntitySet Name="TCGCustomers" EntityType="AgendaTecModel.TCGCustomers" />
+          <AssociationSet Name="FK_AspNetUsers_TCGCustomers" Association="AgendaTecModel.FK_AspNetUsers_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="AgendaTecModel.FK_TCGProfessionals_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TCGServices_TCGCustomers" Association="AgendaTecModel.FK_TCGServices_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TCGServices" EntitySet="TCGServices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TDirectMail_TCGCustomers" Association="AgendaTecModel.FK_TDirectMail_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
+            <End Role="TDirectMail" EntitySet="TDirectMail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="AgendaTecModel.FK_TSchedule_TCGCustomers">
+            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
         </EntityContainer>
@@ -543,32 +544,9 @@
           <NavigationProperty Name="AspNetRoles" Relationship="AgendaTecModel.FK_AspNetUsers_AspNetRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="AgendaTecModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="AgendaTecModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="AspNetUsers" ToRole="TCGCustomers" />
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TCGProfessionals_AspNetUsers" FromRole="AspNetUsers" ToRole="TCGProfessionals" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedules_AspNetUsers" FromRole="AspNetUsers" ToRole="TSchedules" />
-        </EntityType>
-        <EntityType Name="TCGCustomers">
-          <Key>
-            <PropertyRef Name="IDCustomer" />
-          </Key>
-          <Property Name="IDCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerKey" Type="Guid" Nullable="false" />
-          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="CPFRequired" Type="Boolean" Nullable="false" />
-          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RootCompany" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="TCGCustomers" ToRole="AspNetUsers" />
-          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
-          <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
-          <NavigationProperty Name="TDirectMail" Relationship="AgendaTecModel.FK_TDirectMail_TCGCustomers" FromRole="TCGCustomers" ToRole="TDirectMail" />
-          <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="AspNetUsers" ToRole="TCGCustomers" />
         </EntityType>
         <EntityType Name="TCGProfessionals">
           <Key>
@@ -581,9 +559,9 @@
           <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_TCGProfessionals_AspNetUsers" FromRole="TCGProfessionals" ToRole="AspNetUsers" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
           <NavigationProperty Name="TProfessionalService" Relationship="AgendaTecModel.FK_TProfessionalService_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TProfessionalService" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedules_TCGProfessionals" FromRole="TCGProfessionals" ToRole="TSchedules" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGProfessionals" ToRole="TCGCustomers" />
         </EntityType>
         <EntityType Name="TCGServices">
           <Key>
@@ -594,9 +572,9 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
           <Property Name="Time" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
           <NavigationProperty Name="TProfessionalService" Relationship="AgendaTecModel.FK_TProfessionalService_TCGServices" FromRole="TCGServices" ToRole="TProfessionalService" />
           <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedules_TCGServices" FromRole="TCGServices" ToRole="TSchedules" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGServices" ToRole="TCGCustomers" />
         </EntityType>
         <EntityType Name="TDirectMail">
           <Key>
@@ -637,9 +615,9 @@
           <Property Name="Bonus" Type="Boolean" Nullable="false" />
           <Property Name="Attended" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_TSchedules_AspNetUsers" FromRole="TSchedules" ToRole="AspNetUsers" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TSchedule_TCGCustomers" FromRole="TSchedules" ToRole="TCGCustomers" />
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TSchedules_TCGProfessionals" FromRole="TSchedules" ToRole="TCGProfessionals" />
           <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TSchedules_TCGServices" FromRole="TSchedules" ToRole="TCGServices" />
+          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TSchedule_TCGCustomers" FromRole="TSchedules" ToRole="TCGCustomers" />
         </EntityType>
         <Association Name="FK_AspNetUsers_AspNetRoles">
           <End Type="AgendaTecModel.AspNetRoles" Role="AspNetRoles" Multiplicity="1" />
@@ -695,18 +673,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AspNetUsers_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="AspNetUsers">
-              <PropertyRef Name="IdCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TCGProfessionals_AspNetUsers">
           <End Type="AgendaTecModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
           <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
@@ -728,54 +694,6 @@
             </Principal>
             <Dependent Role="TSchedules">
               <PropertyRef Name="IDConsumer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TCGProfessionals_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TCGProfessionals">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TCGServices_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.TCGServices" Role="TCGServices" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TCGServices">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TDirectMail_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.TDirectMail" Role="TDirectMail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TDirectMail">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TSchedule_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.TSchedules" Role="TSchedules" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TSchedules">
-              <PropertyRef Name="IDCustomer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -824,6 +742,90 @@
             </Principal>
             <Dependent Role="TSchedules">
               <PropertyRef Name="IDService" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TCGCustomers">
+          <Key>
+            <PropertyRef Name="IDCustomer" />
+          </Key>
+          <Property Name="IDCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerKey" Type="Guid" Nullable="false" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="CPFRequired" Type="Boolean" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RootCompany" Type="Boolean" Nullable="false" />
+          <Property Name="ShowServicePrice" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="AgendaTecModel.FK_AspNetUsers_TCGCustomers" FromRole="TCGCustomers" ToRole="AspNetUsers" />
+          <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
+          <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
+          <NavigationProperty Name="TDirectMail" Relationship="AgendaTecModel.FK_TDirectMail_TCGCustomers" FromRole="TCGCustomers" ToRole="TDirectMail" />
+          <NavigationProperty Name="TSchedules" Relationship="AgendaTecModel.FK_TSchedule_TCGCustomers" FromRole="TCGCustomers" ToRole="TSchedules" />
+        </EntityType>
+        <Association Name="FK_AspNetUsers_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="AspNetUsers">
+              <PropertyRef Name="IdCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCGProfessionals_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TCGProfessionals">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TCGServices_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.TCGServices" Role="TCGServices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TCGServices">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TDirectMail_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.TDirectMail" Role="TDirectMail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TDirectMail">
+              <PropertyRef Name="IDCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TSchedule_TCGCustomers">
+          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
+          <End Type="AgendaTecModel.TSchedules" Role="TSchedules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TCGCustomers">
+              <PropertyRef Name="IDCustomer" />
+            </Principal>
+            <Dependent Role="TSchedules">
+              <PropertyRef Name="IDCustomer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -895,25 +897,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TCGCustomers">
-            <EntityTypeMapping TypeName="AgendaTecModel.TCGCustomers">
-              <MappingFragment StoreEntitySet="TCGCustomers">
-                <ScalarProperty Name="RootCompany" ColumnName="RootCompany" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="CPFRequired" ColumnName="CPFRequired" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="CustomerKey" ColumnName="CustomerKey" />
-                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TCGProfessionals">
             <EntityTypeMapping TypeName="AgendaTecModel.TCGProfessionals">
               <MappingFragment StoreEntitySet="TCGProfessionals">
@@ -973,6 +956,26 @@
                 <ScalarProperty Name="IDProfessional" ColumnName="IDProfessional" />
                 <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
                 <ScalarProperty Name="IDSchedule" ColumnName="IDSchedule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TCGCustomers">
+            <EntityTypeMapping TypeName="AgendaTecModel.TCGCustomers">
+              <MappingFragment StoreEntitySet="TCGCustomers">
+                <ScalarProperty Name="ShowServicePrice" ColumnName="ShowServicePrice" />
+                <ScalarProperty Name="RootCompany" ColumnName="RootCompany" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="CPFRequired" ColumnName="CPFRequired" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CustomerKey" ColumnName="CustomerKey" />
+                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

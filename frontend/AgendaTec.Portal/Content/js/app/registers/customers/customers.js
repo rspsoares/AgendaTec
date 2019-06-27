@@ -63,7 +63,8 @@
             $('#labelCPFCNPJ').css({ 'font-weight': '' });
         }        
     });
-    
+    $('#chkShowPrice').bootstrapSwitch();
+
     LoadCustomers();  
 }
 
@@ -148,6 +149,7 @@ function CleanFields() {
     $('#chkActive').bootstrapSwitch('state', true);
     $('#chkRoot').bootstrapSwitch('state', false);
     $('#chkCPFRequired').bootstrapSwitch('state', true);
+    $('#chkShowPrice').bootstrapSwitch('state', true);
     $("#txtNote").val("");
 }
 
@@ -178,6 +180,7 @@ function CustomerEdit(e) {
                 $("#dtHire").val(kendo.toString(kendo.parseDate(result.Data.Hire, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);
                 $('#chkRoot').bootstrapSwitch('state', result.Data.Root);
+                $('#chkShowPrice').bootstrapSwitch('state', result.Data.ShowPrice);
                 $('#chkCPFRequired').bootstrapSwitch('state', result.Data.CPFRequired);
 
                 if (result.Data.CPFRequired) 
@@ -224,6 +227,7 @@ function SaveCustomer() {
         Active: $('#chkActive').bootstrapSwitch('state'),
         Root: $('#chkRoot').bootstrapSwitch('state'),
         CPFRequired: $('#chkCPFRequired').bootstrapSwitch('state'),
+        ShowPrice: $('#chkShowPrice').bootstrapSwitch('state'),
         Note: $("#txtNote").val()
     };
 

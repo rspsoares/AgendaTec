@@ -238,7 +238,7 @@ namespace AgendaTec.Client.Controllers
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                _userFacade.SendResetPasswordEmail(model.Email,$"{user.FirstName} {user.LastName}", "Recuperação de senha", "Favor redefinir sua senha clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+                _userFacade.SendResetPasswordEmail(model.Email, $"{user.FirstName} {user.LastName}", "Recuperação de senha", "Favor redefinir sua senha clicando <a href=\"" + callbackUrl + "\">aqui</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
@@ -355,42 +355,46 @@ namespace AgendaTec.Client.Controllers
                 return RedirectToAction("Login");
             }
 
-            var result = await SignInManager.PasswordSignInAsync(loginInfo.Email, "AgendaTec123", true, shouldLockout: true);
-            switch (result)
+            var result = _userFacade.GetUserByEmail(loginInfo.Email, out string errorMessage);
+            if(result == null)
             {
-                case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home");
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, automatically create it
-                    var user = new ApplicationUser
-                    {
-                        IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
-                        IDRole = ((int)EnUserType.Consumer).ToString(),
-                        FirstName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")).SingleOrDefault()?.Value,
-                        LastName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")).SingleOrDefault()?.Value,
-                        CPF = string.Empty,
-                        UserName = loginInfo.Email,
-                        Email = loginInfo.Email,
-                        PhoneNumber = string.Empty,
-                        IsEnabled = true,
-                        DirectMail = true,
-                        RootUser = false
-                    };
-                    
-                    var resultCreate = await UserManager.CreateAsync(user, "AgendaTec123");
-                    if (resultCreate.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToAction("Index", "Home");
-                    }
+                var newUser = new ApplicationUser
+                {
+                    IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                    IDRole = ((int)EnUserType.Consumer).ToString(),
+                    FirstName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")).SingleOrDefault()?.Value,
+                    LastName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")).SingleOrDefault()?.Value,
+                    CPF = string.Empty,
+                    UserName = loginInfo.Email,
+                    Email = loginInfo.Email,
+                    PhoneNumber = string.Empty,
+                    IsEnabled = true,
+                    DirectMail = true,
+                    RootUser = false
+                };
 
+                var resultCreate = await UserManager.CreateAsync(newUser, "AgendaTec123");
+                if (!resultCreate.Succeeded)
                     return RedirectToAction("Login");
+
+                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);               
             }
+            else
+            {
+                var user = new ApplicationUser
+                {
+                    Id = result.Id,
+                    IDCustomer = result.IDCustomer,
+                    IDRole = result.IdRole,
+                    FirstName = result.FirstName,
+                    LastName = result.LastName,
+                    UserName = loginInfo.Email,
+                    Email = loginInfo.Email
+                };
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            }
+
+            return RedirectToAction("Index", "Home");            
         }
 
         //
@@ -430,7 +434,6 @@ namespace AgendaTec.Client.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
         
         //GET:  /Account/LogOff        
         public ActionResult LogOff()

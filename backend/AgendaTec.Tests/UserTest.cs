@@ -23,50 +23,70 @@ namespace AgendaTec.Tests
         [TestMethod]
         public void User_GetGrid()
         {
+            ProfilesHelper.Initialize();
             var users = _userRepository.GetGrid(string.Empty, string.Empty, 1, string.Empty, out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(users.Any());
         }
 
         [TestMethod]
         public void User_GetRolesCombo()
         {
+            ProfilesHelper.Initialize();
             var roles = _userRepository.GetRolesCombo(EnUserType.Administrator, out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(roles.Any());
         }
 
         [TestMethod]
         public void User_GetUserNamesCombo()
         {
+            ProfilesHelper.Initialize();
             var userNames = _userRepository.GetUserNamesCombo(1, out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(userNames.Any());
         }
 
         [TestMethod]
         public void User_GetProfessionalNamesCombo()
         {
+            ProfilesHelper.Initialize();
             var professionals = _userRepository.GetProfessionalNamesCombo(1, out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(professionals.Any());
         }
 
         [TestMethod]
         public void User_GetConsumerNamesCombo()
         {
+            ProfilesHelper.Initialize();
             var consumers = _userRepository.GetConsumerNamesCombo(1, out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(consumers.Any());
         }
 
         [TestMethod]
         public void User_GetUserById()
         {
+            ProfilesHelper.Initialize();
             var user = _userRepository.GetUserById("039a1db4-d562-4014-8f68-17dff6a388e1", out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(!user.Id.Equals(0));
         }
 
         [TestMethod]
         public void User_CheckDuplicatedUser()
         {
+            ProfilesHelper.Initialize();
             var user = _userRepository.GetUserById("039a1db4-d562-4014-8f68-17dff6a388e1", out string errorMessage);
             var duplicated = _userRepository.CheckDuplicatedUser(user, out errorMessage);
+            ProfilesHelper.Reset();
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }
@@ -74,7 +94,10 @@ namespace AgendaTec.Tests
         [TestMethod]
         public void User_GetLoggedUserByEmail()
         {
+            ProfilesHelper.Initialize();
             var user = _userRepository.GetUserByEmail("teste@ary.com.br", out string errorMessage);
+            ProfilesHelper.Reset();
+
             Assert.IsTrue(!user.Id.Equals(0));
         }
 
@@ -82,11 +105,14 @@ namespace AgendaTec.Tests
         public void User_Update()
         {
             var fakeName = new Bogus.DataSets.Name();
-            
+
+            ProfilesHelper.Initialize();
             var user = _userRepository.GetUserById("095c880b-50bb-4c6f-8cda-07de6a765317", out string errorMessage);
             user.FirstName = fakeName.FirstName(null).ToString();
             user.LastName = fakeName.LastName(null).ToString();
             _userRepository.Update(user, out errorMessage);
+            ProfilesHelper.Reset();
+
 
             Assert.IsTrue(string.IsNullOrEmpty(errorMessage));
         }

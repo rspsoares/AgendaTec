@@ -17,5 +17,6 @@ namespace AgendaTec.Business.Entities
         public bool Root { get; set; }
         public bool CPFRequired { get; set; }
         public string Note { get; set; }
+        public bool ShowPrice { get; set; }
     }
 }

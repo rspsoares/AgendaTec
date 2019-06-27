@@ -4,6 +4,7 @@ using AgendaTec.Business.Helpers;
 using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
+using AutoMapper;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.Linq;
 using System.Net.Mail;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AgendaTec.Business.Bindings
 {
@@ -29,13 +29,13 @@ namespace AgendaTec.Business.Bindings
 
         public List<UserAccountDTO> GetGrid(string name, string email, int idCustomer, string idRole, out string errorMessage)
         {
-            var users = new List<AspNetUsers>();
+            var result = new List<UserAccountDTO>();
             
             errorMessage = string.Empty;
 
             try
             {
-                users = _commonRepository.GetAll();
+                var users = _commonRepository.GetAll();
 
                 if (!string.IsNullOrEmpty(name))
                     users = users.Where(x => string.Concat(x.FirstName, " ", x.LastName).ToUpper().Contains(name.ToUpper())).ToList();
@@ -48,6 +48,8 @@ namespace AgendaTec.Business.Bindings
 
                 if (!string.IsNullOrEmpty(idRole))
                     users = users.Where(x => x.IdRole.Equals(idRole)).ToList();
+
+                result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
             {
@@ -55,57 +57,21 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return users
-                .Select(x => new UserAccountDTO()
-                {
-                    Id = x.Id,
-                    UserName = x.UserName,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    FullName = $"{x.FirstName} {x.LastName}",
-                    CPF = x.CPF,
-                    Birthday = x.BirthDate.HasValue ? x.BirthDate.Value.ToString("dd/MM/yyyy") : string.Empty,
-                    Email = x.Email,
-                    Phone = x.PhoneNumber,
-                    IdRole = x.AspNetRoles.Id,
-                    RoleDescription = x.AspNetRoles.Name,
-                    IDCustomer = x.TCGCustomers?.IDCustomer ?? 0,
-                    CustomerName = x.TCGCustomers?.CompanyName ?? string.Empty,
-                    IsEnabled = x.IsEnabled,
-                    DirectMail = x.DirectMail
-                })
+            return result
                 .OrderBy(x => x.UserName)
                 .ToList();
         }
 
         public UserAccountDTO GetUserById(string idUser, out string errorMessage)
         {
-            var user = new UserAccountDTO();
+            var result = new UserAccountDTO();
 
             errorMessage = string.Empty;
 
             try
             {
-                var result = _commonRepository.GetById(idUser);
-
-                user = new UserAccountDTO()
-                {
-                    Id = result.Id,
-                    UserName = result.UserName,
-                    FirstName = result.FirstName,
-                    LastName = result.LastName,
-                    FullName = $"{result.FirstName} {result.LastName}",
-                    CPF = result.CPF,
-                    Birthday = result.BirthDate.HasValue ? result.BirthDate.Value.ToString("dd/MM/yyyy") : string.Empty,
-                    Email = result.Email,
-                    Phone = result.PhoneNumber,
-                    IdRole = result.AspNetRoles.Id,
-                    RoleDescription = result.AspNetRoles.Name,
-                    IDCustomer = result.TCGCustomers?.IDCustomer ?? 0,
-                    CustomerName = result.TCGCustomers?.CompanyName ?? string.Empty,
-                    IsEnabled = result.IsEnabled,
-                    DirectMail = result.DirectMail
-                };
+                var user = _commonRepository.GetById(idUser);
+                result = Mapper.Map<AspNetUsers, UserAccountDTO>(user);
             }
             catch (Exception ex)
             {
@@ -113,20 +79,22 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return user;
+            return result;
         }
 
         public UserAccountDTO GetUserByEmail(string email, out string errorMessage)
         {
-            var user = new AspNetUsers();
+            var result = new UserAccountDTO();
 
             errorMessage = string.Empty;
 
             try
             {
-                user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
+                var user = _commonRepository.Filter(x => x.Email.Equals(email)).FirstOrDefault();
                 if (user == null)
-                    return null;                           
+                    return null;
+
+                result = Mapper.Map<AspNetUsers, UserAccountDTO>(user);
             }
             catch (Exception ex)
             {
@@ -134,26 +102,23 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return new UserAccountDTO()
-            {              
-                Id = user.Id,
-                IDCustomer = user.IdCustomer,
-                FullName = $"{user.FirstName} {user.LastName}"
-            };
+            return result;
         }
 
         public List<UserAccountDTO> GetRolesCombo(EnUserType userGroup, out string errorMessage)
         {
-            var roles = new List<AspNetRoles>();
-         
+            var result = new List<UserAccountDTO>();
+
             errorMessage = string.Empty;
 
             try
             {
-                roles = _rolesRepository.GetAll();
+                var roles = _rolesRepository.GetAll();
 
                 if (!userGroup.Equals(EnUserType.Administrator))
                     roles = roles.Where(x => !int.Parse(x.Id).Equals((int)EnUserType.Administrator)).ToList();
+
+                result = Mapper.Map<List<AspNetRoles>, List<UserAccountDTO>>(roles);
             }
             catch (Exception ex)
             {
@@ -161,25 +126,21 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return roles
-                 .Select(x => new UserAccountDTO()
-                 {                    
-                     IdRole = x.Id,
-                     RoleDescription = x.Name,
-                 })
+            return result
                  .OrderBy(x => x.IdRole)
                  .ToList();
         }
 
         public List<UserAccountDTO> GetUserNamesCombo(int idCustomer, out string errorMessage)
         {
-            var users = new List<AspNetUsers>();
+            var result = new List<UserAccountDTO>();
 
             errorMessage = string.Empty;
 
             try
             {
-                users = _commonRepository.Filter(x => x.IdCustomer.Equals(idCustomer));                
+                var users = _commonRepository.Filter(x => x.IdCustomer.Equals(idCustomer));
+                result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
             {
@@ -187,28 +148,25 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return users
-                 .Select(x => new UserAccountDTO()
-                 {
-                     Id = x.Id,
-                     UserName = $"{x.FirstName} {x.LastName}"
-                 })
+            return result
                  .OrderBy(x => x.RoleDescription)
                  .ToList();
         }
 
         public List<UserAccountDTO> GetProfessionalNamesCombo(int idCustomer, out string errorMessage)
         {
-            var users = new List<AspNetUsers>();
+            var result = new List<UserAccountDTO>();
 
             errorMessage = string.Empty;
 
             try
             {
-                users = _commonRepository
+                var users = _commonRepository
                     .GetAll()
                     .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()) && x.IdCustomer.Equals(idCustomer))
                     .ToList();
+
+                result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
             {
@@ -216,28 +174,25 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return users
-                 .Select(x => new UserAccountDTO()
-                 {
-                     Id = x.Id,
-                     FullName = $"{x.FirstName} {x.LastName}"
-                 })
+            return result
                  .OrderBy(x => x.FullName)
                  .ToList();
         }
 
         public List<UserAccountDTO> GetConsumerNamesCombo(int idCustomer, out string errorMessage)
         {
-            var users = new List<AspNetUsers>();
+            var result = new List<UserAccountDTO>();
 
             errorMessage = string.Empty;
 
             try
             {
-                users = _commonRepository
+                var users = _commonRepository
                     .GetAll()
                     .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString()) && x.IdCustomer.Equals(idCustomer))
-                    .ToList();                
+                    .ToList();
+
+                result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
             {
@@ -245,12 +200,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return users
-                 .Select(x => new UserAccountDTO()
-                 {
-                     Id = x.Id,
-                     FullName = $"{x.FirstName} {x.LastName}"
-                 })
+            return result
                  .OrderBy(x => x.RoleDescription)
                  .ToList();
         }
@@ -331,15 +281,17 @@ namespace AgendaTec.Business.Bindings
 
         public List<UserAccountDTO> GetUserRecipients(int idCustomer, out string errorMessage)
         {
-            var users = new List<AspNetUsers>();
+            var result = new List<UserAccountDTO>();
 
             errorMessage = string.Empty;
 
             try
             {
-                users = _commonRepository
+                var users = _commonRepository
                     .Filter(x => x.IdCustomer.Equals(idCustomer) && x.DirectMail)
-                    .ToList();              
+                    .ToList();
+
+                result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
             {
@@ -347,16 +299,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return users
-                .Select(x => new UserAccountDTO()
-                {
-                    Id = x.Id,
-                    IDCustomer = x.IdCustomer,
-                    IdRole = x.IdRole,
-                    FullName = $"{x.FirstName} {x.LastName}",
-                    Email = x.Email,
-                    Phone = x.PhoneNumber                    
-                 })
+            return result
                  .OrderBy(x => x.FullName)
                  .ToList();
         }

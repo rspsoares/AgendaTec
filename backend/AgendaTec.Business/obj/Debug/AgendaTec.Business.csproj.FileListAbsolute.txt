@@ -16,15 +16,11 @@ C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTe
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTec.Infrastructure.dll.config
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.xml
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.Logging.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.Tokens.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.Tokens.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Newtonsoft.Json.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\NLog.xml
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\System.IdentityModel.Tokens.Jwt.pdb
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\bin\Debug\Twilio.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csprojAssemblyReference.cache

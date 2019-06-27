@@ -37,6 +37,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public bool CPFRequired { get; set; }
         public string Note { get; set; }
         public bool RootCompany { get; set; }
+        public bool ShowServicePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
