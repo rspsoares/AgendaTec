@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using Twilio;
@@ -11,10 +10,11 @@ using Twilio.Types;
 
 namespace AgendaTec.Business.Helpers
 {
-    public static class DirectMailHelper
+    public class DirectMailHelper
     {
-        public static void SendMail(ServiceConfiguration configuration, DirectMailDTO directMail, List<UserAccountDTO> users)
+        public void SendMail(DirectMailDTO directMail, List<UserAccountDTO> users)
         {
+            var mailHelper = new SendMailHelper();
             var encoding = Encoding.GetEncoding("ISO-8859-1");
             var adminSender = users.Where(x => ((EnUserType)int.Parse(x.IdRole)).Equals(EnUserType.Administrator)).First();
 
@@ -48,25 +48,10 @@ namespace AgendaTec.Business.Helpers
                 mailMessage.Bcc.Add(recipient);
             });
 
-            var networkCredential = new NetworkCredential
-            {
-                UserName = configuration.SendMailLogin,
-                Password = configuration.SendMailPassword.ToUnsecureString()
-            };
-
-            var smtp = new SmtpClient
-            {
-                Host = configuration.SendMailHost,
-                EnableSsl = true,
-                UseDefaultCredentials = true,
-                Credentials = networkCredential,
-                Port = configuration.SendMailPort
-            };
-
-            smtp.Send(mailMessage);
+            mailHelper.SendMail(mailMessage);            
         }
 
-        public static void WhatsApp()
+        public static void SendWhatsApp()
         {
             const string accountSid = "ACa92047e3a6ae5077af119e032ef65536";
             const string authToken = "173a0316a3c545503475206b821c480e";

@@ -7,6 +7,7 @@ using System;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AgendaTec.Service
 {
@@ -46,6 +47,8 @@ namespace AgendaTec.Service
 
         private void SendMailCallback(object state)
         {
+            var directMailHelper = new DirectMailHelper();
+
             if (sendMailLock)
                 return;
 
@@ -79,11 +82,11 @@ namespace AgendaTec.Service
                         switch ((EnMailType)mail.MailType)
                         {
                             case EnMailType.All:
-                                DirectMailHelper.SendMail(_configuration, mail, recipients);
+                                directMailHelper.SendMail(mail, recipients);                                
                                 //TODO: WhatsApp
                                 break;
                             case EnMailType.Email:
-                                DirectMailHelper.SendMail(_configuration, mail, recipients);
+                                directMailHelper.SendMail(mail, recipients);
                                 break;
                             case EnMailType.WhatsApp:
                                 //TODO: WhatsApp
@@ -151,9 +154,9 @@ namespace AgendaTec.Service
             _configuration = ServiceHelper.LoadConfigurations(out string configErrorMessage);
 
             //CleanUpCallback(null);
-            DirectMailHelper.WhatsApp();
+            //DirectMailHelper.SendWhatsApp();
 
-            //SendMailCallback(null);            
+            SendMailCallback(null);            
         }
     }
 }

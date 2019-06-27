@@ -95,6 +95,7 @@
     <Compile Include="Entities\EnMailIntervalType.cs" />
     <Compile Include="Entities\EnMailType.cs" />
     <Compile Include="Entities\EnUserType.cs" />
+    <Compile Include="Entities\MailConfiguration.cs" />
     <Compile Include="Entities\ProfessionalDTO.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />
     <Compile Include="Entities\ServiceConfiguration.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Helpers\DirectMailHelper.cs" />
     <Compile Include="Helpers\ProfilesHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />
+    <Compile Include="Helpers\SendMailHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Profiles\CustomerProfile.cs" />
     <Compile Include="Profiles\DirectMailProfile.cs" />

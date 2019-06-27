@@ -9,6 +9,7 @@ using AgendaTec.Client.Models;
 using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
 using System.Collections.Generic;
+using AgendaTec.Business.Contracts;
 
 namespace AgendaTec.Client.Controllers
 {
@@ -17,9 +18,11 @@ namespace AgendaTec.Client.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IUserFacade _userFacade;
 
-        public AccountController()
+        public AccountController(IUserFacade userFacade)
         {
+            _userFacade = userFacade;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -225,7 +228,7 @@ namespace AgendaTec.Client.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -233,10 +236,10 @@ namespace AgendaTec.Client.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                _userFacade.SendResetPasswordEmail(model.Email,$"{user.FirstName} {user.LastName}", "Recuperação de senha", "Favor redefinir sua senha clicando <a href=\"" + callbackUrl + "\">aqui</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -254,9 +257,14 @@ namespace AgendaTec.Client.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public ActionResult ResetPassword(string userId, string code)
         {
-            return code == null ? View("Error") : View();
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(code))
+                return View("Error");
+
+            Session["UserId"] = userId;            
+
+            return View();
         }
 
         //
@@ -266,21 +274,17 @@ namespace AgendaTec.Client.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid)            
                 return View(model);
-            }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
+            
+            var user = await UserManager.FindByIdAsync(Session["UserId"].ToString());
+            if (user == null)            
+                return View("Error");
+            
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
+            if (result.Succeeded)            
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
+            
             AddErrors(result);
             return View();
         }
@@ -290,6 +294,7 @@ namespace AgendaTec.Client.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
+            Session.Remove("UserId");
             return View();
         }
 

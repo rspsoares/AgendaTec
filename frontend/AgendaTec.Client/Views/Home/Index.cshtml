@@ -32,10 +32,17 @@
                     @Html.AntiForgeryToken()
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <h4>@User.GetFullName()</h4>
+                        <li class="light-grey-nav">
+                            <a data-toggle="dropdown" data-noajax="true" class="dropdown-toggle" href="#">
+                                <span>&nbsp;</span>
+                                <span>@User.GetFullName()</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+                                <li><a data-noajax="true" href="@Url.Content("~/Manage/ChangePassword")"><span class="glyphicon glyphicon-edit"></span> Alterar Senha</a></li>
+                                <li><a data-noajax="true" href="@Url.Action("LogOff", "Account")"><span class="glyphicon glyphicon-off"></span> Sair</a></li>
+                            </ul>
                         </li>
-                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Sair</a></li>
                     </ul>
                 }
             }

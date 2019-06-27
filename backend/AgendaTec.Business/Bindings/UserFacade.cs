@@ -8,7 +8,10 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AgendaTec.Business.Bindings
 {
@@ -454,6 +457,33 @@ namespace AgendaTec.Business.Bindings
             }
 
             return root;
-        }        
+        }
+
+        public void SendResetPasswordEmail(string userEmail, string userFullName, string subject, string body)
+        {
+            var mailHelper = new SendMailHelper();
+
+            try
+            {
+                var mailMessage = new MailMessage()
+                {
+                    From = new MailAddress("nao.responder@agendatec.com", "Recuperação de Senha", Encoding.UTF8),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true,
+                    Priority = MailPriority.High,
+                    SubjectEncoding = Encoding.GetEncoding("ISO-8859-1"),
+                    BodyEncoding = Encoding.GetEncoding("ISO-8859-1")
+                };
+
+                mailMessage.To.Add(new MailAddress(userEmail, userFullName, Encoding.UTF8));
+
+                mailHelper.SendMail(mailMessage);                
+            }
+            catch (Exception ex)
+            {
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");                
+            }            
+        }
     }
 }
