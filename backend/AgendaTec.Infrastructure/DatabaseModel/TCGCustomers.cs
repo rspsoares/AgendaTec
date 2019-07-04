@@ -18,6 +18,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public TCGCustomers()
         {
             this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.TCGCustomerTimeRanges = new HashSet<TCGCustomerTimeRanges>();
             this.TCGProfessionals = new HashSet<TCGProfessionals>();
             this.TCGServices = new HashSet<TCGServices>();
             this.TDirectMail = new HashSet<TDirectMail>();
@@ -31,8 +32,6 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public string Address { get; set; }
         public string Phone { get; set; }
         public System.DateTime HireDate { get; set; }
-        public System.DateTime StartTime { get; set; }
-        public System.DateTime EndTime { get; set; }
         public bool Active { get; set; }
         public bool CPFRequired { get; set; }
         public string Note { get; set; }
@@ -41,6 +40,8 @@ namespace AgendaTec.Infrastructure.DatabaseModel
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TCGCustomerTimeRanges> TCGCustomerTimeRanges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TCGProfessionals> TCGProfessionals { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

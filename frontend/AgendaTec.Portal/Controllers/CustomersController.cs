@@ -83,6 +83,10 @@ namespace AgendaTec.Portal.Controllers
                     return Json(new { Success = false, errorMessage = "CNPJ inválido." }, JsonRequestBehavior.AllowGet);
             }
 
+            // Verificar intervalos não conflitantes
+
+
+
             if (customer.Id.Equals(0))
                 _customerFacade.Insert(customer, out errorMessage);
             else

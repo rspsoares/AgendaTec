@@ -135,26 +135,26 @@ namespace AgendaTec.Business.Bindings
         public List<DateTime> GetPossibleTimes(CustomerDTO customer, ServiceDTO service, DateTime date)
         {
             var possibleHours = new List<DateTime>();            
-            var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.End.ToString("HH")), int.Parse(customer.End.ToString("mm")), 0);
+            //var hourLimit = new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.End.ToString("HH")), int.Parse(customer.End.ToString("mm")), 0);
             
-            var timeBlockStart = new TimeBlock(
-                new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.Start.ToString("HH")), int.Parse(customer.Start.ToString("mm")), 0),
-                new TimeSpan(0, service.Time, 0));
+            //var timeBlockStart = new TimeBlock(
+            //    new DateTime(date.Year, date.Month, date.Day, int.Parse(customer.Start.ToString("HH")), int.Parse(customer.Start.ToString("mm")), 0),
+            //    new TimeSpan(0, service.Time, 0));
 
-            possibleHours.Add(timeBlockStart.Start);
-            possibleHours.Add(timeBlockStart.End);
-            var nextPeriod = (ITimeBlock)timeBlockStart;
+            //possibleHours.Add(timeBlockStart.Start);
+            //possibleHours.Add(timeBlockStart.End);
+            //var nextPeriod = (ITimeBlock)timeBlockStart;
 
-            while (true)
-            {
-                nextPeriod = nextPeriod.GetNextPeriod(new TimeSpan(0, service.Time, 0));
+            //while (true)
+            //{
+            //    nextPeriod = nextPeriod.GetNextPeriod(new TimeSpan(0, service.Time, 0));
 
-                if (nextPeriod.End > hourLimit)
-                    break;
+            //    if (nextPeriod.End > hourLimit)
+            //        break;
 
-                possibleHours.Add(nextPeriod.Start);
-                possibleHours.Add(nextPeriod.End);                
-            }
+            //    possibleHours.Add(nextPeriod.Start);
+            //    possibleHours.Add(nextPeriod.End);                
+            //}
 
             return possibleHours;
         }
@@ -162,13 +162,12 @@ namespace AgendaTec.Business.Bindings
         public ScheduleDTO GetScheduleById(int idSchedule, out string errorMessage)
         {
             var result = new ScheduleDTO();
-            var schedule = new TSchedules();
             
             errorMessage = string.Empty;
 
             try
             {
-                schedule = _commonRepository.GetById(idSchedule);
+                var schedule = _commonRepository.GetById(idSchedule);
                 result = Mapper.Map<TSchedules, ScheduleDTO>(schedule);
             }
             catch (Exception ex)

@@ -33,8 +33,6 @@ namespace AgendaTec.Tests
                 .RuleFor(t => t.Address, f => f.Address.StreetAddress())
                 .RuleFor(t => t.Phone, f => f.Phone.PhoneNumber())
                 .RuleFor(t => t.Hire, f => f.Date.Recent())
-                .RuleFor(t => t.Start, f => f.Date.Recent())
-                .RuleFor(t => t.End, f => f.Date.Recent())
                 .RuleFor(t => t.Active, f => f.Random.Bool())
                 .RuleFor(t => t.Note, f => f.Lorem.Sentence(5));
 

@@ -92,22 +92,10 @@
                     <input type="hidden" id="hiddenKey" />
                     <form id="usuarioForm">
                         <div class="col-xs-12">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtName" style="font-weight:bold">Razão Social</label> <br />
                                     <input type="text" class="k-textbox" id="txtName" name="txtName" placeholder="Razão Social" style="width: 100%" maxlength="80">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label id="labelCPFCNPJ" for="txtCPFCNPJ">CPF / CNPJ</label> <br />
-                                    <input type="text" class="k-textbox" id="txtCPFCNPJ" name="txtCPFCNPJ" placeholder="CPF / CNPJ" maxlength="14" style="width: 100%">
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="txtPhone" style="font-weight:bold">Telefone</label> <br />
-                                    <input type="text" class="k-textbox" id="txtPhone" name="txtPhone" placeholder="Telefone" style="width: 100%" maxlength="50">
                                 </div>
                             </div>
 
@@ -117,6 +105,31 @@
                                     <input type="text" class="k-textbox" id="txtAddress" name="txtAddress" placeholder="Endereço" style="width: 100%" maxlength="80">
                                 </div>
                             </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label id="labelCPFCNPJ" for="txtCPFCNPJ">CPF / CNPJ</label> <br />
+                                    <input type="text" class="k-textbox" id="txtCPFCNPJ" name="txtCPFCNPJ" placeholder="CPF / CNPJ" maxlength="14" style="width: 100%">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="txtPhone" style="font-weight:bold">Telefone</label> <br />
+                                    <input type="text" class="k-textbox" id="txtPhone" name="txtPhone" placeholder="Telefone" style="width: 100%" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <label for="dtHire" style="font-weight:bold">Data de Contratação</label> <br />
+                                    <input id="dtHire" name="dtHire" style="width: 100%">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                                <div class="form-group">
+                                    <h2>Horários de atendimento</h2>
+                                </div>
+                            </div>
+                            <input type="hidden" id="hiddenIdTimeRange" />
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="dtStart" style="font-weight:bold">Início atendimento</label> <br />
@@ -129,11 +142,18 @@
                                     <input id="dtEnd" name="dtEnd" style="width: 100%">
                                 </div>
                             </div>
-                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-top: 20px;">
                                 <div class="form-group">
-                                    <label for="dtHire" style="font-weight:bold">Data de Contratação</label> <br />
-                                    <input id="dtHire" name="dtHire" style="width: 100%">
+                                    <button type="button" id="btnSaveTimeRange" class="btn btn-primary btn-xs" onclick="javascript: { AddTimeRange(); }">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+                                    </button>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                                
+                                <div class="form-group">
+                                    <div id="gridTimeRanges"></div>
+                                </div>                                
                             </div>
 
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
@@ -159,12 +179,12 @@
                                     <label for="chkCPFRequired" style="font-weight:bold">CPF / CNPJ obrigatório</label> <br />
                                     <input id="chkCPFRequired" type="checkbox" data-field="chkCPFRequired" checked data-on-text="SIM" data-off-text="NÃO" data-size="small" style="width: 100%;">
                                 </div>
-                            </div>                            
+                            </div>
 
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtNote">Observação</label> <br />
-                                    <textarea id="txtNote" maxlength="500" rows="4" class="k-textbox" name="txtNote" placeholder="Observação" style="width: 100%"></textarea>
+                                    <textarea id="txtNote" maxlength="500" rows="2" class="k-textbox" name="txtNote" placeholder="Observação" style="width: 100%"></textarea>
                                 </div>
                             </div>
                         </div>

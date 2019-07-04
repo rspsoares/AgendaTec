@@ -1,4 +1,6 @@
-﻿function PageSetup() {
+﻿var timeRanges = [];
+
+function PageSetup() {
     $('#btnAddCustomer').click(function () {
         AddCustomer();
     });
@@ -151,6 +153,7 @@ function CleanFields() {
     $('#chkCPFRequired').bootstrapSwitch('state', true);
     $('#chkShowPrice').bootstrapSwitch('state', true);
     $("#txtNote").val("");
+    timeRanges = [];
 }
 
 function CustomerEdit(e) {
@@ -175,8 +178,7 @@ function CustomerEdit(e) {
                 $("#txtCPFCNPJ").val(result.Data.CNPJ).trigger('input').trigger("focusout");                
                 $("#txtAddress").val(result.Data.Address);
                 $("#txtPhone").val(result.Data.Phone);
-                $("#dtStart").val(kendo.toString(kendo.parseDate(result.Data.Start, 'HH:mm'), 'HH:mm'));
-                $("#dtEnd").val(kendo.toString(kendo.parseDate(result.Data.End, 'HH:mm'), 'HH:mm'));
+                
                 $("#dtHire").val(kendo.toString(kendo.parseDate(result.Data.Hire, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $('#chkActive').bootstrapSwitch('state', result.Data.Active);
                 $('#chkRoot').bootstrapSwitch('state', result.Data.Root);
@@ -187,6 +189,9 @@ function CustomerEdit(e) {
                     $('#labelCPFCNPJ').css({ 'font-weight': 'bold' });                
                 else 
                     $('#labelCPFCNPJ').css({ 'font-weight': '' });                  
+
+                timeRanges = result.Data.TimeRanges;
+                LoadTimeRanges();
 
                 $("#txtNote").val(result.Data.Note);             
             }
@@ -220,9 +225,7 @@ function SaveCustomer() {
         Name: $("#txtName").val(),
         CNPJ: $("#txtCPFCNPJ").val().replace(/[^\d]/g, "").trim(),
         Address: $("#txtAddress").val(),
-        Phone: $("#txtPhone").val(),
-        Start: kendo.parseDate($("#dtStart").val(), "HH:mm"),
-        End: kendo.parseDate($("#dtEnd").val(), "HH:mm"),
+        Phone: $("#txtPhone").val(),       
         Hire: kendo.parseDate($("#dtHire").val(), "dd/MM/yyyy"),
         Active: $('#chkActive').bootstrapSwitch('state'),
         Root: $('#chkRoot').bootstrapSwitch('state'),
@@ -275,6 +278,107 @@ function ValidateRequiredFields() {
 
     if ($('#chkCPFRequired').bootstrapSwitch('state') && $("#txtCPFCNPJ").val() === '')
         errorMessage += 'Favor informar o CPF / CNPJ' + '<br/>';
+    
+    return errorMessage;
+}
+
+function LoadTimeRanges() {
+    $("#gridTimeRanges").html("");
+    $("#gridTimeRanges").kendoGrid({
+        dataSource: timeRanges,
+        scrollable: true,
+        resizable: true,
+        sortable: true,
+        pageable: {
+            pageSizes: [10, 25, 50],
+            alwaysVisible: false
+        },
+        columns: [
+            { field: "Id", hidden: true },            
+            { field: "Start", title: "Início atendimento", template: "#= kendo.toString(kendo.parseDate(Start, 'HH:mm'), 'HH:mm') #", width: "15%" },
+            { field: "End", title: "Fim atendimento", template: "#= kendo.toString(kendo.parseDate(End, 'HH:mm'), 'HH:mm') #", width: "15%" },            
+            {
+                title: "Editar",
+                template: "<a onclick='javascript:{TimeRangeEdit(this);}' class='k-button'>"
+                    + "<span class='glyphicon glyphicon glyphicon-pencil'></span></a>",
+                width: "10%",
+                attributes: { style: "text-align:center;" },
+                filterable: false
+            },
+            {
+                title: "Excluir",
+                template: "<a onclick='javascript:{TimeRangeDelete(this);}' class='k-button'>"
+                    + "<span class='glyphicon glyphicon glyphicon-trash'></span></a>",
+                width: "10%",
+                attributes: { style: "text-align:center;" },
+                filterable: false
+            }
+        ]
+    });   
+}
+
+function AddTimeRange() {
+    var errorMessages = ValidateTimeRanges();
+    var idTimeRange = 0;
+
+    if (errorMessages !== '') {
+        ShowModalAlert(errorMessages);
+        return;
+    }
+
+    if ($("#hiddenIdTimeRange").val() === "")
+        idTimeRange = Math.floor(Math.random() * 100) + 1;
+    else {
+        // Edição: Remove o item antigo
+
+        idTimeRange = parseInt($("#hiddenIdTimeRange").val());
+    }        
+
+    var timeRange = {
+        Id: idTimeRange,
+        IdCustomer: parseInt($("#hiddenID").val()),
+        Start: $("#dtStart").val(),
+        End: $("#dtEnd").val()
+    };
+
+    timeRanges.push(timeRange);        
+
+    LoadTimeRanges();
+
+    $("#hiddenIdTimeRange").val("");
+    $("#dtStart").val("");
+    $("#dtEnd").val("");
+}
+
+function TimeRangeEdit(e) {
+    var dataItem = $("#gridTimeRanges").data("kendoGrid").dataItem(e.parentElement.parentElement);    
+
+    $("#hiddenIdTimeRange").val(dataItem.Id);
+    $("#dtStart").val(kendo.toString(kendo.parseDate(dataItem.Start, 'HH:mm'), 'HH:mm'));
+    $("#dtEnd").val(kendo.toString(kendo.parseDate(dataItem.End, 'HH:mm'), 'HH:mm'));
+}
+
+function TimeRangeDelete(e) {
+
+
+}
+
+function ValidateTimeRanges(timeRange) {
+    var errorMessage = '';
+
+    if (kendo.toString(kendo.parseDate($("#dtStart").val(), 'HH:mm'), 'HH:mm') === null)
+        errorMessage += "Hora inicial inválida" + '<br/>';
+
+    if (kendo.toString(kendo.parseDate($("#dtEnd").val(), 'HH:mm'), 'HH:mm') === null)
+        errorMessage += "Hora final inválida" + '<br/>';
+
+    if (errorMessage !== '')
+        return errorMessage;
+
+    if (kendo.parseDate($("#dtStart").val()) >= kendo.parseDate($("#dtEnd").val())) {
+        errorMessage += "Hora inicial deve ser inferior a hora final";
+        return errorMessage;
+    }
     
     return errorMessage;
 }
