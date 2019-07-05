@@ -23,7 +23,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.ShowPrice, s => s.MapFrom(m => m.ShowServicePrice))
                 .ForMember(d => d.TimeRanges, s => s.MapFrom(m => m.TCGCustomerTimeRanges));
 
-            CreateMap<TCGCustomerTimeRanges, CustomerTimeRageDTO>()
+            CreateMap<TCGCustomerTimeRanges, CustomerTimeRangeDTO>()
                .ForMember(d => d.Id, s => s.MapFrom(m => m.IDCustomerTimeRanges))
                .ForMember(d => d.IdCustomer, s => s.MapFrom(m => m.IDCustomer))
                .ForMember(d => d.Start, s => s.MapFrom(m => m.StartTime))
@@ -44,7 +44,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.ShowServicePrice, s => s.MapFrom(m => m.ShowPrice))
                 .ForMember(d => d.TCGCustomerTimeRanges, s => s.MapFrom(m => m.TimeRanges));
 
-            CreateMap<CustomerTimeRageDTO, TCGCustomerTimeRanges>()
+            CreateMap<CustomerTimeRangeDTO, TCGCustomerTimeRanges>()
                .ForMember(d => d.IDCustomerTimeRanges, s => s.MapFrom(m => m.Id))
                .ForMember(d => d.IDCustomer, s => s.MapFrom(m => m.IdCustomer))
                .ForMember(d => d.StartTime, s => s.MapFrom(m => m.Start))

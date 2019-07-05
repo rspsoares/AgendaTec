@@ -190,8 +190,8 @@ function CustomerEdit(e) {
                 else 
                     $('#labelCPFCNPJ').css({ 'font-weight': '' });                  
 
-                timeRanges = result.Data.TimeRanges;
-                LoadTimeRanges();
+                LoadTimeRangesDataSource(result.Data.TimeRanges);
+                LoadTimeRangesGrid();
 
                 $("#txtNote").val(result.Data.Note);             
             }
@@ -231,7 +231,8 @@ function SaveCustomer() {
         Root: $('#chkRoot').bootstrapSwitch('state'),
         CPFRequired: $('#chkCPFRequired').bootstrapSwitch('state'),
         ShowPrice: $('#chkShowPrice').bootstrapSwitch('state'),
-        Note: $("#txtNote").val()
+        Note: $("#txtNote").val(),
+        TimeRanges: timeRanges
     };
 
     $("#loading-page").show();
@@ -265,13 +266,7 @@ function ValidateRequiredFields() {
         errorMessage += 'Favor informar o Endereço' + '<br/>';
 
     if ($("#txtPhone").val() === '')
-        errorMessage += 'Favor informar o Telefone' + '<br/>';
-
-    if ($("#dtStart").val() === '')
-        errorMessage += 'Favor informar o Horário Início atendimento' + '<br/>';
-
-    if ($("#dtEnd").val() === '')
-        errorMessage += 'Favor informar o Horário Término atendimento' + '<br/>';
+        errorMessage += 'Favor informar o Telefone' + '<br/>';    
 
     if($("#dtHire").val() === '')
         errorMessage += 'Favor informar a Data de Contratação' + '<br/>';
@@ -282,13 +277,32 @@ function ValidateRequiredFields() {
     return errorMessage;
 }
 
-function LoadTimeRanges() {
+function LoadTimeRangesDataSource(results) {
+    jQuery.each(results, function (i, result) {
+        var timeRange = {
+            Id: result.Id,
+            IdCustomer: result.IdCustomer,
+            Start: kendo.toString(kendo.parseDate(result.Start, 'HH:mm'), 'HH:mm'),
+            End: kendo.toString(kendo.parseDate(result.End, 'HH:mm'), 'HH:mm')
+        };
+
+        timeRanges.push(timeRange);   
+    });
+}
+
+function LoadTimeRangesGrid() {
     $("#gridTimeRanges").html("");
     $("#gridTimeRanges").kendoGrid({
-        dataSource: timeRanges,
+        dataSource: {
+            data: timeRanges,
+            sort: {
+                field: 'Start',
+                dir: 'asc'
+            }
+        },
         scrollable: true,
         resizable: true,
-        sortable: true,
+        sortable: false,
         pageable: {
             pageSizes: [10, 25, 50],
             alwaysVisible: false
@@ -328,10 +342,9 @@ function AddTimeRange() {
 
     if ($("#hiddenIdTimeRange").val() === "")
         idTimeRange = Math.floor(Math.random() * 100) + 1;
-    else {
-        // Edição: Remove o item antigo
-
+    else {           
         idTimeRange = parseInt($("#hiddenIdTimeRange").val());
+        RemoveTimeRange(idTimeRange);
     }        
 
     var timeRange = {
@@ -343,7 +356,7 @@ function AddTimeRange() {
 
     timeRanges.push(timeRange);        
 
-    LoadTimeRanges();
+    LoadTimeRangesGrid();
 
     $("#hiddenIdTimeRange").val("");
     $("#dtStart").val("");
@@ -351,7 +364,7 @@ function AddTimeRange() {
 }
 
 function TimeRangeEdit(e) {
-    var dataItem = $("#gridTimeRanges").data("kendoGrid").dataItem(e.parentElement.parentElement);    
+    var dataItem = $("#gridTimeRanges").data("kendoGrid").dataItem(e.parentElement.parentElement);
 
     $("#hiddenIdTimeRange").val(dataItem.Id);
     $("#dtStart").val(kendo.toString(kendo.parseDate(dataItem.Start, 'HH:mm'), 'HH:mm'));
@@ -359,18 +372,19 @@ function TimeRangeEdit(e) {
 }
 
 function TimeRangeDelete(e) {
-
-
+    var dataItem = $("#gridTimeRanges").data("kendoGrid").dataItem(e.parentElement.parentElement);
+    RemoveTimeRange(dataItem.Id);
+    LoadTimeRangesGrid();
 }
 
 function ValidateTimeRanges(timeRange) {
     var errorMessage = '';
 
     if (kendo.toString(kendo.parseDate($("#dtStart").val(), 'HH:mm'), 'HH:mm') === null)
-        errorMessage += "Hora inicial inválida" + '<br/>';
+        errorMessage += "Hora de início inválida" + '<br/>';
 
     if (kendo.toString(kendo.parseDate($("#dtEnd").val(), 'HH:mm'), 'HH:mm') === null)
-        errorMessage += "Hora final inválida" + '<br/>';
+        errorMessage += "Hora de término inválida" + '<br/>';
 
     if (errorMessage !== '')
         return errorMessage;
@@ -382,3 +396,17 @@ function ValidateTimeRanges(timeRange) {
     
     return errorMessage;
 }
+
+function RemoveTimeRange(id) {
+    var index = 0;
+
+    jQuery.each(timeRanges, function (i, timeRange) {
+        if (timeRange.Id === id) {
+            index = i;
+            return false;
+        }
+    });
+
+    timeRanges.splice(index, 1);
+}
+

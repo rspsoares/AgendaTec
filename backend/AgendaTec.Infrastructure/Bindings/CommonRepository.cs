@@ -94,9 +94,12 @@ namespace AgendaTec.Infrastructure.Repositories
             using (var scope = new TransactionScope(TransactionScopeOption.Required, _readNoLock))
             {
                 var existing = _table.Find(id);
-                _table.Remove(existing);
 
-                _context.SaveChanges();
+                if(existing != null)
+                {
+                    _table.Remove(existing);
+                    _context.SaveChanges();
+                }
 
                 scope.Complete();
             }

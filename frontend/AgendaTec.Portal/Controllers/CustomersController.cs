@@ -83,9 +83,13 @@ namespace AgendaTec.Portal.Controllers
                     return Json(new { Success = false, errorMessage = "CNPJ inválido." }, JsonRequestBehavior.AllowGet);
             }
 
-            // Verificar intervalos não conflitantes
-
-
+            if(!_customerFacade.CheckValidTimeRanges(customer.TimeRanges, out errorMessage))
+            {
+                if(!string.IsNullOrEmpty(errorMessage))
+                    return Json(new { Success = false, errorMessage = errorMessage }, JsonRequestBehavior.AllowGet);
+                else
+                    return Json(new { Success = false, errorMessage = "Existe sobreposição nos intervalos de horários." }, JsonRequestBehavior.AllowGet);
+            }                
 
             if (customer.Id.Equals(0))
                 _customerFacade.Insert(customer, out errorMessage);

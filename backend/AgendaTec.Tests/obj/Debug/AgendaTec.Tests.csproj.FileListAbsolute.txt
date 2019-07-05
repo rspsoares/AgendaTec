@@ -1,5 +1,3 @@
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.csprojAssemblyReference.cache
-C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.csproj.CoreCompileInputs.cache
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\NLog.config
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
@@ -45,6 +43,8 @@ C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\System.Iden
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\Microsoft.IdentityModel.Tokens.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\Microsoft.IdentityModel.Logging.xml
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.csprojAssemblyReference.cache
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.csproj.CoreCompileInputs.cache
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.csproj.CopyComplete
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.dll
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Tests\obj\Debug\AgendaTec.Tests.pdb

@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>06/27/2019 16:36:05</publishTime>
+      <publishTime>07/05/2019 14:16:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.dll.config">
       <publishTime>06/27/2019 16:33:40</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>06/27/2019 16:36:05</publishTime>
+      <publishTime>07/05/2019 14:16:12</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>06/27/2019 16:36:04</publishTime>
+      <publishTime>07/05/2019 14:16:11</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>05/21/2019 09:58:37</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>06/27/2019 16:36:04</publishTime>
+      <publishTime>07/05/2019 14:16:11</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>06/27/2019 16:36:38</publishTime>
+      <publishTime>07/05/2019 14:16:13</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>06/27/2019 16:36:38</publishTime>
+      <publishTime>07/05/2019 14:16:13</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -610,7 +610,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/29/2019 11:20:09</publishTime>
     </File>
     <File Include="Content/js/app/registers/customers/customers.js">
-      <publishTime>06/27/2019 12:56:48</publishTime>
+      <publishTime>07/05/2019 11:56:44</publishTime>
     </File>
     <File Include="Content/js/app/registers/empresas/empresas.js">
       <publishTime>05/03/2019 16:03:40</publishTime>
@@ -5665,7 +5665,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2019 11:18:16</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>06/27/2019 11:42:41</publishTime>
+      <publishTime>07/04/2019 17:13:16</publishTime>
     </File>
     <File Include="Views/DirectMails/Index.cshtml">
       <publishTime>05/23/2019 09:38:36</publishTime>

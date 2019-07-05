@@ -9,18 +9,14 @@ using System.Web.Mvc;
 namespace AgendaTec.Client.Controllers
 {    
     public class HomeController : Controller
-    {
-        private readonly IServiceFacade _serviceFacade;
-        private readonly IProfessionalFacade _professionalFacade;
+    {        
         private readonly IProfessionalServiceFacade _professionalServiceFacade;
         private readonly IScheduleFacade _scheduleFacade;
         private readonly ICustomerFacade _customerFacade;
         private readonly IUserFacade _userFacade;
 
-        public HomeController(IServiceFacade serviceFacade, IProfessionalFacade professionalFacade, IProfessionalServiceFacade professionalServiceFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade, IUserFacade userFacade)
-        {
-            _serviceFacade = serviceFacade;
-            _professionalFacade = professionalFacade;
+        public HomeController(IProfessionalServiceFacade professionalServiceFacade, IScheduleFacade scheduleFacade, ICustomerFacade customerFacade, IUserFacade userFacade)
+        {     
             _professionalServiceFacade = professionalServiceFacade;
             _scheduleFacade = scheduleFacade;
             _customerFacade = customerFacade;
@@ -34,8 +30,8 @@ namespace AgendaTec.Client.Controllers
                 var customer = _customerFacade.GetCustomerByKey(customerKey, out string errorMessage);
                 Session["IdCustomer"] = customer.Id.Equals(0) ? (int?)null : customer.Id;
             }
-            else if (User.Identity.IsAuthenticated)
-                Session["IdCustomer"] = User.GetIdCustomer();
+            else if(Session["IdCustomer"] == null)
+                Session["IdCustomer"] = "0";
 
             return View();
         }
@@ -43,7 +39,7 @@ namespace AgendaTec.Client.Controllers
         [HttpGet]
         public JsonResult GetServices()
         {
-            var customer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());            
+            var customer = Session["IdCustomer"] == null ? 0 : int.Parse(Session["IdCustomer"].ToString());
             var services = _professionalServiceFacade.GetServicesComboClient(customer, User.Identity.IsAuthenticated, out string errorMessage);
 
             return Json(services, JsonRequestBehavior.AllowGet);
@@ -52,7 +48,7 @@ namespace AgendaTec.Client.Controllers
         [HttpGet]
         public JsonResult GetProfessionals(string idService)
         {
-            var customer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
+            var customer = Session["IdCustomer"] == null ? 0 : int.Parse(Session["IdCustomer"].ToString());
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
             var professionals = _professionalServiceFacade.GetProfessionalNameComboClient(customer, service, User.Identity.IsAuthenticated, out string errorMessage);
 
@@ -62,7 +58,7 @@ namespace AgendaTec.Client.Controllers
         [HttpGet]
         public JsonResult GetAvailableHours(string idProfessional, string idService, string selectedDate)
         {            
-            var idCustomer = string.IsNullOrEmpty(User.GetIdCustomer()) ? 0 : int.Parse(User.GetIdCustomer());
+            var idCustomer = Session["IdCustomer"] == null ? 0 : int.Parse(Session["IdCustomer"].ToString());
             var professional = string.IsNullOrEmpty(idProfessional) ? 0 : int.Parse(idProfessional);
             var service = string.IsNullOrEmpty(idService) ? 0 : int.Parse(idService);
             var date = string.IsNullOrEmpty(selectedDate) ? DateTime.MinValue : DateTime.Parse(selectedDate);

@@ -11,5 +11,6 @@ namespace AgendaTec.Business.Contracts
         CustomerDTO GetCustomerByKey(string customerKey, out string errorMessage);
         CustomerDTO Insert(CustomerDTO e, out string errorMessage);
         void Update(CustomerDTO e, out string errorMessage);
+        bool CheckValidTimeRanges(List<CustomerTimeRangeDTO> timeRanges, out string errorMessage);
     }
 }

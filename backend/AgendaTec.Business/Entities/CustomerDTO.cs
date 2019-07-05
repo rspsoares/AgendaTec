@@ -17,10 +17,10 @@ namespace AgendaTec.Business.Entities
         public bool CPFRequired { get; set; }
         public string Note { get; set; }
         public bool ShowPrice { get; set; }
-        public List<CustomerTimeRageDTO> TimeRanges { get; set; }
+        public List<CustomerTimeRangeDTO> TimeRanges { get; set; }
     }
 
-    public class CustomerTimeRageDTO
+    public class CustomerTimeRangeDTO
     {
         public int Id { get; set; }
         public int IdCustomer { get; set; }

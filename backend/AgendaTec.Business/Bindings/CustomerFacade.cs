@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Itenso.TimePeriod;
 
 namespace AgendaTec.Business.Bindings
 {
@@ -136,13 +137,30 @@ namespace AgendaTec.Business.Bindings
         public void Update(CustomerDTO e, out string errorMessage)
         {
             IUserFacade userFacade = new UserFacade();
+            ICommonRepository<TCGCustomerTimeRanges> _timeRangeRepository = new CommonRepository<TCGCustomerTimeRanges>();
 
             try
             {
                 var result = Mapper.Map<CustomerDTO, TCGCustomers>(e);
-                _commonRepository.Update(result.IDCustomer, result);
 
-                userFacade.UpdateAdminUsersByCustomer(e.Id, out errorMessage);
+                _commonRepository.Update(result.IDCustomer, result);
+                userFacade.UpdateAdminUsersByCustomer(result.IDCustomer, out errorMessage);
+
+                result
+                    .TCGCustomerTimeRanges
+                    .ToList()
+                    .ForEach(timeRange => 
+                    {
+                        _timeRangeRepository.Delete(timeRange.IDCustomerTimeRanges);
+                    });
+
+                result
+                    .TCGCustomerTimeRanges
+                    .ToList()
+                    .ForEach(timeRange =>
+                    {
+                        _timeRangeRepository.Insert(timeRange);
+                    });
             }
             catch (Exception ex)
             {
@@ -150,5 +168,25 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
         }      
+
+        public bool CheckValidTimeRanges(List<CustomerTimeRangeDTO> timeRanges, out string errorMessage)
+        {
+            var timePeriods = new TimePeriodCollection();
+
+            errorMessage = string.Empty;
+
+            try
+            {                
+                timeRanges.ForEach(timeRange => { timePeriods.Add(new TimeRange(timeRange.Start, timeRange.End, false)); });
+                return !timePeriods.HasOverlaps();                
+            }
+            catch (Exception ex)
+            {
+                errorMessage ="Ocorreu um erro ao validar os intervalios de atendimento";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");
+
+                return false;
+            }          
+        }
     }
 }
