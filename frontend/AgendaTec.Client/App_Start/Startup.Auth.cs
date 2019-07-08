@@ -56,20 +56,19 @@ namespace AgendaTec.Client
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "408963083296441",
+            //   appSecret: "13d536331ea384a5a05e5f6513d8af1a");
+
+
+            app.UseFacebookAuthentication(
+              appId: SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationFacebookId"])).ToUnsecureString(),
+              appSecret: SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationFacebookSecret"])).ToUnsecureString());
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
                 ClientId = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationGoogleId"])).ToUnsecureString(),
                 ClientSecret = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["AuthenticationGoogleSecret"])).ToUnsecureString(),
-            });
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "739871960102-ea4hlf5htgrjo08s5gfur1cekaaic4n8.apps.googleusercontent.com",
-            //    ClientSecret = "xJAF9xRIIksAabbdCPynSQAb"
-            //});
+            });            
         }
     }
 }

@@ -10,6 +10,8 @@ using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
 using System.Collections.Generic;
 using AgendaTec.Business.Contracts;
+using System;
+using AgendaTec.Client.Helper;
 
 namespace AgendaTec.Client.Controllers
 {
@@ -349,39 +351,24 @@ namespace AgendaTec.Client.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            var user = new ApplicationUser();
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-            if (loginInfo == null)
-            {
+            if (loginInfo == null)            
                 return RedirectToAction("Login");
-            }
 
             var result = _userFacade.GetUserByEmail(loginInfo.Email, out string errorMessage);
             if(result == null)
             {
-                var newUser = new ApplicationUser
-                {
-                    IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
-                    IDRole = ((int)EnUserType.Consumer).ToString(),
-                    FirstName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname")).SingleOrDefault()?.Value,
-                    LastName = loginInfo.ExternalIdentity.Claims.ToList().Where(x => x.Type.Equals("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname")).SingleOrDefault()?.Value,
-                    CPF = string.Empty,
-                    UserName = loginInfo.Email,
-                    Email = loginInfo.Email,
-                    PhoneNumber = string.Empty,
-                    IsEnabled = true,
-                    DirectMail = true,
-                    RootUser = false
-                };
+                user = loginInfo.GenerateNewUserFromExternalLogin(int.Parse(Session["IdCustomer"].ToString()));
 
-                var resultCreate = await UserManager.CreateAsync(newUser, "AgendaTec123");
+                var resultCreate = await UserManager.CreateAsync(user, "AgendaTec123");
                 if (!resultCreate.Succeeded)
-                    return RedirectToAction("Login");
-
-                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);               
+                    return RedirectToAction("Login");                
             }
             else
             {
-                var user = new ApplicationUser
+                user = new ApplicationUser
                 {
                     Id = result.Id,
                     IDCustomer = result.IDCustomer,
@@ -390,9 +377,10 @@ namespace AgendaTec.Client.Controllers
                     LastName = result.LastName,
                     UserName = loginInfo.Email,
                     Email = loginInfo.Email
-                };
-                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                };                
             }
+
+            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
             return RedirectToAction("Index", "Home");            
         }
