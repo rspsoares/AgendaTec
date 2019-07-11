@@ -34,3 +34,4 @@ C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.csproj.CopyComplete
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.exe
 C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.pdb
+C:\_Rodrigo\Repositorios\AgendaTec\backend\AgendaTec.Security.DeveloperTools\obj\Debug\AgendaTec.Security.DeveloperTools.csprojAssemblyReference.cache

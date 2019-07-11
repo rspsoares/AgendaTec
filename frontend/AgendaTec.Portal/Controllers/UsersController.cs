@@ -41,6 +41,11 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetGrid(string name, string email, string idCustomer, string idRole)
         {
+
+            // Incluir usuários da tabela TCGCustomersAspNetUsers
+
+
+
             var users = _userFacade.GetGrid(name, email, int.Parse(idCustomer), idRole, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

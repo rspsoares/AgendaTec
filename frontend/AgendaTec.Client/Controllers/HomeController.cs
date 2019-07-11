@@ -99,6 +99,12 @@ namespace AgendaTec.Client.Controllers
             if (!string.IsNullOrEmpty(availabilityCheck))
                 return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
 
+
+            //Verificar se esse consumer já tá na tabela TCGCustomersAspNetUsers
+
+
+
+
             _scheduleFacade.Insert(schedule, out errorMessage);            
 
             if (!string.IsNullOrEmpty(errorMessage))
