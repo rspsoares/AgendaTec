@@ -70,7 +70,7 @@ namespace AgendaTec.Portal.Controllers
 
                 var user = new ApplicationUser
                 {
-                    IDCustomer = professional.IdCustomer,
+                    //IDCustomer = professional.IdCustomer,
                     IDRole = ((int)EnUserType.Professional).ToString(),
                     FirstName = professional.Name.Substring(0, professional.Name.IndexOf(" ")),
                     LastName = professional.Name.Substring(professional.Name.IndexOf(" ") + 1),

@@ -35,7 +35,9 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetCompanyNameCombo()
         {            
-            var idCustomer = int.Parse(User.GetIdRole()).Equals((int)EnUserType.Administrator) ? 0 : int.Parse(User.GetIdCustomer());
+            var idCustomer = User.GetIsUserRoot() && int.Parse(User.GetIdRole()).Equals((int)EnUserType.Administrator) 
+                ? 0 
+                : int.Parse(User.GetIdCustomer());
             var customers = _customerFacade.GetCompanyNameCombo(idCustomer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))

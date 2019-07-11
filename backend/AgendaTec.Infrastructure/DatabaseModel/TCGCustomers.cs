@@ -17,7 +17,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TCGCustomers()
         {
-            this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.TCGCustomersAspNetUsers = new HashSet<TCGCustomersAspNetUsers>();
             this.TCGCustomerTimeRanges = new HashSet<TCGCustomerTimeRanges>();
             this.TCGProfessionals = new HashSet<TCGProfessionals>();
             this.TCGServices = new HashSet<TCGServices>();
@@ -39,7 +39,7 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public bool ShowServicePrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<TCGCustomersAspNetUsers> TCGCustomersAspNetUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TCGCustomerTimeRanges> TCGCustomerTimeRanges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

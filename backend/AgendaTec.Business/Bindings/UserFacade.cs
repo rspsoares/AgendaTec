@@ -35,16 +35,15 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                var users = _commonRepository.GetAll();
-
+                var users = _commonRepository
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)))
+                    .ToList();                    
+                    
                 if (!string.IsNullOrEmpty(name))
                     users = users.Where(x => string.Concat(x.FirstName, " ", x.LastName).ToUpper().Contains(name.ToUpper())).ToList();
 
                 if (!string.IsNullOrEmpty(email))
                     users = users.Where(x => x.Email.ToUpper().Contains(email.ToUpper())).ToList();
-
-                if (idCustomer > 0)
-                    users = users.Where(x => x.IdCustomer.Equals(idCustomer)).ToList();
 
                 if (!string.IsNullOrEmpty(idRole))
                     users = users.Where(x => x.IdRole.Equals(idRole)).ToList();
@@ -139,7 +138,10 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                var users = _commonRepository.Filter(x => x.IdCustomer.Equals(idCustomer));
+                var users = _commonRepository
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)))
+                    .ToList();
+
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
             }
             catch (Exception ex)
@@ -163,7 +165,7 @@ namespace AgendaTec.Business.Bindings
             {
                 var users = _commonRepository
                     .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()) && x.IdCustomer.Equals(idCustomer))
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()))// && x.IdCustomer.Equals(idCustomer))
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -189,7 +191,7 @@ namespace AgendaTec.Business.Bindings
             {
                 var users = _commonRepository
                     .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString()) && x.IdCustomer.Equals(idCustomer))
+                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString())) //&& x.IdCustomer.Equals(idCustomer))
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -217,12 +219,11 @@ namespace AgendaTec.Business.Bindings
                 user.LastName = e.LastName;
                 user.CPF = e.CPF.CleanMask();
                 user.BirthDate = DateTime.Parse(e.Birthday);
-                user.IdRole = e.IdRole;
-                user.IdCustomer = e.IDCustomer;
+                user.IdRole = e.IdRole;                
                 user.Email = e.Email;
                 user.PhoneNumber = e.Phone.CleanMask();
                 user.IsEnabled = e.IsEnabled;
-                user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(e.IdRole));
+                //user.RootUser = UserIsRoot(user.TCGCustomersAspNetUsers.TCGCustomers.RootCompany, int.Parse(e.IdRole));
                 user.DirectMail = e.DirectMail;
 
                 _commonRepository.Update(e.Id, user);
@@ -287,8 +288,8 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                var users = _commonRepository
-                    .Filter(x => x.IdCustomer.Equals(idCustomer) && x.DirectMail)
+                var users = _commonRepository.GetAll()
+                  //  .Filter(x => x.IdCustomer.Equals(idCustomer) && x.DirectMail)
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -312,14 +313,14 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                users = _commonRepository
-                    .Filter(x => x.IdCustomer.Equals(idCustomer))
+                users = _commonRepository.GetAll()
+                 //   .Filter(x => x.IdCustomer.Equals(idCustomer))
                     .Where(x => int.Parse(x.IdRole).Equals((int)EnUserType.Administrator))
                     .ToList();
 
                 users.ForEach(user =>
                 {
-                    user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(user.IdRole));
+             //       user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(user.IdRole));
                     _commonRepository.Update(user.Id, user);
                 });
             }

@@ -41,11 +41,6 @@ namespace AgendaTec.Portal.Controllers
         [HttpGet]
         public JsonResult GetGrid(string name, string email, string idCustomer, string idRole)
         {
-
-            // Incluir usuários da tabela TCGCustomersAspNetUsers
-
-
-
             var users = _userFacade.GetGrid(name, email, int.Parse(idCustomer), idRole, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -87,7 +82,7 @@ namespace AgendaTec.Portal.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    IDCustomer = userDTO.IDCustomer,
+                   // IDCustomer = userDTO.IDCustomer,
                     IDRole = userDTO.IdRole,
                     FirstName = userDTO.FirstName,
                     LastName = userDTO.LastName,
@@ -97,7 +92,7 @@ namespace AgendaTec.Portal.Controllers
                     Email = userDTO.Email,
                     PhoneNumber = userDTO.Phone.CleanMask(),
                     IsEnabled = userDTO.IsEnabled,
-                    RootUser = _userFacade.GetUserIsRoot(userDTO.IDCustomer, int.Parse(userDTO.IdRole)),
+                 //   RootUser = _userFacade.GetUserIsRoot(userDTO.IDCustomer, int.Parse(userDTO.IdRole)),
                     DirectMail = userDTO.DirectMail
                 };
 

@@ -158,7 +158,7 @@ namespace AgendaTec.Client.Controllers
                 {
                     var user = new ApplicationUser
                     {
-                        IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                        //IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
                         IDRole = ((int)EnUserType.Consumer).ToString(),
                         FirstName = model.FirstName,
                         LastName = model.LastName,
@@ -371,7 +371,7 @@ namespace AgendaTec.Client.Controllers
                 user = new ApplicationUser
                 {
                     Id = result.Id,
-                    IDCustomer = result.IDCustomer,
+                    //IDCustomer = result.IDCustomer,
                     IDRole = result.IdRole,
                     FirstName = result.FirstName,
                     LastName = result.LastName,

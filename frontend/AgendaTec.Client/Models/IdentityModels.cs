@@ -12,7 +12,7 @@ namespace AgendaTec.Client.Models
         public string LastName { get; set; }
         public string CPF { get; set; }
         public string IDRole { get; set; }
-        public int IDCustomer { get; set; }
+        //public int IDCustomer { get; set; }
         public bool IsEnabled { get; set; }
         public bool DirectMail { get; set; }
         public bool RootUser { get; set; }
@@ -26,7 +26,7 @@ namespace AgendaTec.Client.Models
             userIdentity.AddClaim(new Claim("FirstName", FirstName));
             userIdentity.AddClaim(new Claim("FullName", $"{FirstName} {LastName}"));
             userIdentity.AddClaim(new Claim("IDRole", IDRole));
-            userIdentity.AddClaim(new Claim("IDCustomer", IDCustomer.ToString()));
+           // userIdentity.AddClaim(new Claim("IDCustomer", IDCustomer.ToString()));
 
             return userIdentity;
         }        

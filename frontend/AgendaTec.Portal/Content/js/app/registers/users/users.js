@@ -71,8 +71,7 @@ function LoadUsers() {
         },
         columns: [
             { field: "Id", hidden: true },
-            { field: "FullName", title: "Nome", width: "50%" },
-            { field: "CustomerName", title: "Razão Social", width: "15%" },
+            { field: "FullName", title: "Nome", width: "50%" },            
             { field: "RoleDescription", title: "Grupo", width: "15%" },
             { field: "IsEnabled", title: "Status", width: "10%", template: "#:StatusDescription(IsEnabled)#" },     
             {

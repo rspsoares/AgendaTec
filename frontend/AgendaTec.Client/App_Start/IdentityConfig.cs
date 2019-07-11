@@ -108,8 +108,6 @@ namespace AgendaTec.Client
             if(user == null)
                 return Task.FromResult(SignInStatus.Failure);
 
-            var role = (EnUserType)int.Parse(user.IDRole);
-
             if (!user.IsEnabled)
                 return Task.FromResult(SignInStatus.Failure);
             
