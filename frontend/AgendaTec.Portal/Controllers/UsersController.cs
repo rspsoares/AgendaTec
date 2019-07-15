@@ -65,9 +65,6 @@ namespace AgendaTec.Portal.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-            userDTO.FirstName = userDTO.FirstName;
-            userDTO.LastName = userDTO.LastName;
-
             var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
@@ -81,8 +78,7 @@ namespace AgendaTec.Portal.Controllers
             if (string.IsNullOrEmpty(userDTO.Id))
             {
                 var user = new ApplicationUser
-                {
-                   // IDCustomer = userDTO.IDCustomer,
+                {                   
                     IDRole = userDTO.IdRole,
                     FirstName = userDTO.FirstName,
                     LastName = userDTO.LastName,
@@ -92,7 +88,7 @@ namespace AgendaTec.Portal.Controllers
                     Email = userDTO.Email,
                     PhoneNumber = userDTO.Phone.CleanMask(),
                     IsEnabled = userDTO.IsEnabled,
-                 //   RootUser = _userFacade.GetUserIsRoot(userDTO.IDCustomer, int.Parse(userDTO.IdRole)),
+                    RootUser = _userFacade.GetUserIsRoot(int.Parse(userDTO.IDCustomer), int.Parse(userDTO.IdRole)),
                     DirectMail = userDTO.DirectMail
                 };
 
@@ -102,6 +98,10 @@ namespace AgendaTec.Portal.Controllers
             }
             else
                 _userFacade.Update(userDTO, out errorMessage);
+
+            _userFacade.CheckUserAssociatedWithCustomer(userDTO, out errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, errorMessage = "Houve um erro ao associar o usuário ao Customer." }, JsonRequestBehavior.AllowGet);
 
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);

@@ -27,6 +27,10 @@
     LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
     LoadCombo("/Users/GetRoleCombo", ['#ddlRoleFilter', '#ddlRole'], "IdRole", "RoleDescription", false);
 
+    $("#ddlCustomerFilter")
+        .data("kendoDropDownList")
+        .bind("change", LoadUsers);
+
     LoadUsers();
 }
 
@@ -145,11 +149,11 @@ function UserEdit(e) {
                 $("#hiddenId").val(result.Data.Id);
                 $("#txtFirstName").val(result.Data.FirstName);
                 $("#txtLastName").val(result.Data.LastName);
-                $("#dtBirthday").val(result.Data.Birthday).mask('99/99/9999');
+                $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy')).mask('99/99/9999');
                 $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
                 $("#txtEmail").val(result.Data.Email);
                 $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
-                $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IDCustomer);
+                $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
                 $("#ddlRole").data('kendoDropDownList').value(result.Data.IdRole);
                 $('#chkIsEnabled').bootstrapSwitch('state', result.Data.IsEnabled);
                 $('#chkDirectMail').bootstrapSwitch('state', result.Data.DirectMail);

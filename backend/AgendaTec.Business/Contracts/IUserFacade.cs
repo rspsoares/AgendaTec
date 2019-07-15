@@ -19,6 +19,7 @@ namespace AgendaTec.Business.Contracts
         void UpdateAdminUsersByCustomer(int idCustomer, out string errorMessage);
         bool GetUserIsRoot(int idCustomer, string idUser);
         bool GetUserIsRoot(int idCustomer, int idRole);
+        void CheckUserAssociatedWithCustomer(UserAccountDTO userAccount, out string errorMessage);
         void SendResetPasswordEmail(string userEmail, string userFullName, string subject, string body);
     }
 }

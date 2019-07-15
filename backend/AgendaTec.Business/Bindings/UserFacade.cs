@@ -19,12 +19,14 @@ namespace AgendaTec.Business.Bindings
     {
         private readonly ICommonRepository<AspNetUsers> _commonRepository;
         private ICommonRepository<AspNetRoles> _rolesRepository;
+        private ICommonRepository<TCGCustomersAspNetUsers> _customersAspNetRolesRepository;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public UserFacade()
         {
             _commonRepository = new CommonRepository<AspNetUsers>();
             _rolesRepository = new CommonRepository<AspNetRoles>();
+            _customersAspNetRolesRepository = new CommonRepository<TCGCustomersAspNetUsers>();
         }
 
         public List<UserAccountDTO> GetGrid(string name, string email, int idCustomer, string idRole, out string errorMessage)
@@ -323,6 +325,32 @@ namespace AgendaTec.Business.Bindings
              //       user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(user.IdRole));
                     _commonRepository.Update(user.Id, user);
                 });
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
+            }
+        }
+
+        public void CheckUserAssociatedWithCustomer(UserAccountDTO userAccount, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                var result = GetUserByEmail(userAccount.Email, out errorMessage);
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return;                    
+
+                if(!result.UserCustomers.Any(x => x.IDCustomer.Equals(int.Parse(userAccount.IDCustomer))))
+                {
+                    _customersAspNetRolesRepository.Insert(new TCGCustomersAspNetUsers()
+                    {
+                        IDAspNetUsers = result.Id,
+                        IDCustomer = int.Parse(userAccount.IDCustomer)
+                    });
+                }
             }
             catch (Exception ex)
             {

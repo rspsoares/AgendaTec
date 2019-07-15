@@ -20,6 +20,7 @@ namespace AgendaTec.Business.Entities
         public string NewPassword { get; set; }
         public bool RootUser { get; set; }
         public bool DirectMail { get; set; }
+        public string IDCustomer { get; set; }
         public List<UserCustomerDTO> UserCustomers { get; set; }
     }
 
