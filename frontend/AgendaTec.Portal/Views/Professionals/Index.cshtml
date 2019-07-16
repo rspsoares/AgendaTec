@@ -96,61 +96,47 @@
             <div class="modal-body">
                 <div class="row">
                     <input type="hidden" id="hiddenId" />
+                    <input type="hidden" id="hiddenIdUser" />
                     <form id="serviceForm">
                         <div class="col-xs-12">
-                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="ddlCustomer" style="font-weight:bold">Razão Social</label> <br />
                                     <input id="ddlCustomer" data-field="ddlCustomer" style="width: 100%;" required />
                                 </div>
                             </div>
+
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtName" style="font-weight:bold">Nome</label> <br />
                                     <input id="txtName" name="txtName" type="text" class="k-textbox" placeholder="Nome" style="width: 100%" maxlength="80">
                                 </div>
                             </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <label for="ddlUserName" style="font-weight:bold">Usuário</label> <br />
-                                    <select id="ddlUserName" style="width: 100%;"></select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="dtBirthday" style="font-weight:bold">Data de Nascimento</label> <br />
                                     <input id="dtBirthday" name="dtBirthday" style="width: 100%">
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtPhone" style="font-weight:bold">Telefone</label> <br />
                                     <input id="txtPhone" name="txtPhone" type="text" class="k-textbox" placeholder="Telefone" style="width: 100%" maxlength="50">
                                 </div>
                             </div>
-
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
-                                <div class="form-group">
-                                    <h2>Usuário</h2>
-                                </div>
-                            </div>
-
-                            <div class="row"></div>
                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtCPF" style="font-weight:bold">CPF</label> <br />
                                     <input id="txtCPF" name="txtCPF" type="text" class="k-textbox" placeholder="CPF" style="width: 100%" maxlength="30" required>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <label for="txtEmail" style="font-weight:bold">E-mail</label> <br />
                                     <input id="txtEmail" name="txtEmail" type="text" class="k-textbox" placeholder="E-mail" style="width: 100%" maxlength="80" required>
                                 </div>
                             </div>
-
+                            
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-bottom: 0px;">
                                 <div class="form-group">
                                     <h2>Serviços</h2>
@@ -168,7 +154,7 @@
                                     <label for="lstSelecteds" style="font-weight:bold">Selecionados</label><br />
                                     <select id="lstSelecteds" style="width: 100%"></select>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </form>
                 </div>

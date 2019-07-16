@@ -10,7 +10,6 @@ using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
 using System.Collections.Generic;
 using AgendaTec.Business.Contracts;
-using System;
 using AgendaTec.Client.Helper;
 
 namespace AgendaTec.Client.Controllers
@@ -151,14 +150,13 @@ namespace AgendaTec.Client.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
-        {            
+        {
             if (ModelState.IsValid && Session["IdCustomer"] != null)
             {
                 if (model.CPF.IsCPF())
                 {
                     var user = new ApplicationUser
-                    {
-                        //IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                    {                        
                         IDRole = ((int)EnUserType.Consumer).ToString(),
                         FirstName = model.FirstName,
                         LastName = model.LastName,
@@ -166,12 +164,20 @@ namespace AgendaTec.Client.Controllers
                         UserName = model.Email,
                         Email = model.Email,
                         PhoneNumber = model.Phone.CleanMask(),
-                        IsEnabled = true
+                        IsEnabled = true,
+                        DirectMail = true
                     };
 
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
+                        var e = new UserAssociatedCustomerDTO()
+                        {
+                            IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                            Email = model.Email
+                        };
+
+                        _userFacade.CheckUserAssociatedWithCustomer(e, out string errorMessage);
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                         // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -364,14 +370,20 @@ namespace AgendaTec.Client.Controllers
 
                 var resultCreate = await UserManager.CreateAsync(user, "AgendaTec123");
                 if (!resultCreate.Succeeded)
-                    return RedirectToAction("Login");                
+                    return RedirectToAction("Login");
+
+                var e = new UserAssociatedCustomerDTO()
+                {
+                    IDCustomer = int.Parse(Session["IdCustomer"].ToString()),
+                    Email = loginInfo.Email
+                };
+                _userFacade.CheckUserAssociatedWithCustomer(e, out errorMessage);
             }
             else
             {
                 user = new ApplicationUser
                 {
-                    Id = result.Id,
-                    //IDCustomer = result.IDCustomer,
+                    Id = result.Id,                    
                     IDRole = result.IdRole,
                     FirstName = result.FirstName,
                     LastName = result.LastName,

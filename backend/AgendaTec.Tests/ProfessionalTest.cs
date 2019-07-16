@@ -69,16 +69,6 @@ namespace AgendaTec.Tests
         }
 
         [TestMethod]
-        public void Professional_CheckUserInUse()
-        {
-            ProfilesHelper.Initialize();
-            var inUse = _professionalRepository.CheckUserInUse(3, "039a1db4-d562-4014-8f68-17dff6a388e1", out string errorMessage);
-            ProfilesHelper.Reset();
-
-            Assert.IsTrue(inUse);            
-        }
-
-        [TestMethod]
         public void Professional_Update()
         {
             ProfilesHelper.Initialize();

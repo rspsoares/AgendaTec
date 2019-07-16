@@ -12,7 +12,5 @@ namespace AgendaTec.Business.Contracts
         ProfessionalDTO GetProfessionalByUserId(string idUser, out string errorMessage);
         ProfessionalDTO Insert(ProfessionalDTO e, out string errorMessage);
         void Update(ProfessionalDTO e, out string errorMessage);
-        bool CheckUserInUse(int idProfessional, string idUser, out string errorMessage);
-        bool CheckUserInUse(string email, out string errorMessage);      
     }
 }

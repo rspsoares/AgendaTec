@@ -99,7 +99,12 @@ namespace AgendaTec.Portal.Controllers
             else
                 _userFacade.Update(userDTO, out errorMessage);
 
-            _userFacade.CheckUserAssociatedWithCustomer(userDTO, out errorMessage);
+            var e = new UserAssociatedCustomerDTO()
+            {
+                IDCustomer = int.Parse(userDTO.IDCustomer),
+                Email = userDTO.Email
+            };
+            _userFacade.CheckUserAssociatedWithCustomer(e, out errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao associar o usuário ao Customer." }, JsonRequestBehavior.AllowGet);
 
@@ -136,7 +141,7 @@ namespace AgendaTec.Portal.Controllers
             var userGroups = _userFacade.GetProfessionalNamesCombo(customer, out string errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os grupos de usuários." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, Data = "", Total = 0, errorMessage = "Houve um erro ao obter os profissionais." }, JsonRequestBehavior.AllowGet);
             else
                 return Json(new { Success = true, Data = userGroups, Total = userGroups.Count, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
         }

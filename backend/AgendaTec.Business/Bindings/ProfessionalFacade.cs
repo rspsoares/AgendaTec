@@ -157,48 +157,6 @@ namespace AgendaTec.Business.Bindings
                 errorMessage = $"{ex.Message} - {ex.InnerException}";
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
-        }
-
-        public bool CheckUserInUse(int idProfessional, string idUser, out string errorMessage)
-        {
-            bool userInUse = true;
-
-            errorMessage = string.Empty;
-
-            try
-            {
-                userInUse = _commonRepository
-                    .GetAll()
-                    .Where(x => !x.IDProfessional.Equals(idProfessional) && x.IDUser.Equals(idUser))
-                    .Any();
-            }
-            catch (Exception ex)
-            {
-                errorMessage = $"{ex.Message} - {ex.InnerException}";
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
-            }
-
-            return userInUse;
-        }
-
-        public bool CheckUserInUse(string email, out string errorMessage)
-        {
-            bool userInUse = true;
-            IUserFacade userFacade = new UserFacade();
-
-            try
-            {
-                var user = userFacade.GetUserByEmail(email, out errorMessage);
-
-                userInUse = user != null;                
-            }
-            catch (Exception ex)
-            {
-                errorMessage = $"{ex.Message} - {ex.InnerException}";
-                _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
-            }
-
-            return userInUse;
         }       
     }
 }

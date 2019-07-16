@@ -101,6 +101,7 @@
     <Compile Include="Entities\ServiceConfiguration.cs" />
     <Compile Include="Entities\ServiceDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
+    <Compile Include="Entities\UserAssociatedCustomerDTO.cs" />
     <Compile Include="Helpers\DirectMailHelper.cs" />
     <Compile Include="Helpers\ProfilesHelper.cs" />
     <Compile Include="Helpers\SecurityHelper.cs" />

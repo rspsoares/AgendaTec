@@ -77,7 +77,7 @@ namespace AgendaTec.Client.Controllers
             if(!User.Identity.IsAuthenticated)
                 return Json(new { Success = false, errorMessage = "É necessário estar logado para realizar um agendamento." }, JsonRequestBehavior.AllowGet);
             
-            schedule.IdCustomer = int.Parse(User.GetIdCustomer());
+            schedule.IdCustomer = int.Parse(Session["IdCustomer"].ToString());
             schedule.IdConsumer = User.GetIdUser();
 
             var schedules = new List<ScheduleDTO>
@@ -98,12 +98,6 @@ namespace AgendaTec.Client.Controllers
 
             if (!string.IsNullOrEmpty(availabilityCheck))
                 return Json(new { Success = false, errorMessage = availabilityCheck }, JsonRequestBehavior.AllowGet);
-
-
-            //Verificar se esse consumer já tá na tabela TCGCustomersAspNetUsers
-
-
-
 
             _scheduleFacade.Insert(schedule, out errorMessage);            
 

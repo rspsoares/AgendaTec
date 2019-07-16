@@ -16,15 +16,14 @@ namespace AgendaTec.Business.Profiles
                .ForMember(d => d.IdService, s => s.MapFrom(m => m.IDService))
                .ForMember(d => d.ServiceName, s => s.MapFrom(m => m.TCGServices.Description))
                .ForMember(d => d.IdConsumer, s => s.MapFrom(m => m.IDConsumer))
-               .ForMember(d => d.ConsumerName, s => s.MapFrom(m => m.AspNetUsers.FirstName + m.AspNetUsers.LastName))
+               .ForMember(d => d.ConsumerName, s => s.MapFrom(m => $"{m.AspNetUsers.FirstName} {m.AspNetUsers.LastName}"))
                .ForMember(d => d.Date, s => s.MapFrom(m => m.Date.ToString("yyyy-MM-dd")))
                .ForMember(d => d.Hour, s => s.MapFrom(m => m.Date.ToString("HH:mm")))
                .ForMember(d => d.Time, s => s.MapFrom(m => m.Time))
                .ForMember(d => d.Finish, s => s.MapFrom(m => m.Date.AddMinutes(m.Time).ToString("HH:mm")))
                .ForMember(d => d.Price, s => s.MapFrom(m => m.Price))
                .ForMember(d => d.Bonus, s => s.MapFrom(m => m.Bonus))
-               .ForMember(d => d.Attended, s => s.MapFrom(m => m.Attended));
-               ;
+               .ForMember(d => d.Attended, s => s.MapFrom(m => m.Attended));               
 
             CreateMap<ScheduleDTO, TSchedules>()
                 .ForMember(d => d.IDSchedule, s => s.MapFrom(m => m.Id))
@@ -39,7 +38,7 @@ namespace AgendaTec.Business.Profiles
                 .ForMember(d => d.Attended, s => s.MapFrom(m => m.Attended));
 
             CreateMap<TSchedules, AppointmentDTO>()
-                .ForMember(d => d.title, s => s.MapFrom(m => m.TCGServices.Description + " - " + m.AspNetUsers.FirstName + " " + m.AspNetUsers.LastName))
+                .ForMember(d => d.title, s => s.MapFrom(m => $"{m.TCGServices.Description} - {m.AspNetUsers.FirstName} {m.AspNetUsers.LastName}"))
                 .ForMember(d => d.start, s => s.MapFrom(m => m.Date.ToString("yyyy-MM-ddTHH:mm:ss")))
                 .ForMember(d => d.end, s => s.MapFrom(m => m.Date.AddMinutes(m.Time).ToString("yyyy-MM-ddTHH:mm:ss")));
         }

@@ -37,8 +37,7 @@
         .add(dtBirthday)
         .removeClass("k-textbox");
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
-    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "Name", $("#ddlCustomer").val(), true, "Selecione...");
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);    
 
     $("#ddlCustomer")
         .data("kendoDropDownList")
@@ -58,9 +57,7 @@
     LoadProfessionals();
 }
 
-function ddlCustomerChange(e) {    
-    LoadComboFiltered("/Users/GetProfessionalNameCombo", '#ddlUserName', "Id", "FullName", $("#ddlCustomer").val(), true, "Selecione...");
-
+function ddlCustomerChange(e) {       
     var listBox = $("#lstSelecteds").data("kendoListBox");
     listBox.remove(listBox.items());    
 
@@ -158,10 +155,6 @@ function LoadProfessionals() {
 function AddProfessional() {
     CleanFields(true);
 
-    $("#txtCPF").prop('disabled', false);
-    $("#txtEmail").prop('disabled', false);
-    $("#ddlUserName").data("kendoDropDownList").enable(false);    
-
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("");
     $('#modalProfessionalEdit .modal-dialog .modal-header center .modal-title strong').html("Cadastro do Profissional");
     $('#modalProfessionalEdit').modal({ backdrop: 'static', keyboard: false });
@@ -169,6 +162,7 @@ function AddProfessional() {
 
 function CleanFields(loadFilterCombos) {
     $("#hiddenId").val(0);
+    $("#hiddenIdUser").val(0);
 
     if (!$('#ddlCustomerFilter').prop('disabled') && loadFilterCombos) {
         $("#ddlCustomer").data('kendoDropDownList').value($("#ddlCustomerFilter").val());
@@ -188,10 +182,6 @@ function ProfessionalEdit(e) {
 
     CleanFields(false);
 
-    $("#txtCPF").prop('disabled', true);    
-    $("#txtEmail").prop('disabled', true);    
-    $("#ddlUserName").data("kendoDropDownList").enable(true);
-
     $.ajax({
         type: "GET",
         contentType: 'application/json; charset=utf-8',
@@ -203,10 +193,9 @@ function ProfessionalEdit(e) {
         success: function (result) {
             if (result.Success) {
                 $("#hiddenId").val(result.Data.Id);
+                $("#hiddenIdUser").val(result.Data.IdUser);
                 $("#ddlCustomer").data('kendoDropDownList').value(result.Data.IdCustomer);
-                ddlCustomerChange();
-                $('#ddlUserName').data('kendoDropDownList').dataSource.read();
-                $("#ddlUserName").data('kendoDropDownList').value(result.Data.IdUser);
+                ddlCustomerChange();             
                 $("#txtName").val(result.Data.Name);
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
@@ -255,7 +244,7 @@ function SaveProfessional() {
     professional = {
         Id: parseInt($("#hiddenId").val()),
         IdCustomer: $("#ddlCustomer").val(),
-        IdUser: $("#ddlUserName").val(),
+        IdUser: $("#hiddenIdUser").val(),
         Name: $("#txtName").val(),
         Birthday: kendo.parseDate($("#dtBirthday").val(), "dd/MM/yyyy"),
         Phone: $("#txtPhone").val(),
@@ -298,16 +287,11 @@ function ValidateRequiredFields() {
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Telefone' + '<br/>';    
 
-    if (parseInt($("#hiddenId").val()) > 0) {
-        if ($("#ddlUserName").val() === '')
-            errorMessage += 'Favor informar o Usuário' + '<br/>';
+    if ($("#txtEmail").val() === '') {
+        errorMessage += 'Favor informar o E-mail' + '<br/>';
 
-        if ($("#txtEmail").val() === '')
-            errorMessage += 'Favor informar o E-mail' + '<br/>';
-        else {
-            if (!emailPattern.test($.trim($("#txtEmail").val())))
-                errorMessage += 'E-mail inválido' + '<br/>';
-        }
+        if (!emailPattern.test($.trim($("#txtEmail").val())))
+            errorMessage += 'E-mail inválido' + '<br/>';        
     }
 
     if($("#lstSelecteds").data("kendoListBox").items().length === 0)

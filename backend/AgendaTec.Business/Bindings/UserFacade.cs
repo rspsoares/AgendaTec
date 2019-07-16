@@ -20,6 +20,7 @@ namespace AgendaTec.Business.Bindings
         private readonly ICommonRepository<AspNetUsers> _commonRepository;
         private ICommonRepository<AspNetRoles> _rolesRepository;
         private ICommonRepository<TCGCustomersAspNetUsers> _customersAspNetRolesRepository;
+        private ICommonRepository<TCGCustomers> _customersRepository;
         private static Logger _logger = LogManager.GetCurrentClassLogger();
 
         public UserFacade()
@@ -27,6 +28,7 @@ namespace AgendaTec.Business.Bindings
             _commonRepository = new CommonRepository<AspNetUsers>();
             _rolesRepository = new CommonRepository<AspNetRoles>();
             _customersAspNetRolesRepository = new CommonRepository<TCGCustomersAspNetUsers>();
+            _customersRepository = new CommonRepository<TCGCustomers>();
         }
 
         public List<UserAccountDTO> GetGrid(string name, string email, int idCustomer, string idRole, out string errorMessage)
@@ -166,8 +168,7 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 var users = _commonRepository
-                    .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Professional).ToString()))// && x.IdCustomer.Equals(idCustomer))
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)) && x.IdRole.Equals(((int)EnUserType.Professional).ToString()))
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -192,8 +193,7 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 var users = _commonRepository
-                    .GetAll()
-                    .Where(x => x.IdRole.Equals(((int)EnUserType.Consumer).ToString())) //&& x.IdCustomer.Equals(idCustomer))
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)) && x.IdRole.Equals(((int)EnUserType.Consumer).ToString()))
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -216,6 +216,7 @@ namespace AgendaTec.Business.Bindings
             try
             {
                 var user = _commonRepository.Filter(x => x.Id.Equals(e.Id)).Single();
+                var rootCompany = user.TCGCustomersAspNetUsers.Any(x => x.TCGCustomers.RootCompany);
 
                 user.FirstName = e.FirstName;
                 user.LastName = e.LastName;
@@ -225,7 +226,7 @@ namespace AgendaTec.Business.Bindings
                 user.Email = e.Email;
                 user.PhoneNumber = e.Phone.CleanMask();
                 user.IsEnabled = e.IsEnabled;
-                //user.RootUser = UserIsRoot(user.TCGCustomersAspNetUsers.TCGCustomers.RootCompany, int.Parse(e.IdRole));
+                user.RootUser = UserIsRoot(rootCompany, int.Parse(e.IdRole));
                 user.DirectMail = e.DirectMail;
 
                 _commonRepository.Update(e.Id, user);
@@ -290,8 +291,8 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                var users = _commonRepository.GetAll()
-                  //  .Filter(x => x.IdCustomer.Equals(idCustomer) && x.DirectMail)
+                var users = _commonRepository
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)) && x.DirectMail)
                     .ToList();
 
                 result = Mapper.Map<List<AspNetUsers>, List<UserAccountDTO>>(users);
@@ -306,7 +307,7 @@ namespace AgendaTec.Business.Bindings
                  .OrderBy(x => x.FullName)
                  .ToList();
         }
-
+        
         public void UpdateAdminUsersByCustomer(int idCustomer, out string errorMessage)
         {
             var users = new List<AspNetUsers>();
@@ -315,14 +316,16 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                users = _commonRepository.GetAll()
-                 //   .Filter(x => x.IdCustomer.Equals(idCustomer))
+                users = _commonRepository
+                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)))
                     .Where(x => int.Parse(x.IdRole).Equals((int)EnUserType.Administrator))
                     .ToList();
 
+                var customer = _customersRepository.GetById(idCustomer);
+
                 users.ForEach(user =>
                 {
-             //       user.RootUser = UserIsRoot(user.TCGCustomers.RootCompany, int.Parse(user.IdRole));
+                    user.RootUser = UserIsRoot(customer.RootCompany, int.Parse(user.IdRole));
                     _commonRepository.Update(user.Id, user);
                 });
             }
@@ -333,22 +336,22 @@ namespace AgendaTec.Business.Bindings
             }
         }
 
-        public void CheckUserAssociatedWithCustomer(UserAccountDTO userAccount, out string errorMessage)
+        public void CheckUserAssociatedWithCustomer(UserAssociatedCustomerDTO e, out string errorMessage)
         {
             errorMessage = string.Empty;
 
             try
             {
-                var result = GetUserByEmail(userAccount.Email, out errorMessage);
+                var result = GetUserByEmail(e.Email, out errorMessage);
                 if (!string.IsNullOrEmpty(errorMessage))
-                    return;                    
+                    return;
 
-                if(!result.UserCustomers.Any(x => x.IDCustomer.Equals(int.Parse(userAccount.IDCustomer))))
+                if (!result.UserCustomers.Any(x => x.IDCustomer.Equals(e.IDCustomer)))
                 {
                     _customersAspNetRolesRepository.Insert(new TCGCustomersAspNetUsers()
                     {
                         IDAspNetUsers = result.Id,
-                        IDCustomer = int.Parse(userAccount.IDCustomer)
+                        IDCustomer = e.IDCustomer
                     });
                 }
             }
@@ -358,7 +361,7 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
         }
-
+        
         public bool GetUserIsRoot(int idCustomer, string idUser)
         {
             ICustomerFacade customerFacade = new CustomerFacade();
@@ -412,8 +415,7 @@ namespace AgendaTec.Business.Bindings
         }
 
         private bool UserIsRoot(bool customerRoot, int idRole)
-        {
-            ICustomerFacade customerFacade = new CustomerFacade();
+        {         
             var root = false;
 
             string errorMessage;

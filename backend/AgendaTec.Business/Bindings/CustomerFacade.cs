@@ -146,10 +146,9 @@ namespace AgendaTec.Business.Bindings
                 _commonRepository.Update(result.IDCustomer, result);
                 userFacade.UpdateAdminUsersByCustomer(result.IDCustomer, out errorMessage);
 
-                result
-                    .TCGCustomerTimeRanges
-                    .ToList()
-                    .ForEach(timeRange => 
+                _timeRangeRepository
+                    .Filter(x => x.IDCustomer.Equals(result.IDCustomer))
+                    .ForEach(timeRange =>
                     {
                         _timeRangeRepository.Delete(timeRange.IDCustomerTimeRanges);
                     });

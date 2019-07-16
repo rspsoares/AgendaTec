@@ -62,8 +62,7 @@ namespace AgendaTec.Client.Helper
             }
 
             return new ApplicationUser
-            {
-                //IDCustomer = idCustomer,
+            {                
                 IDRole = ((int)EnUserType.Consumer).ToString(),
                 FirstName = firstName,
                 LastName = lastName,
