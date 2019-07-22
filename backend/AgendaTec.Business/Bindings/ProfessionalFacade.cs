@@ -151,6 +151,9 @@ namespace AgendaTec.Business.Bindings
                 _commonRepository.Update(result.IDProfessional, result);
 
                 _professionalServiceFacade.SaveProfessionalService(e.Id, e.Services, out errorMessage);
+
+
+                // Salvar email e 
             }
             catch (Exception ex)
             {

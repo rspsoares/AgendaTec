@@ -39,10 +39,11 @@ namespace AgendaTec.Business.Bindings
 
             try
             {
-                var users = _commonRepository
-                    .Filter(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer)))
-                    .ToList();                    
-                    
+                var users = _commonRepository.GetAll();
+
+                if(!idCustomer.Equals(0))
+                    users = users.Where(x => x.TCGCustomersAspNetUsers.Any(y => y.IDCustomer.Equals(idCustomer))).ToList();
+
                 if (!string.IsNullOrEmpty(name))
                     users = users.Where(x => string.Concat(x.FirstName, " ", x.LastName).ToUpper().Contains(name.ToUpper())).ToList();
 

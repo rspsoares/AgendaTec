@@ -85,7 +85,7 @@ namespace AgendaTec.Client.Controllers
                 schedule
             };
 
-            var checkRequiredFields = _scheduleFacade.CheckRequiredFields(schedule.IdConsumer, out string errorMessage);
+            var checkRequiredFields = _scheduleFacade.CheckRequiredFields(schedule.IdConsumer, schedule.IdCustomer, out string errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 return Json(new { Success = false, errorMessage = "Houve um erro ao verificar os campos cadastrais." }, JsonRequestBehavior.AllowGet);
 
@@ -120,8 +120,8 @@ namespace AgendaTec.Client.Controllers
 
         [HttpPost]
         public JsonResult SaveUserRequiredFields(UserAccountDTO consumer)
-        {
-            if (!consumer.CPF.IsCPF())
+        {   
+            if(!_customerFacade.CheckCPFRequired(int.Parse(Session["IdCustomer"].ToString()), consumer.CPF))
                 return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
 
             consumer.Id = User.GetIdUser();

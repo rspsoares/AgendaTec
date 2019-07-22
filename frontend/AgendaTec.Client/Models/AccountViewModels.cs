@@ -71,8 +71,7 @@ namespace AgendaTec.Client.Models
         [Required]        
         [Display(Name = "Sobrenome")]
         public string LastName { get; set; }
-
-        [Required]        
+       
         [Display(Name = "CPF")]
         public string CPF { get; set; }
 

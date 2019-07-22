@@ -12,5 +12,6 @@ namespace AgendaTec.Business.Contracts
         CustomerDTO Insert(CustomerDTO e, out string errorMessage);
         void Update(CustomerDTO e, out string errorMessage);
         bool CheckValidTimeRanges(List<CustomerTimeRangeDTO> timeRanges, out string errorMessage);
+        bool CheckCPFRequired(int idCustomer, string cpf);
     }
 }

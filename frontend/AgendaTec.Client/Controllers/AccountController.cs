@@ -20,10 +20,12 @@ namespace AgendaTec.Client.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private readonly IUserFacade _userFacade;
+        private readonly ICustomerFacade _customerFacade;
 
-        public AccountController(IUserFacade userFacade)
+        public AccountController(IUserFacade userFacade, ICustomerFacade customerFacade)
         {
             _userFacade = userFacade;
+            _customerFacade = customerFacade;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -153,7 +155,7 @@ namespace AgendaTec.Client.Controllers
         {
             if (ModelState.IsValid && Session["IdCustomer"] != null)
             {
-                if (model.CPF.IsCPF())
+                if (_customerFacade.CheckCPFRequired(int.Parse(Session["IdCustomer"].ToString()), model.CPF))
                 {
                     var user = new ApplicationUser
                     {                        

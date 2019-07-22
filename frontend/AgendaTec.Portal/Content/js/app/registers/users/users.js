@@ -1,4 +1,6 @@
 ﻿function PageSetup() {
+    var defaultValue = undefined;
+
     $('#btnAddUser').click(function () {
         AddUser();
     });
@@ -24,7 +26,10 @@
     $('#chkIsEnabled').bootstrapSwitch();
     $('#chkDirectMail').bootstrapSwitch();
 
-    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true);
+    if (CheckIfCompanyIsRoot())
+        defaultValue = "Todas";
+    
+    LoadCombo("/Customers/GetCompanyNameCombo", ['#ddlCustomerFilter', '#ddlCustomer'], "Id", "Name", true, defaultValue);
     LoadCombo("/Users/GetRoleCombo", ['#ddlRoleFilter', '#ddlRole'], "IdRole", "RoleDescription", false);
 
     $("#ddlCustomerFilter")
@@ -32,6 +37,28 @@
         .bind("change", LoadUsers);
 
     LoadUsers();
+}
+
+function CheckIfCompanyIsRoot() {
+    var dsData;
+
+    $.ajax({
+        url: "/Customers/GetCompanyIsRoot",
+        type: "GET",
+        async: false,
+        dataType: "json",
+        cache: false,
+        success: function (result) {
+            if (result.Success)
+                dsData = result.Data;
+            else {
+                ShowModalAlert(result.errorMessage);
+                return;
+            }
+        }
+    });
+
+    return dsData;
 }
 
 function LoadUsers() {

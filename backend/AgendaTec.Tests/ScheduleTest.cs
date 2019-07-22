@@ -150,7 +150,7 @@ namespace AgendaTec.Tests
         public void Schedule_CheckRequiredFields()
         {
             ProfilesHelper.Initialize();
-            var check = _scheduleFacade.CheckRequiredFields("d14861b4-e0c4-4db2-9636-4f77fb9b2110", out string errorMessage);
+            var check = _scheduleFacade.CheckRequiredFields("d14861b4-e0c4-4db2-9636-4f77fb9b2110", 1, out string errorMessage);
             ProfilesHelper.Reset();
 
             Assert.IsTrue(check);

@@ -47,6 +47,17 @@ namespace AgendaTec.Portal.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetCompanyIsRoot()
+        {
+            var customer = _customerFacade.GetCustomerById(int.Parse(User.GetIdCustomer()), out string errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+                return Json(new { Success = false, Data = "", errorMessage = "Houve um erro ao verificar se a empresa é root." }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { Success = true, Data = customer.Root, errorMessage = string.Empty }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public JsonResult GetCustomer(string idCustomer)
         {
             var customer = _customerFacade.GetCustomerById(int.Parse(idCustomer), out string errorMessage);

@@ -15,10 +15,12 @@ namespace AgendaTec.Portal.Controllers
     public class UsersController : Controller
     {
         private readonly IUserFacade _userFacade;
+        private readonly ICustomerFacade _customerFacade;
         
-        public UsersController(IUserFacade userFacade)
+        public UsersController(IUserFacade userFacade, ICustomerFacade customerFacade)
         {
-            _userFacade = userFacade;            
+            _userFacade = userFacade;
+            _customerFacade = customerFacade;
         }
 
         public ActionResult Index()
@@ -72,7 +74,7 @@ namespace AgendaTec.Portal.Controllers
             if (!string.IsNullOrEmpty(checkResult))
                 return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);
 
-            if (!userDTO.CPF.IsCPF())            
+            if(!_customerFacade.CheckCPFRequired(int.Parse(userDTO.IDCustomer), userDTO.CPF))                 
                 return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
 
             if (string.IsNullOrEmpty(userDTO.Id))

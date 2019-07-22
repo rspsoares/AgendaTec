@@ -263,8 +263,8 @@ function ValidateRequiredFields() {
     if (!isValidDate($("#dtBirthday").val()))
         errorMessage += 'Data de Nascimento inválida' + '<br/>';
 
-    if ($("#txtCPF").val() === '')
-        errorMessage += 'Favor informar o CPF' + '<br/>';
+    //if ($("#txtCPF").val() === '')
+    //    errorMessage += 'Favor informar o CPF' + '<br/>';
 
     if ($("#txtPhone").val() === '')
         errorMessage += 'Favor informar o Celular' + '<br/>';

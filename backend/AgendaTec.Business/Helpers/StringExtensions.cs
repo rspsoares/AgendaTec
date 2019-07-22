@@ -55,12 +55,15 @@ namespace AgendaTec.Business.Helpers
         public static bool IsCPF(this string cpf)
         {
             if (string.IsNullOrEmpty(cpf))
-                return false;
+                return false;            
 
             var multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             var multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 
             cpf = cpf.Trim().CleanMask();
+
+            if (AllCharactersSame(cpf))
+                return false;
 
             if (cpf.Length != 11)
                 return false;
@@ -95,6 +98,18 @@ namespace AgendaTec.Business.Helpers
             digito = digito + resto.ToString(CultureInfo.InvariantCulture);
 
             return cpf.EndsWith(digito);
+        }
+
+        private static bool AllCharactersSame(string s)
+        {
+            int n = s.Length;
+            for (int i = 1; i < n; i++)
+                if (s[i] != s[0])
+                    return false;
+
+            return true;
+
+
         }
 
         public static string CleanMask(this string value)

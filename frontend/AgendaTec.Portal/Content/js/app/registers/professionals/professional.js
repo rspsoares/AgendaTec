@@ -173,7 +173,9 @@ function CleanFields(loadFilterCombos) {
     $("#dtBirthday").val("");
     $("#txtPhone").val("");    
     $("#txtCPF").val("");    
+    $("#txtCPF").prop('disabled', false);
     $("#txtEmail").val("");
+    $("#txtEmail").prop('disabled', false);
 }
 
 function ProfessionalEdit(e) {
@@ -200,7 +202,10 @@ function ProfessionalEdit(e) {
                 $("#dtBirthday").val(kendo.toString(kendo.parseDate(result.Data.Birthday, 'yyyy-MM-dd'), 'dd/MM/yyyy'));
                 $("#txtPhone").val(result.Data.Phone).mask("(99) 9.9999-9999");
                 $("#txtCPF").val(result.Data.CPF).mask('999.999.999-99');
+                $("#txtCPF").prop('disabled', true);
                 $("#txtEmail").val(result.Data.Email);
+                $("#txtEmail").prop('disabled', true);
+
                 LoadSelectedServices(result.Data.Services);               
             }
             else {

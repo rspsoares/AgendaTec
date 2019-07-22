@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Itenso.TimePeriod;
+using AgendaTec.Business.Helpers;
 
 namespace AgendaTec.Business.Bindings
 {
@@ -90,6 +91,18 @@ namespace AgendaTec.Business.Bindings
             }
 
             return customer;
+        }
+
+        public bool CheckCPFRequired(int idCustomer, string cpf)
+        {
+            var customer = GetCustomerById(idCustomer, out string errorMessage);
+            if (!string.IsNullOrEmpty(errorMessage))
+                return false;
+
+            if (string.IsNullOrEmpty(cpf))
+                return !customer.CPFRequired;
+            else
+                return cpf.IsCPF();
         }
 
         public CustomerDTO GetCustomerByKey(string customerKey, out string errorMessage)

@@ -63,6 +63,9 @@ namespace AgendaTec.Portal.Controllers
                 var firstName = professional.Name.IndexOf(" ").Equals(-1) ? professional.Name : professional.Name.Substring(0, professional.Name.IndexOf(" "));
                 var lastName = professional.Name.IndexOf(" ").Equals(-1) ? string.Empty : professional.Name.Substring(professional.Name.IndexOf(" ") + 1);
 
+                //Validar CPF com o customer
+                //   return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
+
                 var user = new ApplicationUser
                 {   
                     IDRole = ((int)EnUserType.Professional).ToString(),

@@ -359,16 +359,19 @@ namespace AgendaTec.Business.Bindings
             return result;
         }
 
-        public bool CheckRequiredFields(string idConsumer, out string errorMessage)
+        public bool CheckRequiredFields(string idConsumer, int idCustomer, out string errorMessage)
         {
             IUserFacade userFacade = new UserFacade();
+            ICustomerFacade customerFacade = new CustomerFacade();
+            var customer = new CustomerDTO();
+            var consumer = new UserAccountDTO();
 
             errorMessage = string.Empty;
 
             try
             {
-                var consumer = userFacade.GetUserById(idConsumer, out errorMessage);
-                return !string.IsNullOrEmpty(consumer.CPF) && !string.IsNullOrEmpty(consumer.Phone) && !string.IsNullOrEmpty(consumer.Birthday);
+                customer = customerFacade.GetCustomerById(idCustomer, out errorMessage);
+                consumer = userFacade.GetUserById(idConsumer, out errorMessage);
             }
             catch (Exception ex)
             {
@@ -376,7 +379,9 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return false;
+            return customerFacade.CheckCPFRequired(idCustomer, consumer.CPF) &&
+                !string.IsNullOrEmpty(consumer.Phone) &&
+                !string.IsNullOrEmpty(consumer.Birthday);
         }
     }
 }
