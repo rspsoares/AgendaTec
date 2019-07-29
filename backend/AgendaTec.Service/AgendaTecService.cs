@@ -153,8 +153,8 @@ namespace AgendaTec.Service
         {
             _configuration = ServiceHelper.LoadConfigurations(out string configErrorMessage);
 
-            //CleanUpCallback(null);
-            //DirectMailHelper.SendWhatsApp();
+            CleanUpCallback(null);
+           // DirectMailHelper.SendWhatsApp();
 
             SendMailCallback(null);            
         }

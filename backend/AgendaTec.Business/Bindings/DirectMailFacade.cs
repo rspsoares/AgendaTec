@@ -175,19 +175,19 @@ namespace AgendaTec.Business.Bindings
         public List<DirectMailDTO> GetPendingDirectMail(out string errorMessage)
         {
             var results = new List<DirectMailDTO>();
+            var pendings = new List<TDirectMail>();
 
             errorMessage = string.Empty;
 
             try
             {
-                var pendings = _commonRepository
-                    .GetAll()
-                    .Where
-                        (x => (x.IntervalType.Equals((int)EnMailIntervalType.Eventual) && (!x.LastProcessed.HasValue || x.Resend)) || // Eventual
-                        (x.IntervalType.Equals((int)EnMailIntervalType.Monthly) && x.LastProcessed.Value <= DateTime.Now.AddMonths(-1))) // Monthly
-                    .OrderBy(x => x.IDCustomer)
-                    .ThenBy(x => x.MailType)
-                    .ToList();
+                var directMails = _commonRepository.GetAll();
+
+                // Eventual
+                pendings.AddRange(directMails.Where(x => x.IntervalType.Equals((int)EnMailIntervalType.Eventual) && (!x.LastProcessed.HasValue || x.Resend)));
+
+                // Monthly
+                pendings.AddRange(directMails.Where(x => x.IntervalType.Equals((int)EnMailIntervalType.Monthly) && x.LastProcessed.Value <= DateTime.Now.AddMonths(-1)));
 
                 results = Mapper.Map<List<TDirectMail>, List<DirectMailDTO>>(pendings);
             }
@@ -197,7 +197,10 @@ namespace AgendaTec.Business.Bindings
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
 
-            return results;
+            return results
+                .OrderBy(x => x.IdCustomer)
+                .ThenBy(x => x.MailType)
+                .ToList();
         }
     }
 }

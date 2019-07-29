@@ -19,7 +19,7 @@ namespace AgendaTec.Business.Helpers
             var adminSender = users.Where(x => ((EnUserType)int.Parse(x.IdRole)).Equals(EnUserType.Administrator)).First();
 
             var adminCCs = users
-                .Where(x => ((EnUserType)int.Parse(x.IdRole)).Equals(EnUserType.Administrator))                
+                .Where(x => ((EnUserType)int.Parse(x.IdRole)).Equals(EnUserType.Administrator))
                 .ToList();
 
             var recipients = users
@@ -48,28 +48,28 @@ namespace AgendaTec.Business.Helpers
                 mailMessage.Bcc.Add(recipient);
             });
 
-            mailHelper.SendMail(mailMessage);            
+            mailHelper.SendMail(mailMessage);
         }
 
-        public static void SendWhatsApp()
-        {
-            const string accountSid = "ACa92047e3a6ae5077af119e032ef65536";
-            const string authToken = "173a0316a3c545503475206b821c480e";
+        //public static void SendWhatsApp()
+        //{
+        //    const string accountSid = "ACa92047e3a6ae5077af119e032ef65536";
+        //    const string authToken = "173a0316a3c545503475206b821c480e";
 
-            TwilioClient.Init(accountSid, authToken);
+        //    TwilioClient.Init(accountSid, authToken);
 
-            try
-            {             
-                var message = MessageResource.Create(
-                    from: new PhoneNumber("whatsapp:+14155238886"),
-                    body: "Promoção imperdível dia dos Namorados: nononononononononono",
-                    to: new PhoneNumber("whatsapp:+5511998056533")
-                );
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //    try
+        //    {
+        //        var message = MessageResource.Create(
+        //            from: new PhoneNumber("whatsapp:+14155238886"),
+        //            body: "Promoção imperdível dia dos Namorados: nononononononononono",
+        //            to: new PhoneNumber("whatsapp:+5511998056533")
+        //        );
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
     }
 }

@@ -1,30 +1,34 @@
 ﻿function PageSetup() {
     var customerHours = GetCustomerHours();
-    var appointments = GetAppointments();
 
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        plugins: ['timeGrid'],
-        timeZone: 'local',
-        locale: 'pt-br',
-        defaultView: 'timeGridDay',
-        header: {
-            left: '',
-            center: 'title',
-            right: ''
-        },
-        views: {
-            timeGridDay: {
-                titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }                
-            }
-        },
-        minTime: kendo.toString(kendo.parseDate(customerHours.startTime), 'HH:mm'),
-        maxTime: kendo.toString(kendo.parseDate(customerHours.endTime), 'HH:mm'),
-        allDaySlot: false,
-        events: appointments       
-    });
+    if (customerHours.startTime !== undefined || customerHours.endTime !== undefined) {
+        var appointments = GetAppointments();
 
-    calendar.render();
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            plugins: ['timeGrid'],
+
+            timeZone: 'local',
+            locale: 'pt-br',
+            defaultView: 'timeGridDay',
+            header: {
+                left: '',
+                center: 'title',
+                right: ''
+            },
+            views: {
+                timeGridDay: {
+                    titleFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+                }
+            },
+            minTime: kendo.toString(kendo.parseDate(customerHours.startTime), 'HH:mm'),
+            maxTime: kendo.toString(kendo.parseDate(customerHours.endTime), 'HH:mm'),
+            allDaySlot: false,
+            events: appointments
+        });
+
+        calendar.render();
+    } 
 }
 
 function GetCustomerHours() {
