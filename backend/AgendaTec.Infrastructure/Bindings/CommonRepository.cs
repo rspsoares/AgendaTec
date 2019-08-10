@@ -103,6 +103,6 @@ namespace AgendaTec.Infrastructure.Repositories
 
                 scope.Complete();
             }
-        }       
+        }
     }
 }

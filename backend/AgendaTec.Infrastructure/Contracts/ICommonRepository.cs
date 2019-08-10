@@ -11,6 +11,6 @@ namespace AgendaTec.Infrastructure.Contracts
         T Insert(T e);
         List<T> Filter(Expression<Func<T, bool>> predicate);
         void Update(object id, T e);
-        void Delete(object id);
+        void Delete(object id);    
     }
 }

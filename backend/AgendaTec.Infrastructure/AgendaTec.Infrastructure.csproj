@@ -41,8 +41,14 @@
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
@@ -84,6 +90,9 @@
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\AspNetUsers.cs">
+      <DependentUpon>AgendaTecModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\SP_ScheduleReport_Result.cs">
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\TCGCustomers.cs">

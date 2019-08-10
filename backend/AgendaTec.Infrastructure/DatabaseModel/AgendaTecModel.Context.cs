@@ -12,6 +12,8 @@ namespace AgendaTec.Infrastructure.DatabaseModel
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class AgendaTecEntities : DbContext
     {
@@ -38,5 +40,22 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public virtual DbSet<TDirectMail> TDirectMail { get; set; }
         public virtual DbSet<TProfessionalService> TProfessionalService { get; set; }
         public virtual DbSet<TSchedules> TSchedules { get; set; }
+    
+        public virtual ObjectResult<SP_ScheduleReport_Result> SP_ScheduleReport(Nullable<int> iDCustomer, Nullable<System.DateTime> initialDate, Nullable<System.DateTime> finalDate)
+        {
+            var iDCustomerParameter = iDCustomer.HasValue ?
+                new ObjectParameter("IDCustomer", iDCustomer) :
+                new ObjectParameter("IDCustomer", typeof(int));
+    
+            var initialDateParameter = initialDate.HasValue ?
+                new ObjectParameter("InitialDate", initialDate) :
+                new ObjectParameter("InitialDate", typeof(System.DateTime));
+    
+            var finalDateParameter = finalDate.HasValue ?
+                new ObjectParameter("FinalDate", finalDate) :
+                new ObjectParameter("FinalDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ScheduleReport_Result>("SP_ScheduleReport", iDCustomerParameter, initialDateParameter, finalDateParameter);
+        }
     }
 }

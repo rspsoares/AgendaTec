@@ -79,6 +79,7 @@
     <Compile Include="Bindings\DirectMailFacade.cs" />
     <Compile Include="Bindings\ProfessionalFacade.cs" />
     <Compile Include="Bindings\ProfessionalServiceFacade.cs" />
+    <Compile Include="Bindings\ReportFacade.cs" />
     <Compile Include="Bindings\ScheduleFacade.cs" />
     <Compile Include="Bindings\ServiceFacade.cs" />
     <Compile Include="Bindings\UserFacade.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Contracts\IDirectMailFacade.cs" />
     <Compile Include="Contracts\IProfessionalFacade.cs" />
     <Compile Include="Contracts\IProfessionalServiceFacade.cs" />
+    <Compile Include="Contracts\IReportFacade.cs" />
     <Compile Include="Contracts\IScheduleFacade.cs" />
     <Compile Include="Contracts\IServiceFacade.cs" />
     <Compile Include="Contracts\IUserFacade.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Entities\MailConfiguration.cs" />
     <Compile Include="Entities\ProfessionalDTO.cs" />
     <Compile Include="Entities\ScheduleDTO.cs" />
+    <Compile Include="Entities\ScheduleReportDTO.cs" />
     <Compile Include="Entities\ServiceConfiguration.cs" />
     <Compile Include="Entities\ServiceDTO.cs" />
     <Compile Include="Entities\UserAccountDTO.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Profiles\CustomerProfile.cs" />
     <Compile Include="Profiles\DirectMailProfile.cs" />
     <Compile Include="Profiles\ProfessionalProfile.cs" />
+    <Compile Include="Profiles\ReportProfile.cs" />
     <Compile Include="Profiles\ScheduleProfile.cs" />
     <Compile Include="Profiles\ServiceProfile.cs" />
     <Compile Include="Profiles\UserProfile.cs" />

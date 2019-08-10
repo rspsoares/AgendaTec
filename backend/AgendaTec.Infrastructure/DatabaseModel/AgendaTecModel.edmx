@@ -453,6 +453,11 @@
     <edmx:ConceptualModels>
       <Schema Namespace="AgendaTecModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AgendaTecEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="SP_ScheduleReport" ReturnType="Collection(AgendaTecModel.SP_ScheduleReport_Result)">
+            <Parameter Name="IDCustomer" Mode="In" Type="Int32" />
+            <Parameter Name="InitialDate" Mode="In" Type="DateTime" />
+            <Parameter Name="FinalDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <EntitySet Name="AspNetRoles" EntityType="AgendaTecModel.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="AgendaTecModel.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="AgendaTecModel.AspNetUserLogins" />
@@ -535,6 +540,15 @@
             <End Role="TSchedules" EntitySet="TSchedules" />
           </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="SP_ScheduleReport_Result">
+          <Property Type="Int32" Name="IDCustomer" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="CustomerName" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="ServiceDescription" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="15" Scale="2" />
+          <Property Type="DateTime" Name="Date1" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="Attended" Nullable="false" />
+        </ComplexType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -935,7 +949,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AgendaTecModelStoreContainer" CdmEntityContainer="AgendaTecEntities">
-          <EntitySetMapping Name="AspNetRoles">
+        <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="AgendaTecModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Name" ColumnName="Name" />
