@@ -12,9 +12,9 @@ namespace AgendaTec.Portal.Controllers
     {
         private readonly IScheduleFacade _scheduleFacade;
         
-        public SchedulesController(IScheduleFacade customerFacade)
+        public SchedulesController(IScheduleFacade scheduleFacade)
         {
-            _scheduleFacade = customerFacade;            
+            _scheduleFacade = scheduleFacade;            
         }
 
         public ActionResult Index()

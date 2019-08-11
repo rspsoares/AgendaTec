@@ -106,7 +106,7 @@ namespace AgendaTec.Portal.Controllers
             menu.AppendLine("<ul>");
             {
                 menu.AppendLine("<li>");
-                //menu.AppendLine("<a href='/Agendamentos' title='Agendamentos'>");
+                menu.AppendLine("<a href='/SchedulesReport' title='Agendamentos'>");
                 menu.AppendLine("<span class='item'>Agendamentos</span>");
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");

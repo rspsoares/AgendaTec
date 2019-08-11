@@ -178,6 +178,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ProfessionalsController.cs" />
+    <Compile Include="Controllers\SchedulesReportController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="Controllers\ServicesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\fonts\segoeui.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
+    <Content Include="Content\js\app\reports\schedulereport.js" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1953,6 +1955,7 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Shared\Popup.cshtml" />
     <Content Include="Views\DirectMails\Index.cshtml" />
+    <Content Include="Views\SchedulesReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

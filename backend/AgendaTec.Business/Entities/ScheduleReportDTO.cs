@@ -6,6 +6,6 @@
         public string ConsumerName { get; set; }
         public string ServiceDescription { get; set; }
         public decimal Price { get; set; }
-        public bool Attended { get; set; }        
+        public string Attended { get; set; }        
     }
 }
