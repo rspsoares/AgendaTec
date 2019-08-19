@@ -4,6 +4,8 @@ using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
 using NLog;
 using System;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.ServiceProcess;
 using System.Threading;
@@ -12,8 +14,7 @@ using System.Threading.Tasks;
 namespace AgendaTec.Service
 {
     public partial class AgendaTecService : ServiceBase
-    {
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+    {        
         private ServiceConfiguration _configuration = new ServiceConfiguration();
         private readonly IDirectMailFacade _directMailFacade = new DirectMailFacade();
         private readonly IUserFacade _userFacade = new UserFacade();
@@ -27,26 +28,82 @@ namespace AgendaTec.Service
 
         protected override void OnStart(string[] args)
         {
+            var loggerInfo = _configuration.LoggerControl.ServiceInfo;
+            
             _configuration = ServiceHelper.LoadConfigurations(out string errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
                 throw new Exception(errorMessage);
 
-            _logger.Info($"({MethodBase.GetCurrentMethod().Name}) Starting Service...");
+            loggerInfo.Info($"({MethodBase.GetCurrentMethod().Name}) Starting Service...");
 
-            sendMailTimer = new Timer(new TimerCallback(SendMailCallback), null, (int)TimeSpan.FromSeconds(1).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.SendMailInterval).TotalMilliseconds);
+            sendMailTimer = new Timer(new TimerCallback(SendMailCallback), null, (int)TimeSpan.FromSeconds(1).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.MailConfigurationService.SendMailInterval).TotalMilliseconds);
+            importUsersTimer = new Timer(new TimerCallback(ImportUsersCallback), null, (int)TimeSpan.FromSeconds(5).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.ImportUserConfigurationService.Interval).TotalMilliseconds);
             cleanUpTimer = new Timer(new TimerCallback(CleanUpCallback), null, (int)TimeSpan.FromSeconds(10).TotalMilliseconds, (int)TimeSpan.FromHours(1).TotalMilliseconds);
-        }
+        }       
 
         protected override void OnStop()
         {
-            _logger.Info($"({MethodBase.GetCurrentMethod().Name}) Disposing Service...");
+            var loggerInfo = _configuration.LoggerControl.ServiceInfo;
+
+            loggerInfo.Info($"({MethodBase.GetCurrentMethod().Name}) Disposing Service...");
 
             sendMailTimer.Dispose();
+            importUsersTimer.Dispose();
             cleanUpTimer.Dispose();
+        }
+
+        private void ImportUsersCallback(object state)
+        {
+            var loggerInfo = _configuration.LoggerControl.ImportUserInfo;
+            var loggerError = _configuration.LoggerControl.ImportUserError;
+
+            if (importUserLock)
+                return;
+
+            importUserLock = true;
+
+            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to import users...");
+
+            try
+            {
+                Directory
+                    .GetFiles(_configuration.ImportUserConfigurationService.OriginFolder, "*.xls*")
+                    .ToList()
+                    .ForEach(file =>
+                    {
+                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Processing file {file}...");
+
+
+                        _userFacade.ImportUserFile(999, file, out string errorMessage);
+
+
+                        if(string.IsNullOrEmpty(errorMessage))
+                            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] File {file} imported.");
+                        else
+                            loggerError.Error($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
+                        
+
+
+
+                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] File {file} moved to...");
+                    });                
+            }
+            catch (Exception ex)
+            {
+                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
+            }
+            finally
+            {
+                importUserLock = false;
+                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
+            }
         }
 
         private void SendMailCallback(object state)
         {
+            var loggerInfo = _configuration.LoggerControl.MailServiceInfo;
+            var loggerError = _configuration.LoggerControl.MailServiceError;
+
             var directMailHelper = new DirectMailHelper();
 
             if (sendMailLock)
@@ -54,14 +111,14 @@ namespace AgendaTec.Service
 
             sendMailLock = true;
 
-            _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to send direct mailing...");
+            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to send direct mailing...");
 
             try
             {
                 var mailPendings = _directMailFacade.GetPendingDirectMail(out string errorMessage);
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
+                    loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
                     sendMailLock = false;
                     return;
                 }
@@ -70,12 +127,12 @@ namespace AgendaTec.Service
                 {
                     try
                     {
-                        _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description}...");
+                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description}...");
 
                         var recipients = _userFacade.GetUserRecipients(mail.IdCustomer, out errorMessage);
                         if (!string.IsNullOrEmpty(errorMessage))
                         {
-                            _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
+                            loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
                             return;
                         }
 
@@ -98,35 +155,38 @@ namespace AgendaTec.Service
 
                         _directMailFacade.Update(mail, out errorMessage);
                         if (!string.IsNullOrEmpty(errorMessage))                        
-                            _logger.Error($"[{MethodBase.GetCurrentMethod().Name}] Error on updating direct mail send: {errorMessage}");
+                            loggerError.Error($"[{MethodBase.GetCurrentMethod().Name}] Error on updating direct mail send: {errorMessage}");
 
-                        _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description} completed.");
+                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Sending Direct Mail: {mail.Description} completed.");
                     }
                     catch (Exception ex)
                     {
-                        _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] ID: {mail.Id}. Error: {ex.Message} - {ex.InnerException}");
+                        loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] ID: {mail.Id}. Error: {ex.Message} - {ex.InnerException}");
                     }
                 });
             }
             catch (Exception ex)
             {
-                _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
+                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
             }
             finally
             {
                 sendMailLock = false;
-                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
+                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
             }
         }
 
         private void CleanUpCallback(object state)
-        {           
+        {
+            var loggerInfo = _configuration.LoggerControl.ServiceInfo;
+            var loggerError = _configuration.LoggerControl.ServiceError;
+
             if (cleanUpLock)
                 return;
 
             cleanUpLock = true;
 
-            _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting cleanup...");
+            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting cleanup...");
 
             try
             {
@@ -134,15 +194,14 @@ namespace AgendaTec.Service
             }
             catch (Exception ex)
             {
-                _logger.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
+                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
             }
             finally
             {
                 cleanUpLock = false;
-                _logger.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
+                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
             }
         }
-
 
         private void WhatsApp()
         {
@@ -153,10 +212,11 @@ namespace AgendaTec.Service
         {
             _configuration = ServiceHelper.LoadConfigurations(out string configErrorMessage);
 
-            CleanUpCallback(null);
+           // CleanUpCallback(null);
            // DirectMailHelper.SendWhatsApp();
 
-            SendMailCallback(null);            
+            //SendMailCallback(null);
+            ImportUsersCallback(null);
         }
     }
 }

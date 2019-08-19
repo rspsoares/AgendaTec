@@ -104,6 +104,12 @@
     <Compile Include="DatabaseModel\TCGCustomerTimeRanges.cs">
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\TCGJobs.cs">
+      <DependentUpon>AgendaTecModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\TCGJobTypes.cs">
+      <DependentUpon>AgendaTecModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\TCGProfessionals.cs">
       <DependentUpon>AgendaTecModel.tt</DependentUpon>
     </Compile>

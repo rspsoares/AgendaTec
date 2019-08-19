@@ -5,6 +5,7 @@ using AgendaTec.Infrastructure.Contracts;
 using AgendaTec.Infrastructure.DatabaseModel;
 using AgendaTec.Infrastructure.Repositories;
 using AutoMapper;
+using ClosedXML.Excel;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -459,6 +460,41 @@ namespace AgendaTec.Business.Bindings
             {
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {ex.Message} - {ex.InnerException}");                
             }            
+        }
+
+        public void ImportUserFile(int idCustomer, string filePath, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                using (var excelWorkbook = new XLWorkbook(filePath))
+                {
+                    IXLWorksheet worksheet = excelWorkbook.Worksheet(1);
+                    var rows = worksheet.RangeUsed().RowsUsed().Skip(1); // Skip header row
+                    foreach (var row in rows)
+                    {
+                        var rowNumber = row.RowNumber();
+                        // Process the row
+
+                        //to get column # 3's data
+                        var cell = row.Cell(3).Value;
+                    }
+
+
+
+                }
+
+
+                //Insert records
+
+
+
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"{ex.Message} - {ex.InnerException}";
+            }
         }
     }
 }

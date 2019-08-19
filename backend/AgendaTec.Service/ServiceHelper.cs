@@ -17,35 +17,54 @@ namespace AgendaTec.Service
         {
             var serviceConfiguration = new ServiceConfiguration()
             {
-                SendMailInterval = int.Parse(ConfigurationManager.AppSettings["SendMailInterval"] ?? "60"),
-                SendMailHost = ConfigurationManager.AppSettings["SendMailHost"],
-                SendMailLogin = ConfigurationManager.AppSettings["SendMailLogin"],
-                SendMailPassword = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["SendMailPassword"])),
-                SendMailPort = int.Parse(ConfigurationManager.AppSettings["SendMailPort"] ?? "587"),
+                MailConfigurationService = new MailConfiguration()
+                {
+                    SendMailInterval = int.Parse(ConfigurationManager.AppSettings["SendMailInterval"] ?? "60"),
+                    SendMailHost = ConfigurationManager.AppSettings["SendMailHost"],
+                    SendMailLogin = ConfigurationManager.AppSettings["SendMailLogin"],
+                    SendMailPassword = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["SendMailPassword"])),
+                    SendMailPort = int.Parse(ConfigurationManager.AppSettings["SendMailPort"] ?? "587"),
+                },
+                ImportUserConfigurationService = new ImportUserConfiguration()
+                {
+                    Interval = int.Parse(ConfigurationManager.AppSettings["ImportUserInterval"] ?? "60"),
+                    OriginFolder = ConfigurationManager.AppSettings["ImportUserOriginFolder"],
+                    DestinationFolder = ConfigurationManager.AppSettings["ImportUserDestinationFolder"],
+                },
+                LoggerControl = new LoggerConfiguration()
+                {
+                    ServiceInfo = LogManager.GetLogger("ServiceInfoLogger"),
+                    ServiceError = LogManager.GetLogger("ServiceErrorLogger"),
+                    MailServiceInfo = LogManager.GetLogger("EmailInfoLogger"),
+                    MailServiceError = LogManager.GetLogger("EmailErrorLogger"),
+                    ImportUserInfo = LogManager.GetLogger("ImportUserInfoLogger"),
+                    ImportUserError = LogManager.GetLogger("ImportUserErrorLogger"),
+                },                
                 LogDays = int.Parse(ConfigurationManager.AppSettings["LogDays"] ?? "30")                
             };
 
-            var results = new ServiceConfigurationValidator().Validate(serviceConfiguration);
+            //var results = new ServiceConfigurationValidator().Validate(serviceConfiguration);
 
-            errorMessage = string.Join(Environment.NewLine, results.Errors.Select(x => x.ErrorMessage).ToArray());
+            //errorMessage = string.Join(Environment.NewLine, results.Errors.Select(x => x.ErrorMessage).ToArray());
+            errorMessage = string.Empty;
 
             return serviceConfiguration;
         }
 
-        private class ServiceConfigurationValidator : AbstractValidator<ServiceConfiguration>
-        {
-            public ServiceConfigurationValidator()
-            {
-                RuleFor(config => config.SendMailInterval).NotNull().NotEqual(0).WithMessage("Intervalo de Verificação não definido.");
+        //private class ServiceConfigurationValidator : AbstractValidator<ServiceConfiguration>
+        //{
+        //    public ServiceConfigurationValidator()
+        //    {
+        //        RuleFor(config => config.SendMailInterval).NotNull().NotEqual(0).WithMessage("Intervalo de Verificação não definido.");
 
-                RuleFor(config => config.SendMailHost).NotNull().NotEmpty().WithMessage("Send Mail Host não definido.");
-                RuleFor(config => config.SendMailLogin).NotNull().NotEmpty().WithMessage("Send Mail Login não definido.");
-                RuleFor(config => config.SendMailPassword).NotNull().NotEmpty().WithMessage("Send Mail Password não definido.");
-                RuleFor(config => config.SendMailPort).NotNull().NotEqual(0).WithMessage("Send Mail Port não definido.");
+        //        RuleFor(config => config.SendMailHost).NotNull().NotEmpty().WithMessage("Send Mail Host não definido.");
+        //        RuleFor(config => config.SendMailLogin).NotNull().NotEmpty().WithMessage("Send Mail Login não definido.");
+        //        RuleFor(config => config.SendMailPassword).NotNull().NotEmpty().WithMessage("Send Mail Password não definido.");
+        //        RuleFor(config => config.SendMailPort).NotNull().NotEqual(0).WithMessage("Send Mail Port não definido.");
 
-                RuleFor(config => config.LogDays).NotNull().NotEqual(0).WithMessage("Log Days não definido.");             
-            }
-        }
+        //        RuleFor(config => config.LogDays).NotNull().NotEqual(0).WithMessage("Log Days não definido.");             
+        //    }
+        //}
 
         public static void DeleteOldLocalLogs(int daysLimit)
         {
