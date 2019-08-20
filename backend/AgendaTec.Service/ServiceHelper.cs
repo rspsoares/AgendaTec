@@ -24,21 +24,13 @@ namespace AgendaTec.Service
                     SendMailLogin = ConfigurationManager.AppSettings["SendMailLogin"],
                     SendMailPassword = SecurityHelper.Decrypt(Convert.FromBase64String(ConfigurationManager.AppSettings["SendMailPassword"])),
                     SendMailPort = int.Parse(ConfigurationManager.AppSettings["SendMailPort"] ?? "587"),
-                },
-                ImportUserConfigurationService = new ImportUserConfiguration()
-                {
-                    Interval = int.Parse(ConfigurationManager.AppSettings["ImportUserInterval"] ?? "60"),
-                    OriginFolder = ConfigurationManager.AppSettings["ImportUserOriginFolder"],
-                    DestinationFolder = ConfigurationManager.AppSettings["ImportUserDestinationFolder"],
-                },
+                },               
                 LoggerControl = new LoggerConfiguration()
                 {
                     ServiceInfo = LogManager.GetLogger("ServiceInfoLogger"),
                     ServiceError = LogManager.GetLogger("ServiceErrorLogger"),
                     MailServiceInfo = LogManager.GetLogger("EmailInfoLogger"),
-                    MailServiceError = LogManager.GetLogger("EmailErrorLogger"),
-                    ImportUserInfo = LogManager.GetLogger("ImportUserInfoLogger"),
-                    ImportUserError = LogManager.GetLogger("ImportUserErrorLogger"),
+                    MailServiceError = LogManager.GetLogger("EmailErrorLogger")                   
                 },                
                 LogDays = int.Parse(ConfigurationManager.AppSettings["LogDays"] ?? "30")                
             };

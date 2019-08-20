@@ -5,10 +5,7 @@ namespace AgendaTec.Service
     partial class AgendaTecService
     {
         Timer sendMailTimer;
-        bool sendMailLock = false;
-
-        Timer importUsersTimer;
-        bool importUserLock = false;
+        bool sendMailLock = false;      
 
         Timer cleanUpTimer;
         bool cleanUpLock = false;

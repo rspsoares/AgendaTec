@@ -462,8 +462,10 @@ namespace AgendaTec.Business.Bindings
             }            
         }
 
-        public void ImportUserFile(int idCustomer, string filePath, out string errorMessage)
+        public List<UserAccountDTO> ReadUserFile(int idCustomer, string filePath, out string errorMessage)
         {
+            var users = new List<UserAccountDTO>();
+
             errorMessage = string.Empty;
 
             try
@@ -474,27 +476,26 @@ namespace AgendaTec.Business.Bindings
                     var rows = worksheet.RangeUsed().RowsUsed().Skip(1); // Skip header row
                     foreach (var row in rows)
                     {
-                        var rowNumber = row.RowNumber();
-                        // Process the row
-
-                        //to get column # 3's data
-                        var cell = row.Cell(3).Value;
+                        users.Add(new UserAccountDTO()
+                        {
+                            IDCustomer = idCustomer.ToString(),
+                            IdRole = row.Cell("A").Value.ToString(),
+                            Email = row.Cell("B").Value.ToString(),
+                            FirstName = row.Cell("C").Value.ToString(),
+                            LastName = row.Cell("D").Value.ToString(),
+                            CPF = row.Cell("E").Value.ToString(),
+                            Birthday = row.Cell("F").Value.ToString(),
+                            Phone = row.Cell("G").Value.ToString()
+                        });
                     }
-
-
-
                 }
-
-
-                //Insert records
-
-
-
             }
             catch (Exception ex)
             {
                 errorMessage = $"{ex.Message} - {ex.InnerException}";
             }
+
+            return users;
         }
     }
 }

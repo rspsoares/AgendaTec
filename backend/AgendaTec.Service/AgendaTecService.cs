@@ -37,7 +37,6 @@ namespace AgendaTec.Service
             loggerInfo.Info($"({MethodBase.GetCurrentMethod().Name}) Starting Service...");
 
             sendMailTimer = new Timer(new TimerCallback(SendMailCallback), null, (int)TimeSpan.FromSeconds(1).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.MailConfigurationService.SendMailInterval).TotalMilliseconds);
-            importUsersTimer = new Timer(new TimerCallback(ImportUsersCallback), null, (int)TimeSpan.FromSeconds(5).TotalMilliseconds, (int)TimeSpan.FromSeconds(_configuration.ImportUserConfigurationService.Interval).TotalMilliseconds);
             cleanUpTimer = new Timer(new TimerCallback(CleanUpCallback), null, (int)TimeSpan.FromSeconds(10).TotalMilliseconds, (int)TimeSpan.FromHours(1).TotalMilliseconds);
         }       
 
@@ -47,56 +46,8 @@ namespace AgendaTec.Service
 
             loggerInfo.Info($"({MethodBase.GetCurrentMethod().Name}) Disposing Service...");
 
-            sendMailTimer.Dispose();
-            importUsersTimer.Dispose();
+            sendMailTimer.Dispose();           
             cleanUpTimer.Dispose();
-        }
-
-        private void ImportUsersCallback(object state)
-        {
-            var loggerInfo = _configuration.LoggerControl.ImportUserInfo;
-            var loggerError = _configuration.LoggerControl.ImportUserError;
-
-            if (importUserLock)
-                return;
-
-            importUserLock = true;
-
-            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Starting to import users...");
-
-            try
-            {
-                Directory
-                    .GetFiles(_configuration.ImportUserConfigurationService.OriginFolder, "*.xls*")
-                    .ToList()
-                    .ForEach(file =>
-                    {
-                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Processing file {file}...");
-
-
-                        _userFacade.ImportUserFile(999, file, out string errorMessage);
-
-
-                        if(string.IsNullOrEmpty(errorMessage))
-                            loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] File {file} imported.");
-                        else
-                            loggerError.Error($"[{MethodBase.GetCurrentMethod().Name}] {errorMessage}");
-                        
-
-
-
-                        loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] File {file} moved to...");
-                    });                
-            }
-            catch (Exception ex)
-            {
-                loggerError.Fatal($"[{MethodBase.GetCurrentMethod().Name}] {ex.Message} - {ex.InnerException}");
-            }
-            finally
-            {
-                importUserLock = false;
-                loggerInfo.Info($"[{MethodBase.GetCurrentMethod().Name}] Process complete.");
-            }
         }
 
         private void SendMailCallback(object state)
@@ -215,8 +166,7 @@ namespace AgendaTec.Service
            // CleanUpCallback(null);
            // DirectMailHelper.SendWhatsApp();
 
-            //SendMailCallback(null);
-            ImportUsersCallback(null);
+            SendMailCallback(null);          
         }
     }
 }

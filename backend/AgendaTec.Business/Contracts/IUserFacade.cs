@@ -21,6 +21,6 @@ namespace AgendaTec.Business.Contracts
         bool GetUserIsRoot(int idCustomer, int idRole);
         void CheckUserAssociatedWithCustomer(UserAssociatedCustomerDTO e, out string errorMessage);        
         void SendResetPasswordEmail(string userEmail, string userFullName, string subject, string body);
-        void ImportUserFile(int idCustomer, string filePath, out string errorMessage);
+        List<UserAccountDTO> ReadUserFile(int idCustomer, string filePath, out string errorMessage);
     }
 }
