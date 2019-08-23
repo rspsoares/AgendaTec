@@ -69,7 +69,7 @@ namespace AgendaTec.Portal.Controllers
 
             var checkResult = _userFacade.CheckDuplicatedUser(userDTO, out string errorMessage);
             if (!string.IsNullOrEmpty(errorMessage))
-                return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
+                return Json(new { Success = false, errorMessage = "Houve um erro ao verificar a duplicidade do usuário." }, JsonRequestBehavior.AllowGet);
 
             if (!string.IsNullOrEmpty(checkResult))
                 return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);

@@ -36,7 +36,7 @@ namespace AgendaTec.Client
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/Content/angular/angular-1.2.19.js"));
-            
+
             /* -- CSS -- */
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/kendo-ui/styles/web/kendo.common.min.css",
@@ -45,7 +45,7 @@ namespace AgendaTec.Client
                 "~/Content/bootstrap/css/bootstrap.css",
                 "~/Content/bootstrap/css/bootstrap-social.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",
-                "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",
+                "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",              
                 "~/Content/agendatec-default.css"));
         }
     }

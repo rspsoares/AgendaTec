@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Import Users";
+}
+
+@section breadcrumbs{
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home"></span> <a href="@Url.Action("Index", "Home")" title="Home">Home</a></li>
+        <li>Cadastros</li>
+        <li class="active">Importação de Usuários</li>
+    </ol>
+}
+
+@section scripts {
+    <script src="@Url.Content("/Content/js/agendatec-script.js")" type="text/javascript"></script>
+    <script src="@Url.Content("/Content/js/app/registers/importusers/importusers.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        /* -- Setar Class em expand menu -- */
+        window.onload = setActiveMenu;
+        function setActiveMenu() {
+            $('li#usuarios').addClass('active');
+            $('.mini-nav ul li#usuarios ul').attr('style', 'display: none !important;');
+        }
+        $(document).ready(function () {
+            PageSetup();
+        });
+    </script>
+}
+
+<h1>Importação de Usuários</h1>
+<br />
+
+@using (Html.BeginForm("ImportUsers", "ImportUsers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <input type="file" name="uploadFile" accept=".xlsx, .xls" onchange="checkfile(this);"/> <br />
+        <input type="submit" value="Upload" />
+    </div>
+}

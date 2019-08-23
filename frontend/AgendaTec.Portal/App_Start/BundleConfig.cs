@@ -48,7 +48,7 @@ namespace AgendaTec.Portal
                 "~/Content/kendo-ui/styles/web/kendo.blueopal.mobile.all.css",
                 "~/Content/bootstrap/css/bootstrap.css",
                 "~/Content/bootstrap/css/bootstrap-switch.css",
-                "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",
+                "~/Content/bootstrap/css/agendatec-custom-bootstrap.css",                 
                 "~/Content/agendatec-default.css"));       
         }
     }

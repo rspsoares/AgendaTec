@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>08/11/2019 11:09:16</publishTime>
+      <publishTime>08/20/2019 21:40:59</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.dll.config">
-      <publishTime>08/10/2019 17:36:53</publishTime>
+      <publishTime>08/20/2019 21:35:30</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>08/11/2019 11:09:16</publishTime>
+      <publishTime>08/20/2019 21:40:59</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>08/10/2019 19:05:35</publishTime>
+      <publishTime>08/20/2019 20:32:17</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>07/20/2019 20:34:43</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>08/10/2019 19:05:35</publishTime>
+      <publishTime>08/20/2019 20:32:17</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>08/11/2019 11:09:25</publishTime>
+      <publishTime>08/23/2019 21:04:26</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>08/11/2019 11:09:25</publishTime>
+      <publishTime>08/23/2019 21:04:26</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -72,8 +72,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/AutoMapper.pdb">
       <publishTime>07/19/2019 14:06:42</publishTime>
     </File>
+    <File Include="bin/ClosedXML.dll">
+      <publishTime>12/18/2018 08:56:38</publishTime>
+    </File>
+    <File Include="bin/ClosedXML.pdb">
+      <publishTime>12/18/2018 08:56:38</publishTime>
+    </File>
     <File Include="bin/Content/agendatec-default.css">
-      <publishTime>07/19/2019 14:06:38</publishTime>
+      <publishTime>08/22/2019 21:00:20</publishTime>
     </File>
     <File Include="bin/Content/images/layout/logo-mosaic.png">
       <publishTime>04/29/2019 11:20:09</publishTime>
@@ -114,11 +120,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Content/plugins/jszip.js">
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
+    <File Include="bin/DocumentFormat.OpenXml.dll">
+      <publishTime>06/06/2017 22:59:22</publishTime>
+    </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>07/19/2019 14:06:43</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>07/19/2019 14:06:43</publishTime>
+    </File>
+    <File Include="bin/ExcelNumberFormat.dll">
+      <publishTime>11/23/2017 09:21:44</publishTime>
+    </File>
+    <File Include="bin/FastMember.dll">
+      <publishTime>03/06/2018 05:29:48</publishTime>
     </File>
     <File Include="bin/favicon.ico">
       <publishTime>07/19/2019 14:06:40</publishTime>
@@ -135,8 +150,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
       <publishTime>07/19/2019 14:06:43</publishTime>
     </File>
+    <File Include="bin/Microsoft.AspNetCore.Cryptography.Internal.dll">
+      <publishTime>11/12/2018 17:32:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll">
+      <publishTime>11/12/2018 17:32:54</publishTime>
+    </File>
     <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
       <publishTime>07/19/2019 14:06:45</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Configuration.Abstractions.dll">
+      <publishTime>11/11/2018 00:26:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Configuration.Binder.dll">
+      <publishTime>11/11/2018 00:27:02</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Configuration.dll">
+      <publishTime>11/11/2018 00:27:02</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.DependencyInjection.Abstractions.dll">
+      <publishTime>11/11/2018 00:26:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Identity.Core.dll">
+      <publishTime>11/12/2018 17:42:26</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Logging.Abstractions.dll">
+      <publishTime>11/11/2018 00:26:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Logging.dll">
+      <publishTime>11/11/2018 00:27:18</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Options.dll">
+      <publishTime>11/11/2018 00:26:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Extensions.Primitives.dll">
+      <publishTime>11/11/2018 00:26:36</publishTime>
     </File>
     <File Include="bin/Microsoft.IdentityModel.JsonWebTokens.dll">
       <publishTime>07/19/2019 10:06:47</publishTime>
@@ -345,11 +393,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/roslyn/VBCSCompiler.exe.config">
       <publishTime>07/19/2019 14:06:46</publishTime>
     </File>
+    <File Include="bin/System.Buffers.dll">
+      <publishTime>07/19/2017 10:01:28</publishTime>
+    </File>
+    <File Include="bin/System.ComponentModel.Annotations.dll">
+      <publishTime>07/19/2019 14:06:49</publishTime>
+    </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.dll">
       <publishTime>07/19/2019 10:06:49</publishTime>
     </File>
     <File Include="bin/System.IdentityModel.Tokens.Jwt.pdb">
       <publishTime>01/23/2019 01:06:26</publishTime>
+    </File>
+    <File Include="bin/System.Memory.dll">
+      <publishTime>06/06/2018 13:29:04</publishTime>
+    </File>
+    <File Include="bin/System.Numerics.Vectors.dll">
+      <publishTime>07/19/2017 10:01:36</publishTime>
+    </File>
+    <File Include="bin/System.Runtime.CompilerServices.Unsafe.dll">
+      <publishTime>06/06/2018 13:29:04</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>07/19/2019 14:06:44</publishTime>
@@ -379,7 +442,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 14:06:49</publishTime>
     </File>
     <File Include="Content/agendatec-default.css">
-      <publishTime>07/19/2019 14:06:38</publishTime>
+      <publishTime>08/22/2019 21:00:20</publishTime>
     </File>
     <File Include="Content/angular/angular-1.2.19.js">
       <publishTime>07/19/2019 14:06:38</publishTime>
@@ -617,6 +680,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/js/app/registers/grupos/grupos.js">
       <publishTime>05/03/2019 16:03:40</publishTime>
+    </File>
+    <File Include="Content/js/app/registers/importusers/importusers.js">
+      <publishTime>08/23/2019 20:47:06</publishTime>
     </File>
     <File Include="Content/js/app/registers/perfil/perfis.js">
       <publishTime>05/03/2019 16:03:41</publishTime>
@@ -5676,6 +5742,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
+    <File Include="Views/ImportUsers/Index.cshtml">
+      <publishTime>08/23/2019 20:53:27</publishTime>
+    </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
@@ -5716,7 +5785,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/19/2019 14:06:40</publishTime>
+      <publishTime>08/23/2019 20:25:21</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>07/19/2019 14:06:40</publishTime>
@@ -5731,7 +5800,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/11/2019 11:16:31</publishTime>
+      <publishTime>08/23/2019 21:04:30</publishTime>
     </File>
   </ItemGroup>
 </Project>

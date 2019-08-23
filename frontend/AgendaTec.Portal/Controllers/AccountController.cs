@@ -151,7 +151,7 @@ namespace AgendaTec.Portal.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            //    var user = new ApplicationUser {
+           //    var user = new ApplicationUser {
             //        //IDCustomer = 1,
             //        IDRole = ((int)EnUserType.Administrator).ToString(),
             //        FirstName = model.FirstName,

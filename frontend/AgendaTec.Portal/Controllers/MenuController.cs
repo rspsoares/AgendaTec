@@ -54,7 +54,16 @@ namespace AgendaTec.Portal.Controllers
                 menu.AppendLine("</a>");
                 menu.AppendLine("</li>");
                 menu.AppendLine("</li>");
-            }          
+            }
+
+            if (rootUser)
+            {
+                menu.AppendLine("<li>");
+                menu.AppendLine("<a href='/ImportUsers' title='Importação de usuários'>");
+                menu.AppendLine("<span class='item'>Importação de usuários</span>");
+                menu.AppendLine("</a>");
+                menu.AppendLine("</li>");
+            }
 
             menu.AppendLine("</ul>");
 

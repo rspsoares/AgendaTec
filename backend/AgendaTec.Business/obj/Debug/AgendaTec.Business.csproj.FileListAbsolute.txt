@@ -38,6 +38,8 @@ C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\AgendaTe
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapper.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\ClosedXML.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\DocumentFormat.OpenXml.dll
+C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.dll
+C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.SqlServer.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\ExcelNumberFormat.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\FastMember.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\Itenso.TimePeriod.dll
@@ -56,6 +58,8 @@ C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\AutoMapp
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\ClosedXML.pdb
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\ClosedXML.xml
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\DocumentFormat.OpenXml.xml
+C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.xml
+C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.SqlServer.xml
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\ExcelNumberFormat.xml
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\Microsoft.IdentityModel.Logging.xml
@@ -71,7 +75,3 @@ C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTe
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.csproj.CopyComplete
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.dll
 C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\obj\Debug\AgendaTec.Business.pdb
-C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.dll
-C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.SqlServer.dll
-C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.xml
-C:\_Rodrigo\Repositories\AgendaTec\backend\AgendaTec.Business\bin\Debug\EntityFramework.SqlServer.xml
