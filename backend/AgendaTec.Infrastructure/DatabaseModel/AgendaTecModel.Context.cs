@@ -35,8 +35,6 @@ namespace AgendaTec.Infrastructure.DatabaseModel
         public virtual DbSet<TCGCustomers> TCGCustomers { get; set; }
         public virtual DbSet<TCGCustomersAspNetUsers> TCGCustomersAspNetUsers { get; set; }
         public virtual DbSet<TCGCustomerTimeRanges> TCGCustomerTimeRanges { get; set; }
-        public virtual DbSet<TCGJobs> TCGJobs { get; set; }
-        public virtual DbSet<TCGJobTypes> TCGJobTypes { get; set; }
         public virtual DbSet<TCGProfessionals> TCGProfessionals { get; set; }
         public virtual DbSet<TCGServices> TCGServices { get; set; }
         public virtual DbSet<TDirectMail> TDirectMail { get; set; }

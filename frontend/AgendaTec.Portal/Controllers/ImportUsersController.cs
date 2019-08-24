@@ -1,11 +1,11 @@
 ﻿using AgendaTec.Business.Contracts;
 using AgendaTec.Business.Entities;
 using AgendaTec.Business.Helpers;
+using AgendaTec.Portal.Helper;
 using AgendaTec.Portal.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -17,135 +17,94 @@ namespace AgendaTec.Portal.Controllers
     public class ImportUsersController : Controller
     {
         private readonly IUserFacade _userFacade;
+        private readonly ICustomerFacade _customerFacade;
 
-        public ImportUsersController(IUserFacade userFacade)
+        public ImportUsersController(IUserFacade userFacade, ICustomerFacade customerFacade)
         {
             _userFacade = userFacade;
-        }
-       
+            _customerFacade = customerFacade;
+        }       
 
         public ActionResult Index()
         {
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult UploadImage(HttpPostedFileBase uploadFile)
-        //{
-        //    var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
-        //    if (uploadFile != null)
-        //    {
-        //        string ImageName = System.IO.Path.GetFileName(uploadFile.FileName);
-        //        string Path = Server.MapPath("~/Content/Images/" + ImageName);
-        //        // save image in folder
-        //        uploadFile.SaveAs(Path);
-              
-
-
-        //    }
-        //    return View();
-        //}
-
-        public ActionResult ImportUsers(HttpPostedFileBase uploadFile)
+        [HttpPost]
+        public FineUploaderResult UploadFile(FineUpload uploadFile)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            if (!(Path.GetExtension(uploadFile.Filename).Equals(".xls") || Path.GetExtension(uploadFile.Filename).Equals(".xlsx")))
+                return new FineUploaderResult(false, error: "Tipo de arquivo inválido");
 
-            //bool isSavedSuccessfully = true;
-            //string fName = "";
+            if (uploadFile != null && uploadFile.InputStream.Length.Equals(0))
+                return new FineUploaderResult(false, error: "Arquivo vazio ou corrompido.");
+
+            var folder = new DirectoryInfo($"{Server.MapPath(@"\")}Uploads\\Users");
+            var filePath = Path.Combine(folder.ToString(), uploadFile.Filename);
+
             try
             {
-                if (uploadFile != null && uploadFile.ContentLength > 0)
-                {
-                    var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\WallImages", Server.MapPath(@"\")));
-
-                    string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
-
-                    bool isExists = System.IO.Directory.Exists(pathString);
-
-                    if (!isExists)
-                        System.IO.Directory.CreateDirectory(pathString);
-
-                    var path = string.Format("{0}\\{1}", pathString, uploadFile.FileName);
-
-                    uploadFile.SaveAs(path);
-
-                    var fileNameSplit = uploadFile.FileName.Split('_');
-                    if (fileNameSplit.Any())
-                    {
-                        var idCustomer = int.Parse(fileNameSplit.First());
-                        var users = _userFacade.ReadUserFile(idCustomer, path, out string errorMessage);
-
-                        if (users.Any() && string.IsNullOrEmpty(errorMessage))
-                        {
-                            users.ForEach(newUser =>
-                            {
-                                var checkResult = _userFacade.CheckDuplicatedUser(newUser, out errorMessage);
-                                // if (!string.IsNullOrEmpty(errorMessage))
-                                //   return Json(new { Success = false, errorMessage = "Houve um erro ao salvar o usuário." }, JsonRequestBehavior.AllowGet);
-
-                                if (string.IsNullOrEmpty(checkResult))
-                                {
-                                        // return Json(new { Success = false, errorMessage = checkResult }, JsonRequestBehavior.AllowGet);
-
-                                        //if (!_customerFacade.CheckCPFRequired(int.Parse(userDTO.IDCustomer), userDTO.CPF))
-                                        //  return Json(new { Success = false, errorMessage = "CPF inválido." }, JsonRequestBehavior.AllowGet);
-
-                                        var user = new ApplicationUser
-                                    {
-                                        IDRole = newUser.IdRole,
-                                        FirstName = newUser.FirstName,
-                                        LastName = newUser.LastName,
-                                        CPF = newUser.CPF.CleanMask(),
-                                        UserName = newUser.Email,
-                                        Email = newUser.Email,
-                                        PhoneNumber = newUser.Phone.CleanMask(),
-                                        IsEnabled = true,
-                                        DirectMail = true
-                                    };
-
-                                    var result = userManager.Create(user, "AgendaTec123");
-                                    if (result.Succeeded)
-                                    {
-                                        var e = new UserAssociatedCustomerDTO()
-                                        {
-                                            IDCustomer = idCustomer,
-                                            Email = newUser.Email
-                                        };
-
-                                        _userFacade.CheckUserAssociatedWithCustomer(e, out errorMessage);
-
-                                        if (!string.IsNullOrEmpty(errorMessage))
-                                        {
-
-
-                                        }
-                                    }
-                                    else
-                                    {
-
-
-                                    }
-                                }
-                            });
-                        }
-                        else
-                        {
-                          //  isSavedSuccessfully = false;
-                        }
-                    }
-                    else
-                    {
-                        //    isSavedSuccessfully = false;
-                    }                   
-                }
+                uploadFile.SaveAs(filePath);
             }
             catch (Exception ex)
             {
-              //  isSavedSuccessfully = false;
+                return new FineUploaderResult(false, error: $"Erro ao fazer upload do arquivo: {ex.Message} - {ex.InnerException}");
             }
 
-            return View("Index");
+            var fileNameSplit = uploadFile.Filename.Split('_');
+            if (!fileNameSplit.Any())
+                return new FineUploaderResult(false, error: $"Padrão de nomenclatura inválido: {uploadFile.Filename}.");
+
+            try
+            {              
+                var idCustomer = int.Parse(fileNameSplit.First());
+                var users = _userFacade.ReadUserFile(idCustomer, filePath, out string errorMessage);
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                    return new FineUploaderResult(false, error: $"Ocorreu um erro ao processar o arquivo: {errorMessage}");
+
+                var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+                users.ForEach(newUser =>
+                {
+                    var checkResult = _userFacade.CheckDuplicatedUser(newUser, out errorMessage);
+                    var checkCPFRequired = _customerFacade.CheckCPFRequired(idCustomer, newUser.CPF.CleanMask());
+
+                    if (string.IsNullOrEmpty(checkResult) && checkCPFRequired)
+                    {                    
+                        var user = new ApplicationUser
+                        {                            
+                            IDRole = newUser.IdRole,
+                            FirstName = newUser.FirstName,
+                            LastName = newUser.LastName,
+                            CPF = newUser.CPF.CleanMask(),
+                            UserName = newUser.Email,
+                            Email = newUser.Email,
+                            PhoneNumber = newUser.Phone.CleanMask(),
+                            IsEnabled = true,
+                            DirectMail = true
+                        };
+
+                        var result = userManager.Create(user, "AgendaTec123");
+                        if (result.Succeeded)
+                        {
+                            var e = new UserAssociatedCustomerDTO()
+                            {
+                                IDCustomer = idCustomer,
+                                Email = newUser.Email
+                            };
+
+                            _userFacade.CheckUserAssociatedWithCustomer(e, out errorMessage);
+                        }                        
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                return new FineUploaderResult(false, error: $"Erro ao processar o arquivo: {ex.Message} - {ex.InnerException}");
+            }
+
+            return new FineUploaderResult(true);
         }
     }
 }

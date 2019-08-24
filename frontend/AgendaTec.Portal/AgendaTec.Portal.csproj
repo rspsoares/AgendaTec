@@ -236,6 +236,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\Extensions.cs" />
+    <Compile Include="Helper\FineUpload.cs" />
+    <Compile Include="Helper\FineUploaderResult.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -265,6 +267,32 @@
     <Content Include="Content\bootstrap\js\highlight.js" />
     <Content Include="Content\bootstrap\js\main-switch.js" />
     <Content Include="Content\bootstrap\js\npm.js" />
+    <Content Include="Content\fineuploader\continue.gif" />
+    <Content Include="Content\fineuploader\dnd.js" />
+    <Content Include="Content\fineuploader\dnd.min.js" />
+    <Content Include="Content\fineuploader\edit.gif" />
+    <Content Include="Content\fineuploader\fine-uploader-gallery.css" />
+    <Content Include="Content\fineuploader\fine-uploader-gallery.min.css" />
+    <Content Include="Content\fineuploader\fine-uploader-new.css" />
+    <Content Include="Content\fineuploader\fine-uploader-new.min.css" />
+    <Content Include="Content\fineuploader\fine-uploader.core.js" />
+    <Content Include="Content\fineuploader\fine-uploader.core.min.js" />
+    <Content Include="Content\fineuploader\fine-uploader.css" />
+    <Content Include="Content\fineuploader\fine-uploader.js" />
+    <Content Include="Content\fineuploader\fine-uploader.min.css" />
+    <Content Include="Content\fineuploader\fine-uploader.min.js" />
+    <Content Include="Content\fineuploader\jquery.fine-uploader.js" />
+    <Content Include="Content\fineuploader\jquery.fine-uploader.min.js" />
+    <Content Include="Content\fineuploader\loading.gif" />
+    <Content Include="Content\fineuploader\pause.gif" />
+    <Content Include="Content\fineuploader\placeholders\not_available-generic.png" />
+    <Content Include="Content\fineuploader\placeholders\waiting-generic.png" />
+    <Content Include="Content\fineuploader\processing.gif" />
+    <Content Include="Content\fineuploader\retry.gif" />
+    <Content Include="Content\fineuploader\templates\default.html" />
+    <Content Include="Content\fineuploader\templates\gallery.html" />
+    <Content Include="Content\fineuploader\templates\simple-thumbnails.html" />
+    <Content Include="Content\fineuploader\trash.gif" />
     <Content Include="Content\fonts\segoeui.svg" />
     <Content Include="Content\fonts\segoeuil.svg" />
     <Content Include="Content\js\app\registers\importusers\importusers.js" />
@@ -1953,6 +1981,21 @@
     <Content Include="Content\plugins\jquery-ui\ui\.jshintrc" />
     <Content Include="Content\plugins\fullcalendar\CHANGELOG.md" />
     <Content Include="Content\kendo-ui\styles\web\fonts\glyphs\WebComponentsIcons.ttf" />
+    <Content Include="Content\fineuploader\dnd.js.map" />
+    <Content Include="Content\fineuploader\dnd.min.js.map" />
+    <Content Include="Content\fineuploader\fine-uploader-gallery.min.css.map" />
+    <Content Include="Content\fineuploader\fine-uploader-new.min.css.map" />
+    <Content Include="Content\fineuploader\fine-uploader.core.js.map" />
+    <Content Include="Content\fineuploader\fine-uploader.core.min.js.map" />
+    <Content Include="Content\fineuploader\fine-uploader.js.map" />
+    <Content Include="Content\fineuploader\fine-uploader.min.css.map" />
+    <Content Include="Content\fineuploader\fine-uploader.min.js.map" />
+    <Content Include="Content\fineuploader\jquery.fine-uploader.js.map" />
+    <Content Include="Content\fineuploader\jquery.fine-uploader.min.js.map" />
+    <Content Include="Content\fineuploader\LICENSE" />
+    <Content Include="Docs\IdCustomer_RandomName.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

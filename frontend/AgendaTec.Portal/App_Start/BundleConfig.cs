@@ -41,6 +41,16 @@ namespace AgendaTec.Portal
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/Content/angular/angular-1.2.19.js"));
 
+            //fineUploader css
+            bundles.Add(new StyleBundle("~/bundles/fineuploader/css").Include(
+                      "~/Content/fineUploader/fine-uploader.min.css", new CssRewriteUrlTransform()).Include(
+                      "~/Content/fineUploader/fine-uploader-new.min.css"));
+
+            //fineUploader js
+            bundles.Add(new ScriptBundle("~/bundles/fineuploader/js").Include(
+                      "~/Content/fineUploader/fine-uploader.core.min.js",
+                      "~/Content/fineUploader/fine-uploader.min.js"));
+
             /* -- CSS -- */
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/kendo-ui/styles/web/kendo.common.min.css",

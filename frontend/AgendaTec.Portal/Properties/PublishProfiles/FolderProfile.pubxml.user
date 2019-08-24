@@ -10,28 +10,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AgendaTec.Business.dll">
-      <publishTime>08/20/2019 21:40:59</publishTime>
+      <publishTime>08/24/2019 11:45:02</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.dll.config">
       <publishTime>08/20/2019 21:35:30</publishTime>
     </File>
     <File Include="bin/AgendaTec.Business.pdb">
-      <publishTime>08/20/2019 21:40:59</publishTime>
+      <publishTime>08/24/2019 11:45:02</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll">
-      <publishTime>08/20/2019 20:32:17</publishTime>
+      <publishTime>08/24/2019 10:42:31</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.dll.config">
       <publishTime>07/20/2019 20:34:43</publishTime>
     </File>
     <File Include="bin/AgendaTec.Infrastructure.pdb">
-      <publishTime>08/20/2019 20:32:17</publishTime>
+      <publishTime>08/24/2019 10:42:31</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.dll">
-      <publishTime>08/23/2019 21:04:26</publishTime>
+      <publishTime>08/24/2019 12:22:54</publishTime>
     </File>
     <File Include="bin/AgendaTec.Portal.pdb">
-      <publishTime>08/23/2019 21:04:26</publishTime>
+      <publishTime>08/24/2019 12:22:54</publishTime>
     </File>
     <File Include="bin/AgendaTech.Business.dll">
       <publishTime>05/09/2019 10:07:38</publishTime>
@@ -119,6 +119,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Content/plugins/jszip.js">
       <publishTime>07/19/2019 14:06:40</publishTime>
+    </File>
+    <File Include="bin/Docs/IdCustomer_RandomName.xlsx">
+      <publishTime>08/24/2019 12:05:40</publishTime>
     </File>
     <File Include="bin/DocumentFormat.OpenXml.dll">
       <publishTime>06/06/2017 22:59:22</publishTime>
@@ -537,6 +540,120 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/bootstrap/js/npm.js">
       <publishTime>07/19/2019 14:06:38</publishTime>
     </File>
+    <File Include="Content/fineuploader/continue.gif">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/dnd.js">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/dnd.js.map">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/dnd.min.js">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/dnd.min.js.map">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/edit.gif">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-gallery.css">
+      <publishTime>08/24/2019 10:09:20</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-gallery.min.css">
+      <publishTime>08/24/2019 10:09:17</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-gallery.min.css.map">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-new.css">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-new.min.css">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader-new.min.css.map">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.core.js">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.core.js.map">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.core.min.js">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.core.min.js.map">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.css">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.js">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.js.map">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.min.css">
+      <publishTime>08/24/2019 10:09:20</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.min.css.map">
+      <publishTime>08/24/2019 10:09:20</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.min.js">
+      <publishTime>08/24/2019 10:09:20</publishTime>
+    </File>
+    <File Include="Content/fineuploader/fine-uploader.min.js.map">
+      <publishTime>08/24/2019 10:09:20</publishTime>
+    </File>
+    <File Include="Content/fineuploader/jquery.fine-uploader.js">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/jquery.fine-uploader.js.map">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/jquery.fine-uploader.min.js">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/jquery.fine-uploader.min.js.map">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/LICENSE">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/loading.gif">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/pause.gif">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/placeholders/not_available-generic.png">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/placeholders/waiting-generic.png">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/processing.gif">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/retry.gif">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/templates/default.html">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
+    <File Include="Content/fineuploader/templates/gallery.html">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/templates/simple-thumbnails.html">
+      <publishTime>08/24/2019 10:09:19</publishTime>
+    </File>
+    <File Include="Content/fineuploader/trash.gif">
+      <publishTime>08/24/2019 10:09:18</publishTime>
+    </File>
     <File Include="Content/fonts/segoeui.eot">
       <publishTime>07/19/2019 14:06:38</publishTime>
     </File>
@@ -682,7 +799,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2019 16:03:40</publishTime>
     </File>
     <File Include="Content/js/app/registers/importusers/importusers.js">
-      <publishTime>08/23/2019 20:47:06</publishTime>
+      <publishTime>08/24/2019 11:55:47</publishTime>
     </File>
     <File Include="Content/js/app/registers/perfil/perfis.js">
       <publishTime>05/03/2019 16:03:41</publishTime>
@@ -5634,6 +5751,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/themes/base/tooltip.css">
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
+    <File Include="Docs/IdCustomer_RandomName.xlsx">
+      <publishTime>08/24/2019 12:05:40</publishTime>
+    </File>
     <File Include="favicon.ico">
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
@@ -5743,7 +5863,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
     <File Include="Views/ImportUsers/Index.cshtml">
-      <publishTime>08/23/2019 20:53:27</publishTime>
+      <publishTime>08/24/2019 12:18:20</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>07/19/2019 14:06:40</publishTime>
@@ -5800,7 +5920,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 14:06:40</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/23/2019 21:04:30</publishTime>
+      <publishTime>08/24/2019 12:00:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

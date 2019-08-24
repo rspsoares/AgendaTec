@@ -98,26 +98,6 @@
           <Property Name="StartTime" Type="datetime" Nullable="false" />
           <Property Name="EndTime" Type="datetime" Nullable="false" />
         </EntityType>
-        <EntityType Name="TCGJobs">
-          <Key>
-            <PropertyRef Name="IDJob" />
-          </Key>
-          <Property Name="IDJob" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDCustomer" Type="int" Nullable="false" />
-          <Property Name="IDJobType" Type="int" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime" Nullable="false" />
-          <Property Name="LastUpdated" Type="datetime" />
-          <Property Name="DateFinished" Type="datetime" />
-          <Property Name="JobStatus" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FileName" Type="varchar" MaxLength="200" />
-        </EntityType>
-        <EntityType Name="TCGJobTypes">
-          <Key>
-            <PropertyRef Name="IDJobType" />
-          </Key>
-          <Property Name="IDJobType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
         <EntityType Name="TCGProfessionals">
           <Key>
             <PropertyRef Name="IDProfessional" />
@@ -265,30 +245,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TCGJobs_TCGCustomers">
-          <End Role="TCGCustomers" Type="Self.TCGCustomers" Multiplicity="1" />
-          <End Role="TCGJobs" Type="Self.TCGJobs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TCGJobs">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TCGJobs_TCGJobType">
-          <End Role="TCGJobTypes" Type="Self.TCGJobTypes" Multiplicity="1" />
-          <End Role="TCGJobs" Type="Self.TCGJobs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGJobTypes">
-              <PropertyRef Name="IDJobType" />
-            </Principal>
-            <Dependent Role="TCGJobs">
-              <PropertyRef Name="IDJobType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TCGProfessionals_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="TCGProfessionals" Type="Self.TCGProfessionals" Multiplicity="*" />
@@ -418,8 +374,6 @@
           <EntitySet Name="TCGCustomers" EntityType="Self.TCGCustomers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGCustomersAspNetUsers" EntityType="Self.TCGCustomersAspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGCustomerTimeRanges" EntityType="Self.TCGCustomerTimeRanges" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TCGJobs" EntityType="Self.TCGJobs" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TCGJobTypes" EntityType="Self.TCGJobTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGProfessionals" EntityType="Self.TCGProfessionals" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TCGServices" EntityType="Self.TCGServices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TDirectMail" EntityType="Self.TDirectMail" Schema="dbo" store:Type="Tables" />
@@ -452,14 +406,6 @@
           <AssociationSet Name="FK_TCGCustomerTimeRanges_TCGCustomers" Association="Self.FK_TCGCustomerTimeRanges_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGCustomerTimeRanges" EntitySet="TCGCustomerTimeRanges" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCGJobs_TCGCustomers" Association="Self.FK_TCGJobs_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TCGJobs" EntitySet="TCGJobs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCGJobs_TCGJobType" Association="Self.FK_TCGJobs_TCGJobType">
-            <End Role="TCGJobTypes" EntitySet="TCGJobTypes" />
-            <End Role="TCGJobs" EntitySet="TCGJobs" />
           </AssociationSet>
           <AssociationSet Name="FK_TCGProfessionals_AspNetUsers" Association="Self.FK_TCGProfessionals_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -520,8 +466,6 @@
           <EntitySet Name="TCGCustomers" EntityType="AgendaTecModel.TCGCustomers" />
           <EntitySet Name="TCGCustomersAspNetUsers" EntityType="AgendaTecModel.TCGCustomersAspNetUsers" />
           <EntitySet Name="TCGCustomerTimeRanges" EntityType="AgendaTecModel.TCGCustomerTimeRanges" />
-          <EntitySet Name="TCGJobs" EntityType="AgendaTecModel.TCGJobs" />
-          <EntitySet Name="TCGJobTypes" EntityType="AgendaTecModel.TCGJobTypes" />
           <EntitySet Name="TCGProfessionals" EntityType="AgendaTecModel.TCGProfessionals" />
           <EntitySet Name="TCGServices" EntityType="AgendaTecModel.TCGServices" />
           <EntitySet Name="TDirectMail" EntityType="AgendaTecModel.TDirectMail" />
@@ -563,10 +507,6 @@
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGCustomerTimeRanges" EntitySet="TCGCustomerTimeRanges" />
           </AssociationSet>
-          <AssociationSet Name="FK_TCGJobs_TCGCustomers" Association="AgendaTecModel.FK_TCGJobs_TCGCustomers">
-            <End Role="TCGCustomers" EntitySet="TCGCustomers" />
-            <End Role="TCGJobs" EntitySet="TCGJobs" />
-          </AssociationSet>
           <AssociationSet Name="FK_TCGProfessionals_TCGCustomers" Association="AgendaTecModel.FK_TCGProfessionals_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
@@ -582,10 +522,6 @@
           <AssociationSet Name="FK_TSchedule_TCGCustomers" Association="AgendaTecModel.FK_TSchedule_TCGCustomers">
             <End Role="TCGCustomers" EntitySet="TCGCustomers" />
             <End Role="TSchedules" EntitySet="TSchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TCGJobs_TCGJobType" Association="AgendaTecModel.FK_TCGJobs_TCGJobType">
-            <End Role="TCGJobTypes" EntitySet="TCGJobTypes" />
-            <End Role="TCGJobs" EntitySet="TCGJobs" />
           </AssociationSet>
           <AssociationSet Name="FK_TProfessionalService_TCGProfessionals" Association="AgendaTecModel.FK_TProfessionalService_TCGProfessionals">
             <End Role="TCGProfessionals" EntitySet="TCGProfessionals" />
@@ -701,7 +637,6 @@
           <Property Name="ShowServicePrice" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="TCGCustomersAspNetUsers" Relationship="AgendaTecModel.FK_TCGCustomersAspNetUsers_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGCustomersAspNetUsers" />
           <NavigationProperty Name="TCGCustomerTimeRanges" Relationship="AgendaTecModel.FK_TCGCustomerTimeRanges_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGCustomerTimeRanges" />
-          <NavigationProperty Name="TCGJobs" Relationship="AgendaTecModel.FK_TCGJobs_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGJobs" />
           <NavigationProperty Name="TCGProfessionals" Relationship="AgendaTecModel.FK_TCGProfessionals_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGProfessionals" />
           <NavigationProperty Name="TCGServices" Relationship="AgendaTecModel.FK_TCGServices_TCGCustomers" FromRole="TCGCustomers" ToRole="TCGServices" />
           <NavigationProperty Name="TDirectMail" Relationship="AgendaTecModel.FK_TDirectMail_TCGCustomers" FromRole="TCGCustomers" ToRole="TDirectMail" />
@@ -726,29 +661,6 @@
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGCustomerTimeRanges_TCGCustomers" FromRole="TCGCustomerTimeRanges" ToRole="TCGCustomers" />
-        </EntityType>
-        <EntityType Name="TCGJobs">
-          <Key>
-            <PropertyRef Name="IDJob" />
-          </Key>
-          <Property Name="IDJob" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDCustomer" Type="Int32" Nullable="false" />
-          <Property Name="IDJobType" Type="Int32" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastUpdated" Type="DateTime" Precision="3" />
-          <Property Name="DateFinished" Type="DateTime" Precision="3" />
-          <Property Name="JobStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TCGCustomers" Relationship="AgendaTecModel.FK_TCGJobs_TCGCustomers" FromRole="TCGJobs" ToRole="TCGCustomers" />
-          <NavigationProperty Name="TCGJobTypes" Relationship="AgendaTecModel.FK_TCGJobs_TCGJobType" FromRole="TCGJobs" ToRole="TCGJobTypes" />
-        </EntityType>
-        <EntityType Name="TCGJobTypes">
-          <Key>
-            <PropertyRef Name="IDJobType" />
-          </Key>
-          <Property Name="IDJobType" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="TCGJobs" Relationship="AgendaTecModel.FK_TCGJobs_TCGJobType" FromRole="TCGJobTypes" ToRole="TCGJobs" />
         </EntityType>
         <EntityType Name="TCGProfessionals">
           <Key>
@@ -935,18 +847,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TCGJobs_TCGCustomers">
-          <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
-          <End Type="AgendaTecModel.TCGJobs" Role="TCGJobs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGCustomers">
-              <PropertyRef Name="IDCustomer" />
-            </Principal>
-            <Dependent Role="TCGJobs">
-              <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_TCGProfessionals_TCGCustomers">
           <End Type="AgendaTecModel.TCGCustomers" Role="TCGCustomers" Multiplicity="1" />
           <End Type="AgendaTecModel.TCGProfessionals" Role="TCGProfessionals" Multiplicity="*" />
@@ -992,18 +892,6 @@
             </Principal>
             <Dependent Role="TSchedules">
               <PropertyRef Name="IDCustomer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TCGJobs_TCGJobType">
-          <End Type="AgendaTecModel.TCGJobTypes" Role="TCGJobTypes" Multiplicity="1" />
-          <End Type="AgendaTecModel.TCGJobs" Role="TCGJobs" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TCGJobTypes">
-              <PropertyRef Name="IDJobType" />
-            </Principal>
-            <Dependent Role="TCGJobs">
-              <PropertyRef Name="IDJobType" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1156,28 +1044,6 @@
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
                 <ScalarProperty Name="IDCustomerTimeRanges" ColumnName="IDCustomerTimeRanges" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TCGJobs">
-            <EntityTypeMapping TypeName="AgendaTecModel.TCGJobs">
-              <MappingFragment StoreEntitySet="TCGJobs">
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="JobStatus" ColumnName="JobStatus" />
-                <ScalarProperty Name="DateFinished" ColumnName="DateFinished" />
-                <ScalarProperty Name="LastUpdated" ColumnName="LastUpdated" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="IDJobType" ColumnName="IDJobType" />
-                <ScalarProperty Name="IDCustomer" ColumnName="IDCustomer" />
-                <ScalarProperty Name="IDJob" ColumnName="IDJob" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TCGJobTypes">
-            <EntityTypeMapping TypeName="AgendaTecModel.TCGJobTypes">
-              <MappingFragment StoreEntitySet="TCGJobTypes">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IDJobType" ColumnName="IDJobType" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

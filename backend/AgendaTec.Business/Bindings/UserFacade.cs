@@ -278,6 +278,7 @@ namespace AgendaTec.Business.Bindings
             }
             catch (Exception ex)
             {
+                checkResult = "Erro ao fazer a verificação";
                 errorMessage = $"{ex.Message} - {ex.InnerException}";
                 _logger.Error($"({MethodBase.GetCurrentMethod().Name}) {errorMessage}");
             }
